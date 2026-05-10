@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C \"D:\\\\homestay-buminaeenk\" status)",
+      "Bash(git -C \"d:\\\\web-tepatlaser.com\" rev-parse --git-dir)",
+      "Bash(git -C \"D:\\\\homestay-buminaeenk\" push -u origin claude/check-landing-page-phones-QeN3X)",
+      "Bash(git -C \"d:\\\\web-tepatlaser.com\" init)",
+      "Bash(git -C \"d:\\\\web-tepatlaser.com\" remote add origin https://github.com/heriscaleup/tepatlaser.git)",
+      "Bash(git -C \"d:\\\\web-tepatlaser.com\" checkout -b claude/check-landing-page-phones-QeN3X)",
+      "Bash(git -C \"d:\\\\web-tepatlaser.com\" add .)",
+      "Bash(git -C \"d:\\\\web-tepatlaser.com\" status)"
+    ]
+  }
+}
