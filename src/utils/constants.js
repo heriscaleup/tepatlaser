@@ -7,10 +7,10 @@ export const SITE_CONFIG = {
   keywords: "laser cutting indonesia, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal indonesia",
   // HAPUS BARIS INI: url: "https://ddos-spec.github.io/",
   author: "Jasa Cutting Laser Team",
-  whatsapp: "6285165693179",
+  whatsapp: "6282121292937",
   email: "info@tepatlaser.com",
   address: "Jl. Bintaro Bsd no 1D parigi ( samping Sekolah SD Mentari Internasional School ), Tangerang Selatan, Banten, Indonesia",
-  phone: "+62 851 6569 3179",
+  phone: "+62 821-2129-2937",
   businessHours: "Senin - Sabtu: 08.00 - 17.00 WIB",
   socialMedia: {
     facebook: "https://www.facebook.com/profile.php?id=100054220779104",
