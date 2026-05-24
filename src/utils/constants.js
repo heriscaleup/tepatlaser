@@ -42,6 +42,7 @@ export const NAVIGATION = [
       { name: 'MDF', href: '/material-mdf/' },
       { name: 'Plywood/Multiplex', href: '/material-ply-wood-multiplex/' },
       { name: 'Metal (Stainless, Aluminium)', href: '/material-metal/' },
+      { name: 'Laser Cutting Stainless', href: '/jasa-laser-cutting-stainless/' },
       { name: 'ACP', href: '/material-acp/' },
       { name: 'PVC BOARD', href: '/material-pvc/' },
       { name: 'GRC', href: '/material-grc/' }
@@ -148,12 +149,12 @@ export const MATERIALS = [
   {
     id: "metal",
     name: "Metal (Stainless, Aluminium)",
-    slug: "material-metal",
-    description: "Berbagai jenis logam untuk aplikasi industri, arsitektur, dan branding produk",
+    slug: "jasa-laser-cutting-metal",
+    description: "Laser cutting metal presisi tinggi untuk stainless steel (SS201/SS304/SS316), aluminium, dan plat besi. Toleransi ±0.02mm, ketebalan 0.5–10mm, pengerjaan 1–3 hari kerja.",
     thickness: "0.5mm - 10mm",
     applications: ["Industri", "Arsitektur", "Automotif", "Branding"],
     image: "/images/metal.webp",
-    keywords: "potong stainless indonesia, laser cutting metal serang, cutting alumunium tangerang, potong besi cilegon, laser stainless pandeglang"
+    keywords: "jasa laser cutting metal, laser cutting stainless jakarta, harga laser cutting plat besi, laser cutting metal tangerang, potong stainless ss304"
   },
   {
     id: "acp",
@@ -612,5 +613,9 @@ export const WHATSAPP_MESSAGES = {
   fiber: "Halo, saya ingin tanya tentang laser fiber cutting untuk material metal. Bisa konsultasi gratis?",
   co2: "Halo, saya tertarik dengan laser CO2 untuk cutting acrylic. Bisa konsultasi gratis?",
   engraving: "Halo, saya butuh jasa laser engraving. Bisa konsultasi gratis?",
-  quote: "Halo, saya ingin request quote untuk project laser cutting. Bisa konsultasi gratis dulu?"
+  quote: "Halo, saya ingin request quote untuk project laser cutting. Bisa konsultasi gratis dulu?",
+  stainless: "Halo Tepat Laser, saya tertarik dengan jasa laser cutting stainless. Bisa konsultasi gratis?",
+  stainlessIndustri: "Halo Tepat Laser, saya butuh laser cutting stainless untuk kebutuhan industri/produksi. Bisa info harga dan kapasitas?",
+  stainlessInterior: "Halo Tepat Laser, saya mau konsultasi laser cutting stainless untuk interior/ornamen/railing. Bisa bantu?",
+  stainlessUmkm: "Halo Tepat Laser, saya mau tanya harga laser cutting stainless satuan. Bisa kasih estimasi?"
 };

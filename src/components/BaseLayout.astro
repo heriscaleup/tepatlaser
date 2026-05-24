@@ -16,7 +16,7 @@ export interface Props {
 const {
   title,
   description = "Solusi laser cutting profesional dengan teknologi terdepan. 10+ tahun pengalaman, 1000+ proyek selesai, garansi kualitas premium. Melayani CNC Router, Laser Fiber, Laser CO2, dan Galvo Engraving.",
-  keywords = "jasa laser cutting, cnc router, laser fiber, laser co2, galvo engraving, jawa barat, bandung, bekasi, bogor, depok, cimahi, sukabumi",
+  keywords = "jasa laser cutting, laser cutting jakarta, laser cutting tangerang, laser cutting stainless, cnc router, laser fiber, bintaro, tangerang selatan, serpong",
   image = "logo.webp",
   url,
   type = "website",
@@ -31,7 +31,7 @@ if (!Astro.site) {
 const siteUrl = Astro.site; 
 const siteName = "Tepat Laser";
 
-const defaultTitle = "Jasa Laser Cutting Terpercaya #1 di Jawa Barat | Tepat Laser";
+const defaultTitle = "Jasa Laser Cutting Jakarta & Tangerang Terpercaya | Tepat Laser";
 const fullTitle = title ? `${title} | ${siteName}` : defaultTitle;
 // Cara paling benar membuat URL, anti error path ganda
 const fullUrl = new URL(url || Astro.url.pathname, siteUrl);
@@ -94,28 +94,22 @@ const fullImage = new URL(image, siteUrl);
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Tepat Laser",
-    "url": siteUrl.href, // Menggunakan URL dinamis
-    "logo": new URL('logo-company.webp', siteUrl).href, // Menggunakan URL dinamis
-    "description": "Solusi laser cutting profesional dengan teknologi terdepan di Jawa Barat",
-    "telephone": "+62 812-3456-7890",
-    "email": "info@lasercut-pro.com",
+    "url": siteUrl.href,
+    "logo": new URL('logo-company.webp', siteUrl).href,
+    "description": "Jasa laser cutting profesional — stainless steel, plat besi, aluminium, akrilik — di Bintaro, Tangerang Selatan. Toleransi ±0.02mm, express 4 jam.",
+    "telephone": "+62 821-2129-2937",
+    "email": "info@tepatlaser.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "Jl. Industri Raya No. 123",
-      "addressLocality": "Bandung",
-      "addressRegion": "Jawa Barat",
-      "postalCode": "40123",
+      "streetAddress": "Jl. Bintaro BSD No 1D",
+      "addressLocality": "Tangerang Selatan",
+      "addressRegion": "Banten",
+      "postalCode": "15413",
       "addressCountry": "ID"
     },
     "openingHours": "Mo-Sa 08:00-17:00",
-    "sameAs": [
-      "https://facebook.com/lasercutpro",
-      "https://instagram.com/lasercutpro",
-      "https://youtube.com/lasercutpro",
-      "https://linkedin.com/company/lasercutpro"
-    ],
-    "areaServed": [ "Bandung", "Bekasi", "Bogor", "Depok", "Cimahi", "Sukabumi", "Jawa Barat" ],
-    "serviceType": [ "Laser Cutting", "CNC Router", "Laser Fiber", "Laser CO2", "Galvo Engraving" ]
+    "areaServed": [ "Jakarta", "Tangerang", "Tangerang Selatan", "Depok", "Bekasi", "Bogor", "Serpong", "Bintaro" ],
+    "serviceType": [ "Laser Cutting Stainless Steel", "Laser Cutting Metal", "CNC Router", "Laser Fiber", "Laser CO2", "Galvo Engraving" ]
   })} />
   
   <meta name="theme-color" content="#0066FF" />
@@ -153,10 +147,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     initializeEnhancedConversionTracking();
   </script>
 
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBR27KH7"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
   <!-- Google Tag Manager -->
 <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
