@@ -71,8 +71,6 @@ const fullImage = new URL(image, siteUrl);
   <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={fullImage.href} />
-  <meta name="twitter:site" content="@lasercutpro" />
-  <meta name="twitter:creator" content="@lasercutpro" />
   
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="icon" type="image/webp" href="/images/logo.webp" />
@@ -85,7 +83,14 @@ const fullImage = new URL(image, siteUrl);
   
   <link rel="dns-prefetch" href="//fonts.gstatic.com" />
   <link rel="dns-prefetch" href="//api.whatsapp.com" />
-  
+
+  <!-- Google Tag Manager -->
+<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PBR27KH7');</script>
+<!-- End Google Tag Manager -->
+
   {jsonLd && (
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   )}
@@ -146,14 +151,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     import { initializeEnhancedConversionTracking } from '../utils/tracking.js';
     initializeEnhancedConversionTracking();
   </script>
-
-  <!-- Google Tag Manager -->
-<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PBR27KH7');</script>
-<!-- End Google Tag Manager -->
-  
 
   <!-- WA Tracker: GCLID attribution untuk semua tombol WhatsApp -->
   <script is:inline src="/wa-tracker.js"></script>
