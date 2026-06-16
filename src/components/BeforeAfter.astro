@@ -1,97 +1,137 @@
 ---
 // src/components/BeforeAfter.astro
-// Komponen untuk menampilkan bagian "Before & After" transformasi material.
+// Komponen untuk menampilkan bagian "Before & After" dengan slider interaktif.
 
 const transformations = [
   {
-    before: {
-      name: "Stainless Steel",
-      image: "/images/metal.webp"
-    },
-    after: {
-      name: "Produk Jadi (Huruf Timbul)",
-      image: "/images/stainlesssteel (2).webp"
-    }
+    id: "slider-metal",
+    name: "Stainless Steel",
+    beforeName: "Plat Stainless Mentah",
+    afterName: "Produk Jadi (Huruf Timbul)",
+    beforeImage: "/images/metal.webp",
+    afterImage: "/images/stainlesssteel (2).webp"
   },
   {
-    before: {
-      name: "ACP (Aluminium Composite Panel)",
-      image: "/images/acp.webp"
-    },
-    after: {
-      name: "Produk Jadi (Fasad Gedung)",
-      image: "/images/acppro (2).webp"
-    }
+    id: "slider-acp",
+    name: "ACP (Aluminium Composite Panel)",
+    beforeName: "Papan ACP Polos",
+    afterName: "Produk Jadi (Fasad Gedung)",
+    beforeImage: "/images/acp.webp",
+    afterImage: "/images/acppro (2).webp"
   },
   {
-    before: {
-      name: "MDF (Medium-Density Fibreboard)",
-      image: "/images/mdf.webp"
-    },
-    after: {
-      name: "Produk Jadi (Partisi Ruangan)",
-      image: "/images/mdf (1).webp"
-    }
+    id: "slider-mdf",
+    name: "MDF (Medium-Density Fibreboard)",
+    beforeName: "Papan MDF Polos",
+    afterName: "Produk Jadi (Partisi Ruangan)",
+    beforeImage: "/images/mdf.webp",
+    afterImage: "/images/mdf (1).webp"
   }
 ];
 ---
 
-<section id="before-after" class="section-padding bg-silver-light">
+<section id="before-after" class="py-24 bg-slate-50 text-slate-900 border-t border-slate-200">
   <div class="container-custom">
-    <div class="text-center mb-20">
-      <div class="inline-flex items-center px-6 py-3 bg-blue-600/10 border border-blue-600/20 rounded-full text-blue-600 font-semibold text-sm mb-6">
-        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-        </svg>
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/30 rounded-full px-4 py-1.5 mb-6 text-blue-600 text-sm font-semibold">
+        <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
         Transformasi Material
       </div>
-      <h2 class="heading-lg text-charcoal mb-8">Dari Bahan Mentah Menjadi Karya</h2>
-      <p class="text-xl text-graphite max-w-4xl mx-auto leading-relaxed">
-        Lihat bagaimana kami mengubah material berkualitas menjadi produk fungsional dan estetik dengan teknologi presisi kami.
-      </p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 mb-4">Geser Slider Untuk Melihat Hasil Pemotongan</h2>
+      <p class="text-lg text-slate-600 max-w-2xl mx-auto">Bandingkan bahan mentah berkualitas sebelum dipotong dengan hasil presisi tinggi setelah melalui mesin laser kami.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
       {transformations.map((item) => (
-        <div class="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 flex flex-col overflow-hidden border border-silver-mid/50">
-          <!-- Before Image -->
-          <div class="relative">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-col">
+          <!-- Interactive Slider Wrapper -->
+          <div class="relative w-full h-80 rounded-xl overflow-hidden select-none" data-before-after-container>
+            <!-- Before Image (Base) -->
             <img 
-              src={item.before.image} 
-              alt={`Bahan ${item.before.name}`} 
-              class="w-full h-64 object-cover" 
-              loading="lazy" 
-              width="400" 
-              height="256"
+              src={item.beforeImage} 
+              alt={item.beforeName} 
+              class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+              loading="lazy"
             />
-            <div class="absolute top-4 left-4 px-4 py-2 bg-charcoal/80 text-white text-sm font-semibold rounded-full backdrop-blur-sm">
-              SEBELUM
+            <div class="absolute bottom-4 left-4 bg-slate-900/80 text-white text-xs font-bold px-3 py-1.5 rounded-md backdrop-blur-sm z-20">
+              SEBELUM: {item.beforeName}
+            </div>
+
+            <!-- After Image (Resizable Overlay) -->
+            <div class="absolute inset-0 w-1/2 overflow-hidden pointer-events-none border-r-2 border-white" data-after-overlay>
+              <img 
+                src={item.afterImage} 
+                alt={item.afterName} 
+                class="absolute inset-0 w-full h-full object-cover max-w-none pointer-events-none"
+                style="width: 100%; height: 100%;"
+                loading="lazy"
+              />
+              <div class="absolute bottom-4 right-4 bg-blue-600/90 text-white text-xs font-bold px-3 py-1.5 rounded-md backdrop-blur-sm z-20 whitespace-nowrap">
+                SESUDAH: {item.afterName}
+              </div>
+            </div>
+
+            <!-- Range Input Control -->
+            <input 
+              type="range" 
+              min="0" 
+              max="100" 
+              value="50" 
+              class="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-30" 
+              data-slider-control
+            />
+
+            <!-- Drag Handle Bar Indicator -->
+            <div class="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize z-20 pointer-events-none" style="left: 50%;" data-slider-bar>
+              <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-blue-600 text-white border-2 border-white rounded-full flex items-center justify-center shadow-lg">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+                </svg>
+              </div>
             </div>
           </div>
 
-          <!-- After Image -->
-          <div class="relative">
-            <img 
-              src={item.after.image} 
-              alt={`Produk jadi dari ${item.before.name}`} 
-              class="w-full h-64 object-cover" 
-              loading="lazy" 
-              width="400" 
-              height="256"
-            />
-            <div class="absolute top-4 left-4 px-4 py-2 bg-charcoal/80 text-white text-sm font-semibold rounded-full backdrop-blur-sm">
-              SESUDAH
-            </div>
-          </div>
-
-          <!-- Content -->
-          <div class="p-6 text-center flex-grow flex flex-col">
-            <h3 class="text-xl font-bold text-charcoal mb-2">{item.before.name}</h3>
-            <p class="text-graphite text-sm">diubah menjadi</p>
-            <h4 class="text-lg font-semibold text-laser-green mt-1 flex-grow">{item.after.name}</h4>
+          <div class="mt-4 text-center">
+            <h3 class="font-bold text-lg">{item.name}</h3>
           </div>
         </div>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const containers = document.querySelectorAll('[data-before-after-container]');
+    
+    containers.forEach(container => {
+      const slider = container.querySelector('[data-slider-control]');
+      const overlay = container.querySelector('[data-after-overlay]');
+      const bar = container.querySelector('[data-slider-bar]');
+      
+      if (!slider || !overlay || !bar) return;
+      
+      const updatePosition = (val) => {
+        overlay.style.width = `${val}%`;
+        bar.style.left = `${val}%`;
+      };
+      
+      slider.addEventListener('input', (e) => {
+        updatePosition(e.target.value);
+      });
+      
+      updatePosition(50);
+    });
+  });
+</script>
+
+<style>
+  input[type="range"]::-webkit-slider-thumb {
+    width: 40px;
+    height: 320px;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 40px;
+    height: 320px;
+  }
+</style>
