@@ -1,216 +1,73 @@
 ---
-// about.astro - Halaman tentang kami
+// src/pages/about.astro
 import BaseLayout from '../components/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import CTA from '../components/CTA.astro';
-import { SITE_CONFIG, TESTIMONIALS } from '../utils/constants.js';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../utils/constants.js';
 import { generateBreadcrumbSchema } from '../utils/seo.js';
 
-// SEO Meta Tags
-const meta = {
-  title: "Tentang Kami - Tepat Laser | 10+ Tahun Pengalaman Laser Cutting",
-  description: "Mengenal Tepat Laser, perusahaan laser cutting terpercaya di Jawa Barat dengan 10+ tahun pengalaman, 1000+ proyek selesai, dan komitmen pada kualitas premium.",
-  keywords: "tentang Tepat Laser, sejarah perusahaan, pengalaman laser cutting, tim ahli, visi misi, sertifikat iso",
-  url: "/about",
-  type: "website"
-};
+const pageTitle = "Tentang Workshop Tepat Laser Bintaro | Tepat Laser";
+const pageDesc = "Mengenal workshop jasa laser cutting Tepat Laser di Parigi Bintaro. Didukung mesin fiber laser dan CO2 mutakhir, operator handal, siap melayani skala proyek.";
+const pageKw = "profil tepat laser, workshop laser bintaro, jasa potong laser tangerang selatan, laser cutting terdekat";
 
-// Structured Data
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: 'Beranda', url: '/' },
-  { name: 'Tentang Kami', url: '/about' }
+  { name: 'Tentang Kami', url: '/about/' }
 ]);
+
+const crumbs = breadcrumbSchema.itemListElement;
 ---
 
-<BaseLayout 
-  title={meta.title}
-  description={meta.description}
-  keywords={meta.keywords}
-  url={meta.url}
-  jsonLd={[breadcrumbSchema]}
->
+<BaseLayout title={pageTitle} description={pageDesc} keywords={pageKw} url="/about/">
   <Header slot="header" />
-  
-  <section class="relative bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20 mt-16">
-    <div class="absolute inset-0 bg-black/20"></div>
-    <div class="relative z-10 container-custom text-center">
-      <h1 class="heading-xl text-white mb-6">Tentang Tepat Laser</h1>
-      <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
-        Lebih dari 10 tahun menghadirkan solusi laser cutting terdepan dengan komitmen pada kualitas dan inovasi
-      </p>
-    </div>
-  </section>
-  
-  <section class="bg-gray-50 py-4">
-    <div class="container-custom">
-      <nav class="flex" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-3">
-          <li class="inline-flex items-center">
-            <a href="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
-              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
-              </svg>
-              Beranda
-            </a>
-          </li>
-          <li aria-current="page">
-            <div class="flex items-center">
-              <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-              </svg>
-              <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Tentang Kami</span>
-            </div>
-          </li>
-        </ol>
-      </nav>
-    </div>
-  </section>
-  
-  <section class="section-padding bg-white">
-    <div class="container-custom">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="heading-lg text-gray-900 mb-6">Siapa Kami</h2>
-          <p class="text-lg text-gray-700 mb-6 leading-relaxed">
-            Tepat Laser adalah perusahaan terdepan dalam industri laser cutting di Jawa Barat yang telah 
-            berpengalaman lebih dari 10 tahun. Kami mengkhususkan diri dalam memberikan solusi cutting 
-            dan engraving presisi tinggi untuk berbagai kebutuhan industri dan kreatif.
-          </p>
-          
-          <p class="text-lg text-gray-700 mb-8 leading-relaxed">
-            Dengan komitmen pada kualitas, inovasi, dan kepuasan pelanggan, kami telah menyelesaikan 
-            lebih dari 1000 proyek untuk berbagai klien mulai dari UMKM hingga perusahaan multinasional.
-            Tim ahli kami yang berpengalaman siap membantu mewujudkan ide kreatif Anda dengan teknologi 
-            laser cutting terdepan.
-          </p>
-          
-          <div class="grid grid-cols-2 gap-6">
-            <div class="text-center p-4 bg-blue-50 rounded-lg">
-              <div class="text-3xl font-bold text-blue-600 mb-2">10+</div>
-              <div class="text-sm text-gray-700">Tahun Pengalaman</div>
-            </div>
-            <div class="text-center p-4 bg-green-50 rounded-lg">
-              <div class="text-3xl font-bold text-green-600 mb-2">1000+</div>
-              <div class="text-sm text-gray-700">Proyek Selesai</div>
-            </div>
-            <div class="text-center p-4 bg-purple-50 rounded-lg">
-              <div class="text-3xl font-bold text-purple-600 mb-2">500+</div>
-              <div class="text-sm text-gray-700">Client Puas</div>
-            </div>
-            <div class="text-center p-4 bg-orange-50 rounded-lg">
-              <div class="text-3xl font-bold text-orange-600 mb-2">100%</div>
-              <div class="text-sm text-gray-700">Garansi Kualitas</div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="relative">
-          <img 
-            src="/images/team.webp"
-            alt="Tim Tepat Laser di workshop"
-            class="w-full h-auto rounded-xl shadow-2xl"
-            loading="lazy"
-            width="600"
-            height="400"
-          />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl"></div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section class="section-padding bg-gray-50">
-    <div class="container-custom">
-      <div class="text-center mb-16">
-        <h2 class="heading-lg text-gray-900 mb-6">Tim Ahli Kami</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Tim profesional berpengalaman yang siap memberikan solusi terbaik untuk setiap kebutuhan laser cutting Anda.
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO -->
+    <section class="relative bg-slate-900 text-white py-24 overflow-hidden">
+      <div class="absolute inset-0 bg-[#070e17] opacity-85"></div>
+      <div class="container-custom relative z-10 text-center">
+        <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">Tentang Workshop Tepat Laser</h1>
+        <p class="text-lg text-slate-300 max-w-2xl mx-auto">
+          Mendedikasikan presisi tinggi dan pengerjaan cepat untuk memajukan industri manufaktur, dekorasi interior, dan periklanan di Jabodetabek.
         </p>
       </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
-          <img 
-            src="/images/team-director.webp"
-            alt="Direktur Tepat Laser"
-            class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            loading="lazy"
-            width="96"
-            height="96"
-          />
-          <h3 class="text-lg font-bold text-gray-900 mb-2">Budi Santoso</h3>
-          <p class="text-blue-600 font-medium mb-3">Direktur & Founder</p>
-          <p class="text-sm text-gray-600 leading-relaxed">
-            15+ tahun pengalaman di industri manufaktur dan teknologi laser cutting. 
-            Visionaris di balik inovasi dan pertumbuhan Tepat Laser.
+    </section>
+
+    <!-- WORKSHOP DETAILS -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Mitra Terpercaya Fabrikasi Presisi Anda</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Didirikan dengan komitmen memberikan solusi pemotongan laser metal dan non-metal terbaik, <strong>Tepat Laser</strong> kini menjadi bengkel fabrikasi kepercayaan ratusan kontraktor sipil, pembuat furnitur interior, industri manufaktur, serta wirausaha advertising di wilayah Bintaro dan sekitarnya.
+          </p>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Workshop kami dilengkapi dengan deretan mesin canggih: <strong>Fiber Laser High-Power</strong> untuk lembaran logam tebal, mesin <strong>Laser CO2</strong> berkecepatan tinggi untuk akrilik dan kayu, serta mesin <strong>CNC Router Heavy-Duty</strong> untuk lembaran ACP, GRC, dan PVC Board utuh.
+          </p>
+          <p class="text-slate-600 leading-relaxed">
+            Dukungan tim desainer CAD dan operator mesin bersertifikat memastikan setiap detail potongan memiliki deviasi toleransi di bawah ±0.02mm, dengan lead-time pengerjaan super cepat 1-3 hari kerja tanpa minimum order.
           </p>
         </div>
-        
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
-          <img 
-            src="/images/team-technical.webp"
-            alt="Technical Manager Tepat Laser"
-            class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            loading="lazy"
-            width="96"
-            height="96"
-          />
-          <h3 class="text-lg font-bold text-gray-900 mb-2">Ahmad Rizki</h3>
-          <p class="text-blue-600 font-medium mb-3">Technical Manager</p>
-          <p class="text-sm text-gray-600 leading-relaxed">
-            Ahli teknis dengan sertifikasi internasional dalam operasi dan maintenance 
-            mesin laser cutting berbagai jenis.
-          </p>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
-          <img 
-            src="/images/team-design.webp"
-            alt="Design Specialist Tepat Laser"
-            class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            loading="lazy"
-            width="96"
-            height="96"
-          />
-          <h3 class="text-lg font-bold text-gray-900 mb-2">Sari Dewi</h3>
-          <p class="text-blue-600 font-medium mb-3">Design Specialist</p>
-          <p class="text-sm text-gray-600 leading-relaxed">
-            Spesialis design dan CAD dengan keahlian dalam optimasi file untuk 
-            berbagai jenis material dan aplikasi cutting.
-          </p>
-        </div>
-        
-        <div class="bg-white rounded-xl shadow-lg p-6 text-center hover:shadow-xl transition-shadow duration-300">
-          <img 
-            src="/images/team-quality.webp"
-            alt="Quality Control Tepat Laser"
-            class="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-            loading="lazy"
-            width="96"
-            height="96"
-          />
-          <h3 class="text-lg font-bold text-gray-900 mb-2">Dedi Kurniawan</h3>
-          <p class="text-blue-600 font-medium mb-3">Quality Control</p>
-          <p class="text-sm text-gray-600 leading-relaxed">
-            Bertanggung jawab memastikan setiap hasil cutting memenuhi standar 
-            kualitas tinggi sebelum diserahkan kepada klien.
-          </p>
+        <div class="space-y-6">
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-lg mb-2">📍 Lokasi Parigi Bintaro Tangsel</h4>
+            <p class="text-slate-500 text-sm">{SITE_CONFIG.address}</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-lg mb-2">⏱ Jam Kerja Workshop</h4>
+            <p class="text-slate-500 text-sm">{SITE_CONFIG.businessHours}</p>
+          </div>
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+            <h4 class="font-bold text-lg mb-2">📞 Whatsapp Hotline Support</h4>
+            <p class="text-slate-500 text-sm">Hubungi Sales & Review Desain: +62 821-2129-2937</p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </main>
 
-  <CTA 
-    title="Siap Berkolaborasi dengan Kami?"
-    description="Mari wujudkan project laser cutting Anda bersama tim ahli Tepat Laser. Konsultasi gratis dan quote terbaik menanti Anda."
-    primaryText="Konsultasi Gratis"
-    primaryLink={`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=Halo,%20saya%20tertarik%20untuk%20berkolaborasi%20dengan%20LaserCut%20Pro.%20Bisa%20konsultasi?`}
-    secondaryText="Lihat Portfolio"
-    secondaryLink="/#portfolio"
-    variant="gradient"
-    size="lg"
-  />
-  
   <Footer slot="footer" />
 </BaseLayout>

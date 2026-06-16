@@ -1,247 +1,102 @@
-﻿---
+---
+// src/pages/jasa-laser-cutting-plywood.astro
 import BaseLayout from '../components/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { MATERIALS, SERVICES, SITE_CONFIG } from '../utils/constants.js';
-import { generateProductSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+import { SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
 
-const material = MATERIALS.find(m => m.id === 'ply-wood-multiplex');
-const recommendedService = SERVICES.find(s => s.id === 'cnc-router');
+const faqs = [
+  {
+    question: "Ketebalan triplek/multiplex berapa saja yang bisa dipotong?",
+    answer: "Kami dapat memotong plywood (multiplex/triplek) mulai dari ketebalan tipis 3mm, 4mm, 5mm, 6mm, 9mm, hingga ketebalan tebal 12mm, 15mm, dan 18mm."
+  },
+  {
+    question: "Apakah tepi potongan kayu plywood akan menghitam?",
+    answer: "Karena proses pemotongan laser CO2 menggunakan energi panas, tepian kayu plywood akan berwarna cokelat hangus terbakar. Sisi artistik ini justru sering dicari untuk efek kontras bayangan ornamen kayu. Sisi hitam arang halus ini gampang ditimpa cat atau diamplas ringan."
+  }
+];
+
+const pageTitle = "Jasa Laser Cutting Plywood & Triplek Custom Bintaro | Tepat Laser";
+const pageDesc = "Jasa laser cutting plywood, multiplex, triplek, MDF custom terdekat di Bintaro. Solusi pembuatan sekat dinding, box hampers kayu, merchandise estetik.";
+const pageKw = "jasa potong triplek laser, laser cutting plywood bintaro, potong multiplex custom, laser cutting kayu tangerang";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Laser Cutting Plywood', url: '/jasa-laser-cutting-plywood/' }
+]);
 
 const meta = {
-  title: `${material.name} - Material Laser Cutting Premium`,
-  description: material.description,
-  keywords: material.keywords,
-  image: material.image,
-  jsonLd: [
-    generateProductSchema(material),
-    generateBreadcrumbSchema([
-      { name: 'Beranda', url: '/' },
-      { name: 'Material', url: '/#materials' },
-      { name: material.name, url: `/${material.slug}` }
-    ])
-  ].filter(Boolean)
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/jasa-laser-cutting-plywood/',
+  image: '/images/Ply Wood.webp',
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
 };
+
+const crumbs = breadcrumbSchema.itemListElement;
 ---
 
-{material ? (
-  <BaseLayout {...meta}>
-    <Header slot="header" />
-    
-    <main class="mt-16">
-      <Breadcrumbs crumbs={meta.jsonLd.find(s => s.type === 'BreadcrumbList')?.itemListElement || []} />
-      <section class="relative bg-gradient-to-br from-amber-900 via-amber-800 to-amber-700 text-white py-20">
-        <div class="absolute inset-0 bg-black/20"></div>
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h1 class="text-4xl lg:text-5xl font-bold mb-6">
-                Jasa Laser Cutting {material.name}
-              </h1>
-              <p class="text-xl mb-8 text-amber-100">
-                {material.description}
-              </p>
-              <div class="flex flex-wrap gap-4">
-                <a 
-                  href={`https://api.whatsapp.com/send?phone=6282121292937&text=Halo,%20saya%20tertarik%20dengan%20jasa%20laser%20cutting%20${material.name}.%20Bisa%20konsultasi?`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
-                  data-gtm-id="whatsapp-click"
-                >
-                  Konsultasi Project {material.name}
-                </a>
-                <a 
-                  href={`tel:${SITE_CONFIG.phone}`}
-                  class="border-2 border-white text-white hover:bg-white hover:text-amber-900 px-8 py-3 rounded-lg font-semibold transition-colors"
-                  data-gtm-id="phone-click"
-                >
-                  Telepon Sekarang
-                </a>
-              </div>
-            </div>
-            <div class="relative">
-              <img 
-                src={material.image} 
-                alt={`Sample ${material.name}`}
-                class="w-full h-96 object-cover rounded-lg shadow-2xl"
-                loading="eager"
-              />
-            </div>
-          </div>
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO -->
+    <section class="relative bg-amber-950 text-white py-24 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/Ply Wood.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-amber-950 via-amber-950/90 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-amber-500/20 text-amber-300 font-semibold px-4 py-1.5 rounded-full text-xs mb-6 border border-amber-500/30">NATURAL WOOD ARTISTRY</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">Jasa Laser Cutting Plywood & Multiplex</h1>
+          <p class="text-lg text-amber-100/90 mb-8 leading-relaxed">
+            Ukir dan potong papan triplek/multiplex berkualitas untuk kebutuhan display pajangan dinding bermotif urat kayu alami, box hampers premium, dan furnitur minimalis.
+          </p>
+          <a href="https://wa.me/6282121292937?text=Halo%20Tepat%20Laser%2C%20saya%20ingin%20tanya%20penawaran%20jasa%20laser%20cutting." target="_blank" rel="noopener noreferrer" class="bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg">Konsultasi Potong Triplek WA</a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">
-              Karakteristik {material.name}
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-              Material kayu engineered dengan kekuatan dan stabilitas dimensi yang superior
-            </p>
-          </div>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center mb-4">
-                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-              </div>
-              <h3 class="text-xl font-semibold mb-2">Stabil Dimensi</h3>
-              <p class="text-gray-600">Tidak mudah melengkung atau menyusut karena perubahan kelembaban</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-              </div>
-              <h3 class="text-xl font-semibold mb-2">Kuat & Ringan</h3>
-              <p class="text-gray-600">Struktur berlapis memberikan kekuatan tinggi dengan bobot yang relatif ringan</p>
-            </div>
-
-            <div class="bg-white p-6 rounded-lg shadow-md">
-              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
-                </svg>
-              </div>
-              <h3 class="text-xl font-semibold mb-2">Mudah Finishing</h3>
-              <p class="text-gray-600">Permukaan halus yang mudah dicat, dilaminasi, atau diberi finishing lainnya</p>
-            </div>
-          </div>
+    <!-- CONTENT -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Urat Kayu Alami Bernilai Seni & Kekuatan Tinggi</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Berbeda dengan MDF yang merupakan bubur kayu padat rekayasa, Plywood (Multiplex/Triplek) terbuat dari lembaran serat kayu alami berlapis-lapis silang yang direkatkan tekanan tinggi. Hal ini memberikan kekuatan struktural yang lebih baik dan ketahanan sekrup yang kokoh. Laser cutting CO2 kami memotong pola motif kerawang dekoratif pada triplek dengan sangat lurus, menghasilkan ornamen bermotif kayu natural yang estetik untuk interior cafe, masjid, hotel, maupun kantor.
+          </p>
+          <ul class="space-y-3 mb-6 text-slate-700">
+            <li>✓ Serat urat kayu asli memberikan kesan natural & hangat</li>
+            <li>✓ Sangat kokoh untuk gantungan pajangan dinding & partisi</li>
+            <li>✓ Siap menerima plywood jenis sengon, meranti, maupun semi-meranti</li>
+          </ul>
         </div>
-      </section>
-
-      <section class="py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              
-            </div>
-            
-          </div>
+        <div>
+          <img src="/images/plywood (2).webp" alt="Plywood Laser Cut Products" class="rounded-2xl shadow-xl object-cover w-full h-[350px]" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">
-              Produksi Umum
-            </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-              Beberapa contoh hasil produksi umum menggunakan material ini.
-            </p>
-          </div>
-          <div class="grid grid-cols-2 gap-4">
-            <img src="/images/plywood (1).webp" alt="Produksi Umum 1" class="w-full h-auto object-cover rounded-lg shadow-md" loading="lazy" decoding="async"/>
-            <img src="/images/plywood (2).webp" alt="Produksi Umum 2" class="w-full h-auto object-cover rounded-lg shadow-md" loading="lazy" decoding="async"/>
-            <img src="/images/plywood (3).webp" alt="Produksi Umum 3" class="w-full h-auto object-cover rounded-lg shadow-md" loading="lazy" decoding="async"/>
-            <img src="/images/plywood (4).webp" alt="Produksi Umum 4" class="w-full h-auto object-cover rounded-lg shadow-md" loading="lazy" decoding="async"/>
-          </div>
+    <!-- FAQ -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">FAQ Laser Plywood</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
         </div>
-      </section>
+      </div>
+    </section>
+  </main>
 
-      <section class="py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 class="text-3xl font-bold text-gray-900 mb-6">
-                Spesifikasi Teknis
-              </h2>
-              <div class="space-y-4">
-                <div class="flex justify-between py-3 border-b border-gray-200">
-                  <span class="font-medium text-gray-900">Ketebalan</span>
-                  <span class="text-gray-600">{material.thickness}</span>
-                </div>
-                <div class="flex justify-between py-3 border-b border-gray-200">
-                  <span class="font-medium text-gray-900">Ukuran Standard</span>
-                  <span class="text-gray-600">1220 x 2440 mm</span>
-                </div>
-                <div class="flex justify-between py-3 border-b border-gray-200">
-                  <span class="font-medium text-gray-900">Toleransi Cutting</span>
-                  <span class="text-gray-600">Â±0.02 mm</span>
-                </div>
-                <div class="flex justify-between py-3 border-b border-gray-200">
-                  <span class="font-medium text-gray-900">Finishing</span>
-                  <span class="text-gray-600">Polished Edge</span>
-                </div>
-                <div class="flex justify-between py-3 border-b border-gray-200">
-                  <span class="font-medium text-gray-900">Warna Tersedia</span>
-                  <span class="text-gray-600">Clear, Opal, Warna Custom</span>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-        </div>
-      </section>
-
-      {recommendedService && (
-        <section class="py-16 bg-amber-50">
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-              <h2 class="text-3xl font-bold text-gray-900 mb-4">
-                Mesin Rekomendasi untuk {material.name}
-              </h2>
-              <p class="text-xl text-gray-600">
-                Teknologi CNC Router untuk cutting kayu dengan presisi dan finishing terbaik
-              </p>
-            </div>
-            <div class="bg-white rounded-lg shadow-lg p-8">
-              <div class="grid lg:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h3 class="text-2xl font-bold text-gray-900 mb-4">
-                    {recommendedService.name}
-                  </h3>
-                  <p class="text-gray-600 mb-6">
-                    {recommendedService.description}
-                  </p>
-                  <div class="space-y-3">
-                    {recommendedService.features.map((feature) => (
-                      <div class="flex items-center space-x-3">
-                        <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                        </svg>
-                        <span class="text-gray-700">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <img 
-                    src={recommendedService.image} 
-                    alt={recommendedService.name}
-                    class="w-full h-64 object-cover rounded-lg"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-    </main>
-
-    <Footer slot="footer" />
-  </BaseLayout>
-) : (
-  <BaseLayout title="Material Tidak Ditemukan" description="Halaman untuk material yang tidak ditemukan.">
-    <Header slot="header" />
-    <main class="text-center py-20">
-      <h1 class="text-4xl font-bold mb-4">404 - Material Tidak Ditemukan</h1>
-      <p class="text-lg mb-8">Maaf, material yang Anda cari tidak ada atau telah dipindahkan.</p>
-      <a href="/" class="bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition-colors">
-        Kembali ke Beranda
-      </a>
-    </main>
-    <Footer slot="footer" />
-  </BaseLayout>
-)}
+  <Footer slot="footer" />
+</BaseLayout>

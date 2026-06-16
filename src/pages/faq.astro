@@ -3,91 +3,68 @@
 import BaseLayout from '../components/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Accordion from '../components/Accordion.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { FAQ, SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
 
-const placeholderAnswer = "Jawaban untuk pertanyaan ini akan segera diperbarui. Silakan hubungi tim kami untuk informasi lebih lanjut.";
+const pageTitle = "FAQ Teknis & Tanya Jawab Jasa Laser Cutting | Tepat Laser";
+const pageDesc = "Daftar tanya jawab terlengkap seputar kapasitas mesin laser fiber & CO2, ketebalan logam/kayu, format file desain CAD, dan biaya pengiriman Bintaro.";
+const pageKw = "faq laser cutting, ketentuan potong laser, format file dxf autocad, harga laser cutting per meter";
 
-const faqData = {
-  "Harga & Biaya": [
-    { q: "Berapa harga laser cutting akrilik?", a: placeholderAnswer },
-    { q: "Berapa biaya cutting plat besi?", a: placeholderAnswer },
-    { q: "Berapa harga jasa laser cutting?", a: placeholderAnswer },
-    { q: "Harga cutting laser per meter berapa?", a: placeholderAnswer },
-    { q: "Berapa biaya cutting mdf?", a: placeholderAnswer },
-    { q: "Harga laser cutting acrylic per cm?", a: placeholderAnswer },
-    { q: "Berapa biaya laser cutting metal?", a: placeholderAnswer },
-    { q: "Berapa harga cutting plat?", a: placeholderAnswer },
-    { q: "Harga jasa potong akrilik berapa?", a: placeholderAnswer },
-  ],
-  "Kemampuan & Batasan": [
-    { q: "Laser cutting bisa untuk apa saja?", a: placeholderAnswer },
-    { q: "Laser cutting bisa memotong apa saja?", a: placeholderAnswer },
-    { q: "Apa saja yang bisa di cutting laser?", a: placeholderAnswer },
-    { q: "Apakah laser cutting bisa untuk stainless steel?", a: placeholderAnswer },
-    { q: "Apa itu laser cutting non metal?", a: placeholderAnswer },
-    { q: "Apa yang dimaksud dengan jasa laser cutting?", a: placeholderAnswer },
-    { q: "Laser cutting bisa setebal apa?", a: placeholderAnswer },
-  ],
-  "Perbandingan & Pilihan": [
-    { q: "Apa beda laser cutting dan engraving?", a: placeholderAnswer },
-    { q: "Apa beda cnc dan laser cutting?", a: placeholderAnswer },
-    { q: "Bagaimana cara memilih jasa laser cutting yang baik?", a: placeholderAnswer },
-    { q: "Apa kelebihan laser cutting dibanding metode lain?", a: placeholderAnswer },
-    { q: "Mengapa laser cutting lebih presisi?", a: placeholderAnswer },
-  ],
-  "Proses & Cara Kerja": [
-    { q: "Bagaimana cara kerja mesin laser cutting?", a: placeholderAnswer },
-    { q: "Bagaimana proses laser cutting?", a: placeholderAnswer },
-    { q: "Bagaimana cara menghitung biaya laser cutting?", a: placeholderAnswer },
-  ],
-  "Lokasi & Layanan": [
-    { q: "Dimana tempat laser cutting terdekat?", a: placeholderAnswer },
-    { q: "Dimana jasa potong akrilik?", a: placeholderAnswer },
-    { q: "Dimana bisa laser cutting?", a: placeholderAnswer },
-    { q: "Dimana jasa cutting plat?", a: placeholderAnswer },
-    { q: "Dimana cari jasa laser cutting?", a: placeholderAnswer },
-    { q: "Apakah ada jasa laser cutting di bekasi?", a: placeholderAnswer },
-    { q: "Dimana jasa laser cutting di jakarta?", a: placeholderAnswer },
-    { q: "Apakah ada jasa laser cutting di depok?", a: placeholderAnswer },
-  ]
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'FAQ', url: '/faq/' }
+]);
+
+const meta = {
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/faq/',
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(FAQ)]
 };
 
-const allFaqs = Object.values(faqData).flat();
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": allFaqs.map(faq => ({
-    "@type": "Question",
-    "name": faq.q,
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": faq.a
-    }
-  }))
-};
-
-const pageTitle = "FAQ - Pertanyaan Umum Seputar Laser Cutting";
-const pageDesc = "Temukan jawaban untuk pertanyaan umum seputar jasa laser cutting, harga, material, dan proses kerja di Tepat Laser. Hubungi kami jika pertanyaan Anda tidak terjawab.";
+const crumbs = breadcrumbSchema.itemListElement;
 ---
-<BaseLayout title={pageTitle} description={pageDesc} jsonLd={faqSchema}>
-  <Header slot="header" />
-  <main class="py-16 bg-gray-50">
-    <div class="container-custom">
-      <div class="text-center mb-12">
-        <h1 class="heading-lg">Pertanyaan yang Sering Diajukan (FAQ)</h1>
-        <p class="text-xl text-gray-600 mt-4 max-w-3xl mx-auto">Jawaban cepat untuk pertanyaan paling umum mengenai layanan kami.</p>
-      </div>
 
-      {Object.entries(faqData).map(([category, faqs]) => (
-        <section class="mb-12 max-w-4xl mx-auto">
-          <h2 class="text-2xl font-bold text-gray-900 border-b-2 border-blue-600 pb-3 mb-6">{category}</h2>
-          <div class="space-y-2">
-            {faqs.map(faq => <Accordion question={faq.q} answer={faq.a} />)}
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO -->
+    <section class="relative bg-slate-900 text-white py-20 text-center">
+      <div class="container-custom relative z-10">
+        <h1 class="text-4xl font-extrabold mb-4">Pusat Bantuan & FAQ Teknis</h1>
+        <p class="text-slate-300 max-w-2xl mx-auto">Temukan jawaban cepat untuk pertanyaan operasional dan kapasitas bengkel Tepat Laser.</p>
+      </div>
+    </section>
+
+    <!-- FAQ LIST -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom max-w-4xl">
+        <div class="space-y-8">
+          {FAQ.map(faq => (
+            <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200">
+              <h3 class="text-xl font-bold mb-3 text-slate-900">❓ {faq.question}</h3>
+              <p class="text-slate-600 leading-relaxed text-sm md:text-base">{faq.answer}</p>
+            </div>
+          ))}
+          <!-- Additional general questions -->
+          <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200">
+            <h3 class="text-xl font-bold mb-3 text-slate-900">❓ Apakah Tepat Laser menyediakan jasa pengiriman barang?</h3>
+            <p class="text-slate-600 leading-relaxed text-sm">Ya, kami melayani pengiriman hasil jadi laser cutting ke seluruh Jabodetabek menggunakan armada pickup internal kami maupun ekspedisi kargo pihak ketiga. Untuk pemesanan dengan volume tertentu, kami menyediakan **layanan free ongkir** langsung ke lokasi proyek Anda.</p>
           </div>
-        </section>
-      ))}
-    </div>
+          <div class="p-8 rounded-2xl bg-slate-50 border border-slate-200">
+            <h3 class="text-xl font-bold mb-3 text-slate-900">❓ Bagaimana cara melakukan pembayaran order?</h3>
+            <p class="text-slate-600 leading-relaxed text-sm">Pembayaran dilakukan dengan deposit (down payment) sebesar 50% sebelum proses pemotongan dimulai, dan pelunasan 50% sisanya dilakukan setelah pengerjaan selesai sebelum barang dikirim atau diambil di workshop.</p>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
   <Footer slot="footer" />
 </BaseLayout>

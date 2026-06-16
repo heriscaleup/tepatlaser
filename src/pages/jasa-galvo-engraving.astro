@@ -1,240 +1,102 @@
 ---
-// jasa-galvo-engraving.astro - Halaman layanan Galvo Engraving
+// src/pages/jasa-galvo-engraving.astro
 import BaseLayout from '../components/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Hero from '../components/Hero.astro';
-import CTA from '../components/CTA.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { SERVICES, SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
-import { generateServiceSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+import { SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
 
-// Find Galvo Engraving service
-const service = SERVICES.find(s => s.slug === 'jasa-galvo-engraving');
+const faqs = [
+  {
+    question: "Material apa saja yang bisa digrafir dengan Galvo Laser?",
+    answer: "Kami menggunakan dua jenis mesin Galvo: Fiber Galvo untuk menandai logam (stainless steel, besi, aluminium, emas, perak) dan CO2 Galvo untuk menandai material non-logam (kulit, kayu, akrilik, kertas, jeans)."
+  },
+  {
+    question: "Berapa lama proses pengerjaan marking/engraving?",
+    answer: "Proses penandaan Galvo sangat kilat, berkisar antara 1 hingga 5 detik per item tergantung kerumitan gambar. Sangat cocok untuk produksi massal ribuan pcs sehari."
+  }
+];
 
-// SEO Meta Tags & Structured Data
+const pageTitle = "Jasa Laser Engraving & Marking Galvo Kilat Bintaro | Tepat Laser";
+const pageDesc = "Jasa laser engraving & marking Galvo super cepat di Bintaro, Tangerang Selatan. Grafir logo, QR code, nomor seri pada souvenir, logam, kulit, tumbler.";
+const pageKw = "jasa laser engraving, laser marking galvo, jasa grafir tumbler bintaro, laser marking logam, grafir laser akrilik";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Jasa Galvo Engraving', url: '/jasa-galvo-engraving/' }
+]);
+
 const meta = {
-  title: `${service.name} - Engraving Presisi Tinggi untuk Branding Produk`,
-  description: `${service.description}. Teknologi galvo laser tercepat untuk engraving detail tinggi pada logam, plastik, kayu. Ideal untuk branding produk, serial number, QR code. Quote gratis 24 jam.`,
-  keywords: service.keywords,
-  url: `/${service.slug}/`,
-  type: "article",
-  image: service.image,
-  jsonLd: [
-    generateServiceSchema(service),
-    generateBreadcrumbSchema([
-      { name: 'Beranda', url: '/' },
-      { name: 'Jasa', url: '/#services' },
-      { name: service.name, url: `/${service.slug}/` }
-    ])
-  ].filter(Boolean)
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/jasa-galvo-engraving/',
+  image: '/images/galvo.webp',
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
 };
 
-const crumbs = meta.jsonLd.find(s => s.type === 'BreadcrumbList')?.itemListElement || [];
+const crumbs = breadcrumbSchema.itemListElement;
 ---
 
-{service ? (
-  <BaseLayout {...meta}>
-    <Header slot="header" />
-  
-    <main class="mt-16">
-      <Breadcrumbs crumbs={crumbs} />
-      <Hero
-        title={`${service.name} Profesional`}
-        subtitle="Engraving Presisi | Logam, Plastik, Kayu | Kecepatan Tinggi"
-        description="Teknologi galvo laser tercepat untuk engraving detail tinggi pada berbagai material. Ideal untuk branding produk, serial number, QR code, barcode, dan personalisasi dengan hasil yang tajam dan tahan lama."
-        primaryCTA={`Konsultasi Project ${service.name}`}
-        secondaryCTA="Lihat Portofolio"
-        backgroundImage={service.image}
-        whatsappMessage={WHATSAPP_MESSAGES.engraving}
-      />
+<BaseLayout {...meta}>
+  <Header slot="header" />
 
-      <section class="section-padding">
-        <div class="container-custom">
-          <div class="grid lg:grid-cols-2 gap-12 items-center">
-            <div class="order-2 lg:order-1">
-              <img 
-                src={service.image} 
-                alt={service.name}
-                class="rounded-xl shadow-xl w-full"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="order-1 lg:order-2">
-              <h2 class="heading-lg text-gray-900 mb-6">Solusi Engraving Presisi Tinggi</h2>
-              <p class="text-xl text-gray-600 mb-8">
-                Galvo Engraving kami menggunakan teknologi laser galvanometer tercepat untuk memberikan hasil engraving yang sangat detail dan presisi pada berbagai material, menjadikannya pilihan utama untuk branding produk dan personalisasi di Jabodetabek.
-              </p>
-              
-              <div class="space-y-6">
-                <div class="flex items-start space-x-4">
-                  <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Kecepatan Tinggi</h3>
-                    <p class="text-gray-600">Proses engraving yang jauh lebih cepat dibandingkan metode konvensional.</p>
-                  </div>
-                </div>
-                
-                <div class="flex items-start space-x-4">
-                  <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Detail Tinggi 0.05mm</h3>
-                    <p class="text-gray-600">Resolusi engraving yang sangat tinggi hingga 0.05mm untuk hasil yang tajam.</p>
-                  </div>
-                </div>
-                
-                <div class="flex items-start space-x-4">
-                  <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-2">Tahan Lama & Permanent</h3>
-                    <p class="text-gray-600">Hasil engraving yang tahan lama dan tidak mudah hilang karena merupakan bagian dari material itu sendiri.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO -->
+    <section class="relative bg-slate-950 text-white py-24 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/galvo.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-blue-500/20 text-blue-400 font-semibold px-4 py-1.5 rounded-full text-xs mb-6 border border-blue-500/30">HIGH SPEED MARKING</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">Jasa Laser Engraving & Marking Galvo Kilat</h1>
+          <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+            Grafir logo, QR code, barcode, serial number, atau nama custom pada tumbler, plakat logam, gantungan kunci kulit, dan aksesoris lainnya dalam hitungan detik.
+          </p>
+          <a href="https://wa.me/6282121292937?text=Halo%20Tepat%20Laser%2C%20saya%20ingin%20tanya%20penawaran%20jasa%20laser%20cutting." target="_blank" rel="noopener noreferrer" class="bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg">Konsultasi Grafir WA</a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="section-padding bg-gray-50">
-        <div class="container-custom">
-          <div class="text-center mb-16">
-            <h2 class="heading-lg text-gray-900 mb-4">Material yang Dapat Diproses</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-              Galvo Engraving kami dirancang untuk memberikan hasil terbaik pada berbagai jenis material
-            </p>
-          </div>
-          
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white rounded-xl shadow-lg p-6">
-              <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
-                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">Logam</h3>
-              <p class="text-gray-600 mb-4">Stainless steel, aluminium, titanium, dan berbagai jenis logam lainnya.</p>
-              <div class="flex flex-wrap gap-2">
-                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">SS304</span>
-                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Aluminium</span>
-                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">Titanium</span>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-xl shadow-lg p-6">
-              <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
-                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">Plastik</h3>
-              <p class="text-gray-600 mb-4">Acrylic, ABS, polycarbonate, dan berbagai jenis plastik industri.</p>
-              <div class="flex flex-wrap gap-2">
-                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Acrylic</span>
-                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">ABS</span>
-                <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">PC</span>
-              </div>
-            </div>
-            
-            <div class="bg-white rounded-xl shadow-lg p-6">
-              <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
-                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold text-gray-900 mb-2">Kayu & MDF</h3>
-              <p class="text-gray-600 mb-4">Kayu keras, kayu lunak, MDF untuk hasil engraving yang alami dan estetik.</p>
-              <div class="flex flex-wrap gap-2">
-                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">Kayu Keras</span>
-                <span class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm">MDF</span>
-              </div>
-            </div>
-          </div>
+    <!-- CONTENT -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Grafir Detail Presisi Kecepatan Tinggi</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Berbeda dengan laser gantry biasa, mesin Galvo Laser menggunakan lensa pemindai cermin berkecepatan ultra tinggi untuk mengarahkan sinar laser. Hasil penandaannya permanen, kontras tinggi, tidak luntur, dan sangat presisi bahkan pada tulisan berukuran mikro di bawah 1mm.
+          </p>
+          <ul class="space-y-3 mb-6 text-slate-700">
+            <li>✓ Ideal untuk branding merchandise massal (pulpen, tumbler, logam)</li>
+            <li>✓ Hasil grafir tahan gesek, air, dan suhu tinggi</li>
+            <li>✓ Bisa custom nama yang berbeda-beda untuk tiap item</li>
+          </ul>
         </div>
-      </section>
-
-      <section class="section-padding bg-gray-50">
-        <div class="container-custom">
-          <div class="text-center mb-16">
-            <h2 class="heading-lg text-gray-900 mb-4">Proses Pengerjaan Galvo Engraving</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-              Kami memastikan setiap project Anda dikerjakan dengan standar kualitas tinggi dan presisi maksimal
-            </p>
-          </div>
-          
-          <div class="relative">
-            <div class="hidden lg:block absolute top-16 left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-blue-200"></div>
-            
-            <div class="grid md:grid-cols-2 gap-8 relative">
-              <div class="bg-white rounded-xl shadow-lg p-8 relative">
-                <div class="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">1</div>
-                <div class="hidden md:block absolute top-8 left-full w-full h-0.5 bg-blue-200 transform -translate-y-1/2"></div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Design & Material Preparation</h3>
-                <p class="text-gray-600 leading-relaxed">
-                  Pemeriksaan desain dan persiapan material untuk memastikan hasil engraving yang optimal.
-                </p>
-              </div>
-              
-              <div class="bg-white rounded-xl shadow-lg p-8 relative md:mt-16">
-                <div class="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">2</div>
-                <div class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-blue-200 transform -translate-y-1/2 -translate-x-full"></div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">High-Speed Engraving</h3>
-                <p class="text-gray-600 leading-relaxed">
-                  Proses engraving dilakukan dengan kecepatan tinggi menggunakan teknologi galvo laser terkini.
-                </p>
-              </div>
-              
-              <div class="bg-white rounded-xl shadow-lg p-8 relative md:mt-16">
-                <div class="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">3</div>
-                <div class="hidden md:block absolute top-8 left-full w-full h-0.5 bg-blue-200 transform -translate-y-1/2"></div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Quality Control</h3>
-                <p class="text-gray-600 leading-relaxed">
-                  Pengecekan kualitas detail engraving untuk memastikan hasil yang tajam dan sesuai spesifikasi.
-                </p>
-              </div>
-              
-              <div class="bg-white rounded-xl shadow-lg p-8 relative">
-                <div class="absolute -top-4 -left-4 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">4</div>
-                <div class="hidden md:block absolute top-8 left-0 w-full h-0.5 bg-blue-200 transform -translate-y-1/2 -translate-x-full"></div>
-                <h3 class="text-xl font-bold text-gray-900 mb-4">Packaging & Delivery</h3>
-                <p class="text-gray-600 leading-relaxed">
-                  Pengemasan aman dan pengiriman tepat waktu untuk melindungi produk Anda.
-                </p>
-              </div>
-            </div>
-          </div>
+        <div>
+          <img src="/images/engraving.webp" alt="Laser Engraving Custom" class="rounded-2xl shadow-xl object-cover w-full h-[350px]" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <CTA />
-    </main>
+    <!-- FAQ -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">FAQ Laser Engraving</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
 
-    <Footer slot="footer" />
-  </BaseLayout>
-) : (
-  <BaseLayout title="Jasa Tidak Ditemukan" description="Halaman untuk jasa yang tidak ditemukan.">
-    <Header slot="header" />
-    <main class="text-center py-20">
-      <h1 class="text-4xl font-bold mb-4">404 - Jasa Tidak Ditemukan</h1>
-      <p class="text-lg mb-8">Maaf, jasa yang Anda cari tidak ada atau telah dipindahkan.</p>
-      <a href="/" class="bg-blue-600 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-700 transition-colors">
-        Kembali ke Beranda
-      </a>
-    </main>
-    <Footer slot="footer" />
-  </BaseLayout>
-)}
+  <Footer slot="footer" />
+</BaseLayout>
