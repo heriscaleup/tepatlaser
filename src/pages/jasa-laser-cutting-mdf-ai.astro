@@ -1,0 +1,119 @@
+---
+// src/pages/jasa-laser-cutting-mdf-ai.astro
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { MATERIALS, SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+const material = MATERIALS.find(m => m.id === 'mdf') || { image: '/images/mdf.webp', slug: 'jasa-laser-cutting-mdf-ai' };
+const WA = SITE_CONFIG.whatsapp;
+const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser, saya mau tanya tentang jasa laser cutting MDF.")}`;
+
+const faqs = [
+  {
+    question: "Ketebalan papan MDF berapa saja yang bisa dipotong?",
+    answer: "Kami dapat memotong MDF dari ketebalan tipis 3mm, 6mm, 9mm, hingga ketebalan tebal 18mm dan 25mm dengan tingkat kepresisian tinggi."
+  },
+  {
+    question: "Apakah bisa untuk engraving (grafir) gambar di atas MDF?",
+    answer: "Bisa. Menggunakan mesin laser CO2 kami, Anda bisa melakukan cutting sekalian grafir ornamen bermotif rumit di atas permukaan kayu MDF."
+  },
+  {
+    question: "Apakah MDF cocok untuk penggunaan luar ruangan?",
+    answer: "MDF kurang direkomendasikan untuk area basah/outdoor kecuali telah melalui finishing pelapis anti air khusus. Untuk fasad luar ruangan, kami lebih menyarankan menggunakan ACP atau GRC."
+  }
+];
+
+const pageTitle = "Jasa Laser Cutting MDF Custom Murah Presisi | Tepat Laser";
+const pageDesc = "Jasa laser cutting MDF, HMR, dan triplek custom di Bintaro Tangerang. Pengerjaan cepat untuk partisi ruangan, kisi-kisi, kerajinan kayu, free design!";
+const pageKw = "jasa laser cutting mdf, potong mdf custom, laser cutting kayu mdf, partisi mdf laser";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Laser Cutting MDF', url: '/jasa-laser-cutting-mdf-ai/' }
+]);
+
+const meta = {
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/jasa-laser-cutting-mdf-ai/',
+  image: material.image,
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
+};
+
+const crumbs = breadcrumbSchema.itemListElement;
+---
+
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-amber-950 text-white py-24 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/mdf.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-amber-950 via-amber-950/80 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-amber-500/20 text-amber-300 font-semibold px-4 py-1.5 rounded-full text-sm mb-6 border border-amber-500/30">WOODEN INTERIOR EXPERT</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
+            Jasa Laser Cutting MDF & Kayu Custom
+          </h1>
+          <p class="text-lg sm:text-xl text-amber-100/90 mb-8">
+            Solusi pembuatan partisi ruangan dekoratif (kisi-kisi), wall panel motif, souvenir kayu unik, dan komponen furniture menggunakan material MDF & Plywood.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-green-500/20">
+              Tanya Harga Cutting MDF
+            </a>
+            <a href="tel:6282121292937" class="inline-flex items-center justify-center border-2 border-amber-700/50 hover:border-amber-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-amber-900/30">
+              Hubungi Admin Workshop
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAILS CONTENT -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Pemotongan Kayu Olahan Rapi Tanpa Gosong Berlebih</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Dengan setting parameter mesin CO2 laser yang presisi oleh operator berpengalaman kami, noda terbakar (gosong) pada pinggiran MDF hasil potong dapat diminimalisir serendah mungkin, mempermudah tahap pengecatan (finishing duco/melamik).
+          </p>
+          <ul class="space-y-4 mb-6">
+            <li class="flex items-center gap-2"><span class="text-amber-600 font-bold">✓</span> Tepian potongan bersih & halus</li>
+            <li class="flex items-center gap-2"><span class="text-amber-600 font-bold">✓</span> Desain ornamen kerawang/floral sangat detail</li>
+            <li class="flex items-center gap-2"><span class="text-amber-600 font-bold">✓</span> Harga bersahabat untuk pemborong & kontraktor</li>
+          </ul>
+        </div>
+        <div>
+          <img src="/images/mdf (1).webp" alt="MDF Laser Cutting Products" class="rounded-2xl shadow-xl object-cover w-full h-[350px]" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">FAQ Laser Cutting MDF</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

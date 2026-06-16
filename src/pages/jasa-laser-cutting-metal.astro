@@ -1,0 +1,124 @@
+---
+// src/pages/jasa-laser-cutting-metal.astro
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { MATERIALS, SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+const material = MATERIALS.find(m => m.id === 'metal') || { image: '/images/metal.webp', slug: 'jasa-laser-cutting-metal' };
+const WA = SITE_CONFIG.whatsapp;
+const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser, saya ingin tanya penawaran jasa laser cutting metal.")}`;
+
+const faqs = [
+  {
+    question: "Material metal apa saja yang bisa dipotong?",
+    answer: "Kami melayani pemotongan plat besi (mild steel/carbon steel), stainless steel (tipe SS201, SS304, SS316), aluminium, kuningan, dan tembaga dengan presisi laser fiber."
+  },
+  {
+    question: "Berapa ketebalan plat metal yang bisa dipotong?",
+    answer: "Mesin laser fiber kami dapat memotong plat besi hingga ketebalan 12mm, stainless steel hingga 10mm, and aluminium alloy hingga 8mm."
+  },
+  {
+    question: "Apakah bisa membawa bahan sendiri?",
+    answer: "Tentu saja. Anda bisa membawa bahan metal sendiri ke workshop kami dan kami hanya mengenakan jasa pemotongan saja berdasarkan panjang cutting."
+  }
+];
+
+const pageTitle = "Jasa Laser Cutting Metal & Plat Besi Murah Presisi | Tepat Laser";
+const pageDesc = "Spesialis jasa laser cutting metal & plat besi terdekat Bintaro. Potong plat besi, aluminium, stainless steel rapi & cepat. Konsultasi & review file gratis!";
+const pageKw = "jasa laser cutting metal, potong plat besi laser, laser cutting mild steel, harga laser cutting metal";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Laser Cutting Metal', url: '/jasa-laser-cutting-metal/' }
+]);
+
+const meta = {
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/jasa-laser-cutting-metal/',
+  image: material.image,
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
+};
+
+const crumbs = breadcrumbSchema.itemListElement;
+---
+
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-900 text-white py-24 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/metal.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-blue-500/20 text-blue-400 font-semibold px-4 py-1.5 rounded-full text-sm mb-6 border border-blue-500/30">PRESUPER LASER FIBER</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
+            Jasa Laser Cutting Metal & Potong Plat Besi Presisi
+          </h1>
+          <p class="text-lg sm:text-xl text-slate-300 mb-8">
+            Penyedia jasa laser fiber cutting metal tercepat untuk keperluan industri, sparepart custom, bracket plat, panel box, pagar, dan railing ornamen besi.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-green-500/20">
+              Kirim File Desain ke WA
+            </a>
+            <a href="tel:6282121292937" class="inline-flex items-center justify-center border-2 border-slate-700 hover:border-slate-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-slate-800">
+              Hubungi Sales Metal
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT DETAILS -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Potong Logam Presisi Tinggi dengan Teknologi Laser Fiber</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Mesin Fiber Laser cutting kami menjamin akurasi potongan hingga ±0.02mm. Sangat direkomendasikan untuk part custom industri kecil maupun besar yang membutuhkan ketepatan dimensi tinggi tanpa deformasi panas.
+          </p>
+          <div class="grid grid-cols-2 gap-6 mb-8">
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <h4 class="font-bold text-lg mb-1">Mild Steel</h4>
+              <p class="text-slate-500 text-sm">Besi hitam/plat besi hingga ketebalan 12mm.</p>
+            </div>
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+              <h4 class="font-bold text-lg mb-1">Aluminium</h4>
+              <p class="text-slate-500 text-sm">Plat aluminium hingga ketebalan 8mm.</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <img src="/images/laserfiber.webp" alt="Fiber Laser Cutting Machine" class="rounded-2xl shadow-xl object-cover w-full h-[350px]" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ACCORDION FAQ -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">Tanya Jawab Seputar Laser Metal</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

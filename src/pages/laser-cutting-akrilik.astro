@@ -1,0 +1,119 @@
+---
+// src/pages/laser-cutting-akrilik.astro
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { MATERIALS, SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+const material = MATERIALS.find(m => m.id === 'acrylic') || { image: '/images/Acrylic.webp', slug: 'laser-cutting-akrilik' };
+const WA = SITE_CONFIG.whatsapp;
+const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser, saya mau tanya tentang jasa laser cutting akrilik.")}`;
+
+const faqs = [
+  {
+    question: "Ketebalan akrilik berapa yang bisa dipotong laser?",
+    answer: "Kami memotong lembaran akrilik dari ketebalan tipis 1.5mm, 2mm, 3mm, hingga akrilik tebal 15mm dan 20mm."
+  },
+  {
+    question: "Apakah tepi potongan akrilik menjadi mengkilap?",
+    answer: "Ya, laser CO2 memotong akrilik dengan cara melelehkan jalurnya, menghasilkan tepian potongan yang licin, bening, dan mengkilap (polished edge) tanpa perlu diamplas lagi."
+  },
+  {
+    question: "Berapa lama estimasi pengerjaan akrilik custom?",
+    answer: "Pekerjaan akrilik standar seperti potongan huruf timbul atau box display diselesaikan dalam waktu 1-2 hari kerja."
+  }
+];
+
+const pageTitle = "Jasa Laser Cutting Akrilik Terdekat Bening & Presisi | Tepat Laser";
+const pageDesc = "Jasa laser cutting akrilik terdekat di Tangerang Selatan & Bintaro. Spesialis huruf timbul akrilik, plakat, box display, pengerjaan cepat 24 jam!";
+const pageKw = "laser cutting akrilik, jasa potong akrilik terdekat, acrylic laser cutting tangerang, huruf timbul akrilik";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Laser Cutting Akrilik', url: '/laser-cutting-akrilik/' }
+]);
+
+const meta = {
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/laser-cutting-akrilik/',
+  image: material.image,
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
+};
+
+const crumbs = breadcrumbSchema.itemListElement;
+---
+
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-[#0d1b2a] text-white py-24 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/Acrylic.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0d1b2a] via-[#0d1b2a]/80 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-blue-500/20 text-blue-300 font-semibold px-4 py-1.5 rounded-full text-sm mb-6 border border-blue-500/30">ACRYLIC BRANDING SPECIALIST</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
+            Jasa Laser Cutting Akrilik & Plakat Custom
+          </h1>
+          <p class="text-lg sm:text-xl text-blue-100/90 mb-8">
+            Dapatkan hasil potong akrilik bening (polished edge) super rapi untuk kebutuhan advertising, nomor rumah, signage toko, podium, maupun kerajinan akrilik custom.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-green-500/20">
+              Order Potong Akrilik WA
+            </a>
+            <a href="tel:6282121292937" class="inline-flex items-center justify-center border-2 border-slate-700 hover:border-slate-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-slate-800">
+              Konsultasi Desain & Bahan
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAILED CONTENT -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Kualitas Potongan Bening Kristal Bebas Crack</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Mesin laser CO2 modern kami memotong lembaran akrilik dengan sangat halus tanpa menyebabkan pecah rambut (crack) di tepian potongan. Sempurna untuk produk premium seperti box display kosmetik, signage lampu LED, dan souvenir plakat perusahaan.
+          </p>
+          <ul class="space-y-4 mb-6">
+            <li class="flex items-center gap-2"><span class="text-blue-600 font-bold">✓</span> Pilihan bahan lengkap (Akrilik Bening, Susu, Warna, Marga Cipta/Astari)</li>
+            <li class="flex items-center gap-2"><span class="text-blue-600 font-bold">✓</span> Tepian potong bening siap rakit</li>
+            <li class="flex items-center gap-2"><span class="text-blue-600 font-bold">✓</span> Harga nego untuk jumlah besar / project advertising</li>
+          </ul>
+        </div>
+        <div>
+          <img src="/images/Acrylic.webp" alt="Laser Cutting Acrylic Showcase" class="rounded-2xl shadow-xl object-cover w-full h-[350px]" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">FAQ Laser Cutting Akrilik</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

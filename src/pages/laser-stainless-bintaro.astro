@@ -1,0 +1,118 @@
+---
+// src/pages/laser-stainless-bintaro.astro
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+const WA = SITE_CONFIG.whatsapp;
+const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser, saya ingin tanya penawaran jasa laser stainless steel di Bintaro.")}`;
+
+const faqs = [
+  {
+    question: "Tipe stainless steel apa saja yang bisa dicutting?",
+    answer: "Kami memotong berbagai grade stainless steel, termasuk SS201 (indoor), SS304 (standard outdoor/food grade), dan SS316 (tahan korosi tinggi/marine grade)."
+  },
+  {
+    question: "Apakah hasil potongannya bersih dan tidak gosong?",
+    answer: "Ya, dengan hembusan gas nitrogen bertekanan tinggi pada mesin fiber kami, tepi potongan stainless steel akan mengkilap, bersih, dan bebas dari bekas kerak hitam (gosong)."
+  },
+  {
+    question: "Dimana lokasi workshop Tepat Laser?",
+    answer: "Workshop kami berlokasi di Parigi Bintaro, dekat Sekolah Mentari Internasional. Anda bisa datang langsung untuk membawa bahan atau berdiskusi dengan desainer kami."
+  }
+];
+
+const pageTitle = "Laser Stainless Bintaro Terdekat Presisi Tinggi | Tepat Laser";
+const pageDesc = "Jasa laser cutting stainless steel terdekat di Bintaro, BSD, Serpong. Hasil potong bersih, mengkilap, toleransi rapat. Cepat & free ongkir Jabodetabek!";
+const pageKw = "laser stainless bintaro, laser cutting stainless tangerang, jasa potong stainless terdekat, cutting plat stainless";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Laser Stainless Bintaro', url: '/laser-stainless-bintaro/' }
+]);
+
+const meta = {
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/laser-stainless-bintaro/',
+  image: '/images/metal.webp',
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
+};
+
+const crumbs = breadcrumbSchema.itemListElement;
+---
+
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-950 text-white py-24 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/metal.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-[#00FF7F]/20 text-[#00FF7F] font-semibold px-4 py-1.5 rounded-full text-sm mb-6 border border-[#00FF7F]/30">STAINLESS SPECIALIST BINTARO</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
+            Jasa Laser Cutting Stainless Steel Terdekat Bintaro
+          </h1>
+          <p class="text-lg sm:text-xl text-slate-300 mb-8">
+            Dapatkan hasil potong plat stainless steel mengkilap and presisi tinggi (toleransi ±0.02mm) untuk huruf timbul, ornamen pagar mewah, railing tangga, dan produk interior lainnya.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-green-500/20">
+              Konsultasi Stainless WA
+            </a>
+            <a href="tel:6282121292937" class="inline-flex items-center justify-center border-2 border-slate-700 hover:border-slate-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-slate-800">
+              Telepon Admin
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DETAILED CONTENT -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Mengapa Memilih Jasa Potong Stainless Kami?</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Potongan stainless memerlukan penanganan khusus agar tidak terjadi karat di kemudian hari pada bekas potongan. Kami menggunakan mesin pemotong fiber modern berkecepatan tinggi dengan gas nitrogen murni untuk menjamin kualitas pemotongan terbaik tanpa mengubah sifat logam.
+          </p>
+          <ul class="space-y-4 mb-6">
+            <li class="flex items-center gap-2"><span class="text-[#00FF7F] font-bold">✓</span> SS201, SS304, & SS316 Berkualitas tinggi</li>
+            <li class="flex items-center gap-2"><span class="text-[#00FF7F] font-bold">✓</span> Pengerjaan Cepat (Dapat ditunggu untuk file siap potong)</li>
+            <li class="flex items-center gap-2"><span class="text-[#00FF7F] font-bold">✓</span> Pengiriman Aman langsung ke lokasi proyek Anda</li>
+          </ul>
+        </div>
+        <div>
+          <img src="/images/stainlesssteel (2).webp" alt="Laser Cutting Stainless Plate" class="rounded-2xl shadow-xl object-cover w-full h-[350px]" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">FAQ Laser Stainless Steel</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>
