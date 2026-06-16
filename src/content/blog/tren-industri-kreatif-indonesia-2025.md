@@ -4,7 +4,7 @@ excerpt: "Insight tentang perkembangan industri kreatif di indonesia dan peluang
 category: "Industry"
 readTime: "6 menit"
 publishDate: "2025-01-05"
-image: "/images/cncrouter.webp"
+image: "/images/blog/tren-industri-kreatif-indonesia-2025.webp"
 keywords: "tren industri kreatif 2025, peluang laser cutting, bisnis laser cutting indonesia"
 schema:
   "@context": "https://schema.org"

@@ -4,14 +4,14 @@ excerpt: "Laser cutting Jakarta menawarkan solusi presisi untuk akrilik, MDF, da
 category: "Laser Cutting"
 readTime: "8-10 menit baca"
 publishDate: "2025-08-29T04:01:01.498Z"
-image: "/images/default-laser-cutting.jpg"
+image: "/images/blog/2025-08-29-040101-laser-cutting-jakarta-solusi-terbai.jpg"
 keywords: "laser cutting, laser cutting jakarta, tepatlaser, indonesia, akrilik, MDF, metal cutting service, furniture custom"
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
   headline: "Laser Cutting Jakarta: Solusi Terbaik untuk Bisnis Anda"
   description: "Laser cutting Jakarta menawarkan solusi presisi untuk akrilik, MDF, dan metal. TepatLaser hadir sebagai mitra terpercaya untuk kebutuhan bisnis Anda di Indonesia. Pelajari selengkapnya!"
-  image: "/images/default-laser-cutting.jpg"
+  image: "/images/blog/2025-08-29-040101-laser-cutting-jakarta-solusi-terbai.jpg"
   datePublished: "2025-08-29T04:01:01.498Z"
   author:
     "@type": "Organization"

@@ -4,7 +4,7 @@ excerpt: "Hindari kesalahan fatal yang bisa merugikan project Anda dengan tips d
 category: "Tips"
 readTime: "8 menit"
 publishDate: "2025-01-20"
-image: "/images/co2.webp"
+image: "/images/blog/kesalahan-umum-memilih-jasa-laser-cutting-indonesia.webp"
 keywords: "kesalahan memilih jasa laser cutting, tips laser cutting, ahli laser cutting indonesia"
 schema:
   "@context": "https://schema.org"

@@ -4,7 +4,7 @@ excerpt: "Eksplorasi teknik laser engraving cepat pada berbagai material untuk m
 category: "Technical"
 readTime: "12 menit"
 publishDate: "2025-01-14"
-image: "/images/galvo.webp"
+image: "/images/blog/teknik-laser-engraving-personalisasi-massal.webp"
 keywords: "teknik laser engraving, personalisasi massal, branding produk laser"
 schema:
   "@context": "https://schema.org"

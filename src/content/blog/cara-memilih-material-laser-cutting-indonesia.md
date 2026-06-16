@@ -4,7 +4,7 @@ excerpt: "Panduan lengkap memilih material yang sesuai untuk project laser cutti
 category: "Tutorial"
 readTime: "5 menit"
 publishDate: "2025-01-15"
-image: "/images/acp.webp"
+image: "/images/blog/cara-memilih-material-laser-cutting-indonesia.webp"
 keywords: "memilih material laser cutting, panduan material laser, bahan laser cutting indonesia"
 schema:
   "@context": "https://schema.org"
