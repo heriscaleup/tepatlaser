@@ -47,11 +47,9 @@ jobs:
           # Folder hasil build Astro yang akan di-upload (dist bukan out)
           local-dir: ./dist/
           # Folder tujuan di hosting (sesuaikan dengan domain kamu)
-          server-dir: public_html/
+          server-dir: ./
           # Exclude file tertentu jika perlu
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
-          # Force Active FTP Mode to bypass firewall issues
-          dangerous-ftp-active-mode: true
