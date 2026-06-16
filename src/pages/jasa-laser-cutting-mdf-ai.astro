@@ -13,22 +13,26 @@ const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser
 
 const faqs = [
   {
-    question: "Ketebalan papan MDF berapa saja yang bisa dipotong?",
-    answer: "Kami dapat memotong MDF dari ketebalan tipis 3mm, 6mm, 9mm, hingga ketebalan tebal 18mm dan 25mm dengan tingkat kepresisian tinggi."
+    question: "Berapa tebal papan MDF yang bisa dipotong laser?",
+    answer: "Kami sanggup memotong MDF mulai dari ketebalan tipis 3mm, 6mm, 9mm, 12mm, 15mm, hingga ketebalan tebal 18mm dan 25mm dengan tingkat kepresisian tinggi."
   },
   {
-    question: "Apakah bisa untuk engraving (grafir) gambar di atas MDF?",
-    answer: "Bisa. Menggunakan mesin laser CO2 kami, Anda bisa melakukan cutting sekalian grafir ornamen bermotif rumit di atas permukaan kayu MDF."
+    question: "Apakah tepi potongan kayu MDF akan gosong hitam?",
+    answer: "Pemotongan kayu menggunakan laser CO2 bekerja dengan metode pembakaran, sehingga tepi potong MDF akan berwarna cokelat tua s/d kehitaman. Namun, tim operator kami mengoptimalkan setelan kecepatan dan tiupan kompresor udara untuk memastikan gosongnya minimal dan tidak berdebu arang kasar, sehingga siap langsung dilapisi cat duco atau pelapis HPL."
   },
   {
-    question: "Apakah MDF cocok untuk penggunaan luar ruangan?",
-    answer: "MDF kurang direkomendasikan untuk area basah/outdoor kecuali telah melalui finishing pelapis anti air khusus. Untuk fasad luar ruangan, kami lebih menyarankan menggunakan ACP atau GRC."
+    question: "Apakah bisa membawa bahan MDF/kayu sendiri dari luar?",
+    answer: "Sangat bisa. Anda cukup membawa papan MDF, plywood/multiplex, atau kayu solid milik sendiri ke workshop kami, dan kami hanya mengenakan biaya jasa cutting-nya saja."
+  },
+  {
+    question: "Format file apa yang diperlukan untuk potong MDF custom?",
+    answer: "File vector 2D dalam format CAD seperti .DXF, .DWG, atau vector grafik seperti .AI, .CDR, .SVG, .PDF. Harap dipastikan file tidak berpotongan tumpang tindih (double lines)."
   }
 ];
 
-const pageTitle = "Jasa Laser Cutting MDF Custom Murah Presisi | Tepat Laser";
-const pageDesc = "Jasa laser cutting MDF, HMR, dan triplek custom di Bintaro Tangerang. Pengerjaan cepat untuk partisi ruangan, kisi-kisi, kerajinan kayu, free design!";
-const pageKw = "jasa laser cutting mdf, potong mdf custom, laser cutting kayu mdf, partisi mdf laser";
+const pageTitle = "Jasa Laser Cutting MDF & Plywood Custom Murah | Tepat Laser";
+const pageDesc = "Jasa laser cutting MDF, HMR board, plywood, dan multiplex custom terdekat. Pengerjaan cepat untuk sekat sekat partisi ruangan kerawang, interior panel, merchandise. Free desain!";
+const pageKw = "jasa laser cutting mdf, potong mdf custom, laser cutting kayu mdf, partisi mdf laser, potong plywood laser, laser cutting tangerang";
 
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: 'Beranda', url: '/' },
@@ -55,61 +59,139 @@ const crumbs = breadcrumbSchema.itemListElement;
     <Breadcrumbs crumbs={crumbs} />
 
     <!-- HERO SECTION -->
-    <section class="relative bg-amber-950 text-white py-24 overflow-hidden">
+    <section class="relative bg-amber-950 text-white py-24 md:py-32 overflow-hidden">
       <div class="absolute inset-0 opacity-20" style="background-image:url('/images/mdf.webp'); background-size:cover; background-position:center;"></div>
-      <div class="absolute inset-0 bg-gradient-to-r from-amber-950 via-amber-950/80 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-amber-950 via-amber-950/90 to-transparent"></div>
       <div class="container-custom relative z-10">
         <div class="max-w-3xl">
-          <span class="inline-block bg-amber-500/20 text-amber-300 font-semibold px-4 py-1.5 rounded-full text-sm mb-6 border border-amber-500/30">WOODEN INTERIOR EXPERT</span>
-          <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-6">
+          <span class="inline-flex items-center gap-2 bg-amber-500/25 text-amber-300 font-bold px-4 py-1.5 rounded-full text-xs mb-6 border border-amber-500/30 tracking-wider">WOODWORKING & INTERIOR FABRICATION</span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
             Jasa Laser Cutting MDF & Kayu Custom
           </h1>
-          <p class="text-lg sm:text-xl text-amber-100/90 mb-8">
-            Solusi pembuatan partisi ruangan dekoratif (kisi-kisi), wall panel motif, souvenir kayu unik, dan komponen furniture menggunakan material MDF & Plywood.
+          <p class="text-lg sm:text-xl text-amber-100/90 mb-8 leading-relaxed">
+            Pembuatan partisi ruangan kerawang (kisi-kisi), hiasan dinding relief, produk display toko, souvenir, dan grafir motif dekoratif pada MDF, Plywood, HMR, dan Kayu Solid.
           </p>
           <div class="flex flex-col sm:flex-row gap-4">
-            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-green-500/20">
-              Tanya Harga Cutting MDF
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-emerald-500/20 transform hover:-translate-y-0.5 transition-all">
+              Hubungi CS Kayu MDF
             </a>
-            <a href="tel:6282121292937" class="inline-flex items-center justify-center border-2 border-amber-700/50 hover:border-amber-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-amber-900/30">
-              Hubungi Admin Workshop
+            <a href="#detail-kayu" class="inline-flex items-center justify-center border-2 border-amber-700/50 hover:border-amber-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-amber-900/30 transition-all">
+              Detail Material & Aplikasi
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- DETAILS CONTENT -->
-    <section class="py-20 bg-white text-slate-900">
-      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-3xl font-bold mb-6">Pemotongan Kayu Olahan Rapi Tanpa Gosong Berlebih</h2>
+    <!-- MAIN SEO CONTENT SECTION -->
+    <section id="detail-kayu" class="py-24 bg-white text-slate-900">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6 text-slate-900">Pemanfaatan Laser Cutting untuk Dekorasi Kayu MDF & Plywood</h2>
           <p class="text-slate-600 mb-6 leading-relaxed">
-            Dengan setting parameter mesin CO2 laser yang presisi oleh operator berpengalaman kami, noda terbakar (gosong) pada pinggiran MDF hasil potong dapat diminimalisir serendah mungkin, mempermudah tahap pengecatan (finishing duco/melamik).
+            Kayu olahan seperti <strong>MDF (Medium Density Fibreboard)</strong> dan <strong>Plywood (Multiplex)</strong> adalah bahan yang sangat populer untuk interior karena harganya terjangkau dan permukaannya stabil. Namun, memotong motif ornamen yang meliuk-liuk (kerawang) di atas papan kayu tebal dengan metode gergaji manual atau jig-saw sangatlah menyita waktu dan berisiko gompal.
           </p>
-          <ul class="space-y-4 mb-6">
-            <li class="flex items-center gap-2"><span class="text-amber-600 font-bold">✓</span> Tepian potongan bersih & halus</li>
-            <li class="flex items-center gap-2"><span class="text-amber-600 font-bold">✓</span> Desain ornamen kerawang/floral sangat detail</li>
-            <li class="flex items-center gap-2"><span class="text-amber-600 font-bold">✓</span> Harga bersahabat untuk pemborong & kontraktor</li>
+          <p class="text-slate-600 mb-12 leading-relaxed">
+            Menggunakan mesin <strong>CO2 Laser Cutting</strong> berkapasitas besar, kami dapat memotong motif dekoratif berkerumitan tinggi dengan tingkat kepresisian setara garis komputer. Tepi hasil potongan dijamin tegak lurus, halus, dan siap masuk ke tahap finishing pelapisan cat duko, melamik, atau HPL.
+          </p>
+
+          <!-- Wood Specifications table -->
+          <h3 class="text-2xl font-bold mb-6 text-slate-900">Spesifikasi Material Kayu Olahan Tepat Laser</h3>
+          <div class="overflow-x-auto mb-12 border border-slate-200 rounded-2xl">
+            <table class="w-full text-left text-sm text-slate-600">
+              <thead class="bg-slate-50 text-slate-900 uppercase font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="px-6 py-4">Nama Material</th>
+                  <th class="px-6 py-4">Ketebalan Umum</th>
+                  <th class="px-6 py-4">Kelebihan Utama</th>
+                  <th class="px-6 py-4">Rekomendasi Aplikasi</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-900">MDF Cokelat Standard</td>
+                  <td class="px-6 py-4">3mm - 25mm</td>
+                  <td class="px-6 py-4">Padat, permukaan halus, gampang dicat duco</td>
+                  <td class="px-6 py-4">Partisi, ornamen dinding indoor, souvenir</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-900">HMR Board (MDF Hijau)</td>
+                  <td class="px-6 py-4">6mm - 18mm</td>
+                  <td class="px-6 py-4">Tahan lembab, tidak mudah mengembang kena air</td>
+                  <td class="px-6 py-4">Kitchen set, sekat kamar mandi kering, wall panel</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-900">Plywood / Multiplex</td>
+                  <td class="px-6 py-4">3mm - 18mm</td>
+                  <td class="px-6 py-4">Kekuatan struktural tinggi, serat urat kayu alami</td>
+                  <td class="px-6 py-4">Kotak merchandise, furnitur, huruf timbul kayu</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Applications wood list -->
+          <h3 class="text-2xl font-bold mb-6 text-slate-900">Aplikasi Kayu MDF Hasil Laser Cutting</h3>
+          <ul class="space-y-4 mb-12 text-slate-700">
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</span>
+              <div>
+                <strong>Partisi Penyekat Ruangan Kerawang:</strong> Solusi sekat pembatas ruangan estetik bermotif ukiran arabesque, floral, atau minimalis modern untuk rumah ibadah, lobi hotel, dan rumah pribadi.
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</span>
+              <div>
+                <strong>Souvenir & Kotak Box Kayu Eksklusif:</strong> Pemotongan sekalian grafir logo perusahaan pada kotak kemasan premium, plakat kayu, gantungan kunci, dan pajangan kreatif.
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</span>
+              <div>
+                <strong>Kisi-Kisi & Kisi Ventilasi:</strong> Ornamen kisi kayu minimalis penutup kisi AC atau lubang angin dekoratif.
+              </div>
+            </li>
           </ul>
-        </div>
-        <div>
-          <img src="/images/mdf (1).webp" alt="MDF Laser Cutting Products" class="rounded-2xl shadow-xl object-cover w-full h-[350px]" />
         </div>
       </div>
     </section>
 
     <!-- FAQ SECTION -->
-    <section class="py-20 bg-slate-50 border-t border-slate-200">
+    <section class="py-24 bg-slate-50 border-t border-slate-200">
       <div class="container-custom max-w-4xl">
-        <h2 class="text-3xl font-bold text-center mb-12">FAQ Laser Cutting MDF</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">FAQ Jasa Laser MDF & Kayu</h2>
         <div class="space-y-6">
           {faqs.map(faq => (
             <div class="bg-white p-6 rounded-2xl border border-slate-200">
-              <h3 class="text-lg font-bold mb-2">{faq.question}</h3>
+              <h3 class="text-lg font-bold mb-2 text-slate-900">{faq.question}</h3>
               <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
             </div>
           ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION MAPS -->
+    <section class="py-24 bg-white border-t border-slate-200">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-8 rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+          <iframe
+            src="https://maps.google.com/maps?q=Jl.%20Bintaro%20Bsd%20no%201D%20parigi%20(%20samping%20Sekolah%20SD%20Mentari%20Internasional%20School%20),%20Tangerang%20Selatan,%20Banten,%20Indonesia&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+          ></iframe>
+        </div>
+        <div class="lg:col-span-4 bg-slate-50 p-8 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="text-xl font-bold mb-4">Workshop MDF Bintaro</h3>
+          <p class="text-slate-600 text-sm mb-6">{SITE_CONFIG.address}</p>
+          <h4 class="font-bold text-sm text-slate-900 mb-2">Jam Buka:</h4>
+          <p class="text-slate-600 text-sm mb-6">{SITE_CONFIG.businessHours}</p>
+          <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg text-sm w-full transition-all">
+            Rute Google Maps
+          </a>
         </div>
       </div>
     </section>
