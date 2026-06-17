@@ -28,7 +28,7 @@ jobs:
 
       # 3. Install semua dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       # 4. Build project Astro jadi file statis di folder 'dist'
       - name: Build Astro Project
