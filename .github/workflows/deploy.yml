@@ -23,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Versi Node.js yang direkomendasikan untuk Astro
+          node-version: "22" # Versi Node.js yang direkomendasikan untuk Astro V6
           cache: 'npm'
 
       # 3. Install semua dependencies
