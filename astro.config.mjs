@@ -6,6 +6,10 @@ import sitemap from '@astrojs/sitemap'; // Baris ini sekarang gak akan error
 export default defineConfig({
   site: 'https://www.tepatlaser.com',
   base: '/',
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
+  },
   
   integrations: [
     tailwind(),

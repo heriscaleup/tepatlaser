@@ -3,38 +3,38 @@ import BaseLayout from '../../components/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { generateBlogPostSchema } from '../../utils/seo.js';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post }
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 // Get all posts for related posts functionality
 const allPosts = await getCollection('blog');
 
 // Get related posts (same category, excluding current post)
 const relatedPosts = allPosts
-  .filter(p => p.data.category === post.data.category && p.slug !== post.slug)
+  .filter(p => p.data.category === post.data.category && p.id !== post.id)
   .slice(0, 3);
 
 // Generate the JSON-LD schema using the centralized function
 const jsonLd = generateBlogPostSchema({
   ...post.data,
-  slug: post.slug, // Pass slug explicitly as it's not in post.data
+  slug: post.id, // Pass slug explicitly as it's not in post.data
 });
 
 const crumbs = [
     { name: 'Beranda', url: '/' },
     { name: 'Blog', url: '/blog' },
-    { name: post.data.title, url: `/blog/${post.slug}` }
+    { name: post.data.title, url: `/blog/${post.id}` }
 ];
 ---
 
@@ -152,7 +152,7 @@ const crumbs = [
                   <span class="text-sm text-gray-500">{relatedPost.data.readTime}</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">
-                  <a href={`blog/${relatedPost.slug}`} class="hover:text-blue-600 transition-colors">
+                  <a href={`blog/${relatedPost.id}`} class="hover:text-blue-600 transition-colors">
                     {relatedPost.data.title}
                   </a>
                 </h3>
@@ -160,7 +160,7 @@ const crumbs = [
                   {relatedPost.data.excerpt}
                 </p>
                 <a 
-                  href={`blog/${relatedPost.slug}`}
+                  href={`blog/${relatedPost.id}`}
                   class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
                 >
                   Baca Selengkapnya →
