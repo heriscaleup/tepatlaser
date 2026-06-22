@@ -1,9 +1,10 @@
 ---
 title: "Material Baru yang Bisa Dipotong Fiber Laser 2026"
 description: "Update 2026: material baru yang kini bisa dipotong fiber laser — dari tembaga, titanium, nickel alloy, hingga bimetallic composite. Wajib tahu untuk industri."
-pubDate: 2026-06-21T07:00:00.000Z
+excerpt: "Update 2026: material baru yang kini bisa dipotong fiber laser — dari tembaga, titanium, nickel alloy, hingga bimetallic composite."
+publishDate: "2026-06-21T07:00:00.000Z"
 category: "Laser Fiber"
-tags: ["material fiber laser", "fiber laser 2026", "laser cutting material baru"]
+keywords: "material fiber laser, fiber laser 2026, laser cutting material baru"
 image: "/images/blog/material-baru-fiber-laser-update-2026-06.jpg"
 readTime: "7 min read"
 author: "Tim Tepat Laser"
