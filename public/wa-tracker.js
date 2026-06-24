@@ -175,6 +175,11 @@
   function handleClick(e, btn) {
     e.preventDefault();
 
+    // Google Ads conversion: klik link wa
+    if (typeof gtag === 'function') {
+      gtag('event', 'conversion', { 'send_to': 'AW-11545092315/UMsNCMSMzpIbENvBkIEr' });
+    }
+
     var href  = btn.getAttribute('href') || btn.getAttribute('data-wa-href') || '';
     var match = href.match(/wa\.me\/(\d+)/);
     var phone = match ? match[1] : WA_PHONE;
