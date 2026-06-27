@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../utils/constants.js';
+import { generateBreadcrumbSchema, generateFAQSchema } from '../utils/seo.js';
+
+const WA_LINK = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Halo Tepat Laser, saya ingin tanya proses produksi dan estimasi lead time pengerjaan laser cutting.')}`;
+
+const faqs = [
+  {
+    question: 'Berapa lama estimasi pengerjaan laser cutting?',
+    answer: 'Estimasi umum 1-3 hari kerja setelah desain, material, dan penawaran disetujui. Pekerjaan express bisa diprioritaskan sesuai antrean mesin dan kompleksitas file.'
+  },
+  {
+    question: 'Apa yang membuat lead time bisa lebih lama?',
+    answer: 'Lead time dipengaruhi jenis material, ketebalan, panjang jalur potong, jumlah lubang/detail kecil, kebutuhan finishing, ketersediaan bahan, dan antrean produksi.'
+  },
+  {
+    question: 'File desain apa yang paling cepat diproses?',
+    answer: 'File vector/CAD skala 1:1 seperti DXF, DWG, AI, CDR, SVG, atau PDF vector paling cepat diproses karena bisa langsung dicek jalur potongnya.'
+  },
+  {
+    question: 'Apakah bisa konsultasi dulu sebelum produksi?',
+    answer: 'Bisa. Tim admin dapat membantu cek desain, rekomendasi bahan, estimasi biaya, dan jadwal produksi sebelum order dijalankan.'
+  }
+];
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Proses Produksi & Lead Time', url: '/proses-produksi-lead-time/' }
+]);
+
+const meta = {
+  title: 'Proses Produksi & Lead Time Laser Cutting | Tepat Laser',
+  description: 'Panduan proses produksi laser cutting Tepat Laser: cek desain, estimasi harga, persiapan bahan, produksi, quality control, hingga pengambilan atau pengiriman hasil.',
+  keywords: 'proses produksi laser cutting, lead time laser cutting, estimasi pengerjaan laser cutting, jasa laser cutting cepat, alur order laser cutting',
+  url: '/proses-produksi-lead-time/',
+  image: '/images/laserfiber.webp',
+  type: 'website',
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
+};
+
+const crumbs = breadcrumbSchema.itemListElement;
+const steps = [
+  ['1', 'Konsultasi & Kirim File', 'Kirim desain, ukuran, material, ketebalan, dan jumlah kebutuhan melalui WhatsApp.'],
+  ['2', 'Review Teknis', 'Tim mengecek format file, skala 1:1, jalur potong, detail kecil, serta risiko material.'],
+  ['3', 'Estimasi Harga & Jadwal', 'Kami berikan estimasi biaya, bahan, dan lead time sesuai kompleksitas pekerjaan.'],
+  ['4', 'Persiapan Produksi', 'File disiapkan untuk mesin, material dikonfirmasi, dan antrean produksi dijadwalkan.'],
+  ['5', 'Laser Cutting / CNC', 'Pengerjaan dilakukan memakai mesin sesuai material: fiber laser, CO2 laser, CNC router, atau galvo.'],
+  ['6', 'QC & Serah Terima', 'Hasil dicek visual, jumlah, dan kerapian potong sebelum diambil atau dikirim.']
+];
+---
+
+<BaseLayout {...meta}>
+  <Header slot="header" />
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <section class="relative bg-slate-950 text-white py-24 md:py-32 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/laserfiber.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-slate-950/20"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">Proses Produksi & Lead Time Laser Cutting</h1>
+          <p class="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed">Alur kerja jelas dari konsultasi desain, estimasi harga, persiapan bahan, produksi, quality control, sampai hasil siap dikirim. Cocok untuk order satuan, prototype, maupun produksi berulang.</p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-emerald-500/20 transition-all" data-gtm-id="whatsapp-click">Tanya Jadwal Produksi</a>
+            <a href="/services/" class="inline-flex items-center justify-center border-2 border-slate-700 hover:border-slate-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-slate-800 transition-all">Lihat Semua Layanan</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200"><div class="text-3xl font-extrabold text-blue-600 mb-2">1-3 Hari</div><p class="text-slate-600">Estimasi standar setelah desain dan material disetujui.</p></div>
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200"><div class="text-3xl font-extrabold text-blue-600 mb-2">Express</div><p class="text-slate-600">Bisa diprioritaskan untuk job kecil sesuai antrean mesin.</p></div>
+          <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200"><div class="text-3xl font-extrabold text-blue-600 mb-2">QC</div><p class="text-slate-600">Hasil dicek sebelum serah terima agar sesuai kebutuhan produksi.</p></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-8 text-center">Alur Produksi Tepat Laser</h2>
+          <div class="space-y-5">
+            {steps.map(([number, title, desc]) => (
+              <div class="flex gap-5 p-6 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center font-extrabold flex-shrink-0">{number}</div>
+                <div>
+                  <h3 class="text-xl font-bold text-slate-900 mb-2">{title}</h3>
+                  <p class="text-slate-600 leading-relaxed">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-10">Faktor yang Mempengaruhi Lead Time</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {['Jenis dan ketebalan material', 'Panjang total jalur potong', 'Jumlah detail kecil atau lubang', 'Ketersediaan bahan', 'Kebutuhan finishing tambahan', 'Antrean produksi saat order masuk'].map(item => (
+            <div class="flex items-start gap-3 bg-white p-5 rounded-xl border border-slate-200"><span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-sm font-bold flex-shrink-0">✓</span><span class="text-slate-700">{item}</span></div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20 bg-white border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-10">Tanya Jawab Lead Time</h2>
+        <div class="space-y-5">
+          {faqs.map(faq => <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50"><h3 class="font-bold text-lg mb-2">{faq.question}</h3><p class="text-slate-600 leading-relaxed">{faq.answer}</p></div>)}
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>
