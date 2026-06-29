@@ -1,7 +1,6 @@
 ---
 // BaseLayout.astro - Layout utama untuk semua halaman (FIXED & LENGKAP)
 import '../styles/global.css';
-import { ClientRouter } from 'astro:transitions';
 
 export interface Props {
   title?: string;
@@ -10,6 +9,10 @@ export interface Props {
   image?: string;
   url?: string;
   canonicalUrl?: string;
+  preloadImage?: string;
+  preloadImageSrcset?: string;
+  preloadImageSizes?: string;
+  preloadImageType?: string;
   type?: string;
   noindex?: boolean;
   jsonLd?: any;
@@ -22,6 +25,10 @@ const {
   image = "logo.webp",
   url,
   canonicalUrl,
+  preloadImage,
+  preloadImageSrcset,
+  preloadImageSizes = "100vw",
+  preloadImageType = "image/webp",
   type = "website",
   noindex = false,
   jsonLd
@@ -81,19 +88,40 @@ const fullImage = new URL(image, siteUrl);
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/images/logo.webp" />
   
-  <link rel="preload" href="/images/logo.webp" as="image" type="image/webp" />
-  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZ9hiA.woff2" as="font" type="font/woff2" crossorigin />
-  
-  <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+  {preloadImage && (
+    <link
+      rel="preload"
+      href={preloadImage}
+      as="image"
+      type={preloadImageType}
+      imagesrcset={preloadImageSrcset}
+      imagesizes={preloadImageSizes}
+      fetchpriority="high"
+    />
+  )}
   <link rel="dns-prefetch" href="//api.whatsapp.com" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
 
   <!-- Google Tag Manager -->
-<script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PBR27KH7');</script>
+<script is:inline>
+  (function(w,d,s,l,i){
+    w[l]=w[l]||[];
+    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var loadGtm=function(){
+      if(w.__tlGtmLoaded) return;
+      w.__tlGtmLoaded=true;
+      var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    };
+    if('requestIdleCallback' in w) {
+      w.requestIdleCallback(loadGtm,{timeout:2500});
+    } else {
+      w.addEventListener('load',function(){setTimeout(loadGtm,1200);},{once:true});
+    }
+  })(window,document,'script','dataLayer','GTM-PBR27KH7');
+</script>
 <!-- End Google Tag Manager -->
 
   {jsonLd && (
@@ -132,18 +160,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     gtag('js', new Date());
     gtag('config', 'AW-11545092315');
     gtag('config', 'G-1B48ZVLKET');
-
-    // Memicu pageview ulang saat navigasi SPA (ClientRouter) Astro
-    document.addEventListener('astro:page-load', () => {
-      gtag('event', 'page_view', {
-        page_path: window.location.pathname,
-        page_location: window.location.href,
-        send_to: ['AW-11545092315', 'G-1B48ZVLKET']
-      });
-    });
   </script>
-
-  <ClientRouter />
 </head>
 
 <body class="antialiased bg-white text-gray-900">
@@ -162,11 +179,6 @@ title="Google Tag Manager" height="0" width="0" style="display:none;visibility:h
   </main>
   
   <slot name="footer" />
-
-  <script>
-    import { initializeEnhancedConversionTracking } from '../utils/tracking.js';
-    initializeEnhancedConversionTracking();
-  </script>
 
   <!-- WA Tracker: GCLID attribution untuk semua tombol WhatsApp -->
   <script is:inline src="/wa-tracker.js" defer></script>

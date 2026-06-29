@@ -14,6 +14,9 @@ const meta = {
   url: "/",
   type: "website",
   image: "/images/logo.webp",
+  preloadImage: "/images/jasa-laser-cutting-sejabodetabek-640.webp",
+  preloadImageSrcset: "/images/jasa-laser-cutting-sejabodetabek-480.webp 480w, /images/jasa-laser-cutting-sejabodetabek-640.webp 640w, /images/jasa-laser-cutting-sejabodetabek-960.webp 960w",
+  preloadImageSizes: "(min-width: 1024px) 34vw, 92vw",
   author: SITE_CONFIG.author,
   jsonLd: [generateFAQSchema(FAQ), generateReviewSchema(TESTIMONIALS)]
 };
@@ -77,7 +80,23 @@ const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser
         <div class="lg:col-span-5 relative">
           <!-- Glassmorphism Container with image -->
           <div class="relative rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-md shadow-2xl">
-            <img width="1024" height="879" src="/images/jasa-laser-cutting-sejabodetabek.png" alt="Tepat Laser - Jasa Laser Cutting Terbaik Sejabodetabek" class="w-full h-auto rounded-xl object-cover shadow-2xl border border-white/10" />
+            <picture>
+              <source
+                type="image/webp"
+                srcset="/images/jasa-laser-cutting-sejabodetabek-480.webp 480w, /images/jasa-laser-cutting-sejabodetabek-640.webp 640w, /images/jasa-laser-cutting-sejabodetabek-960.webp 960w"
+                sizes="(min-width: 1024px) 34vw, 92vw"
+              />
+              <img
+                width="640"
+                height="549"
+                src="/images/jasa-laser-cutting-sejabodetabek-640.webp"
+                alt="Tepat Laser - jasa laser cutting plat besi, stainless, dan part custom"
+                class="w-full h-auto rounded-xl object-cover shadow-2xl border border-white/10"
+                loading="eager"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </picture>
             <!-- Floating badge -->
             <div class="absolute -bottom-6 -left-6 bg-slate-900 border border-white/10 rounded-2xl p-4 flex items-center gap-3 shadow-xl">
               <div class="w-12 h-12 bg-blue-600/20 rounded-xl flex items-center justify-center text-blue-400 font-bold text-xl">7+</div>
@@ -103,7 +122,7 @@ const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser
           <!-- Card 1 -->
           <div class="group bg-slate-50 border border-slate-200/80 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
             <div class="h-44 overflow-hidden rounded-xl mb-6 bg-slate-200">
-              <img width="1024" height="576" src="/images/stainlesssteel (2).webp" alt="Perforated Stainless" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img width="1024" height="576" src="/images/stainlesssteel (2).webp" alt="Perforated Stainless" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
             </div>
             <h3 class="text-xl font-bold mb-3">Perforated Stainless</h3>
             <p class="text-slate-600 text-sm mb-4">Untuk cover, ventilasi, panel dekoratif, dan kebutuhan pola custom pada material stainless.</p>
@@ -113,7 +132,7 @@ const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser
           <!-- Card 2 -->
           <div class="group bg-slate-50 border border-slate-200/80 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
             <div class="h-44 overflow-hidden rounded-xl mb-6 bg-slate-200">
-              <img width="1200" height="754" src="/images/metal.webp" alt="Part Custom & Plate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img width="1200" height="754" src="/images/metal.webp" alt="Part Custom & Plate" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
             </div>
             <h3 class="text-xl font-bold mb-3">Part Custom & Plate</h3>
             <p class="text-slate-600 text-sm mb-4">Untuk bracket, cover, sparepart, plate custom, dan komponen lain sesuai file ukuran gambar.</p>
@@ -123,7 +142,7 @@ const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser
           <!-- Card 3 -->
           <div class="group bg-slate-50 border border-slate-200/80 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
             <div class="h-44 overflow-hidden rounded-xl mb-6 bg-slate-200">
-              <img width="1200" height="898" src="/images/mdf (1).webp" alt="MDF & Kayu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img width="1200" height="898" src="/images/mdf (1).webp" alt="MDF & Kayu" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
             </div>
             <h3 class="text-xl font-bold mb-3">Panel MDF & Kayu</h3>
             <p class="text-slate-600 text-sm mb-4">Untuk partisi ruangan, ornamen dinding MDF, furniture custom, dan ukiran kayu presisi tinggi.</p>
@@ -133,7 +152,7 @@ const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser
           <!-- Card 4 -->
           <div class="group bg-slate-50 border border-slate-200/80 rounded-2xl p-6 hover:shadow-xl transition-all duration-300">
             <div class="h-44 overflow-hidden rounded-xl mb-6 bg-slate-200">
-              <img width="1200" height="672" src="/images/Acrylic.webp" alt="Ornamen Akrilik" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+              <img width="1200" height="672" src="/images/Acrylic.webp" alt="Ornamen Akrilik" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" decoding="async" />
             </div>
             <h3 class="text-xl font-bold mb-3">Ornamen Akrilik</h3>
             <p class="text-slate-600 text-sm mb-4">Untuk huruf timbul, signage akrilik toko, display acrylic box, produk promosi, dan dekorasi pajangan.</p>
