@@ -7,8 +7,8 @@ export default defineConfig({
   site: 'https://tepatlaser.com',
   base: '/',
   prefetch: {
-    prefetchAll: true,
-    defaultStrategy: 'viewport',
+    prefetchAll: false,
+    defaultStrategy: 'hover',
   },
   
   integrations: [
@@ -28,7 +28,7 @@ export default defineConfig({
   },
   
   build: {
-    inlineStylesheets: 'always',
+    inlineStylesheets: 'auto',
     assets: '_assets'
   },
 });

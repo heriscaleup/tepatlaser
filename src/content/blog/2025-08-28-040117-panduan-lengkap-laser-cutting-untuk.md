@@ -4,14 +4,14 @@ excerpt: "Solusi komprehensif laser cutting acrylic, MDF, metal dengan teknologi
 category: "Laser Cutting"
 readTime: "10-12 menit baca"
 publishDate: "2025-08-28T04:01:17.063Z"
-image: "/images/blog/2025-08-28-040117-panduan-lengkap-laser-cutting-untuk.jpg"
+image: "/images/blog/2025-08-28-040117-panduan-lengkap-laser-cutting-untuk.webp"
 keywords: "laser cutting, jasa laser cutting, tepatlaser, indonesia, acrylic, mdf, metal, signage"
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
   headline: "Panduan Lengkap Laser Cutting untuk Bisnis Indonesia"
   description: "Solusi komprehensif laser cutting acrylic, MDF, metal dengan teknologi terdepan TepatLaser untuk berbagai kebutuhan bisnis Indonesia."
-  image: "/images/blog/2025-08-28-040117-panduan-lengkap-laser-cutting-untuk.jpg"
+  image: "/images/blog/2025-08-28-040117-panduan-lengkap-laser-cutting-untuk.webp"
   datePublished: "2025-08-28T04:01:17.063Z"
   author:
     "@type": "Organization"

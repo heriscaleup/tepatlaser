@@ -28,7 +28,7 @@ const {
   preloadImage,
   preloadImageSrcset,
   preloadImageSizes = "100vw",
-  preloadImageType = "image/webp",
+  preloadImageType,
   type = "website",
   noindex = false,
   jsonLd
@@ -49,6 +49,15 @@ const fullTitle = title
 const fullUrl = new URL(url || Astro.url.pathname, siteUrl);
 const fullCanonicalUrl = new URL(canonicalUrl || url || Astro.url.pathname, siteUrl);
 const fullImage = new URL(image, siteUrl);
+const autoPreloadImage = image && !image.includes('logo.webp') ? image : undefined;
+const resolvedPreloadImage = preloadImage || autoPreloadImage;
+const resolvedPreloadType = preloadImageType || (
+  resolvedPreloadImage?.endsWith('.jpg') || resolvedPreloadImage?.endsWith('.jpeg')
+    ? 'image/jpeg'
+    : resolvedPreloadImage?.endsWith('.png')
+      ? 'image/png'
+      : 'image/webp'
+);
 ---
 
 <!DOCTYPE html>
@@ -56,7 +65,7 @@ const fullImage = new URL(image, siteUrl);
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE-edge" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
@@ -88,41 +97,56 @@ const fullImage = new URL(image, siteUrl);
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/images/logo.webp" />
   
-  {preloadImage && (
+  {resolvedPreloadImage && (
     <link
       rel="preload"
-      href={preloadImage}
+      href={resolvedPreloadImage}
       as="image"
-      type={preloadImageType}
+      type={resolvedPreloadType}
       imagesrcset={preloadImageSrcset}
       imagesizes={preloadImageSizes}
       fetchpriority="high"
     />
   )}
   <link rel="dns-prefetch" href="//api.whatsapp.com" />
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 
-  <!-- Google Tag Manager -->
-<script is:inline>
-  (function(w,d,s,l,i){
-    w[l]=w[l]||[];
-    w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
-    var loadGtm=function(){
-      if(w.__tlGtmLoaded) return;
-      w.__tlGtmLoaded=true;
-      var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-      j.async=true;
-      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-      f.parentNode.insertBefore(j,f);
-    };
-    if('requestIdleCallback' in w) {
-      w.requestIdleCallback(loadGtm,{timeout:2500});
-    } else {
-      w.addEventListener('load',function(){setTimeout(loadGtm,1200);},{once:true});
-    }
-  })(window,document,'script','dataLayer','GTM-PBR27KH7');
-</script>
-<!-- End Google Tag Manager -->
+  <!-- Marketing tags are queued immediately, but network/CPU work is delayed off the critical render path. -->
+  <script is:inline>
+    (function(w,d){
+      w.dataLayer = w.dataLayer || [];
+      w.gtag = w.gtag || function(){ w.dataLayer.push(arguments); };
+      w.gtag('js', new Date());
+      w.gtag('config', 'AW-11545092315');
+      w.gtag('config', 'G-1B48ZVLKET');
+
+      var loaded = false;
+      var loadMarketingTags = function(){
+        if (loaded) return;
+        loaded = true;
+
+        var gtagScript = d.createElement('script');
+        gtagScript.async = true;
+        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-11545092315';
+        d.head.appendChild(gtagScript);
+
+        w.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+        var gtmScript = d.createElement('script');
+        gtmScript.async = true;
+        gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-PBR27KH7';
+        d.head.appendChild(gtmScript);
+      };
+
+      var armInteractionLoad = function(){
+        ['pointerdown','keydown','touchstart'].forEach(function(eventName){
+          w.addEventListener(eventName, loadMarketingTags, { once: true, passive: true });
+        });
+      };
+
+      armInteractionLoad();
+      w.addEventListener('load', function(){ setTimeout(loadMarketingTags, 30000); }, { once: true });
+    })(window,document);
+  </script>
 
   {jsonLd && (
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
@@ -133,7 +157,7 @@ const fullImage = new URL(image, siteUrl);
     "@type": "Organization",
     "name": "Tepat Laser",
     "url": siteUrl.href,
-    "logo": new URL('logo-company.webp', siteUrl).href,
+    "logo": new URL('/images/logo.webp', siteUrl).href,
     "description": "Jasa laser cutting profesional — stainless steel, plat besi, aluminium, akrilik — di Bintaro, Tangerang Selatan. Toleransi ±0.02mm, express 4 jam.",
     "telephone": "+62 821-2129-2937",
     "email": "info@tepatlaser.com",
@@ -152,21 +176,12 @@ const fullImage = new URL(image, siteUrl);
   
   <meta name="theme-color" content="#0066FF" />
 
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11545092315"></script>
-  <script is:inline>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'AW-11545092315');
-    gtag('config', 'G-1B48ZVLKET');
-  </script>
 </head>
 
 <body class="antialiased bg-white text-gray-900">
   <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBR27KH7"
-title="Google Tag Manager" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+title="Google Tag Manager" height="0" width="0" style="display:none;visibility:hidden" referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
   <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
     Skip to main content

@@ -65,9 +65,11 @@ const sizeClasses = getSizeClasses();
       <img 
         src={backgroundImage}
         alt="Background"
+        width="1600"
+        height="900"
         class="w-full h-full object-cover"
         loading="lazy"
-      />
+      decoding="async" />
       <div class="absolute inset-0 bg-blue-900/80"></div>
     </div>
   )}

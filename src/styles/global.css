@@ -12,6 +12,8 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
     line-height: 1.6;
     color: #1A1A1A;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 }
 
@@ -128,6 +130,33 @@
 img {
   max-width: 100%;
   height: auto;
+}
+
+img[loading="lazy"],
+iframe[loading="lazy"] {
+  content-visibility: auto;
+}
+
+main > section:nth-of-type(n + 2) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 760px;
+}
+
+@media (min-width: 768px) {
+  main > section:nth-of-type(n + 2) {
+    contain-intrinsic-size: auto 900px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Accessibility improvements */

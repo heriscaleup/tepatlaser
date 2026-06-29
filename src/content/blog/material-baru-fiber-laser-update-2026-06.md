@@ -5,7 +5,7 @@ excerpt: "Update 2026: material baru yang kini bisa dipotong fiber laser — dar
 publishDate: "2026-06-21T07:00:00.000Z"
 category: "Laser Fiber"
 keywords: "material fiber laser, fiber laser 2026, laser cutting material baru"
-image: "/images/blog/material-baru-fiber-laser-update-2026-06.jpg"
+image: "/images/blog/material-baru-fiber-laser-update-2026-06.webp"
 readTime: "7 min read"
 author: "Tim Tepat Laser"
 draft: false
