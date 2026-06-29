@@ -9,6 +9,7 @@ export interface Props {
   keywords?: string;
   image?: string;
   url?: string;
+  canonicalUrl?: string;
   type?: string;
   noindex?: boolean;
   jsonLd?: any;
@@ -20,6 +21,7 @@ const {
   keywords = "jasa laser cutting, laser cutting jakarta, laser cutting tangerang, laser cutting stainless, cnc router, laser fiber, bintaro, tangerang selatan, serpong",
   image = "logo.webp",
   url,
+  canonicalUrl,
   type = "website",
   noindex = false,
   jsonLd
@@ -33,9 +35,12 @@ const siteUrl = Astro.site;
 const siteName = "Tepat Laser";
 
 const defaultTitle = "Jasa Laser Cutting Jakarta & Tangerang Terpercaya | Tepat Laser";
-const fullTitle = title ? `${title} | ${siteName}` : defaultTitle;
+const fullTitle = title
+  ? (title.includes(siteName) ? title : `${title} | ${siteName}`)
+  : defaultTitle;
 // Cara paling benar membuat URL, anti error path ganda
 const fullUrl = new URL(url || Astro.url.pathname, siteUrl);
+const fullCanonicalUrl = new URL(canonicalUrl || url || Astro.url.pathname, siteUrl);
 const fullImage = new URL(image, siteUrl);
 ---
 
@@ -50,7 +55,7 @@ const fullImage = new URL(image, siteUrl);
   <meta name="description" content={description} />
   <meta name="keywords" content={keywords} />
   <meta name="author" content="Tepat Laser Team" />
-  <link rel="canonical" href={fullUrl.href} />
+  <link rel="canonical" href={fullCanonicalUrl.href} />
   
   {noindex ? (
     <meta name="robots" content="noindex, nofollow" />
@@ -61,7 +66,7 @@ const fullImage = new URL(image, siteUrl);
   <meta property="og:type" content={type} />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
-  <meta property="og:url" content={fullUrl.href} />
+  <meta property="og:url" content={fullCanonicalUrl.href} />
   <meta property="og:image" content={fullImage.href} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />

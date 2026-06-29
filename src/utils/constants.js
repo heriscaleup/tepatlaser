@@ -5,7 +5,7 @@ export const SITE_CONFIG = {
   title: "Jasa Laser Cutting Profesional #1 indonesia - Akrilik, Kayu, Metal",
   description: "Laser cutting presisi tinggi & pengerjaan cepat di indonesia! Spesialis akrilik, kayu, metal dengan teknologi terdepan. 10+ tahun pengalaman, hasil akurat, garansi kualitas. Melayani Serang, Tangerang, Cilegon, Pandeglang, Lebak.",
   keywords: "laser cutting indonesia, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal indonesia",
-  // HAPUS BARIS INI: url: "https://ddos-spec.github.io/",
+  url: "https://tepatlaser.com",
   author: "Jasa Cutting Laser Team",
   whatsapp: "6282121292937",
   email: "info@tepatlaser.com",

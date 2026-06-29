@@ -4,7 +4,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap'; // Baris ini sekarang gak akan error
 
 export default defineConfig({
-  site: 'https://www.tepatlaser.com',
+  site: 'https://tepatlaser.com',
   base: '/',
   prefetch: {
     prefetchAll: true,
