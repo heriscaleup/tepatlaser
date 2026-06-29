@@ -1,6 +1,6 @@
 ---
-// Footer.astro - Versi debug untuk troubleshoot logo
-import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants.js';
+// Footer.astro
+import { SITE_CONFIG, SERVICES, MATERIALS } from '../utils/constants.js';
 ---
 
 <footer class="bg-gray-900 text-white">
@@ -11,17 +11,13 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
       <!-- Company Info -->
       <div class="lg:col-span-1">
         <div class="flex items-center space-x-3 mb-6">
-          <!-- Debug: Test multiple logo sources -->
           <img 
             src="/images/logo.webp" 
             alt="Tepat Laser Logo" 
             class="h-10 w-auto"
             width="120"
             height="40"
-            onerror="this.onerror=null; this.src='//images/Logo.webp'; console.log('Trying Logo.webp');"
-            onload="console.log('Logo loaded successfully');"
           />
-          <!-- Fallback jika logo tidak ada -->
           <div class="fallback-logo bg-blue-600 h-10 w-10 rounded flex items-center justify-center text-white font-bold text-xs" style="display: none;">
             TL
           </div>
@@ -242,11 +238,12 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
 </footer>
 
 <script>
-  // Back to top functionality
   const backToTopButton = document.getElementById('back-to-top') as HTMLElement | null;
   
   if (backToTopButton) {
-    window.addEventListener('scroll', () => {
+    let isBackToTopTicking = false;
+
+    const updateBackToTopVisibility = () => {
       if (window.scrollY > 300) {
         backToTopButton.classList.remove('translate-y-16', 'opacity-0');
         backToTopButton.classList.add('translate-y-0', 'opacity-100');
@@ -254,7 +251,17 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
         backToTopButton.classList.remove('translate-y-0', 'opacity-100');
         backToTopButton.classList.add('translate-y-16', 'opacity-0');
       }
-    });
+      isBackToTopTicking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!isBackToTopTicking) {
+        window.requestAnimationFrame(updateBackToTopVisibility);
+        isBackToTopTicking = true;
+      }
+    }, { passive: true });
+
+    updateBackToTopVisibility();
     
     backToTopButton.addEventListener('click', () => {
       window.scrollTo({
@@ -264,17 +271,12 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
     });
   }
 
-  // Debug script untuk cek logo
   document.addEventListener('DOMContentLoaded', () => {
-    console.log('Footer loaded');
-    
-    // Cek apakah file logo ada
     const logoImg = document.querySelector('footer img[alt="Tepat Laser Logo"]') as HTMLImageElement | null;
     const fallbackLogo = document.querySelector('.fallback-logo') as HTMLElement | null;
     
     if (logoImg) {
       logoImg.addEventListener('error', () => {
-        console.log('Logo failed to load, showing fallback');
         logoImg.style.display = 'none';
         if (fallbackLogo) {
           fallbackLogo.style.display = 'flex';
@@ -282,7 +284,6 @@ import { SITE_CONFIG, SERVICES, MATERIALS, NAVIGATION } from '../utils/constants
       });
       
       logoImg.addEventListener('load', () => {
-        console.log('Logo loaded successfully');
         if (fallbackLogo) {
           fallbackLogo.style.display = 'none';
         }
