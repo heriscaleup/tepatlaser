@@ -226,7 +226,7 @@
 
     preRegisterCode().then(function (code) {
       var finalUrl;
-      if (href && href.indexOf('wa.me') !== -1) {
+      if (href && (href.indexOf('wa.me') !== -1 || href.indexOf('api.whatsapp.com/send') !== -1)) {
         finalUrl = injectCodeIntoWaUrl(href, code);
       } else {
         var base = 'https://wa.me/' + phone;
