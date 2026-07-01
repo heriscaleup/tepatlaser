@@ -1,0 +1,116 @@
+---
+// src/pages/jasa-laser-cutting-pvc.astro
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+const faqs = [
+  {
+    question: "Apa itu material PVC Board?",
+    answer: "PVC Board (Polyvinyl Chloride Board / Forex) adalah lembaran plastik padat busa ringan yang tahan air, anti-rayap, tidak merambatkan api, dan sangat stabil. Sangat populer untuk sekat toilet, huruf timbul outdoor, dan dekorasi dinding."
+  },
+  {
+    question: "Mengapa PVC board dipotong menggunakan CNC Router, bukan Laser?",
+    answer: "PVC terbuat dari bahan vinil/klorida. Pemotongan laser menggunakan panas tinggi akan membakar PVC dan menghasilkan gas asam klorida beracun yang sangat berbahaya bagi kesehatan operator serta merusak komponen optik mesin laser. Oleh karena itu, PVC board 100% dipotong secara mekanis menggunakan CNC Router di workshop kami."
+  }
+];
+
+const pageTitle = "Jasa Cutting PVC Board Sekat Toilet Bintaro | Tepat Laser";
+const pageDesc = "Jasa pemotongan & ukir PVC Board / Forex kustom terdekat di Bintaro Tangerang Selatan menggunakan CNC router presisi tinggi. Tahan air & anti-rayap.";
+const pageKw = "jasa cutting pvc board, sekat toilet pvc cnc, pvc board motif kerawang, cutting forex terdekat, cnc router pvc tangerang";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Laser Cutting PVC', url: '/jasa-laser-cutting-pvc/' }
+]);
+
+const meta = {
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/jasa-laser-cutting-pvc/',
+  image: '/images/pvc.webp',
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
+};
+
+const crumbs = breadcrumbSchema.itemListElement;
+---
+
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO -->
+    <section class="relative bg-slate-900 text-white py-24 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/pvc.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-blue-500/20 text-blue-400 font-semibold px-4 py-1.5 rounded-full text-xs mb-6 border border-blue-500/30">LIGHTWEIGHT WATERPROOF PANEL</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">Jasa Cutting PVC Board & Forex</h1>
+          <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+            Potong sekat toilet cubicle, huruf timbul billboard luar ruangan, dan panel dinding pembatas ruangan berbahan PVC Board ringan anti-lapuk.
+          </p>
+          <a href="https://wa.me/6282121292937?text=Halo%20Tepat%20Laser%2C%20saya%20ingin%20tanya%20penawaran%20jasa%20laser%20cutting." target="_blank" rel="noopener noreferrer" class="bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg">Konsultasi Cutting PVC WA</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Material Plastik Busa Pengganti Kayu yang Higienis</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            PVC Board memiliki keunggulan mutlak dibanding kayu olahan: 100% tahan air, tidak lapuk di area lembab, anti-rayap, dan bobotnya sangat ringan. CNC Router kami memotong pola motif ornamen kustom pada papan PVC dengan sangat rapi dan bebas dari bekas sisa abu lelehan hitam. Sangat direkomendasikan untuk pembatas urinal toilet umum, hiasan sekat estetik di taman/outdoor, serta papan petunjuk reklame luar ruangan.
+          </p>
+          <ul class="space-y-3 mb-6 text-slate-700">
+            <li>✓ Tepian potong rapi tanpa abu hangus</li>
+            <li>✓ Tersedia ketebalan papan PVC 3mm hingga 20mm</li>
+            <li>✓ Sangat gampang dipasang menggunakan lem silikon atau sekrup</li>
+          </ul>
+        </div>
+        <div>
+          <img width="1000" height="750" src="/images/pcvboard (3).webp" alt="PVC Board CNC Cut Products" class="rounded-2xl shadow-xl object-cover w-full h-[350px]" decoding="async"  loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- PORTFOLIO GALLERY -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom">
+        <h2 class="text-3xl font-bold text-center mb-12">Galeri Hasil Pengerjaan</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <img width="1200" height="1200" src="/images/pcvboard (1).webp" alt="Portfolio 1" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="960" height="1200" src="/images/pcvboard (2).webp" alt="Portfolio 2" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1000" height="750" src="/images/pcvboard (3).webp" alt="Portfolio 3" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1200" height="898" src="/images/pcvboard (4).webp" alt="Portfolio 4" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">FAQ Cutting PVC</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

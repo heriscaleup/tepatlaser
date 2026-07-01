@@ -4,7 +4,7 @@ excerpt: "Tutorial step-by-step menyiapkan file desain yang optimal untuk hasil 
 category: "Tutorial"
 readTime: "10 menit"
 publishDate: "2025-01-18"
-image: "/images/engraving.webp"
+image: "/images/blog/panduan-file-desain-laser-cutting-akurat.webp"
 keywords: "panduan desain laser cutting, menyiapkan file laser cutting, desain akurat laser"
 schema:
   "@context": "https://schema.org"

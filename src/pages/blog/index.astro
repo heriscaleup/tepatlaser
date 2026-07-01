@@ -1,4 +1,4 @@
-﻿---
+---
 import BaseLayout from '../../components/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
@@ -56,9 +56,11 @@ const jsonLd = {
             <img 
               src={post.data.image} 
               alt={post.data.title}
+              width="1200"
+              height="800"
               class="w-full h-48 object-cover"
               loading="lazy"
-            />
+            decoding="async" />
             <div class="p-6">
               <div class="flex items-center justify-between mb-3">
                 <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
@@ -67,7 +69,7 @@ const jsonLd = {
                 <span class="text-sm text-gray-500">{post.data.readTime}</span>
               </div>
               <h2 class="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                <a href={`/blog/${post.slug}/`} class="hover:text-blue-600 transition-colors">
+                <a href={`/blog/${post.id}/`} class="hover:text-blue-600 transition-colors">
                   {post.data.title}
                 </a>
               </h2>
@@ -83,7 +85,7 @@ const jsonLd = {
   })}
 </span>
                 <a 
-                  href={`/blog/${post.slug}/`}
+                  href={`/blog/${post.id}/`}
                   class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
                 >
                   Baca Selengkapnya â†’

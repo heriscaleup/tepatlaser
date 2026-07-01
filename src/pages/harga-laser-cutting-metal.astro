@@ -1,0 +1,344 @@
+---
+// src/pages/harga-laser-cutting-metal.astro
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+const WA = SITE_CONFIG.whatsapp;
+const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser, saya ingin estimasi harga laser cutting metal. Saya akan kirim jenis bahan, ketebalan, ukuran, jumlah, dan file desain.")}`;
+
+const faqs = [
+  {
+    question: "Berapa harga jasa laser cutting metal per meter?",
+    answer: "Harga jasa laser cutting metal dihitung berdasarkan jenis logam, ketebalan material, dan total panjang pemotongan (cutting path). Sebagai gambaran, jasa potong plat besi 1mm mulai dari Rp 15.000/meter, sedangkan stainless steel 1mm mulai dari Rp 25.000/meter. Untuk proyek volume besar atau pengerjaan massal, kami menawarkan diskon khusus yang sangat kompetitif. Hubungi tim admin kami untuk mendapatkan penawaran harga (quote) resmi secara gratis."
+  },
+  {
+    question: "Material logam/metal apa saja yang bisa dipotong dengan mesin laser fiber?",
+    answer: "Mesin fiber laser modern kami mampu memotong berbagai jenis logam dengan sangat presisi, antara lain: Carbon Steel/Plat Besi (hitam maupun putih), Galvanis/Galvalum, Stainless Steel (Grade SS201, SS304, dan SS316), Aluminium Alloy, Kuningan (Brass), serta Tembaga (Copper)."
+  },
+  {
+    question: "Berapa ketebalan maksimal plat besi dan stainless steel yang bisa dipotong?",
+    answer: "Kapasitas mesin Fiber Laser high-power kami mampu memotong plat besi (carbon steel) hingga ketebalan 10mm, stainless steel hingga 3mm, dan kuningan/tembaga hingga 4mm dengan hasil potongan yang tetap rapi dan presisi tinggi."
+  },
+  {
+    question: "Apakah Tepat Laser menerima pengerjaan tanpa minimum order?",
+    answer: "Ya, kami melayani pemesanan tanpa batas minimum order. Kami menerima pembuatan part custom satuan (untuk keperluan prototyping, tugas kuliah, atau hobi) hingga pengerjaan proyek fabrikasi skala industri dengan kapasitas ratusan lembar plat per minggu."
+  },
+  {
+    question: "Format file desain apa yang harus saya siapkan agar cepat diproses?",
+    answer: "Kami merekomendasikan file desain dalam bentuk format vector seperti DXF atau DWG (AutoCAD), AI (Adobe Illustrator), CDR (CorelDraw), SVG, atau PDF vector. Pastikan skala gambar adalah 1:1 dalam satuan milimeter (mm). Jika Anda hanya memiliki sketsa tangan atau foto dengan ukuran, tim desainer kami siap membantu menggambarkannya ke format CAD dengan biaya yang sangat terjangkau."
+  },
+  {
+    question: "Berapa lama waktu pengerjaan laser cutting metal?",
+    answer: "Waktu pengerjaan standar berkisar antara 1 hingga 3 hari kerja setelah penawaran disetujui dan bahan tersedia. Kami juga menyediakan layanan express (same-day service) untuk pengerjaan darurat berskala kecil dengan konfirmasi jadwal terlebih dahulu kepada tim workshop."
+  }
+];
+
+const pageTitle = "Harga Laser Cutting Metal: Faktor Biaya & Estimasi Quote | Tepat Laser";
+const pageDesc = "Panduan harga laser cutting metal Tepat Laser: faktor biaya dari material, ketebalan, panjang potong, jumlah lubang, finishing, dan lead time. Kirim file untuk quote akurat.";
+const pageKw = "harga laser cutting metal, biaya laser cutting plat besi, estimasi harga potong plat besi, harga laser cutting stainless, quote laser cutting bintaro";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Harga Laser Cutting Metal', url: '/harga-laser-cutting-metal/' }
+]);
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Harga Laser Cutting Metal",
+  "serviceType": "Metal Laser Cutting Services",
+  "description": pageDesc,
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Tepat Laser",
+    "telephone": SITE_CONFIG.phone,
+    "email": SITE_CONFIG.email,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": SITE_CONFIG.address,
+      "addressLocality": "Tangerang Selatan",
+      "addressRegion": "Banten",
+      "addressCountry": "ID"
+    }
+  },
+  "areaServed": [
+    { "@type": "City", "name": "Jakarta" },
+    { "@type": "City", "name": "Tangerang" },
+    { "@type": "City", "name": "Tangerang Selatan" },
+    { "@type": "City", "name": "Depok" },
+    { "@type": "City", "name": "Bekasi" },
+    { "@type": "City", "name": "Bogor" }
+  ]
+};
+
+const meta = {
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/harga-laser-cutting-metal/',
+  image: '/images/metal.webp',
+  type: "website",
+  jsonLd: [breadcrumbSchema, serviceSchema, generateFAQSchema(faqs)]
+};
+
+const crumbs = breadcrumbSchema.itemListElement;
+---
+
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-950 text-white py-24 md:py-32 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/metal.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-flex items-center gap-2 bg-blue-500/10 text-blue-400 font-bold px-4 py-1.5 rounded-full text-xs mb-6 border border-blue-500/30 tracking-wider">WORKSHOP UTAMA FABRIKASI METAL</span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+            Harga Laser Cutting Metal & Cara Hitung Estimasi
+          </h1>
+          <p class="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed">
+            Biaya laser cutting tidak hanya ditentukan per meter. Harga dipengaruhi jenis material, ketebalan, panjang jalur potong, jumlah lubang/detail kecil, finishing, jumlah pcs, dan target lead time.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-3 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-emerald-500/20 transform hover:-translate-y-0.5 transition-all">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
+              Minta Estimasi Harga
+            </a>
+            <a href="tel:6282121292937" class="inline-flex items-center justify-center border-2 border-slate-700 hover:border-slate-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-slate-800 transition-all">
+              Hubungi Workshop: 0821-2129-2937
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- METRICS TRUST BAR -->
+    <section class="bg-blue-600 text-white py-6">
+      <div class="container-custom">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div>
+            <div class="text-3xl font-extrabold">±0.02mm</div>
+            <div class="text-blue-100 text-sm mt-1">Presisi Hasil Potong</div>
+          </div>
+          <div>
+            <div class="text-3xl font-extrabold">24 Jam</div>
+            <div class="text-blue-100 text-sm mt-1">Kapasitas Produksi</div>
+          </div>
+          <div>
+            <div class="text-3xl font-extrabold">1-3 Hari</div>
+            <div class="text-blue-100 text-sm mt-1">Waktu Pengerjaan</div>
+          </div>
+          <div>
+            <div class="text-3xl font-extrabold">0%</div>
+            <div class="text-blue-100 text-sm mt-1">Minimum Order</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+
+    <!-- PRICING INTENT SECTION -->
+    <section class="py-20 bg-white text-slate-900 border-t border-slate-200">
+      <div class="container-custom max-w-5xl">
+        <div class="max-w-3xl mx-auto text-center mb-12">
+          <span class="text-blue-600 font-bold text-sm uppercase tracking-wider">Panduan Harga</span>
+          <h2 class="text-3xl font-extrabold mt-2 mb-4">Data yang Dibutuhkan agar Quote Tidak Melenceng</h2>
+          <p class="text-slate-600 leading-relaxed">Harga paling akurat baru bisa dihitung setelah tim melihat file desain dan detail material. Gunakan checklist ini sebelum menghubungi admin.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {[
+            ['Material & Tebal', 'Contoh: plat besi 2mm, stainless SS304 1.5mm, aluminium 3mm.'],
+            ['File Vector', 'Kirim DXF, DWG, AI, CDR, SVG, atau PDF vector skala 1:1.'],
+            ['Jumlah & Deadline', 'Sebutkan quantity, target selesai, kebutuhan finishing, dan lokasi pengiriman.']
+          ].map(([title, desc]) => (
+            <div class="p-6 rounded-2xl border border-slate-200 bg-slate-50">
+              <h3 class="font-bold text-lg mb-2">{title}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO GALLERY -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom">
+        <h2 class="text-3xl font-bold text-center mb-12">Galeri Hasil Pengerjaan</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <img width="1200" height="754" src="/images/metal.webp" alt="Portfolio 1" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1200" height="826" src="/images/laserfiber.webp" alt="Portfolio 2" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="898" height="1200" src="/images/stainlesssteel (1).webp" alt="Portfolio 3" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1024" height="576" src="/images/stainlesssteel (2).webp" alt="Portfolio 4" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN SEO CONTENT SECTION -->
+    <section class="py-24 bg-white text-slate-900">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6 text-slate-900">Keunggulan Teknologi Fiber Laser untuk Pemotongan Logam</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Dalam industri manufaktur dan arsitektur, pemotongan plat besi dan stainless steel membutuhkan tingkat presisi yang tinggi agar mudah dirakit. Dibandingkan dengan metode konvensional seperti plasma cutting atau waterjet, <strong>Fiber Laser Cutting</strong> menawarkan efisiensi tinggi, hasil potongan yang sangat rapi, serta toleransi deviasi yang sangat minim.
+          </p>
+          <p class="text-slate-600 mb-8 leading-relaxed">
+            Mesin Fiber Laser memfokuskan energi cahaya berdensitas tinggi pada permukaan logam untuk melelehkan jalur potong dengan cepat. Hembusan gas bantu bertekanan tinggi (oksigen atau nitrogen) kemudian mendorong logam cair keluar dari jalur potong, menghasilkan tepi potongan yang halus tanpa deformasi panas atau burr kasar.
+          </p>
+
+          <!-- Specifications Table -->
+          <h3 class="text-2xl font-bold mb-6 text-slate-900">Kapasitas & Spesifikasi Bahan Metal Tepat Laser</h3>
+          <div class="overflow-x-auto mb-12 border border-slate-200 rounded-2xl">
+            <table class="w-full text-left text-sm text-slate-600">
+              <thead class="bg-slate-50 text-slate-900 uppercase font-semibold border-b border-slate-200">
+                <tr>
+                  <th class="px-6 py-4">Jenis Material Logam</th>
+                  <th class="px-6 py-4">Tebal Maksimal (mm)</th>
+                  <th class="px-6 py-4">Rekomendasi Gas Bantu</th>
+                  <th class="px-6 py-4">Aplikasi Utama</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-900">Mild Steel / Plat Besi</td>
+                  <td class="px-6 py-4">12 mm</td>
+                  <td class="px-6 py-4">Oxygen (O2)</td>
+                  <td class="px-6 py-4">Bracket, Konstruksi, Pagar, Konstruksi Box</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-900">Stainless Steel (SS304/SS316)</td>
+                  <td class="px-6 py-4">10 mm</td>
+                  <td class="px-6 py-4">Nitrogen (N2) / Air</td>
+                  <td class="px-6 py-4">Peralatan Dapur, Huruf Timbul, Railing Mewah</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-900">Aluminium Alloy</td>
+                  <td class="px-6 py-4">8 mm</td>
+                  <td class="px-6 py-4">Nitrogen (N2) / Oxygen</td>
+                  <td class="px-6 py-4">Otomotif, Panel Fasad, Casing Elektronik</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-900">Kuningan & Tembaga</td>
+                  <td class="px-6 py-4">4 mm</td>
+                  <td class="px-6 py-4">Nitrogen (N2)</td>
+                  <td class="px-6 py-4">Interior Mewah, Ornamen Seni, Komponen Listrik</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Applications Details -->
+          <h3 class="text-2xl font-bold mb-6 text-slate-900">Jenis Pekerjaan Fabrikasi Metal yang Kami Tangani</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">1. Part Mesin & Bracket Custom</h4>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Kami membuat komponen bracket custom, flange, roda gigi, ring plate, sparepart mesin pertanian, dan plat berlubang presisi sesuai detail technical drawing.
+              </p>
+            </div>
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">2. Casing & Panel Box Metal</h4>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Melayani pembuatan cut-out khusus untuk panel box listrik, casing server, penutup mesin genset, ventilasi udara perforated, dan penutup saluran.
+              </p>
+            </div>
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">3. Ornamen Pagar, Railing, & Balkon</h4>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Menyediakan jasa potong plat besi dekoratif bermotif floral, geometris, atau minimalis untuk facade gedung, sekat ruangan, pintu gerbang, dan railing tangga.
+              </p>
+            </div>
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">4. Signage & Reklame Logam</h4>
+              <p class="text-slate-600 text-sm leading-relaxed">
+                Pembuatan huruf timbul berbahan stainless steel (mirror/hairline) atau plat besi cat duco untuk logo korporat, plang nama toko, dan nomor rumah eksklusif.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PREPARATION CHECKLIST SECTION -->
+    <section class="py-24 bg-slate-50 text-slate-900 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-6">Informasi yang Perlu Disiapkan untuk Meminta Penawaran Harga</h2>
+        <p class="text-center text-slate-600 mb-12">Semakin lengkap detail informasi yang Anda kirim, semakin cepat tim teknis kami memformulasikan kalkulasi harga.</p>
+        
+        <div class="space-y-6">
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 flex items-start gap-4">
+            <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 font-bold flex-shrink-0">1</div>
+            <div>
+              <h3 class="font-bold text-lg mb-1">Pilihan Bahan & Ketebalan</h3>
+              <p class="text-slate-600 text-sm">Sebutkan secara spesifik jenis logam yang diinginkan (misal: Plat Besi Hitam tebal 2mm, atau Stainless Steel SS304 Mirror tebal 1.5mm).</p>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 flex items-start gap-4">
+            <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 font-bold flex-shrink-0">2</div>
+            <div>
+              <h3 class="font-bold text-lg mb-1">Ukuran Dimensi & Jumlah Pcs</h3>
+              <p class="text-slate-600 text-sm">Lampirkan ukuran bersih dari part yang ingin dipotong beserta total kuantitas pengerjaan (misal: 250mm x 300mm sebanyak 50 pcs).</p>
+            </div>
+          </div>
+          <div class="bg-white p-6 rounded-2xl border border-slate-200 flex items-start gap-4">
+            <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 font-bold flex-shrink-0">3</div>
+            <div>
+              <h3 class="font-bold text-lg mb-1">File Gambar Desain Vector</h3>
+              <p class="text-slate-600 text-sm">Kirim file desain dalam format CAD (.DXF, .DWG) atau file vector (.AI, .CDR, .SVG, .PDF). Pastikan semua garis sambungan tertutup rapat.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ ACCORDION -->
+    <section class="py-24 bg-white text-slate-900 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">FAQ Jasa Laser Cutting Metal</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200/80">
+              <h3 class="text-lg font-bold mb-2 text-slate-900">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- MAPS & LOCATION -->
+    <section class="py-24 bg-slate-50 text-slate-900 border-t border-slate-200">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-8 rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+          <iframe
+            src="https://maps.google.com/maps?q=Jl.%20Bintaro%20Bsd%20no%201D%20parigi%20(%20samping%20Sekolah%20SD%20Mentari%20Internasional%20School%20),%20Tangerang%20Selatan,%20Banten,%20Indonesia&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+           title="Peta lokasi workshop Tepat Laser" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="lg:col-span-4 bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="text-xl font-bold mb-4">Workshop Utama Tepat Laser</h3>
+          <p class="text-slate-600 text-sm mb-6">{SITE_CONFIG.address}</p>
+          <h4 class="font-bold text-sm text-slate-900 mb-2">Jam Buka:</h4>
+          <p class="text-slate-600 text-sm mb-6">{SITE_CONFIG.businessHours}</p>
+          <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg text-sm w-full transition-all">
+            Kunjungi Workshop Kami
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

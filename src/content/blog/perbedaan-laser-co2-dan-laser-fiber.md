@@ -4,7 +4,7 @@ excerpt: "Analisis teknis dan aplikatif antara teknologi laser CO2 dan Fiber unt
 category: "Technical"
 readTime: "7 menit"
 publishDate: "2025-01-10"
-image: "/images/laserfiber.webp"
+image: "/images/blog/perbedaan-laser-co2-dan-laser-fiber.webp"
 keywords: "perbedaan laser co2 fiber, laser co2 vs fiber, teknologi laser cutting"
 schema:
   "@context": "https://schema.org"

@@ -1,4 +1,5 @@
 ---
+// src/pages/jasa-laser-cutting-stainless.astro
 import BaseLayout from '../components/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -6,135 +7,50 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { SITE_CONFIG } from '../utils/constants.js';
 import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
 
-const WA_NUMBER = SITE_CONFIG.whatsapp;
-
-const WA_MESSAGES = {
-  industri: encodeURIComponent("Halo Tepat Laser, saya butuh laser cutting stainless untuk kebutuhan industri/produksi. Bisa info harga dan kapasitas?"),
-  interior: encodeURIComponent("Halo Tepat Laser, saya mau konsultasi laser cutting stainless untuk interior/ornamen/railing. Bisa bantu?"),
-  umkm: encodeURIComponent("Halo Tepat Laser, saya mau tanya harga laser cutting stainless satuan. Bisa kasih estimasi?"),
-  default: encodeURIComponent("Halo Tepat Laser, saya tertarik dengan jasa laser cutting stainless. Bisa konsultasi gratis?"),
-};
+const WA = SITE_CONFIG.whatsapp;
+const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser, saya ingin tanya penawaran jasa laser cutting stainless steel.")}`;
 
 const faqs = [
   {
-    question: "Berapa harga laser cutting stainless steel per meter?",
-    answer: "Harga laser cutting stainless bergantung pada ketebalan dan kompleksitas desain. Estimasi mulai Rp 15.000–Rp 80.000 per meter untuk ketebalan 1–3mm. Hubungi kami via WhatsApp untuk quote akurat sesuai file desain Anda — gratis dan tanpa komitmen."
+    question: "Tipe/grade plat stainless steel apa saja yang bisa dipotong?",
+    answer: "Kami melayani jasa potong untuk tiga tipe grade stainless utama: Grade SS201 (ekonomis, untuk kebutuhan interior/furnitur kering), Grade SS304 (anti-karat standar, ideal untuk food-grade & outdoor umum), dan Grade SS316 (anti-karat premium tahan korosi cairan asam/air laut, untuk industri kimia/marine)."
   },
   {
-    question: "Grade stainless apa saja yang bisa dikerjakan?",
-    answer: "Kami mengerjakan SS201 (ekonomis, untuk interior ringan), SS304 (standar industri, tahan karat umum), dan SS316 (marine grade, tahan lingkungan agresif dan pesisir). Semua grade tersedia dalam finishing hairline, mirror, dan doff."
+    question: "Apakah hasil potong stainless-nya rapi, mengkilap, dan tidak berkerak?",
+    answer: "Tentu saja. Kami memotong plat stainless steel menggunakan bantuan gas Nitrogen (N2) bertekanan tinggi (bukan oksigen). Gas nitrogen mencegah reaksi oksidasi saat pemotongan, menghasilkan tepi potongan yang bening, mengkilap (polished edge), dan bebas dari kerak gosong hitam sehingga tidak butuh finishing amplas tambahan."
   },
   {
-    question: "Berapa ketebalan maksimum stainless yang bisa dipotong?",
-    answer: "Mesin laser fiber kami mampu memotong stainless steel hingga ketebalan 10mm. Ketebalan umum yang kami kerjakan: 0.5mm, 1mm, 1.5mm, 2mm, 3mm, 4mm, 6mm, 8mm, dan 10mm."
+    question: "Berapa ketebalan plat stainless steel maksimal yang bisa dipotong?",
+    answer: "Mesin laser fiber high-power kami sanggup memotong lembaran plat stainless steel dengan ketebalan mulai dari yang sangat tipis (0.5mm, 0.8mm, 1mm, 1.2mm, 1.5mm, 2mm, hingga maksimal 3mm)."
   },
   {
-    question: "Apakah ada minimum order?",
-    answer: "Tidak ada minimum order. Kami melayani dari 1 lembar/piece hingga produksi massal. Untuk order satuan, harga per unit menyesuaikan kompleksitas desain dan material yang digunakan."
+    question: "Apakah Tepat Laser melayani jasa potong saja atau menyediakan bahan juga?",
+    answer: "Kami melayani keduanya. Anda bisa memesan jasa potong saja dengan membawa bahan stainless milik sendiri ke workshop kami, atau Anda bisa memesan secara full-order (jasa potong + material plat stainless dari kami) untuk kemudahan transaksi."
   },
   {
-    question: "Format file desain apa yang diterima?",
-    answer: "Kami menerima file DXF, DWG (AutoCAD), AI (Adobe Illustrator), CDR (CorelDraw), SVG, dan PDF vector. Tidak punya file teknis? Kami bisa bantu konversi dari foto/gambar dengan biaya konversi yang transparan."
-  },
-  {
-    question: "Berapa lama waktu pengerjaan laser cutting stainless?",
-    answer: "Standar: 1–3 hari kerja setelah desain disetujui. Layanan express tersedia untuk project kecil dengan pengerjaan di hari yang sama (4–8 jam, konfirmasi availability via WhatsApp)."
-  },
-  {
-    question: "Apakah melayani pengiriman luar Jabodetabek?",
-    answer: "Ya, kami melayani pengiriman ke seluruh Indonesia via JNE, J&T, SiCepat, dan ekspedisi kargo untuk order besar. Pengiriman gratis untuk area Tangerang Selatan dan sekitar Bintaro."
+    question: "Berapa lama estimasi pengerjaan laser stainless di Bintaro?",
+    answer: "Pengerjaan standar untuk volume kecil s/d menengah membutuhkan waktu 1-2 hari kerja saja. Untuk job express, kami memiliki layanan prioritas yang bisa diselesaikan di hari yang sama (same-day service) setelah desain disetujui."
   }
 ];
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "Jasa Laser Cutting Stainless Steel",
-  "serviceType": "Laser Cutting Stainless Steel",
-  "description": "Jasa laser cutting stainless steel SS201, SS304, SS316 dengan toleransi ±0.02mm. Melayani Jabodetabek dengan pengerjaan express 1–3 hari kerja. Hairline, mirror, doff tersedia.",
-  "provider": {
-    "@type": "LocalBusiness",
-    "name": "Tepat Laser",
-    "telephone": SITE_CONFIG.phone,
-    "email": SITE_CONFIG.email,
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Jl. Bintaro BSD No 1D",
-      "addressLocality": "Tangerang Selatan",
-      "addressRegion": "Banten",
-      "addressCountry": "ID"
-    }
-  },
-  "areaServed": [
-    { "@type": "City", "name": "Jakarta" },
-    { "@type": "City", "name": "Tangerang" },
-    { "@type": "City", "name": "Depok" },
-    { "@type": "City", "name": "Bekasi" },
-    { "@type": "City", "name": "Bogor" }
-  ],
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "IDR",
-    "priceSpecification": {
-      "@type": "UnitPriceSpecification",
-      "price": "15000",
-      "priceCurrency": "IDR",
-      "referenceQuantity": { "@type": "QuantitativeValue", "value": "1", "unitCode": "MTR" }
-    },
-    "availability": "https://schema.org/InStock"
-  }
-};
-
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "Tepat Laser",
-  "image": `${SITE_CONFIG.url}/images/metal.webp`,
-  "telephone": SITE_CONFIG.phone,
-  "email": SITE_CONFIG.email,
-  "url": `${SITE_CONFIG.url}/jasa-laser-cutting-stainless/`,
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Jl. Bintaro BSD No 1D, Samping SD Mentari Internasional School",
-    "addressLocality": "Tangerang Selatan",
-    "addressRegion": "Banten",
-    "postalCode": "15413",
-    "addressCountry": "ID"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": -6.2881,
-    "longitude": 106.7266
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-    "opens": "08:00",
-    "closes": "17:00"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "reviewCount": "87"
-  }
-};
+const pageTitle = "Jasa Laser Cutting Stainless Steel Presisi | Tepat Laser";
+const pageDesc = "Jasa laser cutting stainless steel untuk SS201, SS304, SS316 di Bintaro, Tangerang Selatan. Hasil potong rapi bebas gosong dengan nitrogen, presisi tinggi, cepat, dan tanpa minimum order.";
+const pageKw = "laser cutting stainless, jasa laser cutting stainless steel, jasa potong stainless steel, cutting plat stainless, stainless ss304, stainless ss316, laser stainless bintaro";
 
 const breadcrumbSchema = generateBreadcrumbSchema([
   { name: 'Beranda', url: '/' },
-  { name: 'Jasa', url: '/#services' },
-  { name: 'Laser Cutting Stainless Steel', url: '/jasa-laser-cutting-stainless/' }
+  { name: 'Laser Cutting Stainless', url: '/jasa-laser-cutting-stainless/' }
 ]);
 
-const faqSchema = generateFAQSchema(faqs);
-
 const meta = {
-  title: "Jasa Laser Cutting Stainless Steel Jakarta & Tangerang",
-  description: "Jasa laser cutting stainless SS201, SS304, SS316 di Bintaro–Tangerang. Toleransi ±0.02mm, express 4 jam, no minimum order. Hairline & mirror tersedia. Konsultasi gratis!",
-  keywords: "jasa laser cutting stainless, laser cutting stainless jakarta, harga laser cutting stainless, laser cutting ss304, laser cutting stainless tangerang",
-  url: "/jasa-laser-cutting-stainless/",
-  image: "/images/metal.webp",
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/jasa-laser-cutting-stainless/',
+  canonicalUrl: '/laser-cutting-stainless/',
+  image: '/images/metal.webp',
   type: "website",
-  jsonLd: [serviceSchema, localBusinessSchema, breadcrumbSchema, faqSchema]
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
 };
 
 const crumbs = breadcrumbSchema.itemListElement;
@@ -143,525 +59,154 @@ const crumbs = breadcrumbSchema.itemListElement;
 <BaseLayout {...meta}>
   <Header slot="header" />
 
-  <main class="mt-16">
+  <main class="mt-16 overflow-x-hidden">
     <Breadcrumbs crumbs={crumbs} />
 
-    <!-- ==================== HERO ==================== -->
-    <section class="relative bg-gradient-to-br from-gray-900 via-slate-800 to-gray-900 text-white overflow-hidden">
-      <div class="absolute inset-0 opacity-20"
-        style="background-image: url('/images/metal.webp'); background-size: cover; background-position: center;">
-      </div>
-      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/90 to-slate-800/70"></div>
-
-      <div class="relative container-custom section-padding py-20 lg:py-28">
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-950 text-white py-24 md:py-32 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/metal.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent"></div>
+      <div class="container-custom relative z-10">
         <div class="max-w-3xl">
-          <!-- Badge -->
-          <div class="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-500/30 rounded-full px-4 py-1.5 mb-6">
-            <span class="w-2 h-2 bg-blue-400 rounded-full animate-pulse"></span>
-            <span class="text-blue-300 text-sm font-medium">Workshop Bintaro · Melayani Jabodetabek</span>
-          </div>
-
-          <h1 class="text-4xl lg:text-5xl font-extrabold leading-tight mb-6">
-            Jasa Laser Cutting<br/>
-            <span class="text-blue-400">Stainless Steel</span> Jakarta<br/>
-            <span class="text-2xl lg:text-3xl font-semibold text-gray-300">SS201 · SS304 · SS316</span>
+          <span class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 font-bold px-4 py-1.5 rounded-full text-xs mb-6 border border-emerald-500/30 tracking-wider">SPESIALIS STAINLESS STEEL JABODETABEK</span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+            Jasa Laser Cutting Stainless Steel Presisi
           </h1>
+          <p class="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed">
+            Potong plat stainless steel SS201, SS304, dan SS316 untuk huruf timbul, ornamen pagar, railing, partisi, kitchen set, dan komponen custom. Hasil rapi bebas kerak gosong dengan proses nitrogen dan pengerjaan cepat.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-emerald-500/20 transform hover:-translate-y-0.5 transition-all">
+              Minta Quote Stainless Sekarang
+            </a>
+            <a href="#spesifikasi-stainless" class="inline-flex items-center justify-center border-2 border-slate-700 hover:border-slate-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-slate-800 transition-all">
+              Spesifikasi & Detail Bahan
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-          <p class="text-lg lg:text-xl text-gray-300 mb-4 max-w-2xl">
-            Potong stainless presisi <strong class="text-white">toleransi ±0.02mm</strong>, ketebalan 0.5–10mm. Finishing hairline, mirror, dan doff. Pengerjaan <strong class="text-white">1–3 hari kerja</strong> — express 4 jam tersedia.
+    
+    <!-- PORTFOLIO GALLERY -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom">
+        <h2 class="text-3xl font-bold text-center mb-12">Galeri Hasil Pengerjaan</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <img width="898" height="1200" src="/images/stainlesssteel (1).webp" alt="Portfolio 1" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1024" height="576" src="/images/stainlesssteel (2).webp" alt="Portfolio 2" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="674" height="1200" src="/images/stainlesssteel (3).webp" alt="Portfolio 3" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1024" height="897" src="/images/stainlesssteel (4).webp" alt="Portfolio 4" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN SEO CONTENT SECTION -->
+    <section class="py-24 bg-white text-slate-900">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6 text-slate-900">Mengapa Laser Cutting Stainless Steel Harus Memakai Gas Nitrogen?</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Banyak bengkel laser memotong stainless steel menggunakan gas oksigen (O2) untuk memotong biaya produksi. Padahal, penggunaan oksigen menyebabkan terjadinya reaksi oksidasi (pembakaran) yang menghasilkan sisa kerak hitam gosong di sepanjang tepian potongan. Kerak ini tidak hanya merusak penampilan estetis stainless, tetapi juga menjadi celah titik awal timbulnya karat.
+          </p>
+          <p class="text-slate-600 mb-12 leading-relaxed">
+            Di <strong>Tepat Laser Bintaro</strong>, kami berkomitmen menjaga kualitas dengan memotong stainless steel menggunakan hembusan gas <strong>Nitrogen (N2) bertekanan tinggi</strong>. Hasilnya adalah tepian potong yang tetap bersih, berwarna silver mengkilap layaknya permukaan asli logam, serta ketahanan anti-karat bawaan stainless steel yang tetap terjaga utuh.
           </p>
 
-          <!-- Trust inline -->
-          <div class="flex flex-wrap gap-4 mb-10 text-sm text-gray-400">
-            <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>No minimum order</span>
-            <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Terima DXF, AI, CDR, SVG</span>
-            <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Konsultasi desain gratis</span>
-            <span class="flex items-center gap-1.5"><svg class="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Workshop sendiri, bukan broker</span>
+          <!-- Stainless steel types grid -->
+          <h3 id="spesifikasi-stainless" class="text-2xl font-bold mb-6 text-slate-900">Grade Stainless Steel yang Umum Kami Tangani</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">Stainless Steel 201</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">
+                Grade ekonomis dengan tampilan mengkilap. Sangat cocok untuk dekorasi interior rumah, pajangan dinding, kaki furnitur, dan produk pajangan dalam ruangan yang kering.
+              </p>
+            </div>
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">Stainless Steel 304</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">
+                Grade standard industri dengan ketahanan korosi yang sangat baik (food grade). Ideal untuk pagar rumah mewah outdoor, railing tangga, peralatan dapur restoran, dan alat medis.
+              </p>
+            </div>
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">Stainless Steel 316</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">
+                Grade premium tahan asam dan air garam. Sangat direkomendasikan untuk komponen kapal laut, fasilitas industri kimia, dan struktur bangunan tepi pantai.
+              </p>
+            </div>
           </div>
 
-          <!-- CTA Buttons -->
-          <div class="flex flex-col sm:flex-row gap-4">
-            <a
-              href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.default}`}
-              target="_blank" rel="noopener noreferrer"
-              data-gtm-id="wa-hero-primary"
-              class="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg transition-all shadow-lg shadow-green-500/30 hover:shadow-green-500/50"
-            >
-              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
-              Chat WA — Konsultasi Gratis
-            </a>
-            <a
-              href="/portfolio/"
-              data-gtm-id="hero-portfolio"
-              class="inline-flex items-center justify-center gap-2 border-2 border-white/30 hover:border-white text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all hover:bg-white/10"
-            >
-              Lihat Portofolio
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-            </a>
-          </div>
+          <!-- Applications list -->
+          <h3 class="text-2xl font-bold mb-6 text-slate-900">Aplikasi Produk Laser Cutting Stainless Steel</h3>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Pekerjaan laser stainless kami mencakup berbagai macam produk dekorasi dan utilitas, di antaranya:
+          </p>
+          <ul class="space-y-4 mb-12 text-slate-700">
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</span>
+              <div>
+                <strong>Huruf Timbul & Neon Sign:</strong> Logo atau nama perusahaan dengan finishing stainless cermin (mirror) atau garis serat halus (hairline).
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</span>
+              <div>
+                <strong>Partisi & Sekat Ruang Kerawang:</strong> Panel pembatas ruangan dengan ukiran motif geometris atau floral untuk lobi kantor, hotel, maupun rumah tinggal.
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</span>
+              <div>
+                <strong>Pagar & Railing Tangga Laser Cut:</strong> Desain eksterior rumah mewah berkesan modern bernilai seni tinggi.
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <!-- ==================== TRUST BAR ==================== -->
-    <section class="bg-blue-700 text-white py-5">
-      <div class="container-custom">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div>
-            <div class="text-2xl font-extrabold">7+</div>
-            <div class="text-blue-200 text-sm">Tahun Pengalaman</div>
-          </div>
-          <div>
-            <div class="text-2xl font-extrabold">500+</div>
-            <div class="text-blue-200 text-sm">Proyek Stainless</div>
-          </div>
-          <div>
-            <div class="text-2xl font-extrabold">±0.02mm</div>
-            <div class="text-blue-200 text-sm">Toleransi Presisi</div>
-          </div>
-          <div>
-            <div class="text-2xl font-extrabold">1–3 Hari</div>
-            <div class="text-blue-200 text-sm">Lead Time Standar</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== GRADE STAINLESS ==================== -->
-    <section class="section-padding">
-      <div class="container-custom">
-        <div class="text-center mb-12">
-          <h2 class="heading-lg text-gray-900 mb-4">Grade Stainless yang Kami Kerjakan</h2>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">Pilih grade sesuai kebutuhan — dari budget ekonomis hingga marine grade untuk lingkungan agresif.</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- SS201 -->
-          <div class="bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-xl transition-shadow">
-            <div class="w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center mb-5">
-              <span class="text-gray-700 font-extrabold text-lg">201</span>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">SS201 — Ekonomis</h3>
-            <p class="text-gray-500 text-sm mb-4">Grade ekonomis untuk aplikasi interior ringan, signage, dan dekorasi dalam ruangan.</p>
-            <ul class="space-y-2 text-sm text-gray-600 mb-6">
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Ketebalan 0.5mm – 3mm</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Harga paling kompetitif</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Ideal: signage, logo, dekorasi</li>
-            </ul>
-            <a href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.umkm}`} target="_blank" rel="noopener noreferrer" data-gtm-id="wa-ss201"
-              class="block text-center border border-gray-300 hover:border-blue-600 hover:text-blue-600 text-gray-700 font-semibold py-2.5 rounded-lg transition-colors text-sm">
-              Tanya Harga SS201
-            </a>
-          </div>
-
-          <!-- SS304 -->
-          <div class="bg-blue-600 text-white rounded-2xl p-8 shadow-xl relative overflow-hidden">
-            <div class="absolute top-4 right-4 bg-yellow-400 text-yellow-900 text-xs font-bold px-2.5 py-1 rounded-full">TERLARIS</div>
-            <div class="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center mb-5">
-              <span class="text-white font-extrabold text-lg">304</span>
-            </div>
-            <h3 class="text-xl font-bold mb-2">SS304 — Standar Industri</h3>
-            <p class="text-blue-100 text-sm mb-4">Grade 18/8 paling umum. Tahan karat untuk lingkungan normal, cocok industri hingga arsitektur.</p>
-            <ul class="space-y-2 text-sm text-blue-100 mb-6">
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-200 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Ketebalan 0.5mm – 10mm</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-200 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Tahan korosi standar</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-200 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Ideal: railing, part mesin, ornamen</li>
-            </ul>
-            <a href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.interior}`} target="_blank" rel="noopener noreferrer" data-gtm-id="wa-ss304"
-              class="block text-center bg-white text-blue-600 font-bold py-2.5 rounded-lg transition-colors text-sm hover:bg-blue-50">
-              Konsultasi SS304
-            </a>
-          </div>
-
-          <!-- SS316 -->
-          <div class="bg-white rounded-2xl border border-gray-200 p-8 hover:shadow-xl transition-shadow">
-            <div class="w-14 h-14 bg-slate-100 rounded-xl flex items-center justify-center mb-5">
-              <span class="text-slate-700 font-extrabold text-lg">316</span>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-2">SS316 — Marine Grade</h3>
-            <p class="text-gray-500 text-sm mb-4">Grade 18/10/2 dengan molybdenum. Tahan lingkungan agresif, area pesisir, dan kelembapan tinggi.</p>
-            <ul class="space-y-2 text-sm text-gray-600 mb-6">
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Ketebalan 1mm – 10mm</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Tahan klorida & korosi tinggi</li>
-              <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Ideal: outdoor, balkon, fasad pesisir</li>
-            </ul>
-            <a href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.industri}`} target="_blank" rel="noopener noreferrer" data-gtm-id="wa-ss316"
-              class="block text-center border border-gray-300 hover:border-blue-600 hover:text-blue-600 text-gray-700 font-semibold py-2.5 rounded-lg transition-colors text-sm">
-              Tanya Harga SS316
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== SPESIFIKASI TEKNIS ==================== -->
-    <section class="section-padding bg-gray-50">
-      <div class="container-custom">
-        <div class="grid lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <h2 class="heading-lg text-gray-900 mb-6">Spesifikasi Teknis</h2>
-            <p class="text-gray-600 mb-8">Mesin laser fiber kami beroperasi dengan parameter yang konsisten untuk memastikan setiap pemotongan memenuhi standar kualitas industri.</p>
-            <div class="overflow-hidden rounded-xl border border-gray-200">
-              <table class="w-full text-sm">
-                <tbody>
-                  {[
-                    ["Mesin", "CNC Fiber Laser"],
-                    ["Ketebalan Material", "0.5mm – 10mm"],
-                    ["Ukuran Plat Standar", "1220 × 2440 mm"],
-                    ["Toleransi Cutting", "±0.02mm"],
-                    ["Grade Tersedia", "SS201, SS304, SS316"],
-                    ["Finishing", "Hairline / Mirror / Doff / Raw"],
-                    ["Format File", "DXF, DWG, AI, CDR, SVG, PDF"],
-                    ["Lead Time Standar", "1–3 hari kerja"],
-                    ["Lead Time Express", "4–8 jam (konfirmasi WA)"],
-                  ].map(([label, value], i) => (
-                    <tr class={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                      <td class="px-5 py-3.5 font-semibold text-gray-700 w-1/2">{label}</td>
-                      <td class="px-5 py-3.5 text-gray-600">{value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Finishing Options -->
-          <div>
-            <h2 class="heading-lg text-gray-900 mb-6">Pilihan Finishing</h2>
-            <div class="space-y-4">
-              <div class="bg-white rounded-xl border border-gray-200 p-6 flex gap-5">
-                <div class="w-14 h-14 bg-gradient-to-br from-gray-300 to-gray-100 rounded-lg flex-shrink-0 border border-gray-200"
-                  style="background: repeating-linear-gradient(90deg, #cbd5e1 0px, #cbd5e1 1px, #f1f5f9 1px, #f1f5f9 4px);">
-                </div>
-                <div>
-                  <h3 class="font-bold text-gray-900 mb-1">Hairline (Brushed/Satin)</h3>
-                  <p class="text-gray-500 text-sm">Garis sejajar halus memberi tampilan modern dan elegan. Paling populer untuk interior, railing, dan signage premium.</p>
-                </div>
-              </div>
-              <div class="bg-white rounded-xl border border-gray-200 p-6 flex gap-5">
-                <div class="w-14 h-14 rounded-lg flex-shrink-0 border border-gray-200"
-                  style="background: linear-gradient(135deg, #f8fafc 0%, #cbd5e1 40%, #f8fafc 60%, #94a3b8 100%);">
-                </div>
-                <div>
-                  <h3 class="font-bold text-gray-900 mb-1">Mirror (Cermin)</h3>
-                  <p class="text-gray-500 text-sm">Permukaan sangat reflektif seperti cermin. Ideal untuk huruf timbul, aksesori, dan aksen dekoratif premium.</p>
-                </div>
-              </div>
-              <div class="bg-white rounded-xl border border-gray-200 p-6 flex gap-5">
-                <div class="w-14 h-14 bg-gray-400 rounded-lg flex-shrink-0 border border-gray-200"></div>
-                <div>
-                  <h3 class="font-bold text-gray-900 mb-1">Doff (Matte)</h3>
-                  <p class="text-gray-500 text-sm">Permukaan tidak mengkilap, anti-fingerprint, tampilan industrial yang bersih dan profesional.</p>
-                </div>
-              </div>
-              <div class="bg-white rounded-xl border border-gray-200 p-6 flex gap-5">
-                <div class="w-14 h-14 bg-gradient-to-br from-gray-500 to-gray-300 rounded-lg flex-shrink-0 border border-gray-200"></div>
-                <div>
-                  <h3 class="font-bold text-gray-900 mb-1">Raw (Tanpa Finishing)</h3>
-                  <p class="text-gray-500 text-sm">Plat standar tanpa perlakuan tambahan. Cocok untuk aplikasi industri dan part mesin yang akan diproses lebih lanjut.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== APLIKASI PER SEGMEN ==================== -->
-    <section class="section-padding">
-      <div class="container-custom">
-        <div class="text-center mb-12">
-          <h2 class="heading-lg text-gray-900 mb-4">Untuk Kebutuhan Apa Saja?</h2>
-          <p class="text-lg text-gray-600 max-w-2xl mx-auto">Dari industri manufaktur hingga UMKM, laser cutting stainless kami melayani berbagai segmen dengan solusi yang tepat.</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-8">
-          <!-- Industri -->
-          <div class="group">
-            <div class="bg-slate-800 rounded-2xl p-8 h-full hover:bg-slate-900 transition-colors">
-              <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center mb-5">
-                <svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
-              </div>
-              <h3 class="text-lg font-bold text-white mb-3">Industri & Manufaktur</h3>
-              <ul class="space-y-2 text-slate-400 text-sm mb-6">
-                <li>• Part mesin & komponen presisi</li>
-                <li>• Bracket & support struktur</li>
-                <li>• Casing panel kontrol</li>
-                <li>• Pelat nama & identifikasi mesin</li>
-                <li>• Komponen otomotif & elektronik</li>
-              </ul>
-              <a href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.industri}`} target="_blank" rel="noopener noreferrer" data-gtm-id="wa-segment-industri"
-                class="text-blue-400 hover:text-blue-300 text-sm font-semibold flex items-center gap-1 transition-colors">
-                Konsultasi Kebutuhan Produksi
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- Arsitektur & Interior -->
-          <div class="group">
-            <div class="bg-slate-800 rounded-2xl p-8 h-full hover:bg-slate-900 transition-colors">
-              <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-5">
-                <svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-              </div>
-              <h3 class="text-lg font-bold text-white mb-3">Arsitektur & Interior</h3>
-              <ul class="space-y-2 text-slate-400 text-sm mb-6">
-                <li>• Ornamen dinding motif custom</li>
-                <li>• Railing & list tangga hairline</li>
-                <li>• Partisi & panel dekoratif</li>
-                <li>• Fasad gedung & pagar</li>
-                <li>• Mihrab masjid & ornamen religi</li>
-              </ul>
-              <a href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.interior}`} target="_blank" rel="noopener noreferrer" data-gtm-id="wa-segment-interior"
-                class="text-purple-400 hover:text-purple-300 text-sm font-semibold flex items-center gap-1 transition-colors">
-                Request Sampel & Portofolio
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
-            </div>
-          </div>
-
-          <!-- UMKM & Branding -->
-          <div class="group">
-            <div class="bg-slate-800 rounded-2xl p-8 h-full hover:bg-slate-900 transition-colors">
-              <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center mb-5">
-                <svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
-              </div>
-              <h3 class="text-lg font-bold text-white mb-3">UMKM & Branding</h3>
-              <ul class="space-y-2 text-slate-400 text-sm mb-6">
-                <li>• Logo & signboard toko/kafe</li>
-                <li>• Name plate & plat nomor custom</li>
-                <li>• Huruf timbul 3D stainless</li>
-                <li>• Souvenir & gift premium</li>
-                <li>• Aksesori fashion & kerajinan</li>
-              </ul>
-              <a href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.umkm}`} target="_blank" rel="noopener noreferrer" data-gtm-id="wa-segment-umkm"
-                class="text-green-400 hover:text-green-300 text-sm font-semibold flex items-center gap-1 transition-colors">
-                Cek Harga & Minimum Order
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== ESTIMASI HARGA ==================== -->
-    <section class="section-padding bg-blue-50 border-y border-blue-100">
-      <div class="container-custom">
-        <div class="text-center mb-10">
-          <h2 class="heading-lg text-gray-900 mb-4">Estimasi Harga Laser Cutting Stainless</h2>
-          <p class="text-gray-600 max-w-xl mx-auto">Harga aktual bergantung pada desain, ketebalan, dan volume. Tabel berikut sebagai panduan awal sebelum konsultasi.</p>
-        </div>
-        <div class="max-w-3xl mx-auto">
-          <div class="overflow-hidden rounded-2xl border border-blue-200 shadow-sm">
-            <table class="w-full text-sm">
-              <thead>
-                <tr class="bg-blue-700 text-white">
-                  <th class="px-5 py-3.5 text-left font-semibold">Ketebalan</th>
-                  <th class="px-5 py-3.5 text-left font-semibold">Grade</th>
-                  <th class="px-5 py-3.5 text-left font-semibold">Estimasi Harga/Meter</th>
-                  <th class="px-5 py-3.5 text-left font-semibold">Cocok Untuk</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  ["0.5 – 1mm", "SS201/304", "Rp 15.000 – 25.000", "Logo, aksesori, dekorasi"],
-                  ["1.5 – 2mm", "SS201/304", "Rp 25.000 – 40.000", "Signage, huruf timbul, railing ringan"],
-                  ["2 – 3mm", "SS304/316", "Rp 40.000 – 60.000", "Railing, ornamen fasad, partisi"],
-                  ["4 – 6mm", "SS304/316", "Rp 60.000 – 120.000", "Part mesin, bracket, panel industri"],
-                  ["8 – 10mm", "SS304/316", "Rp 120.000 – 200.000", "Komponen berat, struktur industri"],
-                ].map(([tebal, grade, harga, cocok], i) => (
-                  <tr class={i % 2 === 0 ? "bg-white" : "bg-blue-50/50"}>
-                    <td class="px-5 py-3.5 font-semibold text-gray-800">{tebal}</td>
-                    <td class="px-5 py-3.5 text-gray-600">{grade}</td>
-                    <td class="px-5 py-3.5 text-blue-700 font-semibold">{harga}</td>
-                    <td class="px-5 py-3.5 text-gray-500">{cocok}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p class="text-center text-xs text-gray-500 mt-3">* Estimasi untuk desain sederhana, belum termasuk ongkos kirim. Hubungi kami untuk quote akurat.</p>
-
-          <div class="mt-8 text-center">
-            <a href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.default}`}
-              target="_blank" rel="noopener noreferrer" data-gtm-id="wa-harga"
-              class="inline-flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg">
-              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
-              Minta Quote Akurat via WhatsApp
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== PROSES ORDER ==================== -->
-    <section class="section-padding">
-      <div class="container-custom">
-        <div class="text-center mb-12">
-          <h2 class="heading-lg text-gray-900 mb-4">Order dalam 3 Langkah</h2>
-          <p class="text-gray-600">Proses yang mudah, transparan, dan tanpa biaya tersembunyi.</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-          {[
-            {
-              step: "01",
-              title: "Kirim File & Kebutuhan",
-              desc: "Upload file desain (DXF/AI/CDR/SVG) via WhatsApp. Belum punya file? Ceritakan kebutuhan Anda — kami bantu konversi.",
-              color: "bg-blue-100 text-blue-700"
-            },
-            {
-              step: "02",
-              title: "Terima Konfirmasi Harga",
-              desc: "Kami kirim estimasi harga dan lead time dalam waktu 1–2 jam kerja. Tidak ada biaya tersembunyi.",
-              color: "bg-green-100 text-green-700"
-            },
-            {
-              step: "03",
-              title: "Produksi & Pengiriman",
-              desc: "Setelah deal, produksi dimulai. Pengiriman gratis area Tangerang Selatan. Luar kota via ekspedisi.",
-              color: "bg-purple-100 text-purple-700"
-            }
-          ].map(({ step, title, desc, color }) => (
-            <div class="text-center">
-              <div class={`w-16 h-16 ${color} rounded-2xl flex items-center justify-center mx-auto mb-5 font-extrabold text-xl`}>{step}</div>
-              <h3 class="font-bold text-gray-900 mb-3">{title}</h3>
-              <p class="text-gray-500 text-sm leading-relaxed">{desc}</p>
+    <!-- FAQ SECTION -->
+    <section class="py-24 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">Tanya Jawab Jasa Laser Stainless</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2 text-slate-900">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- ==================== TESTIMONIAL ==================== -->
-    <section class="section-padding bg-gray-50">
-      <div class="container-custom">
-        <div class="text-center mb-10">
-          <h2 class="heading-lg text-gray-900 mb-4">Hasil Nyata dari Klien Kami</h2>
+    <!-- LOCATION DETAILS -->
+    <section class="py-24 bg-white border-t border-slate-200">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-8 rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+          <iframe
+            src="https://maps.google.com/maps?q=Jl.%20Bintaro%20Bsd%20no%201D%20parigi%20(%20samping%20Sekolah%20SD%20Mentari%20Internasional%20School%20),%20Tangerang%20Selatan,%20Banten,%20Indonesia&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+           title="Peta lokasi workshop Tepat Laser" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <div class="flex items-center gap-1 mb-4">
-              {Array.from({length: 5}).map(() => (
-                <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              ))}
-            </div>
-            <p class="text-gray-700 mb-6 leading-relaxed">"Railing tangga SS304 hairline hasilnya sangat bersih — tepi cutting rapi tanpa perlu gerinda manual. Lead time 2 hari sesuai janji, respon WA juga cepat. Sudah kami pakai untuk 3 proyek apartemen."</p>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-600">A</div>
-              <div>
-                <div class="font-semibold text-gray-900">Agus Pramono</div>
-                <div class="text-sm text-gray-500">Kontraktor Interior, Jakarta Selatan</div>
-              </div>
-            </div>
-          </div>
-          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <div class="flex items-center gap-1 mb-4">
-              {Array.from({length: 5}).map(() => (
-                <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-              ))}
-            </div>
-            <p class="text-gray-700 mb-6 leading-relaxed">"Part bracket stainless untuk lini produksi kami — order 200 pcs, semua dimensi konsisten dalam toleransi ±0.02mm. Vendor sebelumnya sering meleset. Sekarang Tepat Laser jadi vendor tetap kami."</p>
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-bold text-green-600">R</div>
-              <div>
-                <div class="font-semibold text-gray-900">Rudi Hartanto</div>
-                <div class="text-sm text-gray-500">Kepala Produksi, PT Maju Bersama Tangerang</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== FAQ ==================== -->
-    <section class="section-padding">
-      <div class="container-custom max-w-3xl">
-        <div class="text-center mb-12">
-          <h2 class="heading-lg text-gray-900 mb-4">Pertanyaan yang Sering Ditanyakan</h2>
-          <p class="text-gray-600">Tidak menemukan jawaban? <a href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.default}`} target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline font-medium">Chat kami langsung</a>.</p>
-        </div>
-        <div class="space-y-4">
-          {faqs.map((faq, i) => (
-            <details class="bg-white border border-gray-200 rounded-xl overflow-hidden group" open={i === 0}>
-              <summary class="flex items-center justify-between px-6 py-5 cursor-pointer list-none font-semibold text-gray-900 hover:bg-gray-50 transition-colors">
-                {faq.question}
-                <svg class="w-5 h-5 text-gray-400 flex-shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </summary>
-              <div class="px-6 pb-5 text-gray-600 leading-relaxed">{faq.answer}</div>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ==================== INTERNAL LINKS (BOUNCE RATE) ==================== -->
-    <section class="section-padding bg-gray-50">
-      <div class="container-custom">
-        <div class="text-center mb-10">
-          <h2 class="text-2xl font-bold text-gray-900 mb-3">Pelajari Lebih Lanjut</h2>
-          <p class="text-gray-600">Artikel dan halaman yang relevan untuk membantu keputusan Anda.</p>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <a href="/material-metal/" class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all group">
-            <div class="text-blue-600 font-semibold text-sm mb-2 group-hover:text-blue-700">Halaman Material</div>
-            <h3 class="font-bold text-gray-900 mb-1">Metal & Stainless — Panduan Lengkap</h3>
-            <p class="text-gray-500 text-sm">Semua yang perlu Anda tahu tentang material metal untuk laser cutting.</p>
-          </a>
-          <a href="/jasa-laser-fiber/" class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all group">
-            <div class="text-blue-600 font-semibold text-sm mb-2 group-hover:text-blue-700">Teknologi</div>
-            <h3 class="font-bold text-gray-900 mb-1">Tentang Mesin Laser Fiber Kami</h3>
-            <p class="text-gray-500 text-sm">Kenapa laser fiber lebih presisi untuk cutting stainless vs metode lain.</p>
-          </a>
-          <a href="/blog/perbedaan-laser-co2-dan-laser-fiber/" class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all group">
-            <div class="text-blue-600 font-semibold text-sm mb-2 group-hover:text-blue-700">Artikel Blog</div>
-            <h3 class="font-bold text-gray-900 mb-1">Laser CO2 vs Laser Fiber untuk Metal</h3>
-            <p class="text-gray-500 text-sm">Mana yang tepat untuk stainless steel? Baca perbandingan teknisnya.</p>
-          </a>
-          <a href="/blog/daftar-harga-laser-cutting-per-meter-2025/" class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all group">
-            <div class="text-blue-600 font-semibold text-sm mb-2 group-hover:text-blue-700">Artikel Blog</div>
-            <h3 class="font-bold text-gray-900 mb-1">Daftar Harga Laser Cutting 2025</h3>
-            <p class="text-gray-500 text-sm">Referensi harga terbaru untuk berbagai material termasuk stainless.</p>
-          </a>
-          <a href="/portfolio/" class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all group">
-            <div class="text-blue-600 font-semibold text-sm mb-2 group-hover:text-blue-700">Portofolio</div>
-            <h3 class="font-bold text-gray-900 mb-1">Galeri Proyek Stainless Kami</h3>
-            <p class="text-gray-500 text-sm">Lihat hasil nyata: railing, ornamen, signage, part industri.</p>
-          </a>
-          <a href="/blog/cara-memilih-material-laser-cutting-indonesia/" class="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md hover:border-blue-300 transition-all group">
-            <div class="text-blue-600 font-semibold text-sm mb-2 group-hover:text-blue-700">Artikel Blog</div>
-            <h3 class="font-bold text-gray-900 mb-1">SS201 vs SS304 vs SS316 — Pilih Mana?</h3>
-            <p class="text-gray-500 text-sm">Panduan memilih grade stainless yang tepat sesuai anggaran dan kebutuhan.</p>
+        <div class="lg:col-span-4 bg-slate-50 p-8 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="text-xl font-bold mb-4">Workshop Laser Cutting Stainless</h3>
+          <p class="text-slate-600 text-sm mb-6">{SITE_CONFIG.address}</p>
+          <h4 class="font-bold text-sm text-slate-900 mb-2">Jam Buka Workshop:</h4>
+          <p class="text-slate-600 text-sm mb-6">{SITE_CONFIG.businessHours}</p>
+          <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg text-sm w-full transition-all">
+            Navigasi Google Maps
           </a>
         </div>
       </div>
     </section>
-
-    <!-- ==================== FINAL CTA ==================== -->
-    <section class="section-padding bg-gradient-to-br from-blue-700 to-blue-900 text-white">
-      <div class="container-custom text-center">
-        <h2 class="heading-lg mb-4">Siap Mulai Proyek Stainless Anda?</h2>
-        <p class="text-blue-200 text-lg mb-3 max-w-xl mx-auto">Konsultasi gratis, estimasi harga dalam 1 jam, no minimum order. Workshop kami di Bintaro siap produksi hari ini.</p>
-        <p class="text-blue-300 text-sm mb-10">Senin–Sabtu, 08.00–17.00 WIB · Express tersedia di luar jam kerja (konfirmasi WA)</p>
-
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href={`https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${WA_MESSAGES.default}`}
-            target="_blank" rel="noopener noreferrer" data-gtm-id="wa-final-cta"
-            class="inline-flex items-center justify-center gap-3 bg-green-500 hover:bg-green-400 text-white font-bold px-8 py-4 rounded-xl text-lg transition-all shadow-lg">
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
-            Chat WhatsApp Sekarang
-          </a>
-          <a href={`tel:${SITE_CONFIG.phone}`}
-            data-gtm-id="phone-final-cta"
-            class="inline-flex items-center justify-center gap-3 border-2 border-white/40 hover:border-white text-white font-semibold px-8 py-4 rounded-xl text-lg transition-all hover:bg-white/10">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 7V5z"/></svg>
-            {SITE_CONFIG.phone}
-          </a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <Footer slot="footer" />
 </BaseLayout>
+
+

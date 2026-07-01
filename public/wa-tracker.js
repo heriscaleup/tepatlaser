@@ -30,11 +30,14 @@
   var STORAGE_KEY         = '_wa_gclid';
   var CODE_CACHE_KEY      = '_wa_code';
   var EXPIRE_MS           = 90 * 24 * 60 * 60 * 1000; // 90 hari
+  var ADS_CONVERSION_ID   = 'AW-11545092315/UMsNCMSMzpIbENvBkIEr';
+  var GA4_MEASUREMENT_ID  = 'G-1B48ZVLKET';
   // ────────────────────────────────────────────────────────────────────────────
 
   // ── Kode konsultasi yang sudah di-pre-register (di-cache in-memory) ─────────
   var _cachedCode = null;
   var _codePromise = null; // Promise<string|null> — hindari double-register
+  var _suppressNextOpenAnalytics = false;
 
   // ── Ambil params dari URL ────────────────────────────────────────────────────
   function getUrlParams() {
@@ -98,6 +101,45 @@
     delete merged._ts;
     Object.keys(merged).forEach(function (k) { if (!merged[k]) delete merged[k]; });
     return merged;
+  }
+
+  function pushWaAnalytics(btn, source) {
+    var payload = buildPayload();
+    var label = [
+      source || 'wa_click',
+      payload.utm_campaign || '',
+      payload.utm_term || payload.keyword_text || '',
+      window.location.pathname || ''
+    ].filter(Boolean).join(' | ');
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'wa_click',
+      event_category: 'lead',
+      event_label: label,
+      wa_source: source || 'wa_click',
+      wa_href: btn && btn.getAttribute ? (btn.getAttribute('href') || btn.getAttribute('data-wa-href') || '') : '',
+      landing_page: window.location.href,
+      gclid: payload.gclid || '',
+      wbraid: payload.wbraid || '',
+      gbraid: payload.gbraid || '',
+      utm_campaign: payload.utm_campaign || '',
+      utm_term: payload.utm_term || payload.keyword_text || ''
+    });
+
+    if (typeof gtag === 'function') {
+      gtag('event', 'wa_click', {
+        event_category: 'lead',
+        event_label: label,
+        link_url: btn && btn.getAttribute ? (btn.getAttribute('href') || btn.getAttribute('data-wa-href') || '') : '',
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        send_to: GA4_MEASUREMENT_ID
+      });
+
+      // Google Ads conversion: klik link WA
+      gtag('event', 'conversion', { send_to: ADS_CONVERSION_ID });
+    }
   }
 
   // ── Pre-register saat halaman load ──────────────────────────────────────────
@@ -175,6 +217,8 @@
   function handleClick(e, btn) {
     e.preventDefault();
 
+    pushWaAnalytics(btn, 'anchor');
+
     var href  = btn.getAttribute('href') || btn.getAttribute('data-wa-href') || '';
     var match = href.match(/wa\.me\/(\d+)/);
     var phone = match ? match[1] : WA_PHONE;
@@ -182,7 +226,7 @@
 
     preRegisterCode().then(function (code) {
       var finalUrl;
-      if (href && href.indexOf('wa.me') !== -1) {
+      if (href && (href.indexOf('wa.me') !== -1 || href.indexOf('api.whatsapp.com/send') !== -1)) {
         finalUrl = injectCodeIntoWaUrl(href, code);
       } else {
         var base = 'https://wa.me/' + phone;
@@ -190,6 +234,7 @@
         if (code) text = (text ? text.trimEnd() + '\n\n' : '') + 'Kode konsultasi: ' + code;
         finalUrl = text ? base + '?text=' + encodeURIComponent(text) : base;
       }
+      _suppressNextOpenAnalytics = true;
       window.open(finalUrl, '_blank', 'noopener,noreferrer');
     });
   }
@@ -214,6 +259,11 @@
     window.open = function (url, target, features) {
       if (url && typeof url === 'string' &&
           (url.indexOf('wa.me/') !== -1 || url.indexOf('api.whatsapp.com/send') !== -1)) {
+        if (_suppressNextOpenAnalytics) {
+          _suppressNextOpenAnalytics = false;
+        } else {
+          pushWaAnalytics(null, 'window_open');
+        }
 
         // Cek apakah sudah ada kode (sync dari cache)
         if (_cachedCode) {

@@ -3,43 +3,43 @@ import BaseLayout from '../../components/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { generateBlogPostSchema } from '../../utils/seo.js';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
   return posts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post }
   }));
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post);
 
 // Get all posts for related posts functionality
 const allPosts = await getCollection('blog');
 
 // Get related posts (same category, excluding current post)
 const relatedPosts = allPosts
-  .filter(p => p.data.category === post.data.category && p.slug !== post.slug)
+  .filter(p => p.data.category === post.data.category && p.id !== post.id)
   .slice(0, 3);
 
 // Generate the JSON-LD schema using the centralized function
 const jsonLd = generateBlogPostSchema({
   ...post.data,
-  slug: post.slug, // Pass slug explicitly as it's not in post.data
+  slug: post.id, // Pass slug explicitly as it's not in post.data
 });
 
 const crumbs = [
     { name: 'Beranda', url: '/' },
     { name: 'Blog', url: '/blog' },
-    { name: post.data.title, url: `/blog/${post.slug}` }
+    { name: post.data.title, url: `/blog/${post.id}` }
 ];
 ---
 
 <BaseLayout 
-  title={`${post.data.title} | Blog LaserCut Pro`}
+  title={`${post.data.title} | Blog Tepat Laser`}
   description={post.data.excerpt}
   keywords={post.data.keywords || `${post.data.title.toLowerCase()}, laser cutting, cnc router, ${post.data.category.toLowerCase()}`}
   image={post.data.image}
@@ -81,9 +81,12 @@ const crumbs = [
         <img 
           src={post.data.image} 
           alt={post.data.title}
+          width="1200"
+          height="800"
           class="w-full h-96 object-cover rounded-lg shadow-lg"
           loading="eager"
-        />
+          fetchpriority="high"
+        decoding="async" />
       </div>
 
       <!-- Article Content -->
@@ -95,10 +98,10 @@ const crumbs = [
       <div class="mt-12 p-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg text-white">
         <div class="text-center">
           <h3 class="text-2xl font-bold mb-4">
-            Butuh Bantuan Implementasi?
+            Konsultasi Desain & File Gratis Sekarang!
           </h3>
           <p class="text-blue-100 mb-6">
-            Tim ahli LaserCut Pro siap membantu mewujudkan project Anda dengan teknologi terdepan
+            Kirim file desain Anda ke WhatsApp kami untuk direview secara instan. Konsultasi 100% gratis!
           </p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a 
@@ -141,9 +144,11 @@ const crumbs = [
               <img 
                 src={relatedPost.data.image} 
                 alt={relatedPost.data.title}
+                width="1200"
+                height="800"
                 class="w-full h-48 object-cover"
                 loading="lazy"
-              />
+              decoding="async" />
               <div class="p-6">
                 <div class="flex items-center justify-between mb-3">
                   <span class="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full font-medium">
@@ -152,7 +157,7 @@ const crumbs = [
                   <span class="text-sm text-gray-500">{relatedPost.data.readTime}</span>
                 </div>
                 <h3 class="text-xl font-bold text-gray-900 mb-3">
-                  <a href={`blog/${relatedPost.slug}`} class="hover:text-blue-600 transition-colors">
+                  <a href={`blog/${relatedPost.id}`} class="hover:text-blue-600 transition-colors">
                     {relatedPost.data.title}
                   </a>
                 </h3>
@@ -160,7 +165,7 @@ const crumbs = [
                   {relatedPost.data.excerpt}
                 </p>
                 <a 
-                  href={`blog/${relatedPost.slug}`}
+                  href={`blog/${relatedPost.id}`}
                   class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
                 >
                   Baca Selengkapnya →

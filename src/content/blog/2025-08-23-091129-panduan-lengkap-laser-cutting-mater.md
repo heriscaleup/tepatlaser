@@ -4,14 +4,14 @@ excerpt: "Pelajari panduan lengkap laser cutting untuk bisnis di Indonesia. Band
 category: "Laser Cutting"
 readTime: "10-12 menit baca"
 publishDate: "2025-08-23T09:11:29.672Z"
-image: "/images/default-laser-cutting.jpg"
+image: "/images/blog/2025-08-23-091129-panduan-lengkap-laser-cutting-mater.webp"
 keywords: "laser cutting, tepatlaser, indonesia, MDF, plywood, acrylic, PVC, biaya laser cutting, desain laser cutting"
 schema:
   "@context": "https://schema.org"
   "@type": "Article"
   headline: "Panduan Lengkap Laser Cutting: Material, Biaya, & Kualitas"
   description: "Pelajari panduan lengkap laser cutting untuk bisnis di Indonesia. Bandingkan MDF vs Plywood, PVC vs Acrylic, ketahui ketebalan ideal, hindari kesalahan umum, dan optimalkan biaya. Temukan solusi terbaik untuk proyek Anda!"
-  image: "/images/default-laser-cutting.jpg"
+  image: "/images/blog/2025-08-23-091129-panduan-lengkap-laser-cutting-mater.webp"
   datePublished: "2025-08-23T09:11:29.672Z"
   author:
     "@type": "Organization"

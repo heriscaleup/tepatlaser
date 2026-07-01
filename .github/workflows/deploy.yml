@@ -23,12 +23,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20" # Versi Node.js yang direkomendasikan untuk Astro
+          node-version: "22" # Versi Node.js yang direkomendasikan untuk Astro V6
           cache: 'npm'
 
       # 3. Install semua dependencies
       - name: Install Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       # 4. Build project Astro jadi file statis di folder 'dist'
       - name: Build Astro Project
@@ -47,11 +47,9 @@ jobs:
           # Folder hasil build Astro yang akan di-upload (dist bukan out)
           local-dir: ./dist/
           # Folder tujuan di hosting (sesuaikan dengan domain kamu)
-          server-dir: public_html/
+          server-dir: ./
           # Exclude file tertentu jika perlu
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
-          # Force Active FTP Mode to bypass firewall issues
-          dangerous-ftp-active-mode: true

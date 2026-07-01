@@ -3,7 +3,7 @@ title: "Perbandingan MDF vs Plywood untuk Dekorasi Dinding: Mana yang Lebih Baik
 description: "Analisis mendalam perbandingan MDF dan Plywood untuk dekorasi dinding. Pelajari kelebihan, kekurangan, dan mana yang paling sesuai untuk proyek Anda."
 publishDate: "2025-08-24"
 author: "Tim Tepat Laser"
-image: "/images/logo.webp"
+image: "/images/blog/perbandingan-mdf-vs-plywood-dekorasi-dinding.webp"
 excerpt: "Analisis mendalam perbandingan MDF dan Plywood untuk dekorasi dinding. Pelajari kelebihan, kekurangan, dan mana yang paling sesuai untuk proyek Anda."
 category: "Panduan Lengkap Material Laser Cutting"
 keywords: "mdf vs plywood, dekorasi dinding, laser cutting, material interior"

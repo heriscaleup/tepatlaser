@@ -1,0 +1,116 @@
+---
+// src/pages/jasa-laser-cutting-grc.astro
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+const faqs = [
+  {
+    question: "Ketebalan GRC board berapa saja yang bisa dipotong?",
+    answer: "Kami memotong papan semen GRC mulai tebal 6mm, 8mm, 9mm, hingga panel tebal 12mm dan 15mm untuk kebutuhan eksterior bangunan."
+  },
+  {
+    question: "Mengapa memotong GRC menggunakan mesin CNC Router?",
+    answer: "GRC (Glassfibre Reinforced Concrete) terbuat dari campuran semen dan serat fiber semen yang sangat keras dan berdebu tebal jika dibakar dengan laser. CNC Router bermata potong berlian (*diamond bit*) khusus mampu meraut GRC dengan cepat tanpa menimbulkan keretakan struktural pada panel semen."
+  }
+];
+
+const pageTitle = "Jasa Cutting GRC Fasad & Sekat Rumah Bintaro | Tepat Laser";
+const pageDesc = "Jasa potong & ukir GRC Board (semen serat fiber) custom terdekat di Bintaro. Melayani pembuatan panel dekoratif fasad luar ruangan, kisi-kisi angin, pagar GRC.";
+const pageKw = "jasa cutting grc, potong grc board, fasad grc semen, panel grc kerawang, bengkel cnc router grc";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Laser Cutting GRC', url: '/jasa-laser-cutting-grc/' }
+]);
+
+const meta = {
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/jasa-laser-cutting-grc/',
+  image: '/images/grc.webp',
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
+};
+
+const crumbs = breadcrumbSchema.itemListElement;
+---
+
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO -->
+    <section class="relative bg-slate-900 text-white py-24 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/grc.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-block bg-blue-500/20 text-blue-400 font-semibold px-4 py-1.5 rounded-full text-xs mb-6 border border-blue-500/30">CEMENT BOARD CNC SPECIALIST</span>
+          <h1 class="text-4xl sm:text-5xl font-extrabold mb-6">Jasa Cutting GRC Fasad & Eksterior</h1>
+          <p class="text-lg text-slate-300 mb-8 leading-relaxed">
+            Potong panel semen serat GRC board untuk keperluan kisi-kisi angin eksterior rumah, plafon bermotif ukir kerawang, pagar semen, dan fasad luar ruangan anti air & api.
+          </p>
+          <a href="https://wa.me/6282121292937?text=Halo%20Tepat%20Laser%2C%20saya%20ingin%20tanya%20penawaran%20jasa%20laser%20cutting." target="_blank" rel="noopener noreferrer" class="bg-green-500 hover:bg-green-600 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg">Konsultasi Cutting GRC WA</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTENT -->
+    <section class="py-20 bg-white text-slate-900">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl font-bold mb-6">Fasad Ornamen Semen Kokoh Tahan Segala Cuaca</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            GRC Board (Glassfibre Reinforced Concrete) dikenal luas sebagai bahan panel yang sangat kokoh, anti-rayap, tahan air, dan tahan api, menjadikannya pilihan nomor satu untuk ornamen dinding eksterior bangunan di Indonesia. Menggunakan teknologi mesin router modern kami, tepi potongan GRC akan halus tegak lurus, siap diaplikasikan di lokasi proyek tanpa khawatir retak rambut di tepi motif ornamen.
+          </p>
+          <ul class="space-y-3 mb-6 text-slate-700">
+            <li>✓ Sangat awet untuk aplikasi eksterior outdoor bertahun-tahun</li>
+            <li>✓ Desain ornamen bernuansa klasik islami/mushola & masjid</li>
+            <li>✓ Potongan presisi memudahkan proses pemasangan (fitting)</li>
+          </ul>
+        </div>
+        <div>
+          <img width="1200" height="800" src="/images/grcpro (1).webp" alt="GRC Laser Cutting Application" class="rounded-2xl shadow-xl object-cover w-full h-[350px]" decoding="async"  loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- PORTFOLIO GALLERY -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom">
+        <h2 class="text-3xl font-bold text-center mb-12">Galeri Hasil Pengerjaan</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <img width="1200" height="800" src="/images/grcpro (1).webp" alt="Portfolio 1" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1200" height="1200" src="/images/grcpro (2).webp" alt="Portfolio 2" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1200" height="1200" src="/images/grcpro (3).webp" alt="Portfolio 3" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1200" height="1200" src="/images/grcpro (4).webp" alt="Portfolio 4" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">FAQ Cutting GRC</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

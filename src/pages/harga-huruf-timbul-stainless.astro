@@ -1,0 +1,209 @@
+---
+// src/pages/laser-stainless-bintaro.astro
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { SITE_CONFIG } from '../utils/constants.js';
+import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+
+const WA = SITE_CONFIG.whatsapp;
+const WA_LINK = `https://wa.me/${WA}?text=${encodeURIComponent("Halo Tepat Laser, saya ingin tanya penawaran jasa laser stainless steel di Bintaro.")}`;
+
+const faqs = [
+  {
+    question: "Tipe/grade plat stainless steel apa saja yang bisa dipotong?",
+    answer: "Kami melayani jasa potong untuk tiga tipe grade stainless utama: Grade SS201 (ekonomis, untuk kebutuhan interior/furnitur kering), Grade SS304 (anti-karat standar, ideal untuk food-grade & outdoor umum), dan Grade SS316 (anti-karat premium tahan korosi cairan asam/air laut, untuk industri kimia/marine)."
+  },
+  {
+    question: "Apakah hasil potong stainless-nya rapi, mengkilap, dan tidak berkerak?",
+    answer: "Tentu saja. Kami memotong plat stainless steel menggunakan bantuan gas Nitrogen (N2) bertekanan tinggi (bukan oksigen). Gas nitrogen mencegah reaksi oksidasi saat pemotongan, menghasilkan tepi potongan yang bening, mengkilap (polished edge), dan bebas dari kerak gosong hitam sehingga tidak butuh finishing amplas tambahan."
+  },
+  {
+    question: "Berapa ketebalan plat stainless steel maksimal yang bisa dipotong?",
+    answer: "Mesin laser fiber high-power kami sanggup memotong lembaran plat stainless steel dengan ketebalan mulai dari yang sangat tipis (0.5mm, 0.8mm, 1mm, 1.2mm, 1.5mm, 2mm, hingga maksimal 3mm)."
+  },
+  {
+    question: "Apakah Tepat Laser melayani jasa potong saja atau menyediakan bahan juga?",
+    answer: "Kami melayani keduanya. Anda bisa memesan jasa potong saja dengan membawa bahan stainless milik sendiri ke workshop kami, atau Anda bisa memesan secara full-order (jasa potong + material plat stainless dari kami) untuk kemudahan transaksi."
+  },
+  {
+    question: "Berapa lama estimasi pengerjaan laser stainless di Bintaro?",
+    answer: "Pengerjaan standar untuk volume kecil s/d menengah membutuhkan waktu 1-2 hari kerja saja. Untuk job express, kami memiliki layanan prioritas yang bisa diselesaikan di hari yang sama (same-day service) setelah desain disetujui."
+  }
+];
+
+const pageTitle = "Harga Huruf Timbul Stainless Terdekat | Tepat Laser";
+const pageDesc = "Cek harga jasa pembuatan huruf timbul stainless steel terdekat di Bintaro & Tangerang Selatan. Bahan premium SS304/SS201, hasil potong rapi dan presisi tinggi.";
+const pageKw = "harga huruf timbul stainless, jasa huruf timbul stainless, pembuatan huruf timbul bintaro, laser cutting stainless tangerang";
+
+const breadcrumbSchema = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Harga Huruf Timbul Stainless', url: '/harga-huruf-timbul-stainless/' }
+]);
+
+const meta = {
+  title: pageTitle,
+  description: pageDesc,
+  keywords: pageKw,
+  url: '/harga-huruf-timbul-stainless/',
+  image: '/images/metal.webp',
+  type: "website",
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs)]
+};
+
+const crumbs = breadcrumbSchema.itemListElement;
+---
+
+<BaseLayout {...meta}>
+  <Header slot="header" />
+
+  <main class="mt-16 overflow-x-hidden">
+    <Breadcrumbs crumbs={crumbs} />
+
+    <!-- HERO SECTION -->
+    <section class="relative bg-slate-950 text-white py-24 md:py-32 overflow-hidden">
+      <div class="absolute inset-0 opacity-20" style="background-image:url('/images/metal.webp'); background-size:cover; background-position:center;"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/90 to-transparent"></div>
+      <div class="container-custom relative z-10">
+        <div class="max-w-3xl">
+          <span class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 font-bold px-4 py-1.5 rounded-full text-xs mb-6 border border-emerald-500/30 tracking-wider">HURUF TIMBUL STAINLESS JABODETABEK</span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight mb-6">
+            Harga Jasa Huruf Timbul Stainless
+          </h1>
+          <p class="text-lg sm:text-xl text-slate-300 mb-8 leading-relaxed">
+            Dapatkan estimasi harga pembuatan huruf timbul stainless steel tipe mirror maupun hairline. Dikerjakan dengan mesin laser fiber berpresisi tinggi untuk hasil super bersih bebas kerak gosong.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white font-bold px-8 py-4 rounded-xl text-lg shadow-lg shadow-emerald-500/20 transform hover:-translate-y-0.5 transition-all">
+              Hubungi Admin: 0821-2129-2937
+            </a>
+            <a href="#spesifikasi-stainless" class="inline-flex items-center justify-center border-2 border-slate-700 hover:border-slate-500 text-white font-semibold px-8 py-4 rounded-xl text-lg hover:bg-slate-800 transition-all">
+              Spesifikasi & Detail Bahan
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- PORTFOLIO GALLERY -->
+    <section class="py-20 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom">
+        <h2 class="text-3xl font-bold text-center mb-12">Galeri Hasil Pengerjaan</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <img width="898" height="1200" src="/images/stainlesssteel (1).webp" alt="Portfolio 1" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1024" height="576" src="/images/stainlesssteel (2).webp" alt="Portfolio 2" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="674" height="1200" src="/images/stainlesssteel (3).webp" alt="Portfolio 3" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+          <img width="1024" height="897" src="/images/stainlesssteel (4).webp" alt="Portfolio 4" class="rounded-xl shadow-md w-full h-48 md:h-64 object-cover hover:scale-105 transition-transform duration-300" loading="lazy" decoding="async" />
+        </div>
+      </div>
+    </section>
+
+    <!-- MAIN SEO CONTENT SECTION -->
+    <section class="py-24 bg-white text-slate-900">
+      <div class="container-custom">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-6 text-slate-900">Mengapa Laser Cutting Stainless Steel Harus Memakai Gas Nitrogen?</h2>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Banyak bengkel laser memotong stainless steel menggunakan gas oksigen (O2) untuk memotong biaya produksi. Padahal, penggunaan oksigen menyebabkan terjadinya reaksi oksidasi (pembakaran) yang menghasilkan sisa kerak hitam gosong di sepanjang tepian potongan. Kerak ini tidak hanya merusak penampilan estetis stainless, tetapi juga menjadi celah titik awal timbulnya karat.
+          </p>
+          <p class="text-slate-600 mb-12 leading-relaxed">
+            Di <strong>Tepat Laser Bintaro</strong>, kami berkomitmen menjaga kualitas dengan memotong stainless steel menggunakan hembusan gas <strong>Nitrogen (N2) bertekanan tinggi</strong>. Hasilnya adalah tepian potong yang tetap bersih, berwarna silver mengkilap layaknya permukaan asli logam, serta ketahanan anti-karat bawaan stainless steel yang tetap terjaga utuh.
+          </p>
+
+          <!-- Stainless steel types grid -->
+          <h3 id="spesifikasi-stainless" class="text-2xl font-bold mb-6 text-slate-900">Grade Stainless Steel yang Umum Kami Tangani</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">Stainless Steel 201</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">
+                Grade ekonomis dengan tampilan mengkilap. Sangat cocok untuk dekorasi interior rumah, pajangan dinding, kaki furnitur, dan produk pajangan dalam ruangan yang kering.
+              </p>
+            </div>
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">Stainless Steel 304</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">
+                Grade standard industri dengan ketahanan korosi yang sangat baik (food grade). Ideal untuk pagar rumah mewah outdoor, railing tangga, peralatan dapur restoran, dan alat medis.
+              </p>
+            </div>
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+              <h4 class="font-bold text-lg text-slate-900 mb-2">Stainless Steel 316</h4>
+              <p class="text-slate-500 text-sm leading-relaxed">
+                Grade premium tahan asam dan air garam. Sangat direkomendasikan untuk komponen kapal laut, fasilitas industri kimia, dan struktur bangunan tepi pantai.
+              </p>
+            </div>
+          </div>
+
+          <!-- Applications list -->
+          <h3 class="text-2xl font-bold mb-6 text-slate-900">Aplikasi Produk Laser Cutting Stainless Steel</h3>
+          <p class="text-slate-600 mb-6 leading-relaxed">
+            Pekerjaan laser stainless kami mencakup berbagai macam produk dekorasi dan utilitas, di antaranya:
+          </p>
+          <ul class="space-y-4 mb-12 text-slate-700">
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</span>
+              <div>
+                <strong>Huruf Timbul & Neon Sign:</strong> Logo atau nama perusahaan dengan finishing stainless cermin (mirror) atau garis serat halus (hairline).
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</span>
+              <div>
+                <strong>Partisi & Sekat Ruang Kerawang:</strong> Panel pembatas ruangan dengan ukiran motif geometris atau floral untuk lobi kantor, hotel, maupun rumah tinggal.
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 text-sm font-bold">✓</span>
+              <div>
+                <strong>Pagar & Railing Tangga Laser Cut:</strong> Desain eksterior rumah mewah berkesan modern bernilai seni tinggi.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="py-24 bg-slate-50 border-t border-slate-200">
+      <div class="container-custom max-w-4xl">
+        <h2 class="text-3xl font-bold text-center mb-12">Tanya Jawab Jasa Laser Stainless</h2>
+        <div class="space-y-6">
+          {faqs.map(faq => (
+            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+              <h3 class="text-lg font-bold mb-2 text-slate-900">{faq.question}</h3>
+              <p class="text-slate-600 text-sm leading-relaxed">{faq.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCATION DETAILS -->
+    <section class="py-24 bg-white border-t border-slate-200">
+      <div class="container-custom grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-8 rounded-2xl overflow-hidden shadow-lg border border-slate-200">
+          <iframe
+            src="https://maps.google.com/maps?q=Jl.%20Bintaro%20Bsd%20no%201D%20parigi%20(%20samping%20Sekolah%20SD%20Mentari%20Internasional%20School%20),%20Tangerang%20Selatan,%20Banten,%20Indonesia&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            width="100%"
+            height="400"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+           title="Peta lokasi workshop Tepat Laser" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="lg:col-span-4 bg-slate-50 p-8 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 class="text-xl font-bold mb-4">Workshop Terdekat Bintaro</h3>
+          <p class="text-slate-600 text-sm mb-6">{SITE_CONFIG.address}</p>
+          <h4 class="font-bold text-sm text-slate-900 mb-2">Jam Buka Workshop:</h4>
+          <p class="text-slate-600 text-sm mb-6">{SITE_CONFIG.businessHours}</p>
+          <a href={WA_LINK} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-lg text-sm w-full transition-all">
+            Navigasi Google Maps
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>

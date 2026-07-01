@@ -4,7 +4,7 @@ excerpt: "Breakdown biaya komprehensif membandingkan laser cutting dengan metode
 category: "Analysis"
 readTime: "9 menit"
 publishDate: "2025-01-08"
-image: "/images/pvc.webp"
+image: "/images/blog/analisis-biaya-laser-cutting-vs-tradisional.webp"
 keywords: "analisis biaya laser cutting, efisiensi laser cutting, laser cutting vs tradisional"
 schema:
   "@context": "https://schema.org"

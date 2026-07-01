@@ -5,7 +5,7 @@ export const SITE_CONFIG = {
   title: "Jasa Laser Cutting Profesional #1 indonesia - Akrilik, Kayu, Metal",
   description: "Laser cutting presisi tinggi & pengerjaan cepat di indonesia! Spesialis akrilik, kayu, metal dengan teknologi terdepan. 10+ tahun pengalaman, hasil akurat, garansi kualitas. Melayani Serang, Tangerang, Cilegon, Pandeglang, Lebak.",
   keywords: "laser cutting indonesia, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal indonesia",
-  // HAPUS BARIS INI: url: "https://ddos-spec.github.io/",
+  url: "https://tepatlaser.com",
   author: "Jasa Cutting Laser Team",
   whatsapp: "6282121292937",
   email: "info@tepatlaser.com",
@@ -38,14 +38,14 @@ export const NAVIGATION = [
     name: 'Material', 
     href: '#',
     submenu: [
-      { name: 'Akrilik', href: '/material-acrylic/' },
-      { name: 'MDF', href: '/material-mdf/' },
-      { name: 'Plywood/Multiplex', href: '/material-ply-wood-multiplex/' },
-      { name: 'Metal (Stainless, Aluminium)', href: '/material-metal/' },
-      { name: 'Laser Cutting Stainless', href: '/jasa-laser-cutting-stainless/' },
-      { name: 'ACP', href: '/material-acp/' },
-      { name: 'PVC BOARD', href: '/material-pvc/' },
-      { name: 'GRC', href: '/material-grc/' }
+      { name: 'Akrilik', href: '/laser-cutting-akrilik/' },
+      { name: 'MDF', href: '/jasa-laser-cutting-mdf-ai/' },
+      { name: 'Plywood/Multiplex', href: '/jasa-laser-cutting-plywood/' },
+      { name: 'Metal (Stainless, Aluminium)', href: '/jasa-laser-cutting-metal/' },
+      { name: 'Laser Cutting Stainless', href: '/laser-stainless-bintaro/' },
+      { name: 'ACP', href: '/jasa-laser-cutting-acp/' },
+      { name: 'PVC BOARD', href: '/jasa-laser-cutting-pvc/' },
+      { name: 'GRC', href: '/jasa-laser-cutting-grc/' }
     ]
   },
   { name: 'Portfolio', href: '/portfolio/', active: false },
@@ -119,7 +119,7 @@ export const MATERIALS = [
   {
     id: "acrylic",
     name: "Akrilik",
-    slug: "material-acrylic",
+    slug: "laser-cutting-akrilik",
     description: "Material transparan berkualitas tinggi untuk berbagai aplikasi signage dan dekorasi",
     thickness: "1mm - 20mm",
     applications: ["Signage", "Display", "Dekorasi", "Prototyping"],
@@ -129,7 +129,7 @@ export const MATERIALS = [
   {
     id: "mdf",
     name: "MDF",
-    slug: "material-mdf",
+    slug: "jasa-laser-cutting-mdf-ai",
     description: "Kayu engineered dengan permukaan halus, ideal untuk painting dan aplikasi dekoratif",
     thickness: "3mm - 25mm",
     applications: ["Furniture", "Dekorasi", "Craft", "Model"],
@@ -139,7 +139,7 @@ export const MATERIALS = [
   {
     id: "ply-wood-multiplex",
     name: "Plywood/Multiplex",
-    slug: "material-ply-wood-multiplex",
+    slug: "jasa-laser-cutting-plywood",
     description: "Kayu lapis berkualitas untuk kekuatan struktural dan tampilan alami yang menarik",
     thickness: "3mm - 25mm",
     applications: ["Furniture", "Dekorasi", "Kerajinan", "Interior"],
@@ -159,7 +159,7 @@ export const MATERIALS = [
   {
     id: "acp",
     name: "ACP (Aluminium Composite Panel)",
-    slug: "material-acp",
+    slug: "jasa-laser-cutting-acp",
     description: "Panel komposit ringan namun kuat untuk aplikasi fasad dan signage premium",
     thickness: "2mm - 6mm",
     applications: ["Signage", "Fasad", "Interior", "Eksterior"],
@@ -169,7 +169,7 @@ export const MATERIALS = [
   {
     id: "pvc",
     name: "PVC BOARD",
-    slug: "material-pvc",
+    slug: "jasa-laser-cutting-pvc",
     description: "Cutting PVC custom untuk berbagai keperluan industri dan kreatif",
     thickness: "1mm - 10mm",
     applications: ["Signage", "Prototype", "Display", "Packaging"],
@@ -179,7 +179,7 @@ export const MATERIALS = [
   {
     id: "grc",
     name: "GRC",
-    slug: "material-grc",
+    slug: "jasa-laser-cutting-grc",
     description: "Cutting GRC (Glassfibre Reinforced Concrete) untuk fasad dan ornamen bangunan",
     thickness: "8mm - 15mm",
     applications: ["Fasad", "Ornamen", "Panel", "Eksterior"],

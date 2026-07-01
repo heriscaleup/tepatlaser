@@ -4,7 +4,7 @@ excerpt: "Analisis mendalam bagaimana teknologi CNC Router merevolusi industri f
 category: "Case Study"
 readTime: "11 menit"
 publishDate: "2025-01-12"
-image: "/images/Ply Wood.webp"
+image: "/images/blog/cnc-router-industri-furniture-custom-indonesia.webp"
 keywords: "cnc router furniture, industri furniture custom, teknologi cnc router"
 schema:
   "@context": "https://schema.org"
