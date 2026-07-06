@@ -15,7 +15,10 @@ export default defineConfig({
     tailwind(),
     sitemap({
       // Halaman statis di public/ tidak terdeteksi otomatis oleh sitemap
-      customPages: ['https://tepatlaser.com/pagar-laser-cutting/'],
+      customPages: [
+        'https://tepatlaser.com/pagar-laser-cutting/',
+        'https://tepatlaser.com/railing-laser-cutting/',
+      ],
     })
   ],
   
