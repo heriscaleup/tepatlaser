@@ -6,6 +6,12 @@ import sitemap from '@astrojs/sitemap'; // Baris ini sekarang gak akan error
 export default defineConfig({
   site: 'https://tepatlaser.com',
   base: '/',
+  redirects: {
+    '/jasa-laser-cutting-mdf-4': '/jasa-laser-cutting-mdf-ai',
+    '/jasa-laser-cutting-akrilik-2': '/laser-cutting-akrilik',
+    '/jasa-laser-cutting-stainless': '/laser-stainless-bintaro',
+    '/laser-cutting-stainless': '/laser-stainless-bintaro',
+  },
   prefetch: {
     prefetchAll: false,
     defaultStrategy: 'hover',

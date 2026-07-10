@@ -38,7 +38,7 @@ const {
 if (!Astro.site) {
   throw new Error('SITE_URL environment variable is not set. Please update your astro.config.mjs');
 }
-const siteUrl = Astro.site; 
+const siteUrl = Astro.site;
 const siteName = "Tepat Laser";
 
 const defaultTitle = "Jasa Laser Cutting Jakarta & Tangerang Terpercaya | Tepat Laser";
@@ -96,7 +96,7 @@ const resolvedPreloadType = preloadImageType || (
   
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
   <link rel="apple-touch-icon" href="/images/logo.webp" />
-  
+
   {resolvedPreloadImage && (
     <link
       rel="preload"
@@ -108,10 +108,12 @@ const resolvedPreloadType = preloadImageType || (
       fetchpriority="high"
     />
   )}
+
   <link rel="dns-prefetch" href="//api.whatsapp.com" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
   <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 
-  <!-- Marketing tags are queued immediately, but network/CPU work is delayed off the critical render path. -->
+  <!-- Marketing tags: antri di dataLayer, load JS SETELAH LCP atau interaksi user -->
   <script is:inline>
     (function(w,d){
       w.dataLayer = w.dataLayer || [];
@@ -137,14 +139,22 @@ const resolvedPreloadType = preloadImageType || (
         d.head.appendChild(gtmScript);
       };
 
-      var armInteractionLoad = function(){
-        ['pointerdown','keydown','touchstart'].forEach(function(eventName){
-          w.addEventListener(eventName, loadMarketingTags, { once: true, passive: true });
-        });
-      };
+      // Trigger 1: interaksi user (paling cepat)
+      ['pointerdown','keydown','touchstart','scroll'].forEach(function(eventName){
+        w.addEventListener(eventName, loadMarketingTags, { once: true, passive: true });
+      });
 
-      armInteractionLoad();
-      w.addEventListener('load', function(){ setTimeout(loadMarketingTags, 30000); }, { once: true });
+      // Trigger 2: setelah LCP selesai + 300ms buffer
+      try {
+        var lcpObserver = new PerformanceObserver(function(list) {
+          lcpObserver.disconnect();
+          setTimeout(loadMarketingTags, 300);
+        });
+        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+      } catch(e) {}
+
+      // Trigger 3: fallback 5 detik setelah load
+      w.addEventListener('load', function(){ setTimeout(loadMarketingTags, 5000); }, { once: true });
     })(window,document);
   </script>
 
