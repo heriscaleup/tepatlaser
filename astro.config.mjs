@@ -40,7 +40,9 @@ export default defineConfig({
   },
   
   build: {
-    inlineStylesheets: 'auto',
+    // 'always': satu-satunya CSS chunk sitewide (~12 KiB gzip) diinline ke tiap HTML,
+    // menghilangkan request render-blocking terpisah (Footer.[hash].css) di semua halaman.
+    inlineStylesheets: 'always',
     assets: '_assets'
   },
 });
