@@ -398,13 +398,13 @@ export function generateBlogPostSchema(post) {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
-    description: post.excerpt,
+    description: post.description || post.excerpt,
     image: post.image ? `${SITE_CONFIG.url}${post.image}` : undefined,
     datePublished: post.publishDate,
-    dateModified: post.publishDate, // Assuming no separate modified date for now
+    dateModified: post.updatedDate || post.publishDate,
     author: {
       '@type': 'Organization',
-      name: SITE_CONFIG.name,
+      name: post.author || 'Tim Teknis Tepat Laser',
       url: SITE_CONFIG.url
     },
     publisher: {
@@ -417,10 +417,29 @@ export function generateBlogPostSchema(post) {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${SITE_CONFIG.url}/blog/${post.slug}`
+      '@id': `${SITE_CONFIG.url}/blog/${post.slug}/`
     },
+    articleSection: post.category,
+    keywords: post.keywords,
     isAccessibleForFree: true,
     timeRequired: readTimeToISO(post.readTime)
+  };
+}
+
+export function generateBlogFaqSchema(faqItems = []) {
+  if (!faqItems.length) return null;
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer
+      }
+    }))
   };
 }
 

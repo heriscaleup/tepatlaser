@@ -14,13 +14,18 @@ export interface Props {
   preloadImageSizes?: string;
   preloadImageType?: string;
   type?: string;
+  publishedTime?: string;
+  modifiedTime?: string;
+  section?: string;
+  tags?: string[];
+  author?: string;
   noindex?: boolean;
   jsonLd?: any;
 }
 
 const {
   title,
-  description = "Solusi laser cutting profesional dengan teknologi terdepan. 7 tahun pengalaman, 1000+ proyek selesai, garansi kualitas premium. Melayani CNC Router, Laser Fiber, Laser CO2, dan Galvo Engraving.",
+  description = "Jasa laser cutting dan CNC router untuk kebutuhan industri, interior, signage, dan produk custom di Jakarta serta Tangerang Selatan.",
   keywords = "jasa laser cutting, laser cutting jakarta, laser cutting tangerang, laser cutting stainless, cnc router, laser fiber, bintaro, tangerang selatan, serpong",
   image = "logo.webp",
   url,
@@ -30,6 +35,11 @@ const {
   preloadImageSizes = "100vw",
   preloadImageType,
   type = "website",
+  publishedTime,
+  modifiedTime,
+  section,
+  tags = [],
+  author = "Tim Teknis Tepat Laser",
   noindex = false,
   jsonLd
 } = Astro.props;
@@ -70,7 +80,7 @@ const resolvedPreloadType = preloadImageType || (
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <meta name="keywords" content={keywords} />
-  <meta name="author" content="Tepat Laser Team" />
+  <meta name="author" content={author} />
   <link rel="canonical" href={fullCanonicalUrl.href} />
   
   {noindex ? (
@@ -88,6 +98,10 @@ const resolvedPreloadType = preloadImageType || (
   <meta property="og:image:height" content="630" />
   <meta property="og:site_name" content={siteName} />
   <meta property="og:locale" content="id_ID" />
+  {type === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
+  {type === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+  {type === 'article' && section && <meta property="article:section" content={section} />}
+  {type === 'article' && tags.map((tag) => <meta property="article:tag" content={tag} />)}
   
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={fullTitle} />
@@ -167,7 +181,7 @@ const resolvedPreloadType = preloadImageType || (
     "name": "Tepat Laser",
     "url": siteUrl.href,
     "logo": new URL('/images/logo.webp', siteUrl).href,
-    "description": "Jasa laser cutting profesional — stainless steel, plat besi, aluminium, akrilik — di Bintaro, Tangerang Selatan. Toleransi ±0.02mm, express 4 jam.",
+    "description": "Jasa laser cutting, CNC router, dan laser engraving untuk material metal maupun non-metal di Bintaro, Tangerang Selatan.",
     "telephone": "+62 821-2129-2937",
     "email": "info@tepatlaser.com",
     "address": {

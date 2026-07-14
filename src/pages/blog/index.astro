@@ -11,26 +11,26 @@ const allPosts = await getCollection('blog');
 const sortedPosts = allPosts.sort((a, b) => new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime());
 
 // Safely construct the base URL
-const baseUrl = Astro.site ? Astro.site.toString() : 'https://www.tepatlaser.com'; // Sesuaikan dengan URL produksi Anda
-const blogUrl = `/${baseUrl}blog/`;
+const baseUrl = Astro.site ? Astro.site.toString() : 'https://tepatlaser.com';
+const blogUrl = new URL('/blog/', baseUrl).href;
 
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Blog",
-  "name": "Blog LaserCut Pro",
-  "description": "Tips, tutorial, dan insight terbaru seputar laser cutting, CNC router, dan teknologi manufaktur",
+  "name": "Blog Tepat Laser",
+  "description": "Panduan praktis laser cutting, CNC router, material, biaya, desain file, dan quality control untuk proyek custom.",
   "url": blogUrl,
   "publisher": {
     "@type": "Organization",
-    "name": "LaserCut Pro"
+    "name": "Tepat Laser"
   }
 };
 ---
 
 <BaseLayout 
-  title="Blog - Tips & Tutorial Laser Cutting Terbaru"
-  description="Dapatkan tips, tutorial, dan insight terbaru seputar laser cutting, CNC router, dan teknologi manufaktur dari para ahli LaserCut Pro"
-  keywords="blog laser cutting, tutorial cnc router, tips laser fiber, panduan laser co2, artikel manufaktur"
+  title="Panduan Laser Cutting, CNC Router & Material"
+  description="Pelajari pilihan material, proses laser fiber dan CO2, CNC router, estimasi biaya, persiapan file, serta quality control dari Tim Teknis Tepat Laser."
+  keywords="blog laser cutting, panduan cnc router, harga laser cutting, material laser cutting, file dxf laser cutting"
   jsonLd={jsonLd}
 >
   <Header slot="header" />
@@ -39,10 +39,10 @@ const jsonLd = {
   <section class="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700 text-white py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h1 class="text-4xl lg:text-5xl font-bold mb-6">
-        Blog LaserCut Pro
+        Blog Tepat Laser
       </h1>
       <p class="text-xl text-blue-100 max-w-3xl mx-auto">
-        Tips, tutorial, dan insight terbaru seputar laser cutting, CNC router, dan teknologi manufaktur dari para ahli
+        Panduan praktis untuk memilih proses, material, biaya, dan standar hasil sebelum proyek masuk produksi.
       </p>
     </div>
   </section>
@@ -55,7 +55,7 @@ const jsonLd = {
           <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
             <img 
               src={post.data.image} 
-              alt={post.data.title}
+              alt={post.data.imageAlt}
               width="1200"
               height="800"
               class="w-full h-48 object-cover"
@@ -88,7 +88,7 @@ const jsonLd = {
                   href={`/blog/${post.id}/`}
                   class="text-blue-600 hover:text-blue-800 font-medium text-sm transition-colors"
                 >
-                  Baca Selengkapnya â†’
+                  Baca Selengkapnya →
                 </a>
               </div>
             </div>
@@ -105,7 +105,7 @@ const jsonLd = {
         Butuh Konsultasi Langsung?
       </h2>
       <p class="text-xl text-gray-600 mb-8">
-        Tim ahli kami siap membantu menjawab pertanyaan teknis dan memberikan solusi terbaik untuk project Anda
+        Kirim kebutuhan, material, ketebalan, jumlah, dan file desain agar tim kami dapat menilai proses yang sesuai.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a 
@@ -127,7 +127,7 @@ const jsonLd = {
           class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-8 py-3 rounded-lg font-semibold transition-colors"
           data-gtm-id="whatsapp-click"
         >
-          Request Quote
+          Minta Estimasi
         </a>
       </div>
     </div>

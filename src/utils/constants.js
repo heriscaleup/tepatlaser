@@ -1,12 +1,12 @@
 // src/utils/constants.js
 
 export const SITE_CONFIG = {
-  name: "Jasa Cutting Laser",
-  title: "Jasa Laser Cutting Profesional #1 indonesia - Akrilik, Kayu, Metal",
-  description: "Laser cutting presisi tinggi & pengerjaan cepat di indonesia! Spesialis akrilik, kayu, metal dengan teknologi terdepan. 10+ tahun pengalaman, hasil akurat, garansi kualitas. Melayani Serang, Tangerang, Cilegon, Pandeglang, Lebak.",
+  name: "Tepat Laser",
+  title: "Jasa Laser Cutting & CNC Router | Tepat Laser",
+  description: "Jasa laser cutting, CNC router, dan laser engraving untuk kebutuhan industri, interior, signage, serta produk custom di Jakarta dan Tangerang Selatan.",
   keywords: "laser cutting indonesia, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal indonesia",
   url: "https://tepatlaser.com",
-  author: "Jasa Cutting Laser Team",
+  author: "Tim Teknis Tepat Laser",
   whatsapp: "6282121292937",
   email: "info@tepatlaser.com",
   address: "Jl. Bintaro Bsd no 1D parigi ( samping Sekolah SD Mentari Internasional School ), Tangerang Selatan, Banten, Indonesia",
