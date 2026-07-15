@@ -1,0 +1,19 @@
+# Tepat Laser
+
+> Tepat Laser adalah produsen dan penyedia jasa laser cutting, CNC router, dan laser engraving profesional untuk kebutuhan arsitektur, interior, signage, dan produk custom di wilayah Jakarta dan Tangerang Selatan.
+
+## Layanan &amp; Teknologi Produksi
+Kami menggunakan teknologi manufaktur modern dengan presisi tinggi:
+- [Jasa Laser Fiber](https://tepatlaser.com/jasa-laser-fiber/): Pemotongan plat logam (stainless steel, besi, aluminium, tembaga) dengan presisi ±0.05mm.
+- [Jasa Laser CO2](https://tepatlaser.com/jasa-laser-co2/): Pemotongan dan grafir bahan non-logam seperti akrilik, kayu, MDF, PVC, kulit.
+- [Jasa CNC Router](https://tepatlaser.com/jasa-cnc-router/): Pemotongan dan ukiran 3D/relief pada material MDF, plywood, kayu solid, PVC board.
+- [Jasa Galvo Engraving](https://tepatlaser.com/jasa-galvo-engraving/): Grafir laser berkecepatan tinggi untuk plat nama (nameplate) dan identitas produk logam.
+
+## Halaman Utama &amp; Layanan Pendukung
+- [Galeri Portfolio](https://tepatlaser.com/portfolio/): Dokumentasi proyek laser cutting dan router yang telah berhasil kami selesaikan.
+- [Hubungi Kami](https://tepatlaser.com/contact/): Layanan konsultasi teknis, kalkulasi penawaran harga, dan detail kontak workshop.
+- [Tentang Tepat Laser](https://tepatlaser.com/about/): Profil workshop, visi misi, dan lokasi studio kami di Tangerang Selatan.
+- [Blog &amp; Insight](https://tepatlaser.com/blog/): Edukasi seputar teknik laser cutting, spesifikasi material, dan tips optimasi file desain.
+
+## Sitemap
+- [Sitemap XML](https://tepatlaser.com/sitemap-index.xml)
