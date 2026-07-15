@@ -43,6 +43,22 @@ const waUrl = `https://api.whatsapp.com/send?phone=${waNumber}&text=${waMsg}`;
       </a>
 
       <p class="text-xs text-slate-500 mt-6">{SITE_CONFIG.phone} · {SITE_CONFIG.businessHours}</p>
+      
+      <!-- Hidden WebMCP form for AI Agents to trigger WhatsApp chat -->
+      <form 
+        action="https://api.whatsapp.com/send" 
+        method="GET" 
+        style="display:none" 
+        toolname="startWhatsappChat" 
+        tooldescription="Initiate a direct WhatsApp chat with Tepat Laser for project inquiries or support" 
+        toolautosubmit="true">
+        <input type="hidden" name="phone" value={waNumber} />
+        <input 
+          type="text" 
+          name="text" 
+          toolparamtitle="messageText" 
+          toolparamdescription="Pre-filled text message to send to Tepat Laser support detailing your project request" />
+      </form>
     </div>
   </main>
 
