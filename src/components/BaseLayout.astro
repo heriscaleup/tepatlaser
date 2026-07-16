@@ -1,237 +1,78 @@
 ---
-// BaseLayout.astro - Layout utama untuk semua halaman (FIXED & LENGKAP)
 import '../styles/global.css';
 
 export interface Props {
-  title?: string;
-  description?: string;
-  keywords?: string;
-  image?: string;
-  url?: string;
-  canonicalUrl?: string;
-  preloadImage?: string;
-  preloadImageSrcset?: string;
-  preloadImageSizes?: string;
-  preloadImageType?: string;
-  type?: string;
-  publishedTime?: string;
-  modifiedTime?: string;
-  section?: string;
-  tags?: string[];
-  author?: string;
-  noindex?: boolean;
-  jsonLd?: any;
+  title?: string; description?: string; keywords?: string; image?: string; url?: string; type?: string;
+  noindex?: boolean; jsonLd?: any[]; canonical?: string; metaTags?: any; publishedTime?: string; modifiedTime?: string; author?: string;
 }
 
-const {
-  title,
-  description = "Jasa laser cutting dan CNC router untuk kebutuhan industri, interior, signage, dan produk custom di Jakarta serta Tangerang Selatan.",
-  keywords = "jasa laser cutting, laser cutting jakarta, laser cutting tangerang, laser cutting stainless, cnc router, laser fiber, bintaro, tangerang selatan, serpong",
-  image = "logo.webp",
-  url,
-  canonicalUrl,
-  preloadImage,
-  preloadImageSrcset,
-  preloadImageSizes = "100vw",
-  preloadImageType,
-  type = "website",
-  publishedTime,
-  modifiedTime,
-  section,
-  tags = [],
-  author = "Tim Teknis Tepat Laser",
-  noindex = false,
-  jsonLd
-} = Astro.props;
-
-// KRITICAL: Menggunakan Astro.site dan memastikan nilainya ada
-if (!Astro.site) {
-  throw new Error('SITE_URL environment variable is not set. Please update your astro.config.mjs');
-}
-const siteUrl = Astro.site;
-const siteName = "Tepat Laser";
-
-const defaultTitle = "Jasa Laser Cutting Jakarta & Tangerang Terpercaya | Tepat Laser";
-const fullTitle = title
-  ? (title.includes(siteName) ? title : `${title} | ${siteName}`)
-  : defaultTitle;
-// Cara paling benar membuat URL, anti error path ganda
-const fullUrl = new URL(url || Astro.url.pathname, siteUrl);
-const fullCanonicalUrl = new URL(canonicalUrl || url || Astro.url.pathname, siteUrl);
-const fullImage = new URL(image, siteUrl);
-const autoPreloadImage = image && !image.includes('logo.webp') ? image : undefined;
-const resolvedPreloadImage = preloadImage || autoPreloadImage;
-const resolvedPreloadType = preloadImageType || (
-  resolvedPreloadImage?.endsWith('.jpg') || resolvedPreloadImage?.endsWith('.jpeg')
-    ? 'image/jpeg'
-    : resolvedPreloadImage?.endsWith('.png')
-      ? 'image/png'
-      : 'image/webp'
-);
+const props = Astro.props;
+const siteUrl = new URL(Astro.site || 'https://tepatlaser.com');
+const generated = props.metaTags || {};
+const pageTitle = props.title || generated.title || 'Tepat Laser — Precision Fabrication';
+const pageDescription = props.description || generated.description || 'Laser cutting, CNC router, fiber laser, CO2, dan galvo engraving untuk kebutuhan industri, arsitektur, interior, signage, dan custom.';
+const pageKeywords = props.keywords || generated.keywords || 'jasa laser cutting, laser cutting Tangerang Selatan, CNC router, laser fiber, laser CO2';
+const pageUrl = new URL(props.url || generated.url || Astro.url.pathname, siteUrl).href;
+const canonicalUrl = new URL(props.canonical || generated.canonical || pageUrl, siteUrl).href;
+const imageUrl = new URL(props.image || generated.openGraph?.image || '/images/logo.webp', siteUrl).href;
+const ogTitle = generated.openGraph?.title || pageTitle;
+const ogDescription = generated.openGraph?.description || pageDescription;
+const jsonLd = props.jsonLd || [];
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id" class="scroll-smooth">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  
-  <title>{fullTitle}</title>
-  <meta name="description" content={description} />
-  <meta name="keywords" content={keywords} />
-  <meta name="author" content={author} />
-  <link rel="canonical" href={fullCanonicalUrl.href} />
-  
-  {noindex ? (
-    <meta name="robots" content="noindex, nofollow" />
-  ) : (
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-  )}
-  
-  <meta property="og:type" content={type} />
-  <meta property="og:title" content={fullTitle} />
-  <meta property="og:description" content={description} />
-  <meta property="og:url" content={fullCanonicalUrl.href} />
-  <meta property="og:image" content={fullImage.href} />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:site_name" content={siteName} />
-  <meta property="og:locale" content="id_ID" />
-  {type === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
-  {type === 'article' && modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
-  {type === 'article' && section && <meta property="article:section" content={section} />}
-  {type === 'article' && tags.map((tag) => <meta property="article:tag" content={tag} />)}
-  
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={fullTitle} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={fullImage.href} />
-  
-  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="apple-touch-icon" href="/images/logo.webp" />
-
-  {resolvedPreloadImage && (
-    <link
-      rel="preload"
-      href={resolvedPreloadImage}
-      as="image"
-      type={resolvedPreloadType}
-      imagesrcset={preloadImageSrcset}
-      imagesizes={preloadImageSizes}
-      fetchpriority="high"
-    />
-  )}
-
-  <link rel="dns-prefetch" href="//api.whatsapp.com" />
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
-  <link rel="dns-prefetch" href="//www.googletagmanager.com" />
-
-  <!-- Marketing tags: antri di dataLayer, load JS SETELAH LCP atau interaksi user -->
-  <script is:inline>
-    (function(w,d){
-      w.dataLayer = w.dataLayer || [];
-      w.gtag = w.gtag || function(){ w.dataLayer.push(arguments); };
-      w.gtag('js', new Date());
-      w.gtag('config', 'AW-11545092315');
-
-      var loaded = false;
-      var loadMarketingTags = function(){
-        if (loaded) return;
-        loaded = true;
-
-        var gtagScript = d.createElement('script');
-        gtagScript.async = true;
-        gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-11545092315';
-        d.head.appendChild(gtagScript);
-
-        w.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-        var gtmScript = d.createElement('script');
-        gtmScript.async = true;
-        gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-PBR27KH7';
-        d.head.appendChild(gtmScript);
-      };
-
-      // Trigger 1: interaksi user (paling cepat)
-      ['pointerdown','keydown','touchstart','scroll'].forEach(function(eventName){
-        w.addEventListener(eventName, loadMarketingTags, { once: true, passive: true });
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#080b0a" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="keywords" content={pageKeywords} />
+    <meta name="author" content={props.author || generated.author || 'Tim Teknis Tepat Laser'} />
+    <meta name="robots" content={props.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.ico?v=3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <meta property="og:type" content={generated.openGraph?.type || props.type || 'website'} />
+    <meta property="og:title" content={ogTitle} /><meta property="og:description" content={ogDescription} />
+    <meta property="og:url" content={pageUrl} /><meta property="og:image" content={imageUrl} /><meta property="og:site_name" content="Tepat Laser" /><meta property="og:locale" content="id_ID" />
+    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={ogTitle} /><meta name="twitter:description" content={ogDescription} /><meta name="twitter:image" content={imageUrl} />
+    {props.publishedTime && <meta property="article:published_time" content={props.publishedTime} />}
+    {props.modifiedTime && <meta property="article:modified_time" content={props.modifiedTime} />}
+    {jsonLd.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-LWLLCS1PG4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments)}
+      gtag('js', new Date()); gtag('config', 'G-LWLLCS1PG4');
+    </script>
+  </head>
+  <body class="antialiased">
+    <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+    <div class="pointer-events-none fixed inset-x-0 top-0 z-[80] h-px origin-left scale-x-0 bg-[var(--acid)]" id="scroll-progress"></div>
+    <div class="cursor-dot" id="cursor-dot"></div><div class="cursor-ring" id="cursor-ring"></div>
+    <slot name="header" />
+    <main id="main-content" class="site-shell min-h-screen"><slot /></main>
+    <slot name="footer" />
+    <script is:inline>
+      document.addEventListener('DOMContentLoaded', () => {
+        const progress = document.querySelector('#scroll-progress');
+        const updateProgress = () => { const max = document.documentElement.scrollHeight - window.innerHeight; if (progress) progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`; };
+        window.addEventListener('scroll', updateProgress, { passive: true }); updateProgress();
+        document.querySelectorAll('#main-content section').forEach((section) => { if (!section.closest('.home-page') && !section.hasAttribute('data-no-reveal')) section.classList.add('reveal'); });
+        const reveal = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && (entry.target.classList.add('is-visible'), reveal.unobserve(entry.target))), { threshold: .12 });
+        document.querySelectorAll('.reveal, [data-reveal]').forEach((element) => reveal.observe(element));
+        const dot = document.querySelector('#cursor-dot'); const ring = document.querySelector('#cursor-ring');
+        if (window.matchMedia('(pointer:fine)').matches && dot && ring) {
+          document.body.classList.add('has-pointer');
+          window.addEventListener('pointermove', (event) => { dot.style.left = `${event.clientX}px`; dot.style.top = `${event.clientY}px`; ring.style.left = `${event.clientX}px`; ring.style.top = `${event.clientY}px`; }, { passive: true });
+          document.querySelectorAll('a, button, input, select, textarea, summary').forEach((el) => { el.addEventListener('pointerenter', () => document.body.classList.add('cursor-hover')); el.addEventListener('pointerleave', () => document.body.classList.remove('cursor-hover')); });
+        }
+        document.querySelectorAll('a[href*="api.whatsapp.com"], a[href*="wa.me"]').forEach((link) => link.addEventListener('click', () => { if (typeof window.gtag === 'function') window.gtag('event', 'whatsapp_click', { event_category: 'engagement', event_label: link.dataset.waLabel || link.textContent?.trim() || 'WhatsApp Button', page_path: window.location.pathname }); }));
       });
-
-      // Trigger 2: setelah LCP selesai + 300ms buffer
-      try {
-        var lcpObserver = new PerformanceObserver(function(list) {
-          lcpObserver.disconnect();
-          setTimeout(loadMarketingTags, 300);
-        });
-        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
-      } catch(e) {}
-
-      // Trigger 3: fallback 5 detik setelah load
-      w.addEventListener('load', function(){ setTimeout(loadMarketingTags, 5000); }, { once: true });
-    })(window,document);
-  </script>
-
-  {jsonLd && (
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  )}
-  
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Tepat Laser",
-    "url": siteUrl.href,
-    "logo": new URL('/images/logo.webp', siteUrl).href,
-    "description": "Jasa laser cutting, CNC router, dan laser engraving untuk material metal maupun non-metal di Bintaro, Tangerang Selatan.",
-    "telephone": "+62 821-2129-2937",
-    "email": "info@tepatlaser.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Jl. Bintaro BSD No 1D",
-      "addressLocality": "Tangerang Selatan",
-      "addressRegion": "Banten",
-      "postalCode": "15413",
-      "addressCountry": "ID"
-    },
-    "openingHours": "Mo-Sa 08:00-17:00",
-    "areaServed": [ "Jakarta", "Tangerang", "Tangerang Selatan", "Depok", "Bekasi", "Bogor", "Serpong", "Bintaro" ],
-    "serviceType": [ "Laser Cutting Stainless Steel", "Laser Cutting Metal", "CNC Router", "Laser Fiber", "Laser CO2", "Galvo Engraving" ]
-  })} />
-  
-  <meta name="theme-color" content="#0066FF" />
-
-</head>
-
-<body class="antialiased bg-white text-gray-900">
-  <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBR27KH7"
-title="Google Tag Manager" height="0" width="0" style="display:none;visibility:hidden" referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50">
-    Skip to main content
-  </a>
-  
-  <slot name="header" />
-  
-  <main id="main-content" class="min-h-screen">
-    <slot />
-  </main>
-  
-  <slot name="footer" />
-
-  <!-- WA Tracker: GCLID attribution untuk semua tombol WhatsApp -->
-  <script is:inline src="/wa-tracker.js" defer></script>
-
-  <div class="fixed bottom-6 right-6 z-50">
-    <a 
-      href="https://api.whatsapp.com/send?phone=6282121292937&text=Halo,%20saya%20tertarik%20dengan%20jasa%20laser%20cutting.%20Bisa%20konsultasi?"
-      target="_blank"
-      rel="noopener noreferrer"
-      class="flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110"
-      aria-label="Chat via WhatsApp"
-      data-gtm-id="whatsapp-click"
-    >
-      <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/></svg>
-    </a>
-  </div>
-</body>
+    </script>
+  </body>
 </html>
