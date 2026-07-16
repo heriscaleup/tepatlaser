@@ -1,18 +1,32 @@
-# Tepat Laser — Full Awwwards Rebuild
+# Tepat Laser — Awwwards-oriented redesign
 
-Apply this archive over the repository root.
+## Direction
 
-## What changed
+- White-first editorial layout with deep workshop green, laser-lime signal color, local display typography, generous spacing, and technical micro-labels.
+- One shared header, mobile navigation, footer, CTA language, cards, buttons, metadata layer, and reveal behavior across the Astro site.
+- Desktop and mobile layouts use the same hierarchy instead of separate page-specific compositions.
 
-- The brand is now Tepat Laser throughout the shared navigation and footer; no Jasa Cutting Laser brand lockup remains.
-- Rebuilt white-first design system with a dark technical accent, laser green signal color, editorial typography, responsive navigation, and motion that respects reduced-motion preferences.
-- Removed the invalid nested-main shell structure.
-- Added one shared `CapabilityPage` template and migrated all service, material, metal-price, stainless, ACP, GRC, mihrab, and location routes to it.
-- Reworked home, services, about, portfolio, FAQ, contact, process, blog listing, and article presentation to the same system.
-- Floating WhatsApp and consistent Tepat Laser footer/header are shared across all Astro routes.
-- Blog Markdown content is unchanged.
+## Main fixes
 
-## Verification
+- Replaced remote Google Fonts with bundled local Clash Display and Gudlak fonts.
+- Removed Google Tag Manager from the Astro layout so the first render has no third-party blocking request.
+- Fixed the capability breadcrumb data bug that passed JSON-LD objects into a UI component expecting URL crumbs.
+- Added consistent LocalBusiness structured data, canonical metadata, manifest link, and local asset-only rendering.
+- Fixed the desktop/mobile navigation breakpoint gap and added accessible mobile menu controls plus Escape handling.
+- Aligned the two public long-form landing pages (`pagar-laser-cutting` and `railing-laser-cutting`) with the shared color tokens and removed their third-party ad script.
+- Added `.npmrc` with `legacy-peer-deps=true` because `@astrojs/tailwind@6` still declares an older Astro peer range while the existing project uses Astro 6.
 
+## Verification completed
+
+- `npm ci` passes from a clean dependency install.
 - `npm run build` passes and generates 67 Astro static routes.
-- `astro check` reports 0 errors. Existing content-schema deprecation hints remain and are unrelated to this redesign.
+- `astro check` passes with 0 errors; remaining output is only existing Astro content-schema deprecation hints and inline JSON-LD hints.
+- Static crawl found 73 HTML documents including redirects and public landing pages.
+- All 73 generated documents returned HTTP 200 through Astro preview.
+- Internal absolute `href` and `src` references were checked against `dist`; no missing local assets or routes were found.
+- Content audit found one title, description, and H1 on every content document; redirect documents are intentionally metadata-only.
+- No external font or external JavaScript source remains in generated HTML. WhatsApp and structured-data URLs remain intentionally external links.
+
+## Note
+
+The runtime image did not contain the browser helper/Chromium binary, and the browser download endpoint returned a truncated archive. Runtime validation therefore used Astro preview HTTP checks, static DOM/metadata/link audits, clean build, and type-checking. No source file is shipped with `node_modules` or `dist` in the patch archive.

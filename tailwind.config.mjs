@@ -35,8 +35,9 @@ export default {
         'laser-green-dark': '#00E673',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        heading: ['Poppins', 'system-ui', 'sans-serif'],
+        sans: ['Gudlak', 'Arial', 'sans-serif'],
+        heading: ['Clash Display', 'Arial', 'sans-serif'],
+        mono: ['Gudlak', 'ui-monospace', 'monospace'],
       },
       spacing: {
         '18': '4.5rem',
@@ -73,4 +74,3 @@ export default {
     require('@tailwindcss/aspect-ratio'),
   ],
 }
-

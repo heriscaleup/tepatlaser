@@ -25,7 +25,7 @@ const meta = { title: `${title} | Tepat Laser`, description, keywords: item.keyw
 <BaseLayout {...meta}>
   <Header slot="header" />
   <main class="capability-page overflow-hidden">
-    <Breadcrumbs crumbs={breadcrumbSchema.itemListElement} />
+    <Breadcrumbs crumbs={crumbsInput} />
     <section class="relative overflow-hidden border-b border-[var(--line)] bg-white pt-20 md:pt-28" data-no-reveal>
       <div class="container-custom grid gap-10 pb-12 md:pb-16 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
         <div class="relative z-10 pb-3"><span class="eyebrow">{label}</span><h1 class="heading-xl mt-7 max-w-3xl">{title}</h1><p class="mt-7 max-w-xl text-lg leading-8">{description}</p><div class="mt-8 flex flex-col gap-3 sm:flex-row"><a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary" data-wa-label={`Capability ${title}`}>Konsultasi project <span>↗</span></a><a href="#spec" class="btn-secondary">Lihat spesifikasi <span>↓</span></a></div></div>

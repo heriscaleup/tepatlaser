@@ -1,20 +1,67 @@
 ---
 import { NAVIGATION, SITE_CONFIG } from '../utils/constants.js';
-const currentPath = new URL(Astro.request.url).pathname.replace(/\/$/, '') || '/';
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 const navigation = NAVIGATION.map((item) => ({ ...item, active: item.href === '/' ? currentPath === '/' : item.href !== '#' && currentPath.startsWith(item.href.replace(/\/$/, '')) }));
 const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi project.')}`;
 ---
+
 <header class="fixed inset-x-0 top-0 z-50 glass-header" id="main-header">
-  <div class="container-custom"><div class="flex h-[4.65rem] items-center justify-between gap-5" id="header-inner">
-    <a href="/" class="brand-lockup" aria-label="Tepat Laser, beranda"><span class="brand-mark">TL</span><span><span class="brand-name">TEPAT LASER</span><span class="brand-meta">Precision beyond expectation</span></span></a>
-    <nav class="hidden items-center gap-6 xl:flex" aria-label="Navigasi utama">
-      {navigation.map((item) => item.submenu ? <div class="group relative"><button class="flex items-center gap-1 py-3 font-mono text-[.63rem] font-bold uppercase tracking-[.13em] text-[var(--muted)] transition-colors hover:text-[var(--ink)]">{item.name}<span class="text-[var(--laser-deep)]">+</span></button><div class="invisible absolute left-1/2 top-full w-64 -translate-x-1/2 translate-y-2 border border-[var(--line)] bg-white p-2 opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100">{item.submenu.map((sub) => <a href={sub.href} class="block px-4 py-3 text-sm font-semibold text-[var(--muted)] transition-colors hover:bg-[var(--surface-soft)] hover:text-[var(--ink)]">{sub.name}</a>)}</div></div> : <a href={item.href} class:list={["relative py-3 font-mono text-[.63rem] font-bold uppercase tracking-[.13em] text-[var(--muted)] transition-colors hover:text-[var(--ink)]", item.active && "text-[var(--ink)]"]}>{item.name}{item.active && <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-[var(--laser)]"></span>}</a>)}
+  <div class="container-custom">
+    <div class="flex h-[4.65rem] items-center justify-between gap-5">
+      <a href="/" class="brand-lockup" aria-label="Tepat Laser, beranda">
+        <span class="brand-mark">TL</span>
+        <span><span class="brand-name">TEPAT LASER</span><span class="brand-meta">Precision beyond expectation</span></span>
+      </a>
+
+      <nav class="hidden items-center gap-5 lg:flex" aria-label="Navigasi utama">
+        {navigation.map((item) => item.submenu ? (
+          <details class="nav-dropdown group relative">
+            <summary class="flex cursor-pointer list-none items-center gap-1 py-3 font-mono text-[.63rem] font-bold uppercase tracking-[.13em] text-[var(--muted)] transition-colors hover:text-[var(--ink)]">
+              {item.name}<span class="text-[var(--laser-deep)]">+</span>
+            </summary>
+            <div class="absolute left-1/2 top-full w-64 -translate-x-1/2 border border-[var(--line)] bg-white p-2 shadow-xl">
+              {item.submenu.map((sub) => <a href={sub.href} class="block px-4 py-3 text-sm font-semibold text-[var(--muted)] transition-colors hover:bg-[var(--surface-soft)] hover:text-[var(--ink)]">{sub.name}</a>)}
+            </div>
+          </details>
+        ) : (
+          <a href={item.href} class:list={["relative py-3 font-mono text-[.63rem] font-bold uppercase tracking-[.13em] text-[var(--muted)] transition-colors hover:text-[var(--ink)]", item.active && "text-[var(--ink)]"]}>
+            {item.name}{item.active && <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-[var(--laser-deep)]"></span>}
+          </a>
+        ))}
+      </nav>
+
+      <div class="hidden items-center gap-3 lg:flex">
+        <span class="hidden font-mono text-[.58rem] font-bold uppercase tracking-[.12em] text-[var(--muted)] 2xl:block"><i class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[var(--laser-deep)]"></i>Workshop online</span>
+        <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary min-h-10 px-5 py-2 text-xs" data-wa-label="Header WhatsApp">Mulai project <span>↗</span></a>
+      </div>
+
+      <button id="mobile-menu-button" class="grid h-10 w-10 place-items-center border border-[var(--line)] bg-white lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Buka menu">
+        <span class="relative h-4 w-5"><i id="bar-one" class="absolute inset-x-0 top-0 h-px bg-[var(--ink)] transition-transform"></i><i id="bar-two" class="absolute inset-x-0 top-2 h-px bg-[var(--ink)] transition-opacity"></i><i id="bar-three" class="absolute inset-x-0 bottom-0 h-px bg-[var(--ink)] transition-transform"></i></span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="invisible fixed inset-x-0 top-[4.65rem] translate-x-full border-t border-[var(--line)] bg-[var(--canvas)] px-5 py-6 opacity-0 transition-all duration-300 lg:hidden" aria-hidden="true">
+    <nav class="grid gap-1" aria-label="Navigasi mobile">
+      {navigation.map((item) => item.submenu ? (
+        <details class="border-b border-[var(--line)]"><summary class="flex cursor-pointer list-none items-center justify-between py-4 font-heading text-2xl font-bold">{item.name}<span class="text-[var(--laser-deep)]">+</span></summary><div class="grid grid-cols-2 gap-2 pb-4">{item.submenu.map((sub) => <a href={sub.href} class="border border-[var(--line)] bg-white p-3 text-sm font-semibold text-[var(--muted)]">{sub.name}</a>)}</div></details>
+      ) : <a href={item.href} class="border-b border-[var(--line)] py-4 font-heading text-2xl font-bold">{item.name}</a>)}
     </nav>
-    <div class="hidden items-center gap-3 lg:flex"><span class="hidden font-mono text-[.58rem] font-bold uppercase tracking-[.12em] text-[var(--muted)] 2xl:block"><i class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[var(--laser-deep)]"></i>Workshop online</span><a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary min-h-10 px-5 py-2 text-xs" data-wa-label="Header WhatsApp">Mulai project <span>↗</span></a></div>
-    <button id="mobile-menu-button" class="grid h-10 w-10 place-items-center border border-[var(--line)] bg-white lg:hidden" aria-expanded="false" aria-label="Buka menu"><span class="relative h-4 w-5"><i id="bar-one" class="absolute inset-x-0 top-0 h-px bg-[var(--ink)] transition-transform"></i><i id="bar-two" class="absolute inset-x-0 top-2 h-px bg-[var(--ink)] transition-opacity"></i><i id="bar-three" class="absolute inset-x-0 bottom-0 h-px bg-[var(--ink)] transition-transform"></i></span></button>
-  </div></div>
-  <div id="mobile-menu" class="invisible fixed inset-x-0 top-[4.65rem] translate-x-full border-t border-[var(--line)] bg-[var(--canvas)] px-5 py-6 opacity-0 transition-all duration-300 xl:hidden" aria-hidden="true"><nav class="grid gap-1" aria-label="Navigasi mobile">{navigation.map((item) => item.submenu ? <details class="border-b border-[var(--line)]"><summary class="flex cursor-pointer list-none items-center justify-between py-4 font-heading text-2xl font-bold">{item.name}<span class="text-[var(--laser-deep)]">+</span></summary><div class="grid grid-cols-2 gap-2 pb-4">{item.submenu.map((sub) => <a href={sub.href} class="border border-[var(--line)] bg-white p-3 text-sm font-semibold text-[var(--muted)]">{sub.name}</a>)}</div></details> : <a href={item.href} class="border-b border-[var(--line)] py-4 font-heading text-2xl font-bold">{item.name}</a>)}</nav><a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary mt-6" data-wa-label="Mobile WhatsApp">Kirim brief project <span>↗</span></a></div>
+    <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary mt-6" data-wa-label="Mobile WhatsApp">Kirim brief project <span>↗</span></a>
+  </div>
 </header>
+
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => { const button=document.querySelector('#mobile-menu-button'); const menu=document.querySelector('#mobile-menu'); const one=document.querySelector('#bar-one'); const two=document.querySelector('#bar-two'); const three=document.querySelector('#bar-three'); let open=false; const close=()=>{open=false;menu?.classList.add('invisible','translate-x-full','opacity-0');menu?.setAttribute('aria-hidden','true');button?.setAttribute('aria-expanded','false');document.body.style.overflow='';one?.classList.remove('translate-y-2','rotate-45');two?.classList.remove('opacity-0');three?.classList.remove('-translate-y-2','-rotate-45')};button?.addEventListener('click',()=>{if(open){close();return}open=true;menu?.classList.remove('invisible','translate-x-full','opacity-0');menu?.setAttribute('aria-hidden','false');button?.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';one?.classList.add('translate-y-2','rotate-45');two?.classList.add('opacity-0');three?.classList.add('-translate-y-2','-rotate-45')});menu?.querySelectorAll('a').forEach((link)=>link.addEventListener('click',close));window.addEventListener('scroll',()=>document.querySelector('#main-header')?.classList.toggle('glass-header-scrolled',window.scrollY>12),{passive:true}); });
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.querySelector('#mobile-menu-button');
+    const menu = document.querySelector('#mobile-menu');
+    const one = document.querySelector('#bar-one'); const two = document.querySelector('#bar-two'); const three = document.querySelector('#bar-three');
+    let open = false;
+    const close = () => { open = false; menu?.classList.add('invisible', 'translate-x-full', 'opacity-0'); menu?.setAttribute('aria-hidden', 'true'); button?.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; one?.classList.remove('translate-y-2', 'rotate-45'); two?.classList.remove('opacity-0'); three?.classList.remove('-translate-y-2', '-rotate-45'); };
+    button?.addEventListener('click', () => { if (open) return close(); open = true; menu?.classList.remove('invisible', 'translate-x-full', 'opacity-0'); menu?.setAttribute('aria-hidden', 'false'); button?.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; one?.classList.add('translate-y-2', 'rotate-45'); two?.classList.add('opacity-0'); three?.classList.add('-translate-y-2', '-rotate-45'); });
+    menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
+    document.querySelectorAll('.nav-dropdown').forEach((dropdown) => dropdown.addEventListener('toggle', () => { if (dropdown.open) document.querySelectorAll('.nav-dropdown').forEach((other) => { if (other !== dropdown) other.removeAttribute('open'); }); }));
+    window.addEventListener('scroll', () => document.querySelector('#main-header')?.classList.toggle('glass-header-scrolled', window.scrollY > 12), { passive: true });
+    window.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); });
+  });
 </script>
