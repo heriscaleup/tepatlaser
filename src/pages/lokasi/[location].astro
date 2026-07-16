@@ -1,75 +1,10 @@
 ---
-// src/pages/lokasi/[location].astro
-import BaseLayout from '../../components/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
-import CTA from '../../components/CTA.astro';
-
-export async function getStaticPaths() {
-  const locations = [
-    {
-      slug: 'jakarta',
-      name: 'Jakarta',
-      title: 'Jasa Laser Cutting Jakarta | Harga Terbaik & Presisi',
-      description: 'Cari jasa laser cutting terdekat di Jakarta? Tepat Laser menawarkan harga cutting laser terbaik dengan presisi tinggi untuk akrilik, kayu, dan metal.'
-    },
-    {
-      slug: 'depok',
-      name: 'Depok',
-      title: 'Jasa Laser Cutting Depok | Cepat & Terpercaya',
-      description: 'Butuh laser cutting terdekat di Depok? Dapatkan layanan potong laser akrilik dan MDF custom dengan hasil presisi dan pengerjaan cepat.'
-    },
-    {
-      slug: 'bekasi',
-      name: 'Bekasi',
-      title: 'Jasa Laser Cutting Bekasi | Kualitas Premium',
-      description: 'Jasa laser cutting profesional di Bekasi untuk berbagai material. Hubungi kami untuk info harga cutting laser plat besi dan akrilik dengan kualitas terjamin.'
-    }
-  ];
-
-  return locations.map(location => ({
-    params: { location: location.slug },
-    props: { location }
-  }));
-}
-
+import BaseLayout from '../../components/BaseLayout.astro'; import Header from '../../components/Header.astro'; import Footer from '../../components/Footer.astro'; import CTA from '../../components/CTA.astro'; import { SERVICES } from '../../utils/constants.js';
+export async function getStaticPaths() { return [{slug:'jakarta',name:'Jakarta'},{slug:'depok',name:'Depok'},{slug:'bekasi',name:'Bekasi'}].map((location) => ({params:{location:location.slug},props:{location}})); }
 const { location } = Astro.props;
-const H1 = `Jasa Laser Cutting Profesional di ${location.name}`;
+const title = `Tepat Laser untuk Project di ${location.name}`;
+const description = `Konsultasi laser cutting, CNC router, dan engraving untuk project di ${location.name}. Kirim file dan kebutuhan Anda ke tim Tepat Laser.`;
 ---
-<BaseLayout title={location.title} description={location.description}>
-  <Header slot="header" />
-
-  <main class="py-16">
-    <div class="container-custom">
-      <h1 class="heading-lg text-center mb-6">{H1}</h1>
-      <p class="text-xl text-gray-600 max-w-3xl mx-auto text-center mb-12">
-        Selamat datang di Tepat Laser, solusi utama untuk semua kebutuhan laser cutting Anda di {location.name}. Kami menyediakan layanan potong laser presisi tinggi untuk berbagai material dengan teknologi terdepan dan harga yang kompetitif.
-      </p>
-
-      <section class="section-padding bg-gray-50 rounded-xl">
-        <h2 class="heading-md text-center mb-8">Layanan Unggulan Kami di {location.name}</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Service Item 1: Akrilik -->
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Laser Cutting Akrilik</h3>
-            <p class="text-gray-600">Pembuatan signage, display, huruf timbul, dan merchandise custom dengan hasil potong yang halus dan presisi.</p>
-          </div>
-          <!-- Service Item 2: Kayu/MDF -->
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-bold text-gray-900 mb-3">CNC Router Kayu & MDF</h3>
-            <p class="text-gray-600">Solusi untuk industri furniture, dekorasi interior, dan partisi dengan detail dan akurasi yang sempurna.</p>
-          </div>
-          <!-- Service Item 3: Metal -->
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Laser Cutting Metal</h3>
-            <p class="text-gray-600">Potong plat besi, stainless steel, dan galvanis untuk kebutuhan manufaktur, otomotif, dan konstruksi.</p>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-  <CTA />
-
-  <Footer slot="footer" />
+<BaseLayout title={title} description={description} keywords={`laser cutting ${location.name}, Tepat Laser, CNC router ${location.name}`} url={`/lokasi/${location.slug}/`}><Header slot="header" />
+  <main class="location-page overflow-hidden"><section class="border-b border-[var(--line)] pt-40 pb-20"><div class="container-custom grid gap-10 lg:grid-cols-[1fr_.7fr] lg:items-end"><div><span class="eyebrow">Service area / {location.name}</span><h1 class="heading-xl mt-7">Project di<br /><span class="text-[var(--laser-deep)]">{location.name}.</span></h1></div><p class="max-w-xl text-lg leading-8">Tepat Laser membantu project dari review file, rekomendasi jalur produksi, sampai output siap diteruskan ke proses berikutnya.</p></div></section><section class="section-padding"><div class="container-custom"><span class="eyebrow">Capabilities nearby</span><div class="mt-8 grid gap-4 md:grid-cols-4">{SERVICES.map((service,index) => <a href={`/${service.slug}/`} class="group border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:border-[var(--ink)]"><span class="font-mono text-xs font-bold text-[var(--laser-deep)]">0{index+1}</span><h2 class="mt-12 text-2xl group-hover:text-[var(--laser-deep)]">{service.name}</h2><p class="mt-3 text-sm leading-7">{service.description}</p></a>)}</div></div></section><CTA title={`Mulai dari brief project di ${location.name}.`} description="Kirim ukuran, material, jumlah, deadline, dan file jika sudah ada. Kami cek rute produksinya terlebih dahulu." primaryText="Kirim brief via WhatsApp" secondaryText="Lihat proses kerja" secondaryLink="/proses-produksi-lead-time/" /></main><Footer slot="footer" />
 </BaseLayout>

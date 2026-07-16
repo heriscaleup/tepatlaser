@@ -1,15 +1,18 @@
-# Tepat Laser — White-first Awwwards / All-pages Patch
+# Tepat Laser — Full Awwwards Rebuild
 
-Overlay this ZIP at the repository root.
+Apply this archive over the repository root.
 
-This patch updates the shared visual layer used by every generated route, plus the main content templates:
+## What changed
 
-- White-first design system with dark photographic heroes, green accent, editorial typography, subtle grid, reveal motion, and reduced-motion support.
-- Correct Tepat Laser logo/brand in desktop and mobile navigation.
-- Responsive mobile menu with nested Jasa and Material navigation.
-- Floating WhatsApp logo and tracking hooks on every shared layout.
-- Reworked home, services, about, portfolio, FAQ, contact, process, blog index, and blog article templates.
-- Existing service/material/location pages inherit the same white-first colors, spacing, typography, buttons, tables, and mobile overflow protections through the shared CSS/layout layer.
-- Existing blog Markdown content is not changed.
+- The brand is now Tepat Laser throughout the shared navigation and footer; no Jasa Cutting Laser brand lockup remains.
+- Rebuilt white-first design system with a dark technical accent, laser green signal color, editorial typography, responsive navigation, and motion that respects reduced-motion preferences.
+- Removed the invalid nested-main shell structure.
+- Added one shared `CapabilityPage` template and migrated all service, material, metal-price, stainless, ACP, GRC, mihrab, and location routes to it.
+- Reworked home, services, about, portfolio, FAQ, contact, process, blog listing, and article presentation to the same system.
+- Floating WhatsApp and consistent Tepat Laser footer/header are shared across all Astro routes.
+- Blog Markdown content is unchanged.
 
-Verification: `HOME=/tmp/tepatlaser-home ASTRO_TELEMETRY_DISABLED=1 npm run build` passed; 67 static routes generated.
+## Verification
+
+- `npm run build` passes and generates 67 Astro static routes.
+- `astro check` reports 0 errors. Existing content-schema deprecation hints remain and are unrelated to this redesign.

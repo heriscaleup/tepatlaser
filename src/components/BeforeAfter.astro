@@ -109,20 +109,20 @@ const transformations = [
   document.addEventListener('DOMContentLoaded', () => {
     const containers = document.querySelectorAll('[data-before-after-container]');
     
-    containers.forEach(container => {
-      const slider = container.querySelector('[data-slider-control]');
-      const overlay = container.querySelector('[data-after-overlay]');
-      const bar = container.querySelector('[data-slider-bar]');
+    containers.forEach((container) => {
+      const slider = container.querySelector<HTMLInputElement>('[data-slider-control]');
+      const overlay = container.querySelector<HTMLElement>('[data-after-overlay]');
+      const bar = container.querySelector<HTMLElement>('[data-slider-bar]');
       
       if (!slider || !overlay || !bar) return;
       
-      const updatePosition = (val) => {
+      const updatePosition = (val: number) => {
         overlay.style.width = `${val}%`;
         bar.style.left = `${val}%`;
       };
       
-      slider.addEventListener('input', (e) => {
-        updatePosition(e.target.value);
+      slider.addEventListener('input', (event) => {
+        updatePosition(Number((event.currentTarget as HTMLInputElement).value));
       });
       
       updatePosition(50);

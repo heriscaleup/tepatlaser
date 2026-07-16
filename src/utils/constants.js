@@ -312,7 +312,7 @@ export const TESTIMONIALS = [
     name: "Ahmad Rizki",
     company: "Furniture Mebel Jaya Cilegon",
     position: "Owner",
-    content: "Sudah 3 tahun menggunakan jasa Jasa Cutting Laser. Selalu puas dengan kualitas dan ketepatan waktu pengerjaan, pengiriman ke Cilegon juga cepat.",
+    content: "Sudah 3 tahun menggunakan Tepat Laser. Selalu puas dengan kualitas dan ketepatan waktu pengerjaan, pengiriman ke Cilegon juga cepat.",
     rating: 5,
     image: "/images/Ahmad Rizki.webp"
   }

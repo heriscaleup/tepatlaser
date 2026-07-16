@@ -1,0 +1,41 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import CTA from './CTA.astro';
+import Breadcrumbs from './Breadcrumbs.astro';
+import { SITE_CONFIG, SERVICES, MATERIALS } from '../utils/constants.js';
+import { generateBreadcrumbSchema } from '../utils/seo.js';
+
+export interface Item {
+  name: string; slug?: string; description: string; image: string; features?: string[]; applications?: string[]; thickness?: string; keywords?: string;
+}
+export interface Props { item: Item; kind?: 'service' | 'material' | 'solution'; title?: string; description?: string; url?: string; }
+
+const { item, kind = 'service', title = item.name, description = item.description, url = `/${item.slug || ''}/` } = Astro.props;
+const label = kind === 'material' ? 'Material capability' : kind === 'solution' ? 'Project solution' : 'Machine capability';
+const features = item.features?.length ? item.features : [item.thickness ? `Rentang ketebalan: ${item.thickness}` : 'Spesifikasi disesuaikan kebutuhan project', 'Review file sebelum produksi', 'Quality control sebelum serah terima', 'Konsultasi teknis via WhatsApp'];
+const applications = item.applications?.length ? item.applications : ['Arsitektur', 'Interior', 'Signage', 'Komponen custom'];
+const related = (kind === 'service' ? SERVICES : MATERIALS).filter((entry) => entry.name !== item.name).slice(0, 3);
+const crumbsInput = [{ name: 'Beranda', url: '/' }, { name: kind === 'material' ? 'Material' : 'Layanan', url: '/services/' }, { name: title, url }];
+const breadcrumbSchema = generateBreadcrumbSchema(crumbsInput);
+const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(`Halo Tepat Laser, saya ingin konsultasi ${title}.`)}`;
+const meta = { title: `${title} | Tepat Laser`, description, keywords: item.keywords || `${title}, Tepat Laser, laser cutting Tangerang Selatan`, url, image: item.image, jsonLd: [breadcrumbSchema] };
+---
+<BaseLayout {...meta}>
+  <Header slot="header" />
+  <main class="capability-page overflow-hidden">
+    <Breadcrumbs crumbs={breadcrumbSchema.itemListElement} />
+    <section class="relative overflow-hidden border-b border-[var(--line)] bg-white pt-20 md:pt-28" data-no-reveal>
+      <div class="container-custom grid gap-10 pb-12 md:pb-16 lg:grid-cols-[1.05fr_.95fr] lg:items-end">
+        <div class="relative z-10 pb-3"><span class="eyebrow">{label}</span><h1 class="heading-xl mt-7 max-w-3xl">{title}</h1><p class="mt-7 max-w-xl text-lg leading-8">{description}</p><div class="mt-8 flex flex-col gap-3 sm:flex-row"><a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary" data-wa-label={`Capability ${title}`}>Konsultasi project <span>↗</span></a><a href="#spec" class="btn-secondary">Lihat spesifikasi <span>↓</span></a></div></div>
+        <div class="relative min-h-[20rem] overflow-hidden bg-[var(--ink)] md:min-h-[30rem]"><img src={item.image} alt={title} width="1200" height="800" class="absolute inset-0 h-full w-full object-cover opacity-90" fetchpriority="high" /><div class="absolute inset-0 bg-gradient-to-t from-[rgba(16,23,22,.75)] via-transparent to-transparent"></div><div class="absolute bottom-0 left-0 right-0 p-6"><span class="font-mono text-[.6rem] font-bold uppercase tracking-[.14em] text-[var(--laser)]">Tepat Laser / workshop line</span><p class="mt-2 max-w-sm text-sm leading-6 text-white/75">Dari file yang jelas ke output yang siap masuk proses berikutnya.</p></div></div>
+      </div>
+    </section>
+    <section id="spec" class="section-padding"><div class="container-custom grid gap-12 lg:grid-cols-[.75fr_1.25fr]"><div><span class="eyebrow">What matters</span><h2 class="heading-lg mt-5">Detail yang<br /><span class="text-[var(--laser-deep)]">diperhatikan.</span></h2></div><div class="grid gap-px border border-[var(--line)] bg-[var(--line)] sm:grid-cols-2">{features.map((feature, index) => <div class="bg-white p-6"><span class="font-mono text-xs font-bold text-[var(--laser-deep)]">0{index + 1}</span><p class="mt-10 text-base font-bold leading-6 text-[var(--ink)]">{feature}</p></div>)}</div></div></section>
+    <section class="border-y border-[var(--line)] bg-[var(--surface-soft)] py-16"><div class="container-custom grid gap-10 lg:grid-cols-[.7fr_1.3fr]"><div><span class="eyebrow">Applications</span><h2 class="heading-md mt-5">Dibuat untuk<br />konteks nyata.</h2></div><div class="grid grid-cols-2 gap-3 sm:grid-cols-4">{applications.map((application, index) => <div class="border border-[var(--line)] bg-white p-5"><span class="font-mono text-[.6rem] font-bold text-[var(--laser-deep)]">0{index + 1}</span><p class="mt-8 text-sm font-bold text-[var(--ink)]">{application}</p></div>)}</div></div></section>
+    <section class="section-padding"><div class="container-custom"><div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between"><div><span class="eyebrow">Explore next</span><h2 class="heading-md mt-4">Lanjutkan dari kebutuhan Anda.</h2></div><a href="/services/" class="font-mono text-xs font-bold uppercase tracking-[.13em] text-[var(--laser-deep)]">Semua capability ↗</a></div><div class="mt-10 grid gap-4 md:grid-cols-3">{related.map((entry) => <a href={`/${entry.slug}/`} class="group border border-[var(--line)] bg-white p-6 transition hover:-translate-y-1 hover:border-[var(--ink)]"><img src={entry.image} alt="" class="h-36 w-full object-cover" loading="lazy" width="800" height="500" /><h3 class="mt-6 text-2xl group-hover:text-[var(--laser-deep)]">{entry.name}</h3><p class="mt-3 text-sm leading-7">{entry.description}</p><span class="mt-6 block font-mono text-xs font-bold uppercase tracking-[.12em] text-[var(--laser-deep)]">Lihat detail ↗</span></a>)}</div></div></section>
+    <CTA title="Punya file atau ide yang ingin direalisasikan?" description="Kirim brief, material, ukuran, jumlah, dan deadline. Kami bantu memilih rute produksi yang paling tepat." primaryText="Mulai lewat WhatsApp" secondaryText="Lihat proses kerja" secondaryLink="/proses-produksi-lead-time/" />
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>
