@@ -1,6 +1,10 @@
 # Nama workflow yang akan muncul di tab Actions di GitHub
 name: Deploy Astro to Hostinger FTP
 
+concurrency:
+  group: tepatlaser-production
+  cancel-in-progress: true
+
 # Kapan workflow ini dijalankan
 on:
   # Dijalankan setiap kali ada push ke branch 'main'
@@ -28,7 +32,7 @@ jobs:
 
       # 3. Install semua dependencies
       - name: Install Dependencies
-        run: npm install --legacy-peer-deps
+        run: npm ci --legacy-peer-deps
 
       # 4. Build project Astro jadi file statis di folder 'dist'
       - name: Build Astro Project
@@ -48,8 +52,24 @@ jobs:
           local-dir: ./dist/
           # Folder tujuan di hosting (sesuaikan dengan domain kamu)
           server-dir: ./
+          # Nama state baru memaksa seluruh build V5 diunggah ulang, bukan hanya
+          # file yang dianggap berubah oleh state deployment generasi sebelumnya.
+          state-name: .ftp-deploy-sync-state-v5.json
           # Exclude file tertentu jika perlu
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
+
+      - name: Verify public release marker
+        shell: bash
+        run: |
+          for attempt in {1..12}; do
+            if curl --fail --silent --show-error "https://tepatlaser.com/release.json?check=${GITHUB_SHA}-${attempt}" | grep -q '"release": "v5-2026-07-17"'; then
+              echo "Release V5 is live."
+              exit 0
+            fi
+            sleep 10
+          done
+          echo "Release marker V5 was not found on the public domain."
+          exit 1

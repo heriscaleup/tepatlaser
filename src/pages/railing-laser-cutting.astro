@@ -1,0 +1,16 @@
+---
+import ApplicationLandingPage from '../components/ApplicationLandingPage.astro';
+const benefits=[
+  {title:'Pola terukur',description:'Kepadatan motif disesuaikan dengan ukuran panel agar proporsinya tetap terbaca.'},
+  {title:'Integrasi struktur',description:'Ukuran bidang, titik rangka, dan sambungan perlu dikunci sebelum file produksi.'},
+  {title:'Finishing sesuai lokasi',description:'Lapisan akhir mengikuti penggunaan interior, semi-eksterior, dan kebutuhan visual.'}
+];
+const gallery=[
+  {image:'/gambar/railing-laser-cutting-landing/hero-reling-tangga.webp',title:'Reling panel dekoratif',label:'Interior',alt:'Reling tangga dengan panel laser cutting berpola'},
+  {image:'/gambar/railing-laser-cutting-landing/reling-tangga-daylight.webp',title:'Pola dalam cahaya alami',label:'Daylight',alt:'Reling laser cutting pada area tangga dengan cahaya alami'},
+  {image:'/gambar/railing-laser-cutting-landing/reling-tangga-moody-lattice.webp',title:'Lattice vertikal',label:'Detail ruang',alt:'Panel reling laser cutting vertikal pada interior'}
+];
+const steps=[{title:'Kirim data',description:'Ukuran bidang, foto tangga, lokasi penggunaan, dan referensi motif.'},{title:'Review teknis',description:'Skala pola, material, rangka, dan finishing dibahas.'},{title:'Konfirmasi',description:'Lingkup, estimasi, dan waktu pengerjaan dikunci.'},{title:'Produksi & QC',description:'Panel diproses dan diperiksa sebelum serah terima.'}];
+const faqs=[{question:'Apakah motif bisa dibuat custom?',answer:'Bisa. File atau referensi ditinjau agar detail pola layak diproduksi pada ukuran panel yang dibutuhkan.'},{question:'Data ukuran apa yang diperlukan?',answer:'Lebar dan tinggi tiap bidang, jumlah panel, foto kondisi tangga, posisi rangka, lokasi penggunaan, dan target waktu.'},{question:'Material apa yang cocok?',answer:'Pilihan mengikuti ukuran bidang, kebutuhan kekakuan, rangka, lokasi penggunaan, dan finishing.'},{question:'Apakah melayani Jabodetabek?',answer:'Workshop berada di Tangerang Selatan. Lokasi dan kebutuhan logistik dapat dibahas saat konsultasi.'}];
+---
+<ApplicationLandingPage title="Pengaman tangga yang ikut" accent="membentuk suasana ruang." eyebrow="Panel railing custom" description="Reling laser cutting menggabungkan pola, privasi, cahaya, dan fungsi pengaman dalam satu bidang yang dirancang sesuai ukuran tangga." metaDescription="Railing laser cutting custom untuk tangga dan balkon, dengan review pola, material, struktur, dan finishing dari Tepat Laser." keyword="railing laser cutting, reling tangga custom, panel tangga laser cutting" route="/railing-laser-cutting/" heroImage="/gambar/railing-laser-cutting-landing/hero-reling-tangga.webp" heroAlt="Reling tangga dengan panel laser cutting berpola" {benefits} {gallery} {steps} {faqs} ctaTitle="Reling Anda perlu karakter yang lebih jelas?" waMessage="Halo Tepat Laser, saya ingin konsultasi railing laser cutting custom." />

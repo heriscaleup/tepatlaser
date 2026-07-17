@@ -3,13 +3,13 @@
 export const SITE_CONFIG = {
   name: "Tepat Laser",
   title: "Jasa Laser Cutting & CNC Router | Tepat Laser",
-  description: "Jasa laser cutting, CNC router, dan laser engraving untuk kebutuhan industri, interior, signage, serta produk custom di Jakarta dan Tangerang Selatan.",
+  description: "Jasa laser cutting, CNC router, dan laser engraving untuk kebutuhan industri, interior, signage, serta produk pesanan khusus di Jakarta dan Tangerang Selatan.",
   keywords: "laser cutting indonesia, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal indonesia",
   url: "https://tepatlaser.com",
   author: "Tim Teknis Tepat Laser",
   whatsapp: "6282121292937",
   email: "info@tepatlaser.com",
-  address: "Jl. Bintaro Bsd no 1D parigi ( samping Sekolah SD Mentari Internasional School ), Tangerang Selatan, Banten, Indonesia",
+  address: "Jl. Bintaro–BSD No. 1D, Parigi (samping SD Mentari Intercultural School), Tangerang Selatan, Banten",
   phone: "+62 821-2129-2937",
   businessHours: "Senin - Sabtu: 08.00 - 17.00 WIB",
   socialMedia: {
@@ -48,7 +48,7 @@ export const NAVIGATION = [
       { name: 'GRC', href: '/jasa-laser-cutting-grc/' }
     ]
   },
-  { name: 'Portfolio', href: '/portfolio/', active: false },
+  { name: 'Portofolio', href: '/portfolio/', active: false },
   { name: 'Blog', href: '/blog/', active: false }
 ];
 
@@ -57,30 +57,30 @@ export const SERVICES = [
     id: "laser-co2",
     name: "Laser CO2",
     slug: "jasa-laser-co2",
-    description: "Cutting presisi tinggi untuk material non-metal seperti akrilik, kayu, MDF, kertas, kain, dan karet",
+    description: "Pemotongan presisi untuk material non-metal seperti akrilik, kayu, MDF, kertas, kain, dan karet",
     features: [
       "Ketebalan material hingga 20mm",
       "Presisi hingga 0.1mm",
-      "Finishing halus dan clean",
+      "Tepi potong halus dan rapi",
       "Ideal untuk signage, dekorasi, prototyping"
     ],
     applications: ["Signage", "Dekorasi", "Prototyping", "Kemasan"],
-    image: "/images/co2.webp",
+    image: "/images/generated/co2-acrylic-v5.webp",
     keywords: "jasa laser co2 indonesia, cutting akrilik serang, laser kayu tangerang, potong mdf cilegon, laser cutting pandeglang, cutting kain lebak, laser karet indonesia"
   },
   {
     id: "laser-fiber",
     name: "Laser Fiber",
     slug: "jasa-laser-fiber",
-    description: "Solusi cutting & marking presisi untuk material metal seperti stainless steel, aluminium, besi, dan tembaga",
+    description: "Pemotongan dan penandaan presisi untuk metal seperti stainless steel, aluminium, besi, dan tembaga",
     features: [
       "Marking permanen & tahan lama",
       "Cutting metal hingga 10mm",
       "Kecepatan tinggi dan efisiensi biaya",
       "Tidak memerlukan bahan kimia berbahaya"
     ],
-    applications: ["Industri", "Automotif", "Elektronik", "Branding"],
-    image: "/images/laserfiber.webp",
+    applications: ["Industri", "Otomotif", "Elektronik", "Identitas produk"],
+    image: "/images/generated/fiber-laser-v5.webp",
     keywords: "jasa laser fiber indonesia, cutting stainless serang, laser alumunium tangerang, potong besi cilegon, laser cutting metal pandeglang, marking tembaga lebak"
   },
   {
@@ -94,23 +94,23 @@ export const SERVICES = [
       "Repeatability tinggi untuk produksi massal",
       "Finishing presisi untuk detail rumit"
     ],
-    applications: ["Fasad", "Furniture", "Moulding", "Signage"],
-    image: "/images/cncrouter.webp",
+    applications: ["Fasad", "Furnitur", "Profil", "Signage"],
+    image: "/images/generated/cnc-router-v5.webp",
     keywords: "jasa cnc router indonesia, cutting acp serang, laser grc tangerang, potong kayu cilegon, cnc router pandeglang, carving akrilik lebak"
   },
   {
     id: "galvo-engraving",
     name: "Galvo Engraving",
     slug: "jasa-galvo-engraving",
-    description: "Engraving kecepatan tinggi untuk personalisasi dan branding produk pada berbagai material",
+    description: "Grafir berkecepatan tinggi untuk personalisasi dan identitas produk pada berbagai material",
     features: [
       "Kecepatan engraving hingga 10x lebih cepat",
       "Resolusi tinggi untuk detail kompleks",
       "Personalisasi batch dalam waktu singkat",
       "Ideal untuk serial number, logo, QR code"
     ],
-    applications: ["Branding", "Personalisasi", "Traceability", "Promosi"],
-    image: "/images/galvo.webp",
+    applications: ["Identitas produk", "Personalisasi", "Ketertelusuran", "Promosi"],
+    image: "/images/generated/galvo-engraving-v5.webp",
     keywords: "jasa galvo engraving indonesia, laser engraving serang, engrave tangerang, potong engraving cilegon, laser engrave pandeglang, branding produk lebak"
   }
 ];
@@ -122,8 +122,8 @@ export const MATERIALS = [
     slug: "laser-cutting-akrilik",
     description: "Material transparan berkualitas tinggi untuk berbagai aplikasi signage dan dekorasi",
     thickness: "1mm - 20mm",
-    applications: ["Signage", "Display", "Dekorasi", "Prototyping"],
-    image: "/images/Acrylic.webp",
+    applications: ["Signage", "Etalase", "Dekorasi", "Prototipe"],
+    image: "/images/generated/acrylic-material-v5.webp",
     keywords: "potong akrilik indonesia, cutting acrylic serang, laser acrylic tangerang, potong acrylic cilegon, cutting acrylic pandeglang"
   },
   {
@@ -132,7 +132,7 @@ export const MATERIALS = [
     slug: "jasa-laser-cutting-mdf-ai",
     description: "Kayu engineered dengan permukaan halus, ideal untuk painting dan aplikasi dekoratif",
     thickness: "3mm - 25mm",
-    applications: ["Furniture", "Dekorasi", "Craft", "Model"],
+    applications: ["Furnitur", "Dekorasi", "Kerajinan", "Model"],
     image: "/images/mdf.webp",
     keywords: "potong mdf indonesia, laser cutting mdf serang, cutting mdf tangerang, potong mdf cilegon, laser mdf pandeglang"
   },
@@ -142,7 +142,7 @@ export const MATERIALS = [
     slug: "jasa-laser-cutting-plywood",
     description: "Kayu lapis berkualitas untuk kekuatan struktural dan tampilan alami yang menarik",
     thickness: "3mm - 25mm",
-    applications: ["Furniture", "Dekorasi", "Kerajinan", "Interior"],
+    applications: ["Furnitur", "Dekorasi", "Kerajinan", "Interior"],
     image: "/images/Ply Wood.webp",
     keywords: "potong plywood indonesia, laser kayu serang, cutting multiplex tangerang, potong kayu cilegon, laser plywood pandeglang"
   },
@@ -152,7 +152,7 @@ export const MATERIALS = [
     slug: "jasa-laser-cutting-metal",
     description: "Laser cutting metal presisi tinggi untuk stainless steel (SS201/SS304/SS316), aluminium, dan plat besi. Toleransi ±0.02mm, ketebalan 0.5–10mm, pengerjaan 1–3 hari kerja.",
     thickness: "0.5mm - 10mm",
-    applications: ["Industri", "Arsitektur", "Automotif", "Branding"],
+    applications: ["Industri", "Arsitektur", "Otomotif", "Identitas produk"],
     image: "/images/metal.webp",
     keywords: "jasa laser cutting metal, laser cutting stainless jakarta, harga laser cutting plat besi, laser cutting metal tangerang, potong stainless ss304"
   },
@@ -170,9 +170,9 @@ export const MATERIALS = [
     id: "pvc",
     name: "PVC BOARD",
     slug: "jasa-laser-cutting-pvc",
-    description: "Cutting PVC custom untuk berbagai keperluan industri dan kreatif",
+    description: "Pemotongan PVC sesuai desain untuk kebutuhan industri dan kreatif",
     thickness: "1mm - 10mm",
-    applications: ["Signage", "Prototype", "Display", "Packaging"],
+    applications: ["Signage", "Prototipe", "Etalase", "Kemasan"],
     image: "/images/pvc.webp",
     keywords: "potong pvc indonesia, cutting pvc serang, laser pvc tangerang, potong pvc cilegon, cutting pvc pandeglang"
   },
@@ -226,15 +226,15 @@ export const PORTFOLIO_PROJECTS = [
     id: 3,
     title: "Cutting Akrilik Dekoratif",
     category: "Laser CO2",
-    image: "/images/Acrylic.webp",
+    image: "/images/generated/acrylic-material-v5.webp",
     description: "Pemotongan akrilik untuk keperluan dekorasi interior dengan desain custom",
     client: "Interior Design Studio",
     material: "Akrilik 8mm",
     technique: "CO2 Laser Cutting",
     gallery: [
-      "/tepatlaser/images/Acrylic.webp",
-      "/tepatlaser/images/Acrylic.webp",
-      "/tepatlaser/images/Acrylic.webp"
+      "/images/generated/acrylic-material-v5.webp",
+      "/images/generated/co2-acrylic-v5.webp",
+      "/images/generated/acrylic-material-v5.webp"
     ],
     detailDescription: "Pemotongan akrilik dekoratif dengan ketebalan 8mm menggunakan laser CO2. Menghasilkan potongan yang halus dan bersih tanpa crack, sempurna untuk aplikasi dekorasi interior yang elegan."
   },
@@ -361,7 +361,7 @@ export const FAQ = [
   {
     id: 1,
     question: "Berapa lama waktu pengerjaan laser cutting?",
-    answer: "Waktu pengerjaan tergantung kompleksitas desain dan jumlah item. Untuk project standar, estimasi pengerjaan adalah 2-5 hari kerja setelah desain disetujui. Untuk project mendesak, kami menyediakan layanan express dengan tambahan biaya."
+    answer: "Waktu pengerjaan mengikuti kompleksitas desain, material, jumlah, dan antrean mesin. Sebagai gambaran awal, banyak pekerjaan dapat selesai dalam 1–3 hari kerja setelah file, material, dan penawaran disetujui. Jadwal final dikonfirmasi sebelum produksi."
   },
   {
     id: 2,
@@ -376,7 +376,7 @@ export const FAQ = [
   {
     id: 4,
     question: "Bagaimana kualitas hasil potongan laser?",
-    answer: "Kualitas hasil potongan laser kami sangat tinggi dengan presisi hingga 0.1mm. Tepi potongan sangat halus dan clean, minim sisa material. Untuk material tertentu seperti akrilik, hasil potongan bahkan tidak memerlukan finishing tambahan."
+    answer: "Kualitas tepi dan toleransi dipengaruhi jenis material, ketebalan, geometri, kondisi bahan, serta proses lanjutan. Kami meninjau faktor tersebut sebelum produksi dan melakukan pemeriksaan visual pada hasil."
   },
   {
     id: 5,
@@ -417,14 +417,14 @@ export const BLOG_POSTS = [
     category: "Technical",
     readTime: "7 menit",
     publishDate: "2025-01-10",
-    image: "/images/laserfiber.webp",
+    image: "/images/generated/fiber-laser-v5.webp",
     keywords: "perbedaan laser co2 fiber, laser co2 vs fiber, teknologi laser cutting",
     schema: {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "Perbedaan Utama Antara Laser CO2 dan Laser Fiber untuk Bisnis Anda",
       "description": "Analisis teknis dan aplikatif antara teknologi laser CO2 dan Fiber untuk kebutuhan bisnis Anda",
-      "image": "/images/laserfiber.webp",
+      "image": "/images/generated/fiber-laser-v5.webp",
       "datePublished": "2025-01-10",
       "author": {
         "@type": "Organization",
@@ -440,14 +440,14 @@ export const BLOG_POSTS = [
     category: "Industry",
     readTime: "6 menit",
     publishDate: "2025-01-05",
-    image: "/images/cncrouter.webp",
+    image: "/images/generated/cnc-router-v5.webp",
     keywords: "tren industri kreatif 2025, peluang laser cutting, bisnis laser cutting indonesia",
     schema: {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "Tren Industri Kreatif indonesia 2025: Peluang Laser Cutting",
       "description": "Insight tentang perkembangan industri kreatif di indonesia dan peluang bisnis laser cutting",
-      "image": "/images/cncrouter.webp",
+      "image": "/images/generated/cnc-router-v5.webp",
       "datePublished": "2025-01-05",
       "author": {
         "@type": "Organization",
@@ -463,14 +463,14 @@ export const BLOG_POSTS = [
     category: "Tips",
     readTime: "8 menit",
     publishDate: "2025-01-20",
-    image: "/images/co2.webp",
+    image: "/images/generated/co2-acrylic-v5.webp",
     keywords: "kesalahan memilih jasa laser cutting, tips laser cutting, ahli laser cutting indonesia",
     schema: {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "5 Kesalahan Umum Saat Memilih Jasa Laser Cutting di indonesia",
       "description": "Hindari kesalahan fatal yang bisa merugikan project Anda dengan tips dari ahli laser cutting indonesia",
-      "image": "/images/co2.webp",
+      "image": "/images/generated/co2-acrylic-v5.webp",
       "datePublished": "2025-01-20",
       "author": {
         "@type": "Organization",
@@ -532,14 +532,14 @@ export const BLOG_POSTS = [
     category: "Technical",
     readTime: "12 menit",
     publishDate: "2025-01-14",
-    image: "/images/galvo.webp",
+    image: "/images/generated/galvo-engraving-v5.webp",
     keywords: "teknik laser engraving, personalisasi massal, branding produk laser",
     schema: {
       "@context": "https://schema.org",
       "@type": "Article",
       "headline": "Teknik Laser Engraving Tercepat untuk Personalisasi Massal",
       "description": "Eksplorasi teknik laser engraving cepat pada berbagai material untuk menciptakan branding produk yang memorable",
-      "image": "/images/galvo.webp",
+      "image": "/images/generated/galvo-engraving-v5.webp",
       "datePublished": "2025-01-14",
       "author": {
         "@type": "Organization",
@@ -608,12 +608,12 @@ export const getPageUrl = (path) => {
 };
 
 export const WHATSAPP_MESSAGES = {
-  default: "Halo, saya tertarik dengan jasa laser cutting. Bisa konsultasi gratis?",
+  default: "Halo Tepat Laser, saya ingin konsultasi proyek. Berikut material, ukuran, jumlah, target waktu, dan file/referensi saya:",
   cnc: "Halo, saya butuh informasi tentang jasa CNC Router. Bisa bantu konsultasi gratis?",
   fiber: "Halo, saya ingin tanya tentang laser fiber cutting untuk material metal. Bisa konsultasi gratis?",
   co2: "Halo, saya tertarik dengan laser CO2 untuk cutting acrylic. Bisa konsultasi gratis?",
   engraving: "Halo, saya butuh jasa laser engraving. Bisa konsultasi gratis?",
-  quote: "Halo, saya ingin request quote untuk project laser cutting. Bisa konsultasi gratis dulu?",
+  quote: "Halo, saya ingin meminta estimasi untuk proyek laser cutting. Bisa konsultasi terlebih dahulu?",
   stainless: "Halo Tepat Laser, saya tertarik dengan jasa laser cutting stainless. Bisa konsultasi gratis?",
   stainlessIndustri: "Halo Tepat Laser, saya butuh laser cutting stainless untuk kebutuhan industri/produksi. Bisa info harga dan kapasitas?",
   stainlessInterior: "Halo Tepat Laser, saya mau konsultasi laser cutting stainless untuk interior/ornamen/railing. Bisa bantu?",

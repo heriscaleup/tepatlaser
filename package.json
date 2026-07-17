@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "check": "astro check",
+    "verify": "node scripts/verify-site.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

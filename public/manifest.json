@@ -1,78 +1,21 @@
 {
-  "name": "LaserCut Pro - Jasa Laser Cutting Terpercaya",
-  "short_name": "LaserCut Pro",
-  "description": "Jasa laser cutting profesional di Jawa Barat dengan teknologi terdepan. CNC Router, Laser Fiber, Laser CO2, dan Galvo Engraving dengan kualitas premium.",
+  "name": "Tepat Laser — Fabrikasi Presisi",
+  "short_name": "Tepat Laser",
+  "description": "Workshop laser cutting dan fabrikasi presisi untuk kebutuhan arsitektur, interior, manufaktur, signage, dan proyek custom.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2563eb",
+  "background_color": "#09100d",
+  "theme_color": "#b8ff3d",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "id",
   "icons": [
     {
-      "src": "/icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-128x128.png",
-      "sizes": "128x128",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-144x144.png",
-      "sizes": "144x144",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-152x152.png",
-      "sizes": "152x152",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-384x384.png",
-      "sizes": "384x384",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
-    {
-      "src": "/icons/icon-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable any"
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon",
+      "purpose": "any"
     }
   ],
-  "categories": ["business", "productivity", "utilities"],
-  "screenshots": [
-    {
-      "src": "//images/screenshot-desktop.png",
-      "sizes": "1280x720",
-      "type": "image/png",
-      "form_factor": "wide"
-    },
-    {
-      "src": "//images/screenshot-mobile.png",
-      "sizes": "375x667",
-      "type": "image/png",
-      "form_factor": "narrow"
-    }
-  ]
+  "categories": ["business", "productivity", "utilities"]
 }
-

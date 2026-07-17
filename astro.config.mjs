@@ -19,13 +19,7 @@ export default defineConfig({
   
   integrations: [
     tailwind(),
-    sitemap({
-      // Halaman statis di public/ tidak terdeteksi otomatis oleh sitemap
-      customPages: [
-        'https://tepatlaser.com/pagar-laser-cutting/',
-        'https://tepatlaser.com/railing-laser-cutting/',
-      ],
-    })
+    sitemap()
   ],
   
   vite: {

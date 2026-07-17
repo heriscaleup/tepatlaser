@@ -1,67 +1,129 @@
 ---
-import { NAVIGATION, SITE_CONFIG } from '../utils/constants.js';
-const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
-const navigation = NAVIGATION.map((item) => ({ ...item, active: item.href === '/' ? currentPath === '/' : item.href !== '#' && currentPath.startsWith(item.href.replace(/\/$/, '')) }));
-const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi project.')}`;
+import { SITE_CONFIG, SERVICES, MATERIALS } from '../utils/constants.js';
+
+const path = Astro.url.pathname;
+const isActive = (href: string) => href === '/' ? path === '/' : path.startsWith(href);
+const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi proyek dan mengirim brief.')}`;
 ---
 
 <header class="fixed inset-x-0 top-0 z-50 glass-header" id="main-header">
-  <div class="container-custom">
-    <div class="flex h-[4.65rem] items-center justify-between gap-5">
-      <a href="/" class="brand-lockup" aria-label="Tepat Laser, beranda">
-        <span class="brand-mark">TL</span>
-        <span><span class="brand-name">TEPAT LASER</span><span class="brand-meta">Precision beyond expectation</span></span>
-      </a>
+  <div class="container-custom flex h-[4.8rem] items-center justify-between gap-5">
+    <a href="/" class="brand-lockup" aria-label="Tepat Laser, kembali ke beranda">
+      <img class="brand-logo" src="/images/logo.webp" alt="Tepat Laser — Precision Beyond Expectation" width="1200" height="594" decoding="async" />
+    </a>
 
-      <nav class="hidden items-center gap-5 lg:flex" aria-label="Navigasi utama">
-        {navigation.map((item) => item.submenu ? (
-          <details class="nav-dropdown group relative">
-            <summary class="flex cursor-pointer list-none items-center gap-1 py-3 font-mono text-[.63rem] font-bold uppercase tracking-[.13em] text-[var(--muted)] transition-colors hover:text-[var(--ink)]">
-              {item.name}<span class="text-[var(--laser-deep)]">+</span>
-            </summary>
-            <div class="absolute left-1/2 top-full w-64 -translate-x-1/2 border border-[var(--line)] bg-white p-2 shadow-xl">
-              {item.submenu.map((sub) => <a href={sub.href} class="block px-4 py-3 text-sm font-semibold text-[var(--muted)] transition-colors hover:bg-[var(--surface-soft)] hover:text-[var(--ink)]">{sub.name}</a>)}
+    <nav class="desktop-nav hidden items-center gap-7 lg:flex" aria-label="Navigasi utama">
+      <a href="/" class:list={["nav-link", isActive('/') && "is-active"]}>Beranda</a>
+      <a href="/about/" class:list={["nav-link", isActive('/about/') && "is-active"]}>Tentang</a>
+      <details class="nav-mega" data-nav-dropdown>
+        <summary class:list={["nav-link cursor-pointer list-none", (isActive('/jasa-') || isActive('/laser-')) && "is-active"]}>
+          Layanan <span aria-hidden="true">⌄</span>
+        </summary>
+        <div class="mega-panel">
+          <div>
+            <p class="mega-label">Proses produksi</p>
+            <div class="mt-4 grid gap-1">
+              {SERVICES.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><small>{item.applications.slice(0,2).join(' · ')}</small></a>)}
             </div>
-          </details>
-        ) : (
-          <a href={item.href} class:list={["relative py-3 font-mono text-[.63rem] font-bold uppercase tracking-[.13em] text-[var(--muted)] transition-colors hover:text-[var(--ink)]", item.active && "text-[var(--ink)]"]}>
-            {item.name}{item.active && <span class="absolute inset-x-0 -bottom-1 h-0.5 bg-[var(--laser-deep)]"></span>}
-          </a>
-        ))}
-      </nav>
+          </div>
+          <div>
+            <p class="mega-label">Material populer</p>
+            <div class="mt-4 grid grid-cols-2 gap-1">
+              {MATERIALS.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><small>{item.thickness}</small></a>)}
+            </div>
+          </div>
+          <a href="/services/" class="mega-all">Lihat semua kapabilitas <span>↗</span></a>
+        </div>
+      </details>
+      <a href="/portfolio/" class:list={["nav-link", isActive('/portfolio/') && "is-active"]}>Portofolio</a>
+      <a href="/blog/" class:list={["nav-link", isActive('/blog/') && "is-active"]}>Wawasan</a>
+    </nav>
 
-      <div class="hidden items-center gap-3 lg:flex">
-        <span class="hidden font-mono text-[.58rem] font-bold uppercase tracking-[.12em] text-[var(--muted)] 2xl:block"><i class="mr-2 inline-block h-1.5 w-1.5 rounded-full bg-[var(--laser-deep)]"></i>Workshop online</span>
-        <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary min-h-10 px-5 py-2 text-xs" data-wa-label="Header WhatsApp">Mulai project <span>↗</span></a>
-      </div>
-
-      <button id="mobile-menu-button" class="grid h-10 w-10 place-items-center border border-[var(--line)] bg-white lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Buka menu">
-        <span class="relative h-4 w-5"><i id="bar-one" class="absolute inset-x-0 top-0 h-px bg-[var(--ink)] transition-transform"></i><i id="bar-two" class="absolute inset-x-0 top-2 h-px bg-[var(--ink)] transition-opacity"></i><i id="bar-three" class="absolute inset-x-0 bottom-0 h-px bg-[var(--ink)] transition-transform"></i></span>
-      </button>
+    <div class="desktop-cta hidden lg:block">
+      <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary min-h-10 px-5 py-2 text-xs" data-wa-label="Header WhatsApp">Kirim brief <span>↗</span></a>
     </div>
+
+    <button id="mobile-menu-button" class="mobile-toggle lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Buka menu navigasi">
+      <span></span><span></span>
+    </button>
   </div>
 
-  <div id="mobile-menu" class="invisible fixed inset-x-0 top-[4.65rem] translate-x-full border-t border-[var(--line)] bg-[var(--canvas)] px-5 py-6 opacity-0 transition-all duration-300 lg:hidden" aria-hidden="true">
-    <nav class="grid gap-1" aria-label="Navigasi mobile">
-      {navigation.map((item) => item.submenu ? (
-        <details class="border-b border-[var(--line)]"><summary class="flex cursor-pointer list-none items-center justify-between py-4 font-heading text-2xl font-bold">{item.name}<span class="text-[var(--laser-deep)]">+</span></summary><div class="grid grid-cols-2 gap-2 pb-4">{item.submenu.map((sub) => <a href={sub.href} class="border border-[var(--line)] bg-white p-3 text-sm font-semibold text-[var(--muted)]">{sub.name}</a>)}</div></details>
-      ) : <a href={item.href} class="border-b border-[var(--line)] py-4 font-heading text-2xl font-bold">{item.name}</a>)}
+  <div id="mobile-menu" class="mobile-panel lg:hidden" aria-hidden="true">
+    <nav class="container-custom py-5" aria-label="Navigasi mobile">
+      <a href="/">Beranda</a>
+      <a href="/about/">Tentang</a>
+      <details>
+        <summary>Layanan <span>＋</span></summary>
+        <div class="mobile-subgrid">
+          <a href="/services/">Semua layanan</a>
+          {SERVICES.map((item) => <a href={`/${item.slug}/`}>{item.name}</a>)}
+          {MATERIALS.map((item) => <a href={`/${item.slug}/`}>{item.name}</a>)}
+        </div>
+      </details>
+      <a href="/portfolio/">Portofolio</a>
+      <a href="/blog/">Wawasan</a>
+      <a href="/contact/">Kontak</a>
+      <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary mt-5" data-wa-label="Mobile WhatsApp">Kirim brief via WhatsApp <span>↗</span></a>
     </nav>
-    <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary mt-6" data-wa-label="Mobile WhatsApp">Kirim brief project <span>↗</span></a>
   </div>
 </header>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    const button = document.querySelector('#mobile-menu-button');
+  const initHeader = () => {
+    const header = document.querySelector('#main-header');
+    const menuButton = document.querySelector('#mobile-menu-button');
     const menu = document.querySelector('#mobile-menu');
-    const one = document.querySelector('#bar-one'); const two = document.querySelector('#bar-two'); const three = document.querySelector('#bar-three');
-    let open = false;
-    const close = () => { open = false; menu?.classList.add('invisible', 'translate-x-full', 'opacity-0'); menu?.setAttribute('aria-hidden', 'true'); button?.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; one?.classList.remove('translate-y-2', 'rotate-45'); two?.classList.remove('opacity-0'); three?.classList.remove('-translate-y-2', '-rotate-45'); };
-    button?.addEventListener('click', () => { if (open) return close(); open = true; menu?.classList.remove('invisible', 'translate-x-full', 'opacity-0'); menu?.setAttribute('aria-hidden', 'false'); button?.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; one?.classList.add('translate-y-2', 'rotate-45'); two?.classList.add('opacity-0'); three?.classList.add('-translate-y-2', '-rotate-45'); });
-    menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', close));
-    document.querySelectorAll('.nav-dropdown').forEach((dropdown) => dropdown.addEventListener('toggle', () => { if (dropdown.open) document.querySelectorAll('.nav-dropdown').forEach((other) => { if (other !== dropdown) other.removeAttribute('open'); }); }));
-    window.addEventListener('scroll', () => document.querySelector('#main-header')?.classList.toggle('glass-header-scrolled', window.scrollY > 12), { passive: true });
-    window.addEventListener('keydown', (event) => { if (event.key === 'Escape') close(); });
-  });
+    const dropdowns = [...document.querySelectorAll('[data-nav-dropdown]')];
+    const setMobile = (open) => {
+      menuButton?.setAttribute('aria-expanded', String(open));
+      menu?.setAttribute('aria-hidden', String(!open));
+      menu?.classList.toggle('is-open', open);
+      menuButton?.classList.toggle('is-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    menuButton?.addEventListener('click', () => setMobile(menuButton.getAttribute('aria-expanded') !== 'true'));
+    menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setMobile(false)));
+    dropdowns.forEach((dropdown) => dropdown.addEventListener('toggle', () => {
+      if (dropdown.open) dropdowns.forEach((other) => { if (other !== dropdown) other.open = false; });
+    }));
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('[data-nav-dropdown]')) dropdowns.forEach((item) => item.open = false);
+    });
+    window.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setMobile(false); dropdowns.forEach((item) => item.open = false); } });
+    const onScroll = () => header?.classList.toggle('glass-header-scrolled', window.scrollY > 10);
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  };
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', initHeader, { once: true }) : initHeader();
 </script>
+
+<style>
+  .nav-link{position:relative;display:inline-flex;align-items:center;gap:.35rem;padding:.7rem 0;color:var(--header-muted);font-size:.82rem;font-weight:700;line-height:1;transition:color .2s ease;animation:nav-arrive .7s var(--ease) both}
+  .desktop-nav>.nav-link:nth-child(2),.desktop-nav>details:nth-child(2){animation-delay:.06s}.desktop-nav>.nav-link:nth-child(3),.desktop-nav>details:nth-child(3){animation-delay:.12s}.desktop-nav>.nav-link:nth-child(4){animation-delay:.18s}.desktop-nav>.nav-link:nth-child(5){animation-delay:.24s}
+  .nav-link:hover,.nav-link.is-active{color:var(--header-ink)}
+  .nav-link.is-active::after{position:absolute;right:0;bottom:.15rem;left:0;height:2px;content:'';background:var(--laser)}
+  .nav-mega{position:relative}
+  .nav-mega summary::-webkit-details-marker{display:none}
+  .mega-panel{position:absolute;top:calc(100% + .7rem);left:50%;display:grid;width:min(53rem,calc(100vw - 3rem));grid-template-columns:.8fr 1.35fr;gap:2rem;border:1px solid var(--line);background:var(--surface);padding:1.4rem;box-shadow:var(--shadow);transform:translateX(-50%)}
+  .mega-label{color:var(--laser-deep);font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+  .mega-panel a{display:flex;min-width:0;align-items:center;justify-content:space-between;gap:1rem;border-radius:.35rem;padding:.65rem .7rem;transition:background .2s ease}
+  .mega-panel a:hover{background:var(--surface-soft)}
+  .mega-panel a span{font-size:.82rem;font-weight:700}
+  .mega-panel a small{overflow:hidden;color:var(--muted);font-size:.62rem;line-height:1.2;text-align:right;text-overflow:ellipsis;white-space:nowrap}
+  .mega-panel .mega-all{position:absolute;right:1.4rem;bottom:-2.55rem;left:1.4rem;border:1px solid var(--laser);background:var(--laser);color:#09100d;padding:.7rem 1rem;box-shadow:var(--shadow)}
+  .mega-panel .mega-all:hover{background:#fff}
+  .mobile-toggle{position:relative;width:2.75rem;height:2.75rem;border:1px solid var(--header-line);border-radius:50%;background:var(--paper);color:var(--header-ink)}
+  .mobile-toggle span{position:absolute;right:.75rem;left:.75rem;height:1px;background:var(--header-ink);transition:transform .2s ease}
+  .mobile-toggle span:first-child{top:1.1rem}.mobile-toggle span:last-child{bottom:1.1rem}
+  .mobile-toggle.is-open span:first-child{top:1.35rem;transform:rotate(45deg)}.mobile-toggle.is-open span:last-child{bottom:1.35rem;transform:rotate(-45deg)}
+  .mobile-panel{visibility:hidden;position:absolute;z-index:2;top:100%;right:0;left:0;height:calc(100dvh - 4.8rem);overflow:auto;border-top:1px solid var(--line);background:var(--canvas);opacity:0;transform:translateY(-.5rem);transition:opacity .2s ease,transform .2s ease,visibility .2s}
+  .mobile-panel.is-open{visibility:visible;opacity:1;transform:none}
+  .mobile-panel nav>a,.mobile-panel summary{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:1rem 0;font-family:'Clash Display',sans-serif;font-size:1.55rem;font-weight:600;letter-spacing:-.03em}
+  .mobile-panel summary{cursor:pointer;list-style:none}.mobile-panel summary::-webkit-details-marker{display:none}
+  .mobile-subgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem;padding:.7rem 0 1rem}
+  .mobile-subgrid a{border:1px solid var(--line);background:var(--surface);padding:.7rem;font-size:.75rem;font-weight:700}
+  .mobile-panel summary span,.mobile-panel .btn-primary span{font-family:Arial,sans-serif;font-weight:400;letter-spacing:0}
+  .mobile-panel nav>.btn-primary{justify-content:center;border:0;color:#09100d;font-family:Inter,ui-sans-serif,sans-serif;font-size:.85rem;font-weight:800;letter-spacing:0}
+  .brand-logo{width:9.6rem;height:3.55rem;object-fit:contain;object-position:left center;mix-blend-mode:multiply}
+  @media(max-width:640px){.brand-logo{width:7.8rem;height:3.2rem}}
+  @keyframes nav-arrive{from{opacity:0;transform:translateY(-.7rem)}to{opacity:1;transform:none}}
+</style>

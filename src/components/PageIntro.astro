@@ -1,0 +1,5 @@
+---
+export interface Props { eyebrow: string; title: string; description: string; actionText?: string; actionHref?: string; }
+const { eyebrow, title, description, actionText, actionHref } = Astro.props;
+---
+<section class="page-intro"><div class="container-custom page-intro-grid"><div><span class="eyebrow">{eyebrow}</span><h1 class="heading-xl mt-6">{title}</h1></div><div><p class="page-intro-copy">{description}</p>{actionText && actionHref && <a href={actionHref} target={actionHref.startsWith('http') ? '_blank' : undefined} rel={actionHref.startsWith('http') ? 'noopener noreferrer' : undefined} class="btn-primary mt-7">{actionText} <span>↗</span></a>}</div></div></section>

@@ -14,7 +14,7 @@ const pageDescription = props.description || generated.description || 'Laser cut
 const pageKeywords = props.keywords || generated.keywords || 'jasa laser cutting, laser cutting Tangerang Selatan, CNC router, laser fiber, laser CO2';
 const pageUrl = new URL(props.url || generated.url || Astro.url.pathname, siteUrl).href;
 const canonicalUrl = new URL(props.canonical || generated.canonical || pageUrl, siteUrl).href;
-const imageUrl = new URL(props.image || generated.openGraph?.image || '/images/logo.webp', siteUrl).href;
+const imageUrl = new URL(props.image || generated.openGraph?.image || '/gambar/pagar-laser-cutting-landing/hero-pagar-laser-cutting.webp', siteUrl).href;
 const ogTitle = generated.openGraph?.title || pageTitle;
 const ogDescription = generated.openGraph?.description || pageDescription;
 const jsonLd = props.jsonLd || [];
@@ -25,22 +25,25 @@ const jsonLd = props.jsonLd || [];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f7f8f5" />
+    <meta name="theme-color" content="#09100d" />
+    <meta name="tepat-release" content="v5-2026-07-17" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content={pageKeywords} />
     <meta name="author" content={props.author || generated.author || 'Tim Teknis Tepat Laser'} />
     <meta name="robots" content={props.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/favicon.ico?v=4" />
+    <link rel="icon" href="/favicon.ico?v=5" />
     <link rel="manifest" href="/manifest.json" />
+    <link rel="preload" href="/fonts/ClashDisplay-Semibold.woff" as="font" type="font/woff" crossorigin="anonymous" />
+    {Astro.url.pathname === '/' && <link rel="preload" href="/images/generated/fiber-laser-v5.webp" as="image" type="image/webp" fetchpriority="high" />}
     <meta property="og:type" content={generated.openGraph?.type || props.type || 'website'} />
     <meta property="og:title" content={ogTitle} /><meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={pageUrl} /><meta property="og:image" content={imageUrl} /><meta property="og:site_name" content="Tepat Laser" /><meta property="og:locale" content="id_ID" />
     <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={ogTitle} /><meta name="twitter:description" content={ogDescription} /><meta name="twitter:image" content={imageUrl} />
     {props.publishedTime && <meta property="article:published_time" content={props.publishedTime} />}
     {props.modifiedTime && <meta property="article:modified_time" content={props.modifiedTime} />}
-    <script type="application/ld+json" set:html={JSON.stringify({
+    <script is:inline type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'LocalBusiness',
       '@id': `${siteUrl.href}#business`,
@@ -54,24 +57,74 @@ const jsonLd = props.jsonLd || [];
       address: { '@type': 'PostalAddress', streetAddress: 'Jl. Bintaro BSD No. 1 D', addressLocality: 'Tangerang Selatan', addressRegion: 'Banten', addressCountry: 'ID' },
       areaServed: ['Tangerang Selatan', 'Jakarta Selatan', 'Depok', 'Tangerang', 'Bogor', 'Bekasi', 'Jabodetabek']
     })} />
-    {jsonLd.map((schema) => <script type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+    {jsonLd.map((schema) => <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />)}
   </head>
   <body class="antialiased">
     <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
     <div class="pointer-events-none fixed inset-x-0 top-0 z-[80] h-[2px] origin-left scale-x-0 bg-[var(--laser)]" id="scroll-progress"></div>
+    <div class="page-wipe" aria-hidden="true"><span></span><span></span><span></span></div>
     <slot name="header" />
     <div id="main-content" class="site-shell min-h-screen"><slot /></div>
     <slot name="footer" />
     <script is:inline>
-      document.addEventListener('DOMContentLoaded', () => {
+      const initBase = () => {
+        const release = 'v5-2026-07-17';
+        if (localStorage.getItem('tepat-release') !== release) {
+          navigator.serviceWorker?.getRegistrations?.().then((items) => items.forEach((item) => item.unregister()));
+          window.caches?.keys?.().then((keys) => Promise.all(keys.map((key) => window.caches.delete(key))));
+          localStorage.setItem('tepat-release', release);
+        }
         const progress = document.querySelector('#scroll-progress');
-        const updateProgress = () => { const max = document.documentElement.scrollHeight - window.innerHeight; if (progress) progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`; };
+        const updateProgress = () => {
+          const max = document.documentElement.scrollHeight - window.innerHeight;
+          if (progress) progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+        };
         window.addEventListener('scroll', updateProgress, { passive: true }); updateProgress();
-        document.querySelectorAll('#main-content section').forEach((section) => { if (!section.closest('.home-page') && !section.hasAttribute('data-no-reveal')) section.classList.add('reveal'); });
-        const reveal = new IntersectionObserver((entries) => entries.forEach((entry) => entry.isIntersecting && (entry.target.classList.add('is-visible'), reveal.unobserve(entry.target))), { threshold: .12 });
-        document.querySelectorAll('.reveal, [data-reveal]').forEach((element) => reveal.observe(element));
-        document.querySelectorAll('a[href*="api.whatsapp.com"], a[href*="wa.me"]').forEach((link) => link.addEventListener('click', () => { window.dispatchEvent(new CustomEvent('tepat:whatsapp-click', { detail: { label: link.dataset.waLabel || link.textContent?.trim() || 'WhatsApp Button', path: window.location.pathname } })); }));
-      });
+        document.querySelectorAll('a[href*="api.whatsapp.com"], a[href*="wa.me"]').forEach((link) => link.addEventListener('click', () => {
+          window.dispatchEvent(new CustomEvent('tepat:whatsapp-click', { detail: { label: link.dataset.waLabel || link.textContent?.trim() || 'WhatsApp Button', path: window.location.pathname } }));
+        }));
+        const revealTargets = [...document.querySelectorAll('main > section, main > article > section, main > article + section')].slice(1);
+        if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-inview');
+              observer.unobserve(entry.target);
+            }
+          }), { rootMargin: '0px 0px -10% 0px', threshold: .08 });
+          revealTargets.forEach((section) => {
+            if (section.getBoundingClientRect().top > window.innerHeight * .82) {
+              section.classList.add('motion-section');
+              observer.observe(section);
+            }
+          });
+        } else {
+          revealTargets.forEach((section) => section.classList.add('is-inview'));
+        }
+        const parallaxTargets = [...document.querySelectorAll('.home-hero-media,.capability-visual,.application-visual,[data-parallax]')];
+        parallaxTargets.forEach((target) => target.setAttribute('data-parallax', ''));
+        if (parallaxTargets.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.innerWidth > 767) {
+          let scheduled = false;
+          const updateParallax = () => {
+            scheduled = false;
+            parallaxTargets.forEach((target) => {
+              const rect = target.getBoundingClientRect();
+              if (rect.bottom > 0 && rect.top < window.innerHeight) target.style.setProperty('--parallax-y', `${Math.max(-28,Math.min(28,(window.innerHeight * .5 - (rect.top + rect.height * .5)) * .045))}px`);
+            });
+          };
+          window.addEventListener('scroll', () => { if (!scheduled) { scheduled = true; requestAnimationFrame(updateParallax); } }, { passive: true });
+          updateParallax();
+        }
+        document.querySelectorAll('a[href]').forEach((link) => link.addEventListener('click', (event) => {
+          if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
+          const destination = new URL(link.href, location.href);
+          if (destination.origin !== location.origin || destination.pathname === location.pathname && destination.hash) return;
+          event.preventDefault();
+          document.body.classList.add('is-leaving');
+          setTimeout(() => location.assign(destination.href), 320);
+        }));
+        window.addEventListener('pageshow', () => document.body.classList.remove('is-leaving'));
+      };
+      document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', initBase, { once: true }) : initBase();
     </script>
   </body>
 </html>
