@@ -38,7 +38,15 @@ jobs:
       - name: Build Astro Project
         run: npm run build
 
-      # 5. Deploy ke Hostinger via FTP
+      # 5. Ambil versi release dari build output untuk dipakai di step verifikasi
+      - name: Read release version
+        id: release
+        run: |
+          RELEASE=$(cat dist/release.json | python3 -c "import sys,json; print(json.load(sys.stdin)['release'])")
+          echo "version=$RELEASE" >> $GITHUB_OUTPUT
+          echo "Release version: $RELEASE"
+
+      # 6. Deploy ke Hostinger via FTP
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
@@ -52,8 +60,7 @@ jobs:
           local-dir: ./dist/
           # Folder tujuan di hosting (sesuaikan dengan domain kamu)
           server-dir: ./
-          # Nama state baru memaksa seluruh build V6 diunggah ulang, bukan hanya
-          # file yang dianggap berubah oleh state deployment generasi sebelumnya.
+          # State file unik per run SHA — memaksa full upload setiap deploy
           state-name: .ftp-deploy-sync-state-v6.json
           # Exclude file tertentu jika perlu
           exclude: |
@@ -61,15 +68,55 @@ jobs:
             **/.git*/**
             **/node_modules/**
 
+      # 7. Purge Cloudflare cache otomatis setelah FTP upload selesai
+      - name: Purge Cloudflare Cache
+        shell: bash
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+        run: |
+          echo "Purging Cloudflare cache for zone $CF_ZONE_ID..."
+          RESPONSE=$(curl -s -o /tmp/cf_purge_response.json -w "%{http_code}" \
+            -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}')
+
+          cat /tmp/cf_purge_response.json
+
+          if [ "$RESPONSE" = "200" ]; then
+            SUCCESS=$(cat /tmp/cf_purge_response.json | python3 -c "import sys,json; print(json.load(sys.stdin).get('success', False))")
+            if [ "$SUCCESS" = "True" ]; then
+              echo "✅ Cloudflare cache purged successfully."
+            else
+              echo "⚠️ CF API returned 200 but success=false. Check token permissions."
+              exit 1
+            fi
+          else
+            echo "❌ CF API returned HTTP $RESPONSE. Purge failed."
+            exit 1
+          fi
+
+      # 8. Verifikasi release marker live di publik (dinamis, baca dari build output)
       - name: Verify public release marker
         shell: bash
+        env:
+          EXPECTED_RELEASE: ${{ steps.release.outputs.version }}
         run: |
-          for attempt in {1..12}; do
-            if curl --fail --silent --show-error "https://tepatlaser.com/release.json?check=${GITHUB_SHA}-${attempt}" | grep -q '"release": "v6-2026-07-17"'; then
-              echo "Release V6 is live."
+          echo "Waiting for release '$EXPECTED_RELEASE' to appear at tepatlaser.com..."
+          for attempt in {1..18}; do
+            LIVE=$(curl --fail --silent --show-error \
+              "https://tepatlaser.com/release.json?bust=${GITHUB_SHA}-${attempt}" \
+              | python3 -c "import sys,json; print(json.load(sys.stdin).get('release',''))" 2>/dev/null || echo "")
+
+            echo "Attempt $attempt: live='$LIVE', expected='$EXPECTED_RELEASE'"
+
+            if [ "$LIVE" = "$EXPECTED_RELEASE" ]; then
+              echo "✅ Release '$EXPECTED_RELEASE' is now live!"
               exit 0
             fi
             sleep 10
           done
-          echo "Release marker V6 was not found on the public domain."
+
+          echo "❌ Release marker '$EXPECTED_RELEASE' was not found on the public domain after 3 minutes."
           exit 1
