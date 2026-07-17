@@ -25,15 +25,15 @@ const jsonLd = props.jsonLd || [];
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#09100d" />
-    <meta name="tepat-release" content="v5-2026-07-17" />
+    <meta name="theme-color" content="#0b0d0e" />
+    <meta name="tepat-release" content="v6-2026-07-17" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content={pageKeywords} />
     <meta name="author" content={props.author || generated.author || 'Tim Teknis Tepat Laser'} />
     <meta name="robots" content={props.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/favicon.ico?v=5" />
+    <link rel="icon" href="/favicon.ico?v=6" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="preload" href="/fonts/ClashDisplay-Semibold.woff" as="font" type="font/woff" crossorigin="anonymous" />
     {Astro.url.pathname === '/' && <link rel="preload" href="/images/generated/fiber-laser-v5.webp" as="image" type="image/webp" fetchpriority="high" />}
@@ -61,14 +61,14 @@ const jsonLd = props.jsonLd || [];
   </head>
   <body class="antialiased">
     <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
-    <div class="pointer-events-none fixed inset-x-0 top-0 z-[80] h-[2px] origin-left scale-x-0 bg-[var(--laser)]" id="scroll-progress"></div>
+    <div class="pointer-events-none fixed inset-x-0 top-0 z-[80] h-[2px] origin-left scale-x-0" style="background:var(--brand-spectrum)" id="scroll-progress"></div>
     <div class="page-wipe" aria-hidden="true"><span></span><span></span><span></span></div>
     <slot name="header" />
     <div id="main-content" class="site-shell min-h-screen"><slot /></div>
     <slot name="footer" />
     <script is:inline>
       const initBase = () => {
-        const release = 'v5-2026-07-17';
+        const release = 'v6-2026-07-17';
         if (localStorage.getItem('tepat-release') !== release) {
           navigator.serviceWorker?.getRegistrations?.().then((items) => items.forEach((item) => item.unregister()));
           window.caches?.keys?.().then((keys) => Promise.all(keys.map((key) => window.caches.delete(key))));

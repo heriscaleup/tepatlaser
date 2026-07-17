@@ -10,7 +10,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
         <a href="/" class="brand-lockup footer-brand" aria-label="Tepat Laser, beranda">
           <span class="footer-logo-shell"><img class="footer-logo" src="/images/logo.webp" alt="Tepat Laser — Precision Beyond Expectation" width="1200" height="594" loading="lazy" decoding="async" /></span>
         </a>
-        <p class="mt-6 max-w-md text-sm leading-7">Partner produksi untuk laser cutting, CNC router, engraving, dan panel arsitektural—dari review file hingga hasil siap digunakan.</p>
+        <p class="mt-6 max-w-md text-sm leading-7">Bukan sekadar tempat potong. Kami membantu mengunci material, proses, detail, dan pemeriksaan agar hasil siap melanjutkan proyek Anda.</p>
         <a href={wa} target="_blank" rel="noopener noreferrer" class="footer-action mt-7" data-wa-label="Footer WhatsApp">Kirim kebutuhan Anda <span>↗</span></a>
       </div>
       <div class="footer-links">
@@ -34,13 +34,13 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
 </footer>
 
 <style>
-  .site-footer{border-top:1px solid var(--line);background:#050906;color:#fff}
+  .site-footer{position:relative;border-top:0;background:#050706;color:#fff}.site-footer::before{position:absolute;top:0;right:0;left:0;height:3px;content:'';background:var(--brand-spectrum)}
   .site-footer p{color:rgba(255,255,255,.62)}
   .footer-logo-shell{display:inline-flex;background:#fff;padding:.35rem .55rem}.footer-logo{width:10.5rem;height:auto;mix-blend-mode:multiply}
-  .footer-action{display:inline-flex;align-items:center;gap:.65rem;color:var(--laser);font-size:.8rem;font-weight:750}.footer-action:hover{color:#fff}
+  .footer-action{display:inline-flex;align-items:center;gap:.65rem;color:var(--brand-gold-soft);font-size:.8rem;font-weight:750}.footer-action:hover{color:var(--brand-blue-soft)}
   .footer-top{display:grid;gap:3.5rem}
   .footer-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem}
-  .footer-links h2{color:var(--laser);font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+  .footer-links h2{color:var(--brand-gold-soft);font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.footer-links>div:nth-child(1) h2{color:var(--brand-red-soft)}.footer-links>div:nth-child(2) h2{color:var(--brand-green-soft)}.footer-links>div:nth-child(3) h2{color:var(--brand-blue-soft)}
   .footer-links ul{margin:1.1rem 0 0;padding:0;list-style:none}.footer-links li+li{margin-top:.6rem}.footer-links a{color:rgba(255,255,255,.7);font-size:.78rem}.footer-links a:hover{color:#fff}
   .footer-workshop{display:grid;gap:1.5rem;margin-top:3.5rem;border-top:1px solid rgba(255,255,255,.12);padding-top:2rem}
   .footer-workshop span{display:block;margin-bottom:.6rem;color:rgba(255,255,255,.52);font-size:.62rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.footer-workshop p{font-size:.76rem;line-height:1.7}

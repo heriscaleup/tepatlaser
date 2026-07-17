@@ -47,42 +47,42 @@ const breadcrumbs = [{ name: 'Beranda', url: '/' }, { name: title, url: route }]
 
     <section class="dark-section section-padding">
       <div class="container-custom">
-        <div class="section-heading"><div><span class="eyebrow">Yang diperhatikan</span><h2 class="heading-lg mt-6">Desain harus menarik sekaligus masuk akal untuk diproduksi.</h2></div><p>Kami membaca ukuran bidang, kepadatan pola, struktur, material, sambungan, dan finishing sebelum file masuk produksi.</p></div>
-        <div class="benefit-grid">{benefits.map((item,index) => <article><span class="number-tag">0{index+1}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div>
+        <div class="section-heading"><div><span class="eyebrow">Yang diperhatikan</span><h2 class="heading-lg mt-6">Tampilan menarik saja tidak cukup. Desainnya juga harus siap diproduksi.</h2></div><p>Ukuran bidang, kepadatan pola, struktur, material, sambungan, dan finishing dibaca sebagai satu sistem sebelum file masuk mesin.</p></div>
+        <div class="benefit-grid accent-cycle">{benefits.map((item,index) => <article><span class="number-tag">0{index+1}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div>
       </div>
     </section>
 
     <section class="section-padding" id="aplikasi">
       <div class="container-custom">
         <span class="eyebrow">Pilihan aplikasi</span>
-        <h2 class="heading-lg mt-6 max-w-4xl">Referensi visual untuk membaca skala dan karakter bidang.</h2>
+        <h2 class="heading-lg mt-6 max-w-4xl">Lihat bagaimana skala, pola, dan material mengubah karakter bidang.</h2>
         <div class="application-gallery">{gallery.map((item,index) => <figure class:list={[index===0&&'gallery-wide']}><img src={item.image} alt={item.alt} width="1200" height="900" loading={index===0?'eager':'lazy'} decoding="async" /><figcaption><span>{item.label}</span><h3>{item.title}</h3></figcaption></figure>)}</div>
       </div>
     </section>
 
     <section class="warm-section section-padding">
       <div class="container-custom">
-        <div class="section-heading"><div><span class="eyebrow">Alur kerja</span><h2 class="heading-lg mt-6">Dari data awal hingga hasil diperiksa.</h2></div><p>Setiap tahap dibuat terlihat agar keputusan material, biaya, dan waktu tidak terasa seperti tebakan.</p></div>
+        <div class="section-heading"><div><span class="eyebrow">Alur kerja</span><h2 class="heading-lg mt-6">Setiap keputusan terlihat. Tidak ada produksi berdasarkan tebakan.</h2></div><p>Material, konstruksi, biaya, dan waktu dikunci bertahap supaya koreksi tidak menumpuk setelah proses berjalan.</p></div>
         <div class="step-grid">{steps.map((item,index) => <article><span>0{index+1}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div>
       </div>
     </section>
 
     <section class="section-padding">
       <div class="container-custom faq-layout">
-        <div><span class="eyebrow">Pertanyaan umum</span><h2 class="heading-lg mt-6">Pastikan detail penting sebelum produksi.</h2></div>
+        <div><span class="eyebrow">Pertanyaan umum</span><h2 class="heading-lg mt-6">Tanyakan sekarang, bukan setelah material terpotong.</h2></div>
         <div class="faq-list">{faqs.map((item,index) => <details open={index===0}><summary>{item.question}<span>＋</span></summary><p>{item.answer}</p></details>)}</div>
       </div>
     </section>
-    <CTA title={ctaTitle} description="Kirim ukuran, foto bidang, dan referensi pola. Tim kami akan membantu membaca pilihan material serta proses yang relevan." primaryText="Kirim brief via WhatsApp" primaryLink={whatsapp} secondaryText="Lihat semua layanan" secondaryLink="/services/" />
+    <CTA title={ctaTitle} description="Kirim ukuran, foto bidang, dan referensi pola. Kami bantu mengubahnya menjadi keputusan material, struktur, dan proses yang bisa dipertanggungjawabkan." primaryText="Kirim brief via WhatsApp" primaryLink={whatsapp} secondaryText="Lihat semua layanan" secondaryLink="/services/" />
   </main>
   <Footer slot="footer" />
 </BaseLayout>
 
 <style>
-  .application-hero{background:radial-gradient(circle at 78% 25%,rgba(184,255,61,.1),transparent 26rem),var(--surface)}
+  .application-hero{background:radial-gradient(circle at 78% 25%,rgba(54,114,172,.16),transparent 26rem),radial-gradient(circle at 14% 84%,rgba(234,49,79,.09),transparent 24rem),var(--surface)}
   .application-hero-grid{display:grid;min-height:calc(100svh - 4.8rem);align-items:stretch}
   .application-copy{display:flex;flex-direction:column;justify-content:center;padding-block:clamp(4.5rem,8vw,7rem)}
-  .application-copy h1 em{color:var(--laser);font-style:normal}
+  .application-copy h1 em{color:transparent;background:var(--brand-spectrum);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
   .application-visual{min-height:32rem}.application-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.application-visual figcaption{position:absolute;z-index:2;right:1.25rem;bottom:1.25rem;left:1.25rem;display:flex;justify-content:space-between;color:#fff;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
   .section-heading{display:grid;gap:2rem;align-items:end}.section-heading>p{max-width:34rem;font-size:1rem;line-height:1.8}
   .benefit-grid,.step-grid{display:grid;gap:1px;margin-top:3.5rem;background:rgba(255,255,255,.14)}.benefit-grid article{background:#09100d;padding:1.5rem}.benefit-grid h3,.step-grid h3{margin-top:3rem;font-size:1.5rem}.benefit-grid p,.step-grid p{margin-top:.8rem;font-size:.8rem;line-height:1.7}

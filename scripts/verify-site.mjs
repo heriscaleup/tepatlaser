@@ -41,7 +41,7 @@ for (const file of htmlFiles) {
   if (!redirect && footerCount !== 1) failures.push(`${page}: footer utama=${footerCount}`);
   if (!redirect && !/<img[^>]+class=["'][^"']*brand-logo[^>]+src=["']\/images\/logo\.webp["']/i.test(html)) failures.push(`${page}: logo navbar tidak konsisten`);
   if (!redirect && !/aria-label=["']Navigasi utama["']/i.test(html)) failures.push(`${page}: navigasi utama hilang`);
-  if (!redirect && !/<meta[^>]+name=["']tepat-release["'][^>]+content=["']v5-2026-07-17["']/i.test(html)) failures.push(`${page}: release marker V5 hilang`);
+  if (!redirect && !/<meta[^>]+name=["']tepat-release["'][^>]+content=["']v6-2026-07-17["']/i.test(html)) failures.push(`${page}: release marker V6 hilang`);
   for (const match of html.matchAll(/<(?:a|link|img|script)[^>]+(?:href|src)=["']([^"']+)["']/gi)) {
     const target = resolveLocal(match[1], file);
     if (!target) continue;
@@ -68,7 +68,7 @@ if (existsSync(manifestFile)) {
 
 const releaseFile = join(root, 'release.json');
 if (!existsSync(releaseFile)) failures.push('/release.json: release marker hilang');
-else if (JSON.parse(readFileSync(releaseFile, 'utf8')).release !== 'v5-2026-07-17') failures.push('/release.json: release marker bukan V5');
+else if (JSON.parse(readFileSync(releaseFile, 'utf8')).release !== 'v6-2026-07-17') failures.push('/release.json: release marker bukan V6');
 
 console.log(JSON.stringify({ htmlPages: htmlFiles.length, localReferencesChecked: checkedLinks, failures: failures.length }, null, 2));
 if (failures.length) {

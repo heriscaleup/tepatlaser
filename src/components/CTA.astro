@@ -1,7 +1,7 @@
 ---
 import { SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
 export interface Props { title?: string; description?: string; primaryText?: string; primaryLink?: string; secondaryText?: string; secondaryLink?: string; variant?: string; size?: string; }
-const { title='Mulai dari brief yang Anda punya.', description='Kirim material, ukuran, jumlah, target waktu, dan file bila sudah tersedia. Tim kami akan membantu menentukan langkah produksi berikutnya.', primaryText='Konsultasi via WhatsApp', primaryLink=`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent(WHATSAPP_MESSAGES.default)}`, secondaryText='Lihat portofolio', secondaryLink='/portfolio/', variant='default', size='default' } = Astro.props;
+const { title='Mulai dari yang Anda punya. Kami bantu menjadikannya brief produksi.', description='Kirim file, sketsa, ukuran, atau referensi visual. Kami bantu melengkapi keputusan material, proses, dan detail yang belum terkunci.', primaryText='Konsultasi via WhatsApp', primaryLink=`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent(WHATSAPP_MESSAGES.default)}`, secondaryText='Lihat portofolio', secondaryLink='/portfolio/', variant='default', size='default' } = Astro.props;
 ---
 
 <section class="cta-section" data-variant={variant} data-size={size}>
@@ -9,7 +9,7 @@ const { title='Mulai dari brief yang Anda punya.', description='Kirim material, 
     <div><span class="eyebrow">Mulai proyek</span><h2 class="heading-lg mt-6">{title}</h2></div>
     <div class="cta-copy"><p>{description}</p><div class="mt-7 flex flex-col gap-3 sm:flex-row"><a href={primaryLink} target="_blank" rel="noopener noreferrer" class="btn-primary" data-wa-label="CTA consultation">{primaryText} <span aria-hidden="true">↗</span></a><a href={secondaryLink} class="btn-secondary">{secondaryText} <span aria-hidden="true">→</span></a></div></div>
   </div>
-  <div class="container-custom cta-notes"><span>Peninjauan file awal</span><span>Rekomendasi proses</span><span>Pemeriksaan sebelum serah terima</span></div>
+  <div class="container-custom cta-notes"><span>File dibaca manusia</span><span>Proses dipilih sesuai fungsi</span><span>Hasil diperiksa sebelum keluar</span></div>
 </section>
 
 <style>
@@ -17,6 +17,6 @@ const { title='Mulai dari brief yang Anda punya.', description='Kirim material, 
   .cta-grid{display:grid;align-items:end;gap:2.5rem}
   .cta-copy>p{max-width:34rem;font-size:1.05rem;line-height:1.8}
   .cta-notes{display:flex;flex-wrap:wrap;gap:1.25rem 2.2rem;margin-top:3.5rem;border-top:1px solid var(--line);padding-top:1.25rem;color:var(--muted);font-size:.65rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
-  .cta-notes span::before{display:inline-block;width:.38rem;height:.38rem;margin-right:.55rem;border-radius:50%;content:'';background:var(--laser);vertical-align:.08rem}
+  .cta-notes span::before{display:inline-block;width:.38rem;height:.38rem;margin-right:.55rem;border-radius:50%;content:'';background:var(--brand-red-soft);vertical-align:.08rem}.cta-notes span:nth-child(2)::before{background:var(--brand-green-soft)}.cta-notes span:nth-child(3)::before{background:var(--brand-blue-soft)}
   @media(min-width:900px){.cta-grid{grid-template-columns:1.15fr .85fr}}
 </style>

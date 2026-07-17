@@ -100,22 +100,22 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
   .nav-link{position:relative;display:inline-flex;align-items:center;gap:.35rem;padding:.7rem 0;color:var(--header-muted);font-size:.82rem;font-weight:700;line-height:1;transition:color .2s ease;animation:nav-arrive .7s var(--ease) both}
   .desktop-nav>.nav-link:nth-child(2),.desktop-nav>details:nth-child(2){animation-delay:.06s}.desktop-nav>.nav-link:nth-child(3),.desktop-nav>details:nth-child(3){animation-delay:.12s}.desktop-nav>.nav-link:nth-child(4){animation-delay:.18s}.desktop-nav>.nav-link:nth-child(5){animation-delay:.24s}
   .nav-link:hover,.nav-link.is-active{color:var(--header-ink)}
-  .nav-link.is-active::after{position:absolute;right:0;bottom:.15rem;left:0;height:2px;content:'';background:var(--laser)}
+  .nav-link.is-active::after{position:absolute;right:0;bottom:.15rem;left:0;height:2px;content:'';background:var(--brand-spectrum)}
   .nav-mega{position:relative}
   .nav-mega summary::-webkit-details-marker{display:none}
   .mega-panel{position:absolute;top:calc(100% + .7rem);left:50%;display:grid;width:min(53rem,calc(100vw - 3rem));grid-template-columns:.8fr 1.35fr;gap:2rem;border:1px solid var(--line);background:var(--surface);padding:1.4rem;box-shadow:var(--shadow);transform:translateX(-50%)}
-  .mega-label{color:var(--laser-deep);font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}
+  .mega-label{color:var(--brand-gold-soft);font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.mega-panel>div:nth-child(2) .mega-label{color:var(--brand-blue-soft)}
   .mega-panel a{display:flex;min-width:0;align-items:center;justify-content:space-between;gap:1rem;border-radius:.35rem;padding:.65rem .7rem;transition:background .2s ease}
   .mega-panel a:hover{background:var(--surface-soft)}
   .mega-panel a span{font-size:.82rem;font-weight:700}
   .mega-panel a small{overflow:hidden;color:var(--muted);font-size:.62rem;line-height:1.2;text-align:right;text-overflow:ellipsis;white-space:nowrap}
-  .mega-panel .mega-all{position:absolute;right:1.4rem;bottom:-2.55rem;left:1.4rem;border:1px solid var(--laser);background:var(--laser);color:#09100d;padding:.7rem 1rem;box-shadow:var(--shadow)}
+  .mega-panel .mega-all{position:absolute;right:1.4rem;bottom:-2.55rem;left:1.4rem;border:1px solid var(--brand-gold-soft);background:var(--brand-gold-soft);color:#09100d;padding:.7rem 1rem;box-shadow:var(--shadow)}
   .mega-panel .mega-all:hover{background:#fff}
   .mobile-toggle{position:relative;width:2.75rem;height:2.75rem;border:1px solid var(--header-line);border-radius:50%;background:var(--paper);color:var(--header-ink)}
   .mobile-toggle span{position:absolute;right:.75rem;left:.75rem;height:1px;background:var(--header-ink);transition:transform .2s ease}
   .mobile-toggle span:first-child{top:1.1rem}.mobile-toggle span:last-child{bottom:1.1rem}
   .mobile-toggle.is-open span:first-child{top:1.35rem;transform:rotate(45deg)}.mobile-toggle.is-open span:last-child{bottom:1.35rem;transform:rotate(-45deg)}
-  .mobile-panel{visibility:hidden;position:absolute;z-index:2;top:100%;right:0;left:0;height:calc(100dvh - 4.8rem);overflow:auto;border-top:1px solid var(--line);background:var(--canvas);opacity:0;transform:translateY(-.5rem);transition:opacity .2s ease,transform .2s ease,visibility .2s}
+  .mobile-panel{visibility:hidden;position:absolute;z-index:2;top:100%;right:0;left:0;height:calc(100dvh - 4.8rem);overflow:auto;border-top:3px solid transparent;border-image:var(--brand-spectrum) 1;background:var(--canvas);opacity:0;transform:translateY(-.5rem);transition:opacity .2s ease,transform .2s ease,visibility .2s}
   .mobile-panel.is-open{visibility:visible;opacity:1;transform:none}
   .mobile-panel nav>a,.mobile-panel summary{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:1rem 0;font-family:'Clash Display',sans-serif;font-size:1.55rem;font-weight:600;letter-spacing:-.03em}
   .mobile-panel summary{cursor:pointer;list-style:none}.mobile-panel summary::-webkit-details-marker{display:none}

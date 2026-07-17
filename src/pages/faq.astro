@@ -4,9 +4,9 @@ const breadcrumb = generateBreadcrumbSchema([{name:'Beranda',url:'/'},{name:'FAQ
 const extra = {question:'Format file apa yang paling cepat diproses?',answer:'DXF, DWG, AI, CDR, SVG, atau PDF vektor dengan skala 1:1. Jika belum punya file final, kirim sketsa atau referensi untuk peninjauan awal.'};
 ---
 <BaseLayout title="FAQ Tepat Laser — Pertanyaan Teknis Laser Cutting" description="Jawaban praktis seputar material, file desain, kapasitas mesin, biaya, lead time, dan pengiriman Tepat Laser." keywords="FAQ laser cutting, ketentuan potong laser, format file DXF, harga laser cutting" url="/faq/" jsonLd={[breadcrumb,generateFAQSchema([...FAQ,extra])]}><Header slot="header" />
-  <main class="overflow-hidden"><PageIntro eyebrow="Pertanyaan umum" title="Pastikan detail sebelum produksi." description="Jawaban ringkas mengenai file, material, biaya, kapasitas, dan waktu pengerjaan agar komunikasi awal lebih efisien." />
+  <main class="overflow-hidden"><PageIntro eyebrow="Pertanyaan umum" title="Pertanyaan kecil lebih murah daripada koreksi setelah produksi." description="Jawaban praktis mengenai file, material, biaya, kapasitas, dan waktu pengerjaan—supaya keputusan penting tidak tertinggal sebagai asumsi." />
     <section class="section-padding"><div class="container-custom faq-list">{[...FAQ,extra].map((faq,index) => <details open={index===0}><summary><span class="number-tag">0{index+1}</span><strong>{faq.question}</strong><i>＋</i></summary><p>{faq.answer}</p></details>)}</div></section>
-    <CTA title="Masih ada detail yang perlu dipastikan?" primaryText="Tanya tim teknis" secondaryText="Lihat proses produksi" secondaryLink="/proses-produksi-lead-time/" />
+    <CTA title="Ada detail yang belum yakin? Kunci sebelum material terpotong." primaryText="Tanya tim teknis" secondaryText="Lihat proses produksi" secondaryLink="/proses-produksi-lead-time/" />
   </main><Footer slot="footer" />
 </BaseLayout>
 <style>
