@@ -37,6 +37,9 @@ const jsonLd = props.jsonLd || [];
     <link rel="manifest" href="/manifest.json" />
     <link rel="preload" href="/fonts/ClashDisplay-Semibold.woff" as="font" type="font/woff" crossorigin="anonymous" />
     {Astro.url.pathname === '/' && <link rel="preload" href="/images/generated/fiber-laser-v5.webp" as="image" type="image/webp" fetchpriority="high" />}
+    <link rel="dns-prefetch" href="//api.whatsapp.com" />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="dns-prefetch" href="//www.googletagmanager.com" />
     <meta property="og:type" content={generated.openGraph?.type || props.type || 'website'} />
     <meta property="og:title" content={ogTitle} /><meta property="og:description" content={ogDescription} />
     <meta property="og:url" content={pageUrl} /><meta property="og:image" content={imageUrl} /><meta property="og:site_name" content="Tepat Laser" /><meta property="og:locale" content="id_ID" />
@@ -58,8 +61,55 @@ const jsonLd = props.jsonLd || [];
       areaServed: ['Tangerang Selatan', 'Jakarta Selatan', 'Depok', 'Tangerang', 'Bogor', 'Bekasi', 'Jabodetabek']
     })} />
     {jsonLd.map((schema) => <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />)}
+    <!-- Marketing tags: antri di dataLayer, load JS SETELAH LCP atau interaksi user -->
+    <script is:inline>
+      (function(w,d){
+        w.dataLayer = w.dataLayer || [];
+        w.gtag = w.gtag || function(){ w.dataLayer.push(arguments); };
+        w.gtag('js', new Date());
+        w.gtag('config', 'AW-11545092315');
+
+        var loaded = false;
+        var loadMarketingTags = function(){
+          if (loaded) return;
+          loaded = true;
+
+          var gtagScript = d.createElement('script');
+          gtagScript.async = true;
+          gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=AW-11545092315';
+          d.head.appendChild(gtagScript);
+
+          w.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+          var gtmScript = d.createElement('script');
+          gtmScript.async = true;
+          gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-PBR27KH7';
+          d.head.appendChild(gtmScript);
+        };
+
+        // Trigger 1: interaksi user (paling cepat)
+        ['pointerdown','keydown','touchstart','scroll'].forEach(function(eventName){
+          w.addEventListener(eventName, loadMarketingTags, { once: true, passive: true });
+        });
+
+        // Trigger 2: setelah LCP selesai + 300ms buffer
+        try {
+          var lcpObserver = new PerformanceObserver(function(list) {
+            lcpObserver.disconnect();
+            setTimeout(loadMarketingTags, 300);
+          });
+          lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+        } catch(e) {}
+
+        // Trigger 3: fallback 5 detik setelah load
+        w.addEventListener('load', function(){ setTimeout(loadMarketingTags, 5000); }, { once: true });
+      })(window,document);
+    </script>
   </head>
   <body class="antialiased">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBR27KH7"
+    title="Google Tag Manager" height="0" width="0" style="display:none;visibility:hidden" referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
     <div class="pointer-events-none fixed inset-x-0 top-0 z-[80] h-[2px] origin-left scale-x-0" style="background:var(--brand-spectrum)" id="scroll-progress"></div>
     <div class="page-wipe" aria-hidden="true"><span></span><span></span><span></span></div>
@@ -126,5 +176,7 @@ const jsonLd = props.jsonLd || [];
       };
       document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', initBase, { once: true }) : initBase();
     </script>
+    <!-- WA Tracker: GCLID attribution untuk semua tombol WhatsApp -->
+    <script is:inline src="/wa-tracker.js" defer></script>
   </body>
 </html>
