@@ -26,7 +26,7 @@ const jsonLd = props.jsonLd || [];
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b0d0e" />
-    <meta name="tepat-release" content="v6-2026-07-17" />
+    <meta name="tepat-release" content="v6-2026-07-21" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content={pageKeywords} />
@@ -68,7 +68,7 @@ const jsonLd = props.jsonLd || [];
     <slot name="footer" />
     <script is:inline>
       const initBase = () => {
-        const release = 'v6-2026-07-17';
+        const release = 'v6-2026-07-21';
         if (localStorage.getItem('tepat-release') !== release) {
           navigator.serviceWorker?.getRegistrations?.().then((items) => items.forEach((item) => item.unregister()));
           window.caches?.keys?.().then((keys) => Promise.all(keys.map((key) => window.caches.delete(key))));
