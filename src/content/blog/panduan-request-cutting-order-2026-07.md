@@ -6,7 +6,7 @@ category: "Panduan & Tips"
 readTime: "7 menit baca"
 publishDate: "2026-07-18"
 updatedDate: "2026-07-18"
-image: "/images/blog/panduan-request-cutting-order-2026-07.webp"
+image: "/images/blog/panduan-file-desain-laser-cutting-akurat.webp"
 imageAlt: "Engineer memeriksa hasil laser cutting metal sebelum dikirim ke klien"
 keywords: "cara order laser cutting, panduan request laser cutting, proses laser cutting, order jasa cutting metal"
 primaryKeyword: "cara order laser cutting"
@@ -17,9 +17,16 @@ keyTakeaways:
   - "Order minimal H-3 untuk desain standar, H-7 untuk desain kompleks atau produksi massal."
 relatedLinks:
   - title: "Layanan fiber laser cutting"
-    url: "/laser-cutting-fiber/"
-  - title: "Material yang bisa dipotong"
-    url: "/material/"
+    url: "/jasa-laser-fiber/"
+  - title: "Panduan menyiapkan file desain laser cutting"
+    url: "/blog/panduan-file-desain-laser-cutting-akurat/"
+faq:
+  - question: "Format file apa yang paling disarankan untuk request laser cutting?"
+    answer: "DXF paling direkomendasikan karena menyimpan garis vektor dan ukuran secara konsisten. File AI, CDR, atau SVG juga dapat dikirim untuk diperiksa terlebih dahulu oleh tim teknis."
+  - question: "Informasi apa yang harus disertakan saat meminta quotation?"
+    answer: "Sertakan file desain, jenis dan ketebalan material, jumlah kebutuhan, finishing bila ada, serta target waktu pengerjaan. Informasi ini membantu tim memberikan estimasi harga dan lead time yang akurat."
+  - question: "Berapa lama proses produksi laser cutting?"
+    answer: "Untuk desain standar, sebaiknya request diajukan minimal H-3. Desain kompleks, volume besar, atau pekerjaan dengan finishing tambahan umumnya memerlukan waktu lebih panjang dan akan dikonfirmasi saat quotation."
 draft: false
 ---
 
