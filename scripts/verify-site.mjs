@@ -16,7 +16,7 @@ const failures = [];
 let checkedLinks = 0;
 const resolveLocal = (value, fromFile) => {
   const clean = decodeURIComponent(value.split('#')[0].split('?')[0]);
-  if (!clean || /^(?:https?:|mailto:|tel:|data:|javascript:)/i.test(clean)) return null;
+  if (!clean || /^(?:https?:|mailto:|tel:|data:|javascript:|\/\/)/i.test(clean)) return null;
   const target = clean.startsWith('/') ? join(root, clean) : resolve(dirname(fromFile), clean);
   if (existsSync(target) && statSync(target).isDirectory()) return join(target, 'index.html');
   if (existsSync(target)) return target;
