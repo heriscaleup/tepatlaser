@@ -106,6 +106,7 @@ jobs:
           echo "Waiting for release '$EXPECTED_RELEASE' to appear at tepatlaser.com..."
           for attempt in {1..18}; do
             LIVE=$(curl --fail --silent --show-error \
+              -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" \
               "https://tepatlaser.com/release.json?bust=${GITHUB_SHA}-${attempt}" \
               | python3 -c "import sys,json; print(json.load(sys.stdin).get('release',''))" 2>/dev/null || echo "")
 
