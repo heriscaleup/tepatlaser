@@ -3,44 +3,44 @@ import { SITE_CONFIG, SERVICES, MATERIALS } from '../utils/constants.js';
 
 const path = Astro.url.pathname;
 const isActive = (href: string) => href === '/' ? path === '/' : path.startsWith(href);
-const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi proyek dan mengirim brief.')}`;
+const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi proyek dan mengirimkan brief.')}`;
 ---
 
 <header class="fixed inset-x-0 top-0 z-50 glass-header" id="main-header">
   <div class="container-custom flex h-[4.8rem] items-center justify-between gap-5">
-    <a href="/" class="brand-lockup" aria-label="Tepat Laser, kembali ke beranda">
+    <a href="/" class="brand-lockup" aria-label="Tepat Laser, kembali ke beranda" data-magnetic>
       <img class="brand-logo" src="/images/logo.webp" alt="Tepat Laser — Precision Beyond Expectation" width="1200" height="594" decoding="async" />
     </a>
 
     <nav class="desktop-nav hidden items-center gap-7 lg:flex" aria-label="Navigasi utama">
-      <a href="/" class:list={["nav-link", isActive('/') && "is-active"]}>Beranda</a>
-      <a href="/about/" class:list={["nav-link", isActive('/about/') && "is-active"]}>Tentang</a>
+      <a href="/" class:list={["nav-link", isActive('/') && "is-active"]} data-magnetic>Beranda</a>
+      <a href="/about/" class:list={["nav-link", isActive('/about/') && "is-active"]} data-magnetic>Tentang</a>
       <details class="nav-mega" data-nav-dropdown>
-        <summary class:list={["nav-link cursor-pointer list-none", (isActive('/jasa-') || isActive('/laser-')) && "is-active"]}>
+        <summary class:list={["nav-link cursor-pointer list-none", (isActive('/jasa-') || isActive('/laser-')) && "is-active"]} data-magnetic>
           Layanan <span aria-hidden="true">⌄</span>
         </summary>
         <div class="mega-panel">
           <div>
             <p class="mega-label">Proses produksi</p>
             <div class="mt-4 grid gap-1">
-              {SERVICES.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><small>{item.applications.slice(0,2).join(' · ')}</small></a>)}
+              {SERVICES.map((item) => <a href={`/${item.slug}/`} data-magnetic><span>{item.name}</span><small>{item.applications.slice(0,2).join(' · ')}</small></a>)}
             </div>
           </div>
           <div>
             <p class="mega-label">Material populer</p>
             <div class="mt-4 grid grid-cols-2 gap-1">
-              {MATERIALS.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><small>{item.thickness}</small></a>)}
+              {MATERIALS.map((item) => <a href={`/${item.slug}/`} data-magnetic><span>{item.name}</span><small>{item.thickness}</small></a>)}
             </div>
           </div>
-          <a href="/services/" class="mega-all">Lihat semua kapabilitas <span>↗</span></a>
+          <a href="/services/" class="mega-all" data-magnetic>Lihat semua kapabilitas <span>↗</span></a>
         </div>
       </details>
-      <a href="/portfolio/" class:list={["nav-link", isActive('/portfolio/') && "is-active"]}>Portofolio</a>
-      <a href="/blog/" class:list={["nav-link", isActive('/blog/') && "is-active"]}>Wawasan</a>
+      <a href="/portfolio/" class:list={["nav-link", isActive('/portfolio/') && "is-active"]} data-magnetic>Portofolio</a>
+      <a href="/blog/" class:list={["nav-link", isActive('/blog/') && "is-active"]} data-magnetic>Wawasan</a>
     </nav>
 
     <div class="desktop-cta hidden lg:block">
-      <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary min-h-10 px-5 py-2 text-xs" data-wa-label="Header WhatsApp">Kirim brief <span>↗</span></a>
+      <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary min-h-10 px-5 py-2 text-xs" data-wa-label="Header WhatsApp" data-magnetic>Kirim brief <span>↗</span></a>
     </div>
 
     <button id="mobile-menu-button" class="mobile-toggle lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Buka menu navigasi">
@@ -74,6 +74,9 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
     const menuButton = document.querySelector('#mobile-menu-button');
     const menu = document.querySelector('#mobile-menu');
     const dropdowns = [...document.querySelectorAll('[data-nav-dropdown]')];
+    let lastScroll = 0;
+    let ticking = false;
+
     const setMobile = (open) => {
       menuButton?.setAttribute('aria-expanded', String(open));
       menu?.setAttribute('aria-hidden', String(!open));
@@ -90,14 +93,42 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
       if (!event.target.closest('[data-nav-dropdown]')) dropdowns.forEach((item) => item.open = false);
     });
     window.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setMobile(false); dropdowns.forEach((item) => item.open = false); } });
-    const onScroll = () => header?.classList.toggle('glass-header-scrolled', window.scrollY > 10);
-    window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+    // Scroll behavior: hide on scroll down, show on scroll up
+    const onScroll = () => {
+      const currentScroll = window.scrollY;
+      header?.classList.toggle('glass-header-scrolled', currentScroll > 10);
+      if (currentScroll > lastScroll && currentScroll > 120) {
+        header?.classList.add('glass-header-hidden');
+      } else {
+        header?.classList.remove('glass-header-hidden');
+      }
+      lastScroll = currentScroll;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    onScroll();
+
+    // Magnetic hover effect for desktop
+    if (window.innerWidth > 1023 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelectorAll('[data-magnetic]').forEach((el) => {
+        el.addEventListener('mousemove', (e) => {
+          const rect = el.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+        });
+        el.addEventListener('mouseleave', () => {
+          el.style.transform = '';
+        });
+      });
+    }
   };
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', initHeader, { once: true }) : initHeader();
 </script>
 
 <style>
-  .nav-link{position:relative;display:inline-flex;align-items:center;gap:.35rem;padding:.7rem 0;color:var(--header-muted);font-size:.82rem;font-weight:700;line-height:1;transition:color .2s ease;animation:nav-arrive .7s var(--ease) both}
+  .nav-link{position:relative;display:inline-flex;align-items:center;gap:.35rem;padding:.7rem 0;color:var(--header-muted);font-size:.82rem;font-weight:700;line-height:1;transition:color .2s ease;animation:nav-arrive .7s var(--ease-smooth) both}
   .desktop-nav>.nav-link:nth-child(2),.desktop-nav>details:nth-child(2){animation-delay:.06s}.desktop-nav>.nav-link:nth-child(3),.desktop-nav>details:nth-child(3){animation-delay:.12s}.desktop-nav>.nav-link:nth-child(4){animation-delay:.18s}.desktop-nav>.nav-link:nth-child(5){animation-delay:.24s}
   .nav-link:hover,.nav-link.is-active{color:var(--header-ink)}
   .nav-link.is-active::after{position:absolute;right:0;bottom:.15rem;left:0;height:2px;content:'';background:var(--brand-spectrum)}
