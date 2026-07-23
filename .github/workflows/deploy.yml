@@ -47,7 +47,7 @@ jobs:
           echo "Release version: $RELEASE"
 
       # 6. Deploy ke Hostinger via FTP
-      - name: Deploy to Hostinger
+      - name: Deploy to Dewaweb (tepatlaser.com)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: 103.185.53.100
@@ -56,8 +56,25 @@ jobs:
           port: 21
           protocol: ftps
           local-dir: ./dist/
-          server-dir: ./
-          state-name: .ftp-deploy-sync-state-v9000.json
+          server-dir: /tepatlaser.com/
+          state-name: .ftp-deploy-sync-state-v7777.json
+          dangerous-clean-slate: true
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+
+      - name: Deploy to Dewaweb (public_html)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 103.185.53.100
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: /public_html/
+          state-name: .ftp-deploy-sync-state-v8888.json
           dangerous-clean-slate: true
           exclude: |
             **/.git*
