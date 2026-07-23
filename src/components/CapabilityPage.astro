@@ -7,58 +7,196 @@ import Breadcrumbs from './Breadcrumbs.astro';
 import { SITE_CONFIG, SERVICES, MATERIALS } from '../utils/constants.js';
 import { generateBreadcrumbSchema } from '../utils/seo.js';
 
-export interface Item { id?: string; name: string; slug?: string; description: string; image: string; features?: string[]; applications?: string[]; thickness?: string; keywords?: string; }
-export interface Props { item: Item; kind?: 'service' | 'material' | 'solution'; title?: string; description?: string; url?: string; }
+export interface Item {
+  id?: string;
+  name: string;
+  slug?: string;
+  description: string;
+  image: string;
+  features?: string[];
+  applications?: string[];
+  thickness?: string;
+  keywords?: string;
+}
+
+export interface Props {
+  item: Item;
+  kind?: 'service' | 'material' | 'solution';
+  title?: string;
+  description?: string;
+  url?: string;
+}
 
 const { item, kind = 'service', title = item.name, description = item.description, url = `/${item.slug || ''}/` } = Astro.props;
-const label = kind === 'material' ? 'Kapabilitas material' : kind === 'solution' ? 'Solusi proyek' : 'Kapabilitas mesin';
-const features = item.features?.length ? item.features : [item.thickness ? `Ketebalan umum: ${item.thickness}` : 'Spesifikasi mengikuti kebutuhan proyek', 'File ditinjau sebelum produksi', 'Hasil diperiksa sebelum serah terima', 'Konsultasi teknis melalui WhatsApp'];
-const applications = item.applications?.length ? item.applications : ['Arsitektur', 'Interior', 'Signage', 'Komponen custom'];
+const label = kind === 'material' ? 'Kapabilitas Material' : kind === 'solution' ? 'Solusi Proyek Custom' : 'Kapabilitas Mesin Produksi';
+
+const features = item.features?.length
+  ? item.features
+  : [
+      item.thickness ? `Ketebalan material umum: ${item.thickness}` : 'Spesifikasi & toleransi disesuaikan kebutuhan proyek',
+      'File CAD Vector (AI, DXF, DWG, SVG) ditinjau ulang oleh tim teknis',
+      'Proses pemotongan terkalibrasi presisi dengan gas pembantu N2/O2',
+      'Pengujian deburring & pembersihan tepi potongan sebelum dikirim',
+      'Garansi QC & potong ulang jika hasil tidak sesuai toleransi brief'
+    ];
+
+const applications = item.applications?.length
+  ? item.applications
+  : ['Ornamen & Panel Arsitektur', 'Elemen Interior & Partisi', 'Huruf Timbul & Signage', 'Komponen Mesin & Mold Custom'];
+
 const related = (kind === 'service' ? SERVICES : MATERIALS).filter((entry) => entry.name !== item.name).slice(0, 3);
 const crumbsInput = [{ name: 'Beranda', url: '/' }, { name: kind === 'material' ? 'Material' : 'Layanan', url: '/services/' }, { name: title, url }];
 const breadcrumbSchema = generateBreadcrumbSchema(crumbsInput);
 const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(`Halo Tepat Laser, saya ingin konsultasi ${title}.`)}`;
-const meta = { title: `${title} | Tepat Laser`, description, keywords: item.keywords || `${title}, Tepat Laser, laser cutting Tangerang Selatan`, url, image: item.image, jsonLd: [breadcrumbSchema] };
+const meta = {
+  title: `${title} Tangerang Selatan | Tepat Laser`,
+  description,
+  keywords: item.keywords || `${title}, Tepat Laser, laser cutting Tangerang Selatan, fabrikasi presisi`,
+  url,
+  image: item.image || '/images/generated/fiber-laser-v6.webp',
+  jsonLd: [breadcrumbSchema]
+};
 ---
 
 <BaseLayout {...meta}>
   <Header slot="header" />
-  <main class="capability-page overflow-hidden">
-    <section class="capability-hero">
-      <div class="pt-28"><Breadcrumbs crumbs={crumbsInput} /></div>
-      <div class="container-custom capability-hero-grid">
-        <div class="capability-copy"><span class="eyebrow">{label}</span><h1 class="heading-xl mt-6">{title}</h1><p class="mt-6 max-w-xl text-lg leading-8">{description}</p><div class="mt-8 flex flex-col gap-3 sm:flex-row"><a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary" data-wa-label={`Capability ${title}`}>Konsultasikan kebutuhan <span>↗</span></a><a href="#spesifikasi" class="btn-secondary">Lihat detail <span>↓</span></a></div></div>
-        {kind === 'material' ? <figure class="capability-visual material-visual" data-material={item.id} role="img" aria-label={`${title} — specimen material Tepat Laser`}><div class="material-hero-layer" aria-hidden="true"><span></span><span></span><span></span></div><div class="material-hero-label"><span>Material specimen</span><strong>{item.thickness || 'Spesifikasi sesuai kebutuhan'}</strong><small>Pastikan sample dan finishing sebelum produksi.</small></div><figcaption><span>01 / Pilih</span><span>02 / Uji sample</span><span>03 / QC</span></figcaption></figure> : <figure class="capability-visual"><img src={item.image} alt={`${title} — kapabilitas Tepat Laser`} width="1200" height="800" fetchpriority="high" decoding="async" /><figcaption><span>01 / Review</span><span>02 / Produksi</span><span>03 / QC</span></figcaption></figure>}
+  <main class="capability-page overflow-hidden bg-slate-50 text-slate-900">
+    <!-- Hero Banner Section -->
+    <section class="capability-hero bg-slate-50 border-b border-slate-200/80 pt-24 pb-16">
+      <div class="container-custom">
+        <Breadcrumbs crumbs={crumbsInput} />
+        <div class="mt-6 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+          <!-- Left Copy -->
+          <div class="lg:col-span-7">
+            <div class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3.5 py-1 text-xs font-bold text-slate-800 shadow-sm">
+              <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+              {label}
+            </div>
+            <h1 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+              {title}
+            </h1>
+            <p class="mt-5 text-base sm:text-lg leading-relaxed text-slate-700 font-medium max-w-2xl">
+              {description}
+            </p>
+            <div class="mt-8 flex flex-col gap-3.5 sm:flex-row sm:items-center">
+              <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary shadow-lg shadow-amber-500/15" data-wa-label={`Capability ${title}`}>
+                Konsultasikan Brief Proyek <span>↗</span>
+              </a>
+              <a href="#spesifikasi" class="btn-secondary">
+                Spesifikasi & Detail <span>↓</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Visual (Properly Fitted, No Zoom Distortion) -->
+          <div class="lg:col-span-5">
+            <div class="relative overflow-hidden rounded-2xl border border-slate-300 bg-slate-900 shadow-xl">
+              <img
+                src={item.image || '/images/generated/fiber-laser-v6.webp'}
+                alt={`${title} — Tepat Laser`}
+                width="1200"
+                height="800"
+                class="w-full h-[20rem] sm:h-[25rem] lg:h-[28rem] object-cover object-center"
+                fetchpriority="high"
+                decoding="sync"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
+              <div class="absolute bottom-0 inset-x-0 p-4 flex items-center justify-between text-white text-xs font-bold tracking-wider">
+                <span class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+                  {title}
+                </span>
+                <span class="text-slate-300 font-medium">Tepat Laser Tangsel</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="kinetic-line" aria-label={`Alur produksi ${title}`}><div class="kinetic-track"><span>{title}</span><span>Review file</span><span>Pilih proses</span><span>Produksi presisi</span><span>Pemeriksaan mutu</span><span>{title}</span><span>Review file</span><span>Pilih proses</span><span>Produksi presisi</span><span>Pemeriksaan mutu</span></div></section>
+    <!-- Kinetic Ticker -->
+    <section class="kinetic-line" aria-label={`Alur produksi ${title}`}>
+      <div class="kinetic-track">
+        <span>{title}</span><span>Review Vector File</span><span>Pengujian Sample</span><span>Kalibrasi Laser</span><span>Pemeriksaan Mutu QC</span>
+        <span>{title}</span><span>Review Vector File</span><span>Pengujian Sample</span><span>Kalibrasi Laser</span><span>Pemeriksaan Mutu QC</span>
+      </div>
+    </section>
 
-    <section id="spesifikasi" class="section-padding"><div class="container-custom spec-grid"><div><span class="eyebrow">Yang kami perhatikan</span><h2 class="heading-lg mt-6">Sebelum mesin bergerak, detailnya harus sudah masuk akal.</h2><p class="mt-6 max-w-lg leading-8">Material, ketebalan, geometri, jumlah, fungsi, dan target visual saling memengaruhi. Kami membacanya sebagai satu keputusan produksi, bukan daftar terpisah.</p></div><div class="feature-grid accent-cycle">{features.map((feature, index) => <div><span class="number-tag">0{index + 1}</span><p>{feature}</p></div>)}</div></div></section>
+    <!-- Specifications Grid -->
+    <section id="spesifikasi" class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="grid gap-10 lg:grid-cols-12 lg:items-start">
+          <div class="lg:col-span-5">
+            <span class="eyebrow">Parameter Teknis</span>
+            <h2 class="heading-lg mt-4 text-slate-950">Detail Produksi Yang Kami Kunci Sebelum Mesin Bergerak.</h2>
+            <p class="mt-4 text-slate-700 font-medium leading-relaxed">
+              Material, ketebalan, geometri potongan, jumlah order, dan target visual akhir saling memengaruhi. Kami membacanya sebagai satu kesatuan keputusan teknik yang terukur.
+            </p>
+          </div>
+          <div class="lg:col-span-7">
+            <div class="grid gap-4 sm:grid-cols-2">
+              {features.map((feature, index) => (
+                <div class="rounded-xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition-transform hover:-translate-y-0.5">
+                  <span class="inline-block rounded-md bg-amber-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-amber-700 border border-amber-500/20">
+                    POS 0{index + 1}
+                  </span>
+                  <p class="mt-3 text-sm font-bold text-slate-900 leading-snug">{feature}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <section class="dark-section py-16 md:py-20"><div class="container-custom application-grid"><div><span class="eyebrow">Aplikasi</span><h2 class="heading-md mt-5">Bukan sekadar bisa dibuat. Harus cocok digunakan.</h2></div><div class="application-list accent-cycle grid grid-cols-2 gap-px sm:grid-cols-4">{applications.map((application, index) => <div class="p-5"><span class="number-tag">0{index + 1}</span><p class="mt-8 text-sm font-bold text-white">{application}</p></div>)}</div></div></section>
+    <!-- Applications Grid -->
+    <section class="dark-section py-16 md:py-20">
+      <div class="container-custom">
+        <div class="max-w-2xl">
+          <span class="eyebrow text-amber-400">Pilihan Aplikasi</span>
+          <h2 class="heading-md mt-4 text-white">Bukan Sekadar Bisa Dipotong. Harus Siap Dipasang Di Lapangan.</h2>
+        </div>
+        <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {applications.map((application, index) => (
+            <div class="rounded-xl border border-slate-800 bg-slate-950 p-6 shadow-md border-t-2 border-t-amber-400">
+              <span class="font-mono text-xs font-bold text-amber-400">0{index + 1}</span>
+              <p class="mt-4 text-base font-bold text-white">{application}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
-    <section class="section-padding"><div class="container-custom"><div class="flex flex-col gap-5 md:flex-row md:items-end md:justify-between"><div><span class="eyebrow">Berikutnya</span><h2 class="heading-md mt-4">Temukan rute produksi yang paling masuk akal.</h2></div><a href="/services/" class="text-sm font-bold text-[var(--brand-blue-soft)]">Semua kapabilitas ↗</a></div><div class="related-grid accent-cycle">{related.map((entry, index) => <a href={`/${entry.slug}/`} class="related-card"><span class="number-tag">0{index + 1}</span><h3>{entry.name}</h3><p>{entry.description}</p><span class="related-link">Lihat detail ↗</span></a>)}</div></div></section>
-    <CTA title="File belum sempurna bukan masalah. Keputusan yang terburu-buru justru masalah." description="Kirim apa yang sudah ada. Kami bantu membaca material, ukuran, jumlah, toleransi, dan proses sebelum biaya produksi mulai berjalan." primaryText="Mulai lewat WhatsApp" secondaryText="Lihat proses kerja" secondaryLink="/proses-produksi-lead-time/" />
+    <!-- Related Capabilities -->
+    <section class="section-padding bg-slate-50">
+      <div class="container-custom">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span class="eyebrow">Kapabilitas Lainnya</span>
+            <h2 class="heading-md mt-3 text-slate-950">Jelajahi Pilihan Material & Teknologi Tambahan.</h2>
+          </div>
+          <a href="/services/" class="text-sm font-bold text-amber-600 hover:text-amber-700">Lihat Semua Kapabilitas ↗</a>
+        </div>
+        <div class="mt-8 grid gap-6 sm:grid-cols-3">
+          {related.map((entry, index) => (
+            <a href={`/${entry.slug}/`} class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md hover:border-amber-400">
+              <span class="font-mono text-xs font-bold text-slate-400 group-hover:text-amber-600">0{index + 1}</span>
+              <h3 class="mt-3 text-xl font-bold text-slate-900 group-hover:text-amber-600">{entry.name}</h3>
+              <p class="mt-2 text-xs leading-relaxed text-slate-600 font-medium">{entry.description}</p>
+              <span class="mt-4 inline-block text-xs font-extrabold text-amber-600">Lihat Detail ↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CTA
+      title="Punya Brief Proyek Yang Perlu Ditinjau Tim Engineer?"
+      description="Kirim berkas CAD, DXF, PDF, atau sketsa kasar Anda. Tim teknis Tepat Laser siap membantu membaca material, toleransi, dan estimasi biaya tanpa biaya konsultasi."
+      primaryText="Konsultasikan via WhatsApp"
+      secondaryText="Lihat Alur Produksi"
+      secondaryLink="/proses-produksi-lead-time/"
+    />
   </main>
   <Footer slot="footer" />
 </BaseLayout>
-
-<style>
-  .capability-hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(circle at 78% 25%,rgba(54,114,172,.16),transparent 28rem),radial-gradient(circle at 20% 85%,rgba(165,89,174,.1),transparent 24rem),var(--surface)}
-  .capability-hero :global(nav){border:0;background:transparent;padding:0}
-  .capability-hero-grid{display:grid;align-items:center;gap:3rem;padding-top:3rem;padding-bottom:clamp(4rem,8vw,7rem)}
-  .capability-visual{position:relative;min-height:28rem;overflow:hidden;background:#050906;box-shadow:0 2rem 6rem rgba(0,0,0,.24)}
-  .capability-visual img{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;filter:saturate(.7) contrast(1.08)}
-  .capability-visual::after{position:absolute;inset:0;content:'';background:linear-gradient(to top,rgba(5,9,6,.82),transparent 58%)}
-  .capability-visual::before{position:absolute;z-index:2;right:0;left:0;height:2px;content:'';background:var(--brand-spectrum);box-shadow:0 0 1.5rem rgba(110,168,221,.6);animation:scan 4.8s ease-in-out infinite}
-  .capability-visual figcaption{position:absolute;z-index:1;right:1.25rem;bottom:1.25rem;left:1.25rem;display:flex;justify-content:space-between;gap:.5rem;color:rgba(255,255,255,.72);font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-  .material-visual{background:#111}.material-hero-layer{position:absolute;inset:0;overflow:hidden}.material-hero-layer::before,.material-hero-layer::after,.material-hero-layer span{position:absolute;content:'';display:block}.material-hero-label{position:absolute;z-index:3;top:1.5rem;left:1.5rem;display:grid;gap:.6rem;max-width:15rem;padding:1rem;border:1px solid rgba(255,255,255,.27);background:rgba(5,9,6,.56);backdrop-filter:blur(9px)}.material-hero-label span{color:var(--laser-deep);font-size:.6rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.material-hero-label strong{color:#fff;font-family:'Clash Display',sans-serif;font-size:1.35rem;line-height:1}.material-hero-label small{color:rgba(255,255,255,.68);font-size:.67rem;line-height:1.5}.material-visual[data-material='acrylic'] .material-hero-layer{background:radial-gradient(circle at 74% 18%,#c3f561 0,transparent 17%),linear-gradient(132deg,#061713,#1e5a4e 49%,#07110f)}.material-visual[data-material='acrylic'] .material-hero-layer::before,.material-visual[data-material='acrylic'] .material-hero-layer::after{inset:20% 13%;border:1px solid rgba(231,255,246,.8);background:linear-gradient(130deg,rgba(255,255,255,.34),transparent 48%);box-shadow:0 2rem 4rem rgba(0,0,0,.35);transform:skewY(-9deg)}.material-visual[data-material='acrylic'] .material-hero-layer::after{inset:35% 24%;opacity:.72}.material-visual[data-material='mdf'] .material-hero-layer{background:repeating-linear-gradient(174deg,#392316 0 5px,#654123 5px 10px,#291711 10px 13px)}.material-visual[data-material='ply-wood-multiplex'] .material-hero-layer{background:repeating-linear-gradient(0deg,#d29a5b 0 25px,#7d4c29 25px 31px,#f0c47d 31px 51px)}.material-visual[data-material='ply-wood-multiplex'] .material-hero-layer::before{inset:13%;border:1px solid rgba(255,244,206,.45);background:repeating-linear-gradient(90deg,transparent 0 42px,rgba(82,43,20,.45) 42px 48px)}.material-visual[data-material='metal'] .material-hero-layer{background:linear-gradient(127deg,#12171b,#9faeb2 26%,#222b31 42%,#c0cacc 57%,#161d22 76%,#566166)}.material-visual[data-material='metal'] .material-hero-layer::before{inset:-20%;background:repeating-linear-gradient(116deg,transparent 0 44px,rgba(255,255,255,.1) 45px 49px);transform:rotate(8deg)}.material-visual[data-material='acp'] .material-hero-layer{background:linear-gradient(145deg,#a51f32 0 29%,#f6d0d3 29.5% 31%,#172027 31.5% 59%,#cbd9dc 59.5% 61%,#2c618b 61.5%)}.material-visual[data-material='pvc'] .material-hero-layer{background:linear-gradient(132deg,#d4dddb 0 43%,#f8fbf9 43.5% 63%,#bbc9c6 63.5%)}.material-visual[data-material='pvc'] .material-hero-layer::before{inset:15%;border:1px solid rgba(15,34,31,.16);box-shadow:1.2rem 1.2rem 0 rgba(15,34,31,.14)}.material-visual[data-material='grc'] .material-hero-layer{background:radial-gradient(circle at 14% 24%,rgba(255,255,255,.18) 0 3px,transparent 4px),radial-gradient(circle at 68% 72%,rgba(0,0,0,.17) 0 2px,transparent 4px),linear-gradient(145deg,#747a76,#c4c5bb 45%,#656b69)}.material-visual[data-material='grc'] .material-hero-layer::before{inset:13%;border:1px solid rgba(255,255,255,.36);background:linear-gradient(120deg,transparent 48%,rgba(255,255,255,.18) 49% 51%,transparent 52%)}
-  .spec-grid{display:grid;gap:3rem}.feature-grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
-  .feature-grid>div{min-height:10rem;background:var(--surface);padding:1.5rem}.feature-grid p{margin-top:3rem;color:var(--ink);font-size:.95rem;font-weight:700;line-height:1.45}
-  .application-grid{display:grid;align-items:end;gap:2.5rem}.application-list{background:var(--line)}.application-list>div{background:#09100d}.related-grid{display:grid;gap:1rem;margin-top:2.5rem}.related-card{border:1px solid var(--line);background:var(--surface);padding:1.5rem;transition:transform .35s var(--ease),border-color .35s var(--ease),background .35s var(--ease)}.related-card:hover{border-color:var(--brand-blue-soft);background:var(--surface-soft);transform:translateY(-6px)}.related-card h3{margin-top:2.5rem;font-size:1.55rem}.related-card p{margin-top:.8rem;font-size:.82rem;line-height:1.7}.related-link{display:block;margin-top:1.4rem;color:var(--brand-blue-soft);font-size:.72rem;font-weight:800}.related-card:nth-child(1) .related-link{color:var(--brand-red-soft)}.related-card:nth-child(2) .related-link{color:var(--brand-green-soft)}
-  @keyframes scan{0%,100%{top:8%;opacity:0}18%,82%{opacity:1}50%{top:92%}}
-  @media(min-width:800px){.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.related-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-  @media(min-width:1000px){.capability-hero-grid{grid-template-columns:1fr .9fr}.spec-grid{grid-template-columns:.85fr 1.15fr}.application-grid{grid-template-columns:.8fr 1.2fr}}
-  @media(max-width:640px){.capability-visual{min-height:20rem}.capability-hero-grid{padding-top:2rem}}
-</style>

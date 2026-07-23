@@ -138,13 +138,12 @@
   .brand-name { display: block; color: var(--ink); font-family: 'Clash Display', sans-serif; font-size: 1.02rem; font-weight: 600; letter-spacing: -.035em; line-height: 1; }
   .brand-meta { display: block; margin-top: .28rem; color: var(--muted); font-size: .53rem; font-weight: 750; letter-spacing: .13em; line-height: 1; text-transform: uppercase; }
 
-  .glass-header { border-bottom: 1px solid var(--header-line); background: rgba(243,245,239,.94); color: var(--header-ink); backdrop-filter: blur(18px) saturate(130%); -webkit-backdrop-filter: blur(18px) saturate(130%); animation: header-arrive .8s var(--ease) both; }
-  .glass-header-scrolled { background: rgba(243,245,239,.985); box-shadow: 0 .65rem 2rem rgba(0,0,0,.12); }
+  .glass-header { border-bottom: 1px solid rgba(0,0,0,.08); background: #ffffff; color: var(--header-ink); backdrop-filter: blur(18px) saturate(130%); -webkit-backdrop-filter: blur(18px) saturate(130%); animation: header-arrive .8s var(--ease) both; }
+  .glass-header-scrolled { background: #ffffff; box-shadow: 0 .65rem 2rem rgba(0,0,0,.08); }
 
-  .page-intro { position:relative;overflow:hidden;padding-top:clamp(9.5rem,14vw,12rem);padding-bottom:clamp(4rem,8vw,7rem);border-bottom:1px solid var(--line);background:radial-gradient(circle at 88% 8%,rgba(54,114,172,.18),transparent 22rem),radial-gradient(circle at 72% 76%,rgba(165,89,174,.12),transparent 24rem),radial-gradient(circle at 8% 100%,rgba(234,49,79,.08),transparent 20rem),var(--canvas); }
-  .page-intro::after { position:absolute;right:-8rem;bottom:-13rem;width:26rem;height:26rem;border:1px solid rgba(110,168,221,.2);border-radius:50%;content:'';box-shadow:0 0 0 4rem rgba(165,89,174,.035),0 0 0 8rem rgba(234,49,79,.025); }
-  .page-intro-grid { display: grid; align-items: end; gap: 2.5rem; }
-  .page-intro-copy { max-width: 38rem; font-size: clamp(1.05rem, 1.5vw, 1.25rem); line-height: 1.75; }
+  .page-intro { position:relative;overflow:hidden;padding-top:6rem;padding-bottom:3.5rem;border-bottom:1px solid rgba(0,0,0,.08);background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);color:#0f172a; }
+  .page-intro h1 { color: #0f172a !important; font-weight: 900 !important; }
+  .page-intro p { color: #334155 !important; font-weight: 500 !important; }
   .warm-section { background: var(--surface-soft); }
   .dark-section { background: #07090a; color: var(--ink); }
   .dark-section h1, .dark-section h2, .dark-section h3 { color: #fff; }

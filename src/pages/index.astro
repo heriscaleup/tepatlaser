@@ -7,49 +7,531 @@ import { SERVICES, MATERIALS, FAQ, SITE_CONFIG } from '../utils/constants.js';
 import { generateFAQSchema } from '../utils/seo.js';
 
 const wa = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi proyek dan mengirim file desain.')}`;
-const meta = { title: 'Tepat Laser — Laser Cutting & Fabrikasi Presisi Tangsel', description: 'Laser cutting metal dan non-metal, CNC router, serta engraving untuk kebutuhan arsitektur, interior, signage, dan komponen custom di Tangerang Selatan.', keywords: 'jasa laser cutting Tangerang Selatan, laser fiber, laser CO2, CNC router, galvo engraving', url: '/', image: '/gambar/pagar-laser-cutting-landing/hero-pagar-laser-cutting.webp', jsonLd: [generateFAQSchema(FAQ)] };
+const meta = {
+  title: 'Tepat Laser — Laser Cutting & Fabrikasi Presisi Tangerang Selatan',
+  description: 'Jasa laser cutting metal, stainless steel, akrilik, MDF, aluminium, CNC router ACP/GRC, dan galvo engraving presisi tinggi di Tangerang Selatan.',
+  keywords: 'jasa laser cutting Tangerang Selatan, laser fiber 12kw, laser CO2, CNC router ACP, galvo engraving metal, laser cutting stainless steel',
+  url: '/',
+  image: '/images/generated/fiber-laser-v6.webp',
+  jsonLd: [generateFAQSchema(FAQ)]
+};
+
 const showcases = [
-  { title: 'Pagar panel custom', label: 'Eksterior', image: '/gambar/pagar-laser-cutting-landing/hero-pagar-laser-cutting.webp' },
-  { title: 'Reling berpola', label: 'Interior', image: '/gambar/railing-laser-cutting-landing/reling-tangga-daylight.webp' },
-  { title: 'Fasad arsitektural', label: 'Panel bangunan', image: '/gambar/pagar-laser-cutting-landing/fasad-gedung-laser-cutting.webp' }
+  { title: 'Pagar & Fasad Laser Panel', label: 'Arsitektural Eksterior', image: '/gambar/pagar-laser-cutting-landing/hero-pagar-laser-cutting.webp' },
+  { title: 'Reling Tangga & Partisi Pola', label: 'Interior Custom', image: '/gambar/railing-laser-cutting-landing/reling-tangga-daylight.webp' },
+  { title: 'Fasad ACP Gedung & Signage', label: 'Panel Bangunan Commercial', image: '/gambar/pagar-laser-cutting-landing/fasad-gedung-laser-cutting.webp' }
+];
+
+const qcCheckpoints = [
+  { step: '01', title: 'Review File & Toleransi Geometri', desc: 'File AI, DXF, DWG, atau SVG Anda ditinjau ulang oleh tim teknis kami untuk mengunci toleransi celah, radius potong, dan kerenggangan material.' },
+  { step: '02', title: 'Kalibrasi Mesin & Gas Assist (N2/O2)', desc: 'Pengaturan daya laser, fokus optic, dan pilihan gas pembantu disesuaikan presisi agar tidak ada bekas gosong atau perubahan warna material.' },
+  { step: '03', title: 'Deburring & Cleaning Permukaan', desc: 'Setiap hasil potongan melalui proses deburring untuk membersihkan gram/tatal tajam, sehingga tepi potongan halus dan siap rakit.' },
+  { step: '04', title: 'Inspeksi Dimensi & Packing Protektif', desc: 'Pemeriksaan ketebalan dan dimensi dengan jangka sorong digital sebelum dibungkus bubble-wrap tebal demi keamanan saat pengiriman.' }
+];
+
+const comparisons = [
+  { feature: 'Toleransi & Presisi Potong', tepat: '±0.1 mm (Fiber & CNC Terkalibrasi Presisi)', manual: '±1.0 – 2.0 mm (Sering meleset saat dirakit)' },
+  { feature: 'Kondisi Tepi & Gram Tajam', tepat: 'Halus, Rapi & Bebas Burr (Siap Pasang)', manual: 'Kasar, Ber-gram tajam & Butuh Grinding' },
+  { feature: 'Penanganan File & Desain', tepat: 'Ditinjau & Dioptimalkan Tim Engineer', manual: 'Terima mentah tanpa cek risiko patah' },
+  { feature: 'Kecepatan & Kepastian Order', tepat: '1–3 Hari Selesai (Bisa Same-Day Express)', manual: '3–7 Hari tanpa kepastian jadwal' },
+  { feature: 'Minimum Order Quantity', tepat: 'Tanpa Minimum Order (Terima 1 Pcs)', manual: 'Wajib Partai Besar / Minimal Order Tinggi' }
 ];
 ---
 
-<BaseLayout {...meta}><Header slot="header" />
-  <main class="home-page overflow-hidden">
+<BaseLayout {...meta}>
+  <Header slot="header" />
+  <main class="home-page overflow-hidden bg-slate-50 text-slate-900">
+    <!-- Hero Banner Section -->
     <section class="home-hero">
-      <div class="container-custom home-hero-grid">
-        <div class="home-hero-copy"><span class="eyebrow">Laser cutting & fabrikasi presisi · Tangerang Selatan</span><h1 class="heading-xl mt-7">Presisi bukan soal angka.<br /><em>Hasilnya harus benar-benar pas.</em></h1><p class="mt-7 max-w-xl text-lg leading-8">Dari file pertama sampai komponen siap dipasang, kami menjaga keputusan yang sering luput: material, toleransi, proses, finishing, dan pemeriksaan akhir.</p><div class="mt-8 flex flex-col gap-3 sm:flex-row"><a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary" data-wa-label="Home hero consultation">Kirim brief proyek <span>↗</span></a><a href="#kapabilitas" class="btn-secondary">Jelajahi kapabilitas <span>↓</span></a></div><div class="hero-facts"><span><strong>4</strong> teknologi produksi</span><span><strong>7+</strong> karakter material</span><span><strong>1</strong> alur pemeriksaan</span></div></div>
-        <figure class="home-hero-media"><div class="home-hero-pictures"><picture><img src="/images/generated/fiber-laser-v5.webp" alt="Mesin fiber laser memotong lembaran metal secara presisi" width="1586" height="1000" fetchpriority="high" decoding="sync" /></picture></div><figcaption><span>Fiber laser cutting</span><span>Presisi produksi · Tangsel</span></figcaption></figure>
+      <div class="container-custom">
+        <div class="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+          <!-- Left Column: Copy & CTAs -->
+          <div class="lg:col-span-7 py-4">
+            <div class="inline-flex items-center gap-2.5 rounded-full border border-slate-300 bg-white px-4 py-1.5 text-xs font-bold text-slate-800 shadow-sm">
+              <span class="flex h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              Workshop Fabrikasi Presisi · Tangsel & Sejabodetabek
+            </div>
+
+            <h1 class="mt-6 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+              <span class="text-slate-950 block">Presisi Bukan Soal Angka.</span>
+              <span class="mt-1 block bg-gradient-to-r from-amber-600 via-rose-600 to-indigo-600 bg-clip-text text-transparent font-black">
+                Hasilnya Harus Pas Saat Dipasang.
+              </span>
+            </h1>
+
+            <p class="mt-6 text-base sm:text-lg leading-relaxed text-slate-700 font-medium max-w-2xl">
+              Dari berkas desain pertama hingga komponen rakitan final, kami menjaga detail teknis yang sering luput: ketebalan material, toleransi potong, pilihan gas optic, finishing tepi, dan quality control berlapis.
+            </p>
+
+            <div class="mt-8 flex flex-col gap-3.5 sm:flex-row sm:items-center">
+              <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary shadow-lg shadow-amber-500/15" data-wa-label="Home hero consultation">
+                Kirim Brief Proyek Anda <span>↗</span>
+              </a>
+              <a href="#kapabilitas" class="btn-secondary">
+                Jelajahi Kapabilitas <span>↓</span>
+              </a>
+            </div>
+
+            <div class="mt-10 grid grid-cols-2 gap-4 border-t border-slate-300 pt-6 sm:grid-cols-4">
+              <div>
+                <div class="font-mono text-2xl font-black text-slate-950">4</div>
+                <div class="text-xs font-bold text-slate-600 mt-0.5">Teknologi produksi</div>
+              </div>
+              <div>
+                <div class="font-mono text-2xl font-black text-slate-950">7+</div>
+                <div class="text-xs font-bold text-slate-600 mt-0.5">Karakter material</div>
+              </div>
+              <div>
+                <div class="font-mono text-2xl font-black text-emerald-700">±0.1mm</div>
+                <div class="text-xs font-bold text-slate-600 mt-0.5">Toleransi presisi</div>
+              </div>
+              <div>
+                <div class="font-mono text-2xl font-black text-slate-950">100%</div>
+                <div class="text-xs font-bold text-slate-600 mt-0.5">Garansi QC ulang</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Hero Image -->
+          <div class="lg:col-span-5">
+            <div class="relative overflow-hidden rounded-2xl border border-slate-300 bg-slate-900 shadow-2xl">
+              <img
+                src="/images/generated/fiber-laser-v6.webp"
+                alt="Proses kerja mesin fiber laser memotong lembaran metal presisi di workshop Tepat Laser"
+                width="1600"
+                height="900"
+                class="w-full h-[22rem] sm:h-[28rem] lg:h-[32rem] object-cover object-center"
+                fetchpriority="high"
+                decoding="sync"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+              <div class="absolute bottom-0 inset-x-0 p-5 flex items-center justify-between text-white text-xs font-bold tracking-wider">
+                <span class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+                  FIBER LASER CUTTING 12KW
+                </span>
+                <span class="text-slate-300 font-medium">Workshop Tangsel</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="kinetic-line" aria-label="Kapabilitas utama"><div class="kinetic-track"><span>Laser fiber</span><span>Laser CO₂</span><span>CNC router</span><span>Galvo engraving</span><span>Review file</span><span>Pemeriksaan mutu</span><span>Laser fiber</span><span>Laser CO₂</span><span>CNC router</span><span>Galvo engraving</span><span>Review file</span><span>Pemeriksaan mutu</span></div></section>
+    <!-- Kinetic Ticker -->
+    <section class="kinetic-line" aria-label="Kapabilitas utama">
+      <div class="kinetic-track">
+        <span>Laser Fiber Metal</span><span>Laser CO₂ Akrilik</span><span>CNC Router ACP/GRC</span><span>Galvo Engraving</span><span>Review Vector File</span><span>QC Deburring Tepi</span>
+        <span>Laser Fiber Metal</span><span>Laser CO₂ Akrilik</span><span>CNC Router ACP/GRC</span><span>Galvo Engraving</span><span>Review Vector File</span><span>QC Deburring Tepi</span>
+      </div>
+    </section>
 
-    <section id="kapabilitas" class="dark-section section-padding"><div class="container-custom"><div class="section-head"><div><span class="eyebrow">Kapabilitas</span><h2 class="heading-lg mt-6">Mesin bukan jawaban pertama. Kebutuhan Anda yang menentukan prosesnya.</h2></div><p>Kami tidak memaksa semua desain melewati jalur yang sama. Material, ketebalan, geometri, jumlah, fungsi, dan kualitas tepi dibaca lebih dulu.</p></div><div class="service-list accent-cycle">{SERVICES.map((service,index) => <a href={`/${service.slug}/`}><span class="number-tag">0{index+1}</span><div><h3>{service.name}</h3><p>{service.description}</p></div><span class="service-arrow">↗</span></a>)}</div></div></section>
+    <!-- Kapabilitas Mesin Utama Section -->
+    <section id="kapabilitas" class="dark-section section-padding">
+      <div class="container-custom">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow text-amber-400">Teknologi & Armada Mesin</span>
+            <h2 class="heading-lg mt-5">Mesin Bukan Jawaban Pertama. Kebutuhan Proyek Anda Yang Menentukan Prosesnya.</h2>
+          </div>
+          <p class="text-slate-300">
+            Kami tidak memaksakan semua bahan melewati jenis mesin yang sama. Karakteristik material, ketebalan, detail radius, fungsi ruang, dan kerapian tepi dianalisis lebih dulu oleh teknisi kami.
+          </p>
+        </div>
+        <div class="service-list accent-cycle">
+          {SERVICES.map((service, index) => (
+            <a href={`/${service.slug}/`}>
+              <span class="number-tag">0{index + 1}</span>
+              <div>
+                <h3>{service.name}</h3>
+                <p>{service.description}</p>
+                <small class="mt-2 block font-semibold text-slate-400">Aplikasi: {service.applications.slice(0, 3).join(' · ')}</small>
+              </div>
+              <span class="service-arrow">↗</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
 
-    <section class="section-padding warm-section"><div class="container-custom"><div class="section-head"><div><span class="eyebrow">Material</span><h2 class="heading-lg mt-6">Material yang tepat mengurangi koreksi di akhir.</h2></div><p>Bahan yang tampak serupa dapat bereaksi berbeda terhadap panas, kecepatan, detail kecil, dan finishing. Kami membacanya dari fungsi dan konteks penggunaan.</p></div><div class="material-grid accent-cycle">{MATERIALS.map((material,index) => <a href={`/${material.slug}/`} class="material-card" data-material={material.id}><div class="material-specimen" aria-hidden="true"><span></span><span></span><span></span></div><div class="material-shade"></div><div class="material-copy"><span class="number-tag">0{index+1}</span><h3>{material.name}</h3><p>{material.thickness}</p><span>Detail material ↗</span></div></a>)}</div></div></section>
+    <!-- Material Section -->
+    <section class="section-padding warm-section">
+      <div class="container-custom">
+        <div class="section-head">
+          <div>
+            <span class="eyebrow">Pilihan Material Sedia & Custom</span>
+            <h2 class="heading-lg mt-5">Material Yang Tepat Mencegah Koreksi & Biaya Membengkak Di Akhir.</h2>
+          </div>
+          <p>
+            Bahan yang terlihat serupa di lembar katalog dapat bereaksi sangat berbeda saat terkena panas fokus laser. Kami membantu Anda memilih jenis dan ketebalan material yang ideal.
+          </p>
+        </div>
+        <div class="material-grid accent-cycle">
+          {MATERIALS.map((material, index) => (
+            <a href={`/${material.slug}/`} class="material-card" data-material={material.id}>
+              <div class="material-specimen" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="material-shade"></div>
+              <div class="material-copy">
+                <span class="number-tag">0{index + 1}</span>
+                <h3>{material.name}</h3>
+                <p>{material.thickness}</p>
+                <span>Lihat Spesifikasi ↗</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
 
-    <section class="section-padding"><div class="container-custom"><div class="flex flex-col gap-7 md:flex-row md:items-end md:justify-between"><div><span class="eyebrow">Pilihan aplikasi</span><h2 class="heading-lg mt-6">Bukan hanya rapi di foto. Harus bekerja di ruang sebenarnya.</h2></div><a href="/portfolio/" class="btn-secondary md:w-auto">Lihat portofolio <span>↗</span></a></div><div class="showcase-grid">{showcases.map((item,index) => <article class:list={["showcase-card",index===0&&"showcase-wide"]}><img src={item.image} alt={item.title} width="1200" height="800" loading={index===0?'eager':'lazy'} decoding="async" /><div><span>{item.label}</span><h3>{item.title}</h3></div></article>)}</div></div></section>
+    <!-- QC & Standard Kontrol Presisi -->
+    <section class="section-padding bg-slate-900 text-white">
+      <div class="container-custom">
+        <div class="max-w-2xl">
+          <span class="eyebrow text-amber-400">Standar Mutu Tepat Laser</span>
+          <h2 class="heading-lg mt-4 text-white">4 Tahap Kontrol Kualitas Demi Hasil Siap Rakit & Bebas Retur.</h2>
+          <p class="mt-4 text-slate-300">
+            Setiap pesanan yang diproses di workshop Tepat Laser wajib melewati 4 pos pemeriksaan teknis sebelum dikirimkan ke alamat Anda.
+          </p>
+        </div>
+        <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {qcCheckpoints.map((qc) => (
+            <div class="rounded-xl border border-slate-800 bg-slate-950/60 p-6 shadow-md backdrop-blur-sm transition-transform hover:-translate-y-1">
+              <span class="inline-block rounded-md bg-amber-500/10 px-3 py-1 font-mono text-sm font-bold text-amber-400 border border-amber-500/20">{qc.step}</span>
+              <h3 class="mt-4 text-lg font-bold text-white">{qc.title}</h3>
+              <p class="mt-3 text-xs leading-relaxed text-slate-400">{qc.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
-    <section class="process-strip"><div class="container-custom"><div><span>01</span><h3>Ceritakan kebutuhannya</h3><p>File, ukuran, fungsi, material, jumlah, dan target waktu.</p></div><div><span>02</span><h3>Kunci keputusan teknis</h3><p>Kami membaca risiko geometri, bahan, toleransi, dan proses.</p></div><div><span>03</span><h3>Produksi dengan kontrol</h3><p>Jumlah, visual, dan kerapian diperiksa sebelum hasil keluar.</p></div></div></section>
-    <CTA title="Bawa idenya. Kami bantu membuatnya layak diproduksi." description="File belum final bukan penghalang. Kirim sketsa, foto, atau brief singkat; tim kami akan menunjukkan detail apa yang perlu dikunci berikutnya." primaryText="Mulai konsultasi" secondaryText="Baca panduan teknis" secondaryLink="/blog/" />
+    <!-- Perbandingan Tepat Laser vs Potongan Manual (High Contrast Table) -->
+    <section class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="eyebrow">Perbandingan Kualitas</span>
+          <h2 class="heading-lg mt-4 text-slate-950">Mengapa Kontraktor & Desainer Memilih Tepat Laser?</h2>
+          <p class="mt-4 text-slate-700 font-medium">Bandingkan perbedaan hasil kerja laser terkalibrasi kami dengan metode pemotongan konvensional.</p>
+        </div>
+        <div class="mt-12 overflow-x-auto rounded-2xl border border-slate-300 shadow-md bg-white">
+          <table class="w-full text-left text-sm border-collapse">
+            <thead class="bg-slate-950 text-white font-extrabold border-b border-slate-300">
+              <tr>
+                <th class="p-4 md:p-5 text-slate-100 text-base">Parameter Kualitas</th>
+                <th class="p-4 md:p-5 text-slate-950 bg-amber-400 text-base">Tepat Laser (Teknologi Modern)</th>
+                <th class="p-4 md:p-5 text-slate-300 text-base">Potongan Manual / Workshop Biasa</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 font-bold text-slate-950">
+              {comparisons.map((row) => (
+                <tr class="hover:bg-slate-50">
+                  <td class="p-4 md:p-5 font-bold text-slate-950">{row.feature}</td>
+                  <td class="p-4 md:p-5 font-black text-slate-950 bg-amber-50 border-x border-amber-200">
+                    <span class="text-emerald-700 font-extrabold mr-1">✓</span> {row.tepat}
+                  </td>
+                  <td class="p-4 md:p-5 font-medium text-slate-600">
+                    <span class="text-rose-600 font-extrabold mr-1">✕</span> {row.manual}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Application Showcase Section -->
+    <section class="section-padding bg-slate-50">
+      <div class="container-custom">
+        <div class="flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
+          <div>
+            <span class="eyebrow">Pilihan Aplikasi & Portofolio</span>
+            <h2 class="heading-lg mt-5">Bukan Hanya Rapi Di Foto. Harus Bekerja Di Ruang Sebenarnya.</h2>
+          </div>
+          <a href="/portfolio/" class="btn-secondary md:w-auto">Lihat Portofolio Lengkap <span>↗</span></a>
+        </div>
+        <div class="showcase-grid">
+          {showcases.map((item, index) => (
+            <article class:list={["showcase-card", index === 0 && "showcase-wide"]}>
+              <img src={item.image} alt={item.title} width="1200" height="800" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+              <div>
+                <span>{item.label}</span>
+                <h3>{item.title}</h3>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Flow Strip -->
+    <section class="process-strip">
+      <div class="container-custom">
+        <div>
+          <span>01</span>
+          <h3>Ceritakan Kebutuhannya</h3>
+          <p>Kirimkan berkas CAD/Vector, sketsa tangan, jenis material, ketebalan, dan jumlah pcs yang dibutuhkan.</p>
+        </div>
+        <div>
+          <span>02</span>
+          <h3>Kunci Keputusan Teknis</h3>
+          <p>Tim engineer kami memeriksa risiko geometri, rekomendasi jenis mesin, toleransi potong, dan memberikan estimasi penawaran.</p>
+        </div>
+        <div>
+          <span>03</span>
+          <h3>Produksi & Delivery</h3>
+          <p>Proses pemotongan cepat presisi, lolos QC deburring, dibungkus aman, dan dikirimkan sampai ke lokasi Anda.</p>
+        </div>
+      </div>
+    </section>
+
+    <CTA
+      title="Bawa Idenya. Kami Bantu Membuatnya Layak Diproduksi."
+      description="File belum final bukan penghalang. Kirim sketsa, foto referensi, atau sampel brief; tim teknis kami siap membantu optimalisasi file tanpa biaya konsultasi tambahan."
+      primaryText="Mulai Konsultasi WhatsApp"
+      secondaryText="Baca Panduan File Desain"
+      secondaryLink="/blog/panduan-file-desain-laser-cutting-akurat/"
+    />
   </main>
   <Footer slot="footer" />
 </BaseLayout>
 
 <style>
-  .home-hero{background:radial-gradient(circle at 8% 20%,rgba(234,49,79,.1),transparent 24rem),radial-gradient(circle at 72% 78%,rgba(54,114,172,.1),transparent 25rem),var(--surface);padding-top:4.8rem}
-  .home-hero-grid{display:grid;min-height:calc(100svh - 4.8rem);align-items:stretch}
-  .home-hero-copy{display:flex;flex-direction:column;justify-content:center;padding-block:clamp(4.5rem,8vw,7rem)}
-  .home-hero h1 em{color:transparent;background:var(--brand-spectrum);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
-  .home-hero-media{position:relative;min-height:34rem;overflow:hidden;background:#050906}.home-hero-pictures{position:absolute;inset:-4%}.home-hero-media picture{display:block;width:100%;height:100%;overflow:hidden}.home-hero-media img{width:100%;height:100%;object-fit:cover;object-position:58% center}.home-hero-media::after{position:absolute;inset:0;content:'';background:linear-gradient(to top,rgba(5,9,6,.82),transparent 55%)}.home-hero-media figcaption{position:absolute;z-index:1;right:1.25rem;bottom:1.25rem;left:1.25rem;display:flex;justify-content:space-between;color:#fff;font-size:.65rem;font-weight:750;letter-spacing:.09em;text-transform:uppercase}
-  .hero-facts{display:flex;flex-wrap:wrap;gap:1.2rem 2.2rem;margin-top:3.5rem;border-top:1px solid var(--line);padding-top:1.3rem;color:var(--muted);font-size:.7rem;font-weight:700}.hero-facts strong{margin-right:.3rem;color:var(--ink);font-family:'Clash Display',sans-serif;font-size:1.4rem;font-weight:600}
-  .section-head{display:grid;gap:2rem}.section-head>p{max-width:34rem;font-size:1rem;line-height:1.8}.service-list{margin-top:3.5rem;border-top:1px solid rgba(255,255,255,.16)}.service-list>a{display:grid;grid-template-columns:2.5rem 1fr auto;align-items:center;gap:1.2rem;border-bottom:1px solid rgba(255,255,255,.16);padding:1.6rem 0;transition:padding .35s var(--ease),background .35s var(--ease)}.service-list>a:hover{padding-inline:.8rem;background:rgba(54,114,172,.09)}.service-list h3{font-size:clamp(1.6rem,3vw,2.6rem)}.service-list p{max-width:42rem;margin-top:.45rem;font-size:.78rem;line-height:1.6}.service-arrow{color:var(--brand-blue-soft);font-size:1.4rem;transition:transform .3s var(--ease)}.service-list>a:nth-child(1) .service-arrow{color:var(--brand-red-soft)}.service-list>a:nth-child(2) .service-arrow{color:var(--brand-gold-soft)}.service-list>a:nth-child(3) .service-arrow{color:var(--brand-green-soft)}.service-list>a:nth-child(4) .service-arrow{color:var(--brand-violet-soft)}.service-list>a:hover .service-arrow{transform:translate(.25rem,-.25rem)}
-  .material-grid{display:grid;gap:1px;margin-top:3.5rem;border:1px solid var(--line);background:var(--line)}.material-card{position:relative;min-height:18rem;overflow:hidden;background:#050906;isolation:isolate}.material-specimen{position:absolute;inset:0;overflow:hidden;transition:transform .8s var(--ease),filter .8s var(--ease)}.material-specimen::before,.material-specimen::after,.material-specimen span{position:absolute;content:'';display:block;transition:transform .8s var(--ease)}.material-card:hover .material-specimen{transform:scale(1.06);filter:saturate(1.16)}.material-card[data-material='acrylic'] .material-specimen{background:radial-gradient(circle at 78% 18%,rgba(228,255,112,.72),transparent 20%),linear-gradient(140deg,#061713 0%,#143a34 48%,#07110f 100%)}.material-card[data-material='acrylic'] .material-specimen::before,.material-card[data-material='acrylic'] .material-specimen::after{inset:18% 9%;border:1px solid rgba(224,255,235,.7);background:linear-gradient(130deg,rgba(255,255,255,.3),transparent 45%);box-shadow:0 1rem 2rem rgba(2,14,10,.4);transform:skewY(-10deg)}.material-card[data-material='acrylic'] .material-specimen::after{inset:31% 19%;opacity:.72}.material-card[data-material='mdf'] .material-specimen{background:repeating-linear-gradient(172deg,#40291a 0 3px,#563820 3px 7px,#2b1a13 7px 10px)}.material-card[data-material='ply-wood-multiplex'] .material-specimen{background:repeating-linear-gradient(0deg,#c78a4e 0 12px,#6c4022 12px 16px,#e3b56e 16px 25px)}.material-card[data-material='ply-wood-multiplex'] .material-specimen::before{inset:10%;border:1px solid rgba(255,237,190,.52);background:repeating-linear-gradient(90deg,transparent 0 18px,rgba(75,40,20,.42) 18px 22px)}.material-card[data-material='metal'] .material-specimen{background:linear-gradient(125deg,#171c20 0%,#78868d 26%,#222b31 41%,#a7b3b5 57%,#1a2126 76%,#505d62 100%)}.material-card[data-material='metal'] .material-specimen::before{inset:-20%;background:repeating-linear-gradient(116deg,transparent 0 22px,rgba(255,255,255,.09) 23px 25px);transform:rotate(8deg)}.material-card[data-material='acp'] .material-specimen{background:linear-gradient(145deg,#981f30 0 29%,#efc5c8 29.5% 31%,#151b20 31.5% 59%,#ccd8dc 59.5% 61%,#295b81 61.5%)}.material-card[data-material='pvc'] .material-specimen{background:linear-gradient(132deg,#dce6e4 0 43%,#f7faf8 43.5% 63%,#c4d2cf 63.5%)}.material-card[data-material='pvc'] .material-specimen::before{inset:14%;border:1px solid rgba(15,34,31,.15);box-shadow:.7rem .7rem 0 rgba(15,34,31,.13)}.material-card[data-material='grc'] .material-specimen{background:radial-gradient(circle at 14% 24%,rgba(255,255,255,.18) 0 2px,transparent 3px),radial-gradient(circle at 68% 72%,rgba(0,0,0,.17) 0 1px,transparent 3px),linear-gradient(145deg,#777c78,#c4c5bb 45%,#666d6b)}.material-card[data-material='grc'] .material-specimen::before{inset:12%;border:1px solid rgba(255,255,255,.36);background:linear-gradient(120deg,transparent 48%,rgba(255,255,255,.18) 49% 51%,transparent 52%)}.material-shade{position:absolute;inset:0;background:linear-gradient(to top,rgba(5,9,6,.97),rgba(5,9,6,.12) 72%)}.material-copy{position:absolute;z-index:1;right:1.3rem;bottom:1.3rem;left:1.3rem}.material-grid h3{margin-top:2.2rem;color:#fff;font-size:1.25rem}.material-grid p{margin-top:.45rem;color:rgba(255,255,255,.7);font-size:.75rem}.material-copy>span:last-child{display:block;margin-top:1.4rem;color:var(--laser);font-size:.68rem;font-weight:800}
-  .showcase-grid{display:grid;gap:1rem;margin-top:3rem}.showcase-card{position:relative;min-height:29rem;overflow:hidden;background:#050906}.showcase-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}.showcase-card:hover img{transform:scale(1.045)}.showcase-card::after{position:absolute;inset:0;content:'';background:linear-gradient(to top,rgba(5,9,6,.86),transparent 58%)}.showcase-card>div{position:absolute;z-index:1;right:1.5rem;bottom:1.5rem;left:1.5rem}.showcase-card span{color:var(--laser);font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.showcase-card h3{margin-top:.45rem;color:#fff;font-size:1.8rem}
-  .process-strip{border-block:1px solid var(--line);background:var(--surface);padding-block:2.5rem}.process-strip>.container-custom{display:grid;gap:2rem}.process-strip span{color:var(--brand-red-soft);font-size:.7rem;font-weight:800}.process-strip>div>div:nth-child(2) span{color:var(--brand-green-soft)}.process-strip>div>div:nth-child(3) span{color:var(--brand-blue-soft)}.process-strip h3{margin-top:1rem;font-size:1.25rem}.process-strip p{margin-top:.5rem;font-size:.78rem;line-height:1.65}
-  @media(min-width:760px){.material-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.material-card:last-child{grid-column:span 2}.showcase-grid{grid-template-columns:1.25fr .75fr}.showcase-wide{grid-row:span 2}.process-strip>.container-custom{grid-template-columns:repeat(3,minmax(0,1fr))}.process-strip>.container-custom>div+div{border-left:1px solid var(--line);padding-left:2rem}}
-  @media(min-width:1000px){.home-hero-grid{grid-template-columns:1fr .9fr;gap:3rem}.section-head{grid-template-columns:1.15fr .85fr;align-items:end}.home-hero-media{margin-block:2rem}.home-hero-copy{padding-right:2rem}}
-  @media(max-width:640px){.home-hero-grid{min-height:auto}.home-hero-media{min-height:26rem}.home-hero-pictures{display:block}.home-hero-pictures picture:first-child{display:block;height:100%}.home-hero-media img{object-position:64% center}.hero-facts{margin-top:2.5rem}.showcase-card{min-height:23rem}}
+  .home-hero {
+    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    padding-top: 6.5rem;
+    padding-bottom: 4.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  }
+  .section-head {
+    display: grid;
+    gap: 2rem;
+  }
+  .section-head > p {
+    max-width: 34rem;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+  .service-list {
+    margin-top: 3.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+  }
+  .service-list > a {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr auto;
+    align-items: center;
+    gap: 1.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    padding: 1.6rem 0;
+    transition: padding 0.35s var(--ease), background 0.35s var(--ease);
+  }
+  .service-list > a:hover {
+    padding-inline: 0.8rem;
+    background: rgba(54, 114, 172, 0.09);
+  }
+  .service-list h3 {
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+  }
+  .service-list p {
+    max-width: 42rem;
+    margin-top: 0.45rem;
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+  .service-arrow {
+    color: var(--brand-blue-soft);
+    font-size: 1.4rem;
+    transition: transform 0.3s var(--ease);
+  }
+  .service-list > a:hover .service-arrow {
+    transform: translate(0.25rem, -0.25rem);
+  }
+  .material-grid {
+    display: grid;
+    gap: 1px;
+    margin-top: 3.5rem;
+    border: 1px solid var(--line);
+    background: var(--line);
+  }
+  .material-card {
+    position: relative;
+    min-height: 18rem;
+    overflow: hidden;
+    background: #050906;
+    isolation: isolate;
+  }
+  .material-specimen {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    transition: transform 0.8s var(--ease), filter 0.8s var(--ease);
+  }
+  .material-card:hover .material-specimen {
+    transform: scale(1.06);
+    filter: saturate(1.16);
+  }
+  .material-card[data-material='acrylic'] .material-specimen {
+    background: radial-gradient(circle at 78% 18%, rgba(228, 255, 112, 0.72), transparent 20%), linear-gradient(140deg, #061713 0%, #143a34 48%, #07110f 100%);
+  }
+  .material-card[data-material='mdf'] .material-specimen {
+    background: repeating-linear-gradient(172deg, #40291a 0 3px, #563820 3px 7px, #2b1a13 7px 10px);
+  }
+  .material-card[data-material='ply-wood-multiplex'] .material-specimen {
+    background: repeating-linear-gradient(0deg, #c78a4e 0 12px, #6c4022 12px 16px, #e3b56e 16px 25px);
+  }
+  .material-card[data-material='metal'] .material-specimen {
+    background: linear-gradient(125deg, #171c20 0%, #78868d 26%, #222b31 41%, #a7b3b5 57%, #1a2126 76%, #505d62 100%);
+  }
+  .material-card[data-material='acp'] .material-specimen {
+    background: linear-gradient(145deg, #981f30 0 29%, #efc5c8 29.5% 31%, #151b20 31.5% 59%, #ccd8dc 59.5% 61%, #295b81 61.5%);
+  }
+  .material-card[data-material='pvc'] .material-specimen {
+    background: linear-gradient(132deg, #dce6e4 0 43%, #f7faf8 43.5% 63%, #c4d2cf 63.5%);
+  }
+  .material-card[data-material='grc'] .material-specimen {
+    background: radial-gradient(circle at 14% 24%, rgba(255, 255, 255, 0.18) 0 2px, transparent 3px), linear-gradient(145deg, #777c78, #c4c5bb 45%, #666d6b);
+  }
+  .material-shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5, 9, 6, 0.97), rgba(5, 9, 6, 0.12) 72%);
+  }
+  .material-copy {
+    position: absolute;
+    z-index: 1;
+    right: 1.3rem;
+    bottom: 1.3rem;
+    left: 1.3rem;
+  }
+  .material-grid h3 {
+    margin-top: 2.2rem;
+    color: #fff;
+    font-size: 1.25rem;
+  }
+  .material-grid p {
+    margin-top: 0.45rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.75rem;
+  }
+  .material-copy > span:last-child {
+    display: block;
+    margin-top: 1.4rem;
+    color: var(--laser);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+  .showcase-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .showcase-card {
+    position: relative;
+    min-height: 29rem;
+    overflow: hidden;
+    background: #050906;
+    border-radius: 0.75rem;
+  }
+  .showcase-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s var(--ease);
+  }
+  .showcase-card:hover img {
+    transform: scale(1.045);
+  }
+  .showcase-card::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+    background: linear-gradient(to top, rgba(5, 9, 6, 0.86), transparent 58%);
+  }
+  .showcase-card > div {
+    position: absolute;
+    z-index: 1;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    left: 1.5rem;
+  }
+  .showcase-card span {
+    color: var(--laser);
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .showcase-card h3 {
+    margin-top: 0.45rem;
+    color: #fff;
+    font-size: 1.8rem;
+  }
+  .process-strip {
+    border-block: 1px solid var(--line);
+    background: var(--surface);
+    padding-block: 3rem;
+  }
+  .process-strip > .container-custom {
+    display: grid;
+    gap: 2rem;
+  }
+  .process-strip span {
+    color: var(--brand-red-soft);
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+  .process-strip > div > div:nth-child(2) span {
+    color: var(--brand-green-soft);
+  }
+  .process-strip > div > div:nth-child(3) span {
+    color: var(--brand-blue-soft);
+  }
+  .process-strip h3 {
+    margin-top: 1rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .process-strip p {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--muted);
+  }
+
+  @media (min-width: 760px) {
+    .material-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .material-card:last-child {
+      grid-column: span 2;
+    }
+    .showcase-grid {
+      grid-template-columns: 1.25fr 0.75fr;
+    }
+    .showcase-wide {
+      grid-row: span 2;
+    }
+    .process-strip > .container-custom {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .process-strip > .container-custom > div + div {
+      border-left: 1px solid var(--line);
+      padding-left: 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-head {
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: end;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .showcase-card {
+      min-height: 23rem;
+    }
+  }
 </style>

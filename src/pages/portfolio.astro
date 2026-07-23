@@ -9,7 +9,15 @@ const projects = [
 ];
 ---
 <BaseLayout title="Portofolio Tepat Laser — Hasil Fabrikasi Presisi" description="Eksplorasi aplikasi laser cutting untuk pagar, railing, fasad, panel interior, dan kebutuhan arsitektural custom." keywords="portfolio laser cutting, pagar laser cutting, railing custom, panel arsitektur" url="/portfolio/" image={projects[0].image} jsonLd={[schema]}><Header slot="header" />
-  <main class="overflow-hidden"><PageIntro eyebrow="Pilihan aplikasi" title="Bukti kerja tidak berhenti pada potongan yang rapi." description="Hasil harus pas saat dirakit, kuat saat digunakan, dan tetap punya karakter di ruang sebenarnya. Di sini pola, material, ukuran, dan finishing bekerja bersama." />
+  <main class="overflow-hidden">
+    <PageIntro
+      eyebrow="Dokumentasi Proyek Realisasi"
+      title="Bukti Kerja Presisi Di Ruang Sebenarnya."
+      description="Hasil potongan tidak hanya harus rapi di foto, tapi wajib pas saat dirakit, kuat saat terpasang, dan memiliki karakter arsitektural yang presisi."
+      image="/gambar/pagar-laser-cutting-landing/fasad-gedung-laser-cutting.webp"
+      imageAlt="Dokumentasi Hasil Proyek Tepat Laser"
+      imageTag="GALERI DOKUMENTASI PROYEK"
+    />
     <section class="section-padding"><div class="container-custom portfolio-grid">{projects.map((project,index) => <article class:list={["portfolio-card",index===0&&"portfolio-featured"]}><div class="portfolio-media"><img src={project.image} alt={project.title} width="1200" height="800" loading={index<2?'eager':'lazy'} decoding="async" /></div><div class="portfolio-copy"><span>{project.category}</span><h2>{project.title}</h2><p>{project.desc}</p><div><small>{project.material}</small><small>{project.process}</small></div></div></article>)}</div></section>
     <CTA title="Punya ide yang harus terlihat bagus sekaligus bekerja benar?" description="Kirim ukuran, referensi pola, material, dan konteks pemasangan. Kami bantu membaca risiko serta rute produksinya." primaryText="Mulai konsultasi" secondaryText="Lihat layanan" secondaryLink="/services/" />
   </main><Footer slot="footer" />

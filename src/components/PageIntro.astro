@@ -1,5 +1,69 @@
 ---
-export interface Props { eyebrow: string; title: string; description: string; actionText?: string; actionHref?: string; }
-const { eyebrow, title, description, actionText, actionHref } = Astro.props;
+export interface Props {
+  eyebrow: string;
+  title: string;
+  description: string;
+  actionText?: string;
+  actionHref?: string;
+  image?: string;
+  imageAlt?: string;
+  imageTag?: string;
+}
+
+const { eyebrow, title, description, actionText, actionHref, image, imageAlt, imageTag } = Astro.props;
 ---
-<section class="page-intro"><div class="container-custom page-intro-grid"><div><span class="eyebrow">{eyebrow}</span><h1 class="heading-xl mt-6">{title}</h1></div><div><p class="page-intro-copy">{description}</p>{actionText && actionHref && <a href={actionHref} target={actionHref.startsWith('http') ? '_blank' : undefined} rel={actionHref.startsWith('http') ? 'noopener noreferrer' : undefined} class="btn-primary mt-7">{actionText} <span>↗</span></a>}</div></div></section>
+
+<section class="page-intro bg-slate-50 border-b border-slate-200/80 pt-24 pb-16">
+  <div class="container-custom">
+    <div class:list={["grid gap-8 items-center", image ? "lg:grid-cols-12 lg:gap-12" : "grid-cols-1 max-w-4xl"]}>
+      <!-- Left Column: Copy -->
+      <div class:list={[image ? "lg:col-span-7" : "col-span-1"]}>
+        <div class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3.5 py-1 text-xs font-bold text-slate-800 shadow-sm">
+          <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+          {eyebrow}
+        </div>
+        <h1 class="mt-5 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+          {title}
+        </h1>
+        <p class="mt-5 text-base sm:text-lg leading-relaxed text-slate-700 font-medium">
+          {description}
+        </p>
+
+        {actionText && actionHref && (
+          <div class="mt-7">
+            <a href={actionHref} target={actionHref.startsWith('http') ? '_blank' : undefined} rel={actionHref.startsWith('http') ? 'noopener noreferrer' : undefined} class="btn-primary shadow-lg shadow-amber-500/15">
+              {actionText} <span>↗</span>
+            </a>
+          </div>
+        )}
+      </div>
+
+      <!-- Right Column: Hero Image (If provided) -->
+      {image && (
+        <div class="lg:col-span-5">
+          <div class="relative overflow-hidden rounded-2xl border border-slate-300 bg-slate-900 shadow-xl">
+            <img
+              src={image}
+              alt={imageAlt || title}
+              width="1400"
+              height="900"
+              class="w-full h-[20rem] sm:h-[25rem] lg:h-[28rem] object-cover object-center"
+              fetchpriority="high"
+              decoding="sync"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+            {imageTag && (
+              <div class="absolute bottom-0 inset-x-0 p-4 flex items-center justify-between text-white text-xs font-bold tracking-wider">
+                <span class="flex items-center gap-2">
+                  <span class="h-2 w-2 rounded-full bg-amber-400"></span>
+                  {imageTag}
+                </span>
+                <span class="text-slate-300 font-medium">Tepat Laser</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>
