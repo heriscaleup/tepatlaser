@@ -1,10 +1,12 @@
-# Allow directory index and serve index.html for Dewaweb LiteSpeed
+# Force LiteSpeed to serve static files directly and ignore parent Laravel rewrites
 DirectoryIndex index.html
 
 <IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
 </IfModule>
 
-# Ensure public read permissions
 Options -Indexes +FollowSymLinks
