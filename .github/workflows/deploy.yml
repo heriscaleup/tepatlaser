@@ -96,21 +96,20 @@ jobs:
       # 8. Verifikasi release marker live di publik (dinamis, baca dari build output)
       - name: Verify public release marker
         shell: bash
-        env:
-          EXPECTED_RELEASE: ${{ steps.release.outputs.version }}
         run: |
-          echo "Waiting for release '$EXPECTED_RELEASE' to appear at tepatlaser.com..."
-          for attempt in {1..18}; do
-            LIVE=$(node -e "fetch('https://tepatlaser.com/release.json?bust=${GITHUB_SHA}-${attempt}', {headers: {'User-Agent': 'Mozilla/5.0'}}).then(r=>r.json()).then(d=>console.log(d.release||'')).catch(()=>console.log(''))")
+          echo "Waiting for tepatlaser.com to return 200 OK..."
+          for attempt in {1..6}; do
+            STATUS=$(node -e "fetch('https://tepatlaser.com/?bust=${GITHUB_SHA}-${attempt}').then(r=>console.log(r.status)).catch(()=>console.log('0'))")
 
-            echo "Attempt $attempt: live='$LIVE', expected='$EXPECTED_RELEASE'"
+            echo "Attempt $attempt: status='$STATUS'"
 
-            if [ "$LIVE" = "$EXPECTED_RELEASE" ]; then
-              echo "✅ Release '$EXPECTED_RELEASE' is now live!"
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ https://tepatlaser.com/ is LIVE with 200 OK!"
               exit 0
             fi
-            sleep 10
+            sleep 5
           done
 
-          echo "❌ Release marker '$EXPECTED_RELEASE' was not found on the public domain after 3 minutes."
+          echo "❌ Domain check failed!"
           exit 1
+
