@@ -6,10 +6,10 @@ import CTA from '../components/CTA.astro';
 import { SERVICES, MATERIALS, FAQ, SITE_CONFIG } from '../utils/constants.js';
 import { generateFAQSchema } from '../utils/seo.js';
 
-const wa = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi proyek dan mengirim file desain.')}`;
+const wa = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi proyek dan mengirimkan file desain.')}`;
 const meta = {
   title: 'Tepat Laser — Laser Cutting & Fabrikasi Presisi Tangerang Selatan',
-  description: 'Jasa laser cutting metal, stainless steel, akrilik, MDF, aluminium, CNC router ACP/GRC, dan galvo engraving presisi tinggi di Tangerang Selatan.',
+  description: 'Jasa laser cutting metal, stainless steel, akrilik, MDF, aluminium, CNC router ACP/GRC, dan galvo engraving presisi tinggi di Tangerang Selatan. ±0.1mm toleransi, QC berlapis, siap rakit.',
   keywords: 'jasa laser cutting Tangerang Selatan, laser fiber 12kw, laser CO2, CNC router ACP, galvo engraving metal, laser cutting stainless steel',
   url: '/',
   image: '/images/generated/fiber-laser-v6.webp',
@@ -24,7 +24,7 @@ const showcases = [
 
 const qcCheckpoints = [
   { step: '01', title: 'Review File & Toleransi Geometri', desc: 'File AI, DXF, DWG, atau SVG Anda ditinjau ulang oleh tim teknis kami untuk mengunci toleransi celah, radius potong, dan kerenggangan material.' },
-  { step: '02', title: 'Kalibrasi Mesin & Gas Assist (N2/O2)', desc: 'Pengaturan daya laser, fokus optic, dan pilihan gas pembantu disesuaikan presisi agar tidak ada bekas gosong atau perubahan warna material.' },
+  { step: '02', title: 'Kalibrasi Mesin & Gas Assist (N₂/O₂)', desc: 'Pengaturan daya laser, fokus optic, dan pilihan gas pembantu disesuaikan presisi agar tidak ada bekas gosong atau perubahan warna material.' },
   { step: '03', title: 'Deburring & Cleaning Permukaan', desc: 'Setiap hasil potongan melalui proses deburring untuk membersihkan gram/tatal tajam, sehingga tepi potongan halus dan siap rakit.' },
   { step: '04', title: 'Inspeksi Dimensi & Packing Protektif', desc: 'Pemeriksaan ketebalan dan dimensi dengan jangka sorong digital sebelum dibungkus bubble-wrap tebal demi keamanan saat pengiriman.' }
 ];
@@ -36,13 +36,17 @@ const comparisons = [
   { feature: 'Kecepatan & Kepastian Order', tepat: '1–3 Hari Selesai (Bisa Same-Day Express)', manual: '3–7 Hari tanpa kepastian jadwal' },
   { feature: 'Minimum Order Quantity', tepat: 'Tanpa Minimum Order (Terima 1 Pcs)', manual: 'Wajib Partai Besar / Minimal Order Tinggi' }
 ];
+
+const trustLogos = [
+  'Kontraktor Arsitektur', 'Interior Designer', 'Manufaktur Ringan', 'Signage Agency', 'Property Developer', 'Furniture Custom'
+];
 ---
 
 <BaseLayout {...meta}>
   <Header slot="header" />
   <main class="home-page overflow-hidden bg-slate-50 text-slate-900">
     <!-- Hero Banner Section -->
-    <section class="home-hero">
+    <section class="home-hero" data-no-reveal>
       <div class="container-custom">
         <div class="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
           <!-- Left Column: Copy & CTAs -->
@@ -52,22 +56,26 @@ const comparisons = [
               Workshop Fabrikasi Presisi · Tangsel & Sejabodetabek
             </div>
 
-            <h1 class="mt-6 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl lg:text-5xl lg:leading-[1.15]">
-              <span class="text-slate-950 block">Presisi Bukan Soal Angka.</span>
-              <span class="mt-1 block bg-gradient-to-r from-amber-600 via-rose-600 to-indigo-600 bg-clip-text text-transparent font-black">
-                Hasilnya Harus Pas Saat Dipasang.
-              </span>
-            </h1>
+            <div class="text-reveal">
+              <h1 class="mt-6 text-3xl font-black tracking-tight text-slate-950 sm:text-4xl lg:text-5xl lg:leading-[1.15]">
+                <span class="text-slate-950 block">Presisi Bukan Soal Angka.</span>
+                <span class="mt-1 block bg-gradient-to-r from-amber-600 via-rose-600 to-indigo-600 bg-clip-text text-transparent font-black">
+                  Hasilnya Harus Pas Saat Dipasang.
+                </span>
+              </h1>
+            </div>
 
-            <p class="mt-6 text-base sm:text-lg leading-relaxed text-slate-700 font-medium max-w-2xl">
-              Dari berkas desain pertama hingga komponen rakitan final, kami menjaga detail teknis yang sering luput: ketebalan material, toleransi potong, pilihan gas optic, finishing tepi, dan quality control berlapis.
-            </p>
+            <div class="text-reveal">
+              <p class="mt-6 text-base sm:text-lg leading-relaxed text-slate-700 font-medium max-w-2xl">
+                Dari berkas desain pertama hingga komponen rakitan final, kami menjaga detail teknis yang sering luput: ketebalan material, toleransi potong, pilihan gas optic, finishing tepi, dan quality control berlapis.
+              </p>
+            </div>
 
             <div class="mt-8 flex flex-col gap-3.5 sm:flex-row sm:items-center">
-              <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary shadow-lg shadow-amber-500/15" data-wa-label="Home hero consultation">
+              <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary shadow-lg shadow-amber-500/15" data-wa-label="Home hero consultation" data-magnetic>
                 Kirim Brief Proyek Anda <span>↗</span>
               </a>
-              <a href="#kapabilitas" class="btn-secondary">
+              <a href="#kapabilitas" class="btn-secondary" data-magnetic>
                 Jelajahi Kapabilitas <span>↓</span>
               </a>
             </div>
@@ -94,7 +102,7 @@ const comparisons = [
 
           <!-- Right Column: Hero Image -->
           <div class="lg:col-span-5">
-            <div class="relative overflow-hidden rounded-2xl border border-slate-300 bg-slate-900 shadow-2xl">
+            <div class="img-reveal relative overflow-hidden rounded-2xl border border-slate-300 bg-slate-900 shadow-2xl">
               <img
                 src="/images/generated/fiber-laser-v6.webp"
                 alt="Proses kerja mesin fiber laser memotong lembaran metal presisi di workshop Tepat Laser"
@@ -119,10 +127,25 @@ const comparisons = [
     </section>
 
     <!-- Kinetic Ticker -->
-    <section class="kinetic-line" aria-label="Kapabilitas utama">
+    <section class="kinetic-line" aria-label="Kapabilitas utama" data-no-reveal>
       <div class="kinetic-track">
         <span>Laser Fiber Metal</span><span>Laser CO₂ Akrilik</span><span>CNC Router ACP/GRC</span><span>Galvo Engraving</span><span>Review Vector File</span><span>QC Deburring Tepi</span>
         <span>Laser Fiber Metal</span><span>Laser CO₂ Akrilik</span><span>CNC Router ACP/GRC</span><span>Galvo Engraving</span><span>Review Vector File</span><span>QC Deburring Tepi</span>
+      </div>
+    </section>
+
+    <!-- Social Proof / Trust Bar -->
+    <section class="section-padding bg-white border-b border-slate-200">
+      <div class="container-custom">
+        <p class="text-center text-xs font-bold uppercase tracking-[.2em] text-slate-400 mb-8">Dipercaya oleh profesional dari berbagai industri</p>
+        <div class="trust-grid">
+          {trustLogos.map((logo) => (
+            <div class="trust-item">
+              <span class="trust-dot"></span>
+              <span class="trust-label">{logo}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -140,7 +163,7 @@ const comparisons = [
         </div>
         <div class="service-list accent-cycle">
           {SERVICES.map((service, index) => (
-            <a href={`/${service.slug}/`}>
+            <a href={`/${service.slug}/`} data-magnetic>
               <span class="number-tag">0{index + 1}</span>
               <div>
                 <h3>{service.name}</h3>
@@ -168,7 +191,7 @@ const comparisons = [
         </div>
         <div class="material-grid accent-cycle">
           {MATERIALS.map((material, index) => (
-            <a href={`/${material.slug}/`} class="material-card" data-material={material.id}>
+            <a href={`/${material.slug}/`} class="material-card" data-material={material.id} data-magnetic>
               <div class="material-specimen" aria-hidden="true"><span></span><span></span><span></span></div>
               <div class="material-shade"></div>
               <div class="material-copy">
@@ -195,7 +218,7 @@ const comparisons = [
         </div>
         <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {qcCheckpoints.map((qc) => (
-            <div class="rounded-xl border border-slate-800 bg-slate-950/60 p-6 shadow-md backdrop-blur-sm transition-transform hover:-translate-y-1">
+            <div class="qc-card rounded-xl border border-slate-800 bg-slate-950/60 p-6 shadow-md backdrop-blur-sm">
               <span class="inline-block rounded-md bg-amber-500/10 px-3 py-1 font-mono text-sm font-bold text-amber-400 border border-amber-500/20">{qc.step}</span>
               <h3 class="mt-4 text-lg font-bold text-white">{qc.title}</h3>
               <p class="mt-3 text-xs leading-relaxed text-slate-400">{qc.desc}</p>
@@ -205,7 +228,7 @@ const comparisons = [
       </div>
     </section>
 
-    <!-- Perbandingan Tepat Laser vs Potongan Manual (High Contrast Table) -->
+    <!-- Perbandingan Tepat Laser vs Potongan Manual -->
     <section class="section-padding bg-white">
       <div class="container-custom">
         <div class="text-center max-w-2xl mx-auto">
@@ -224,7 +247,7 @@ const comparisons = [
             </thead>
             <tbody class="divide-y divide-slate-200 font-bold text-slate-950">
               {comparisons.map((row) => (
-                <tr class="hover:bg-slate-50">
+                <tr class="hover:bg-slate-50 transition-colors">
                   <td class="p-4 md:p-5 font-bold text-slate-950">{row.feature}</td>
                   <td class="p-4 md:p-5 font-black text-slate-950 bg-amber-50 border-x border-amber-200">
                     <span class="text-emerald-700 font-extrabold mr-1">✓</span> {row.tepat}
@@ -248,7 +271,7 @@ const comparisons = [
             <span class="eyebrow">Pilihan Aplikasi & Portofolio</span>
             <h2 class="heading-lg mt-5">Bukan Hanya Rapi Di Foto. Harus Bekerja Di Ruang Sebenarnya.</h2>
           </div>
-          <a href="/portfolio/" class="btn-secondary md:w-auto">Lihat Portofolio Lengkap <span>↗</span></a>
+          <a href="/portfolio/" class="btn-secondary md:w-auto" data-magnetic>Lihat Portofolio Lengkap <span>↗</span></a>
         </div>
         <div class="showcase-grid">
           {showcases.map((item, index) => (
@@ -312,6 +335,42 @@ const comparisons = [
     font-size: 1rem;
     line-height: 1.8;
   }
+
+  /* Trust bar */
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    padding: .875rem 1.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: .5rem;
+    background: #fff;
+    transition: all .25s var(--ease-smooth);
+  }
+  .trust-item:hover {
+    border-color: var(--brand-gold-soft);
+    transform: translateY(-2px);
+    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.06);
+  }
+  .trust-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brand-gold-soft);
+    flex-shrink: 0;
+  }
+  .trust-label {
+    font-size: .8rem;
+    font-weight: 700;
+    color: #334155;
+    letter-spacing: -.01em;
+  }
+
   .service-list {
     margin-top: 3.5rem;
     border-top: 1px solid rgba(255, 255, 255, 0.16);
@@ -323,11 +382,12 @@ const comparisons = [
     gap: 1.2rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.16);
     padding: 1.6rem 0;
-    transition: padding 0.35s var(--ease), background 0.35s var(--ease);
+    transition: padding 0.35s var(--ease-smooth), background 0.35s var(--ease-smooth), transform 0.35s var(--ease-smooth);
   }
   .service-list > a:hover {
     padding-inline: 0.8rem;
     background: rgba(54, 114, 172, 0.09);
+    transform: translateX(4px);
   }
   .service-list h3 {
     font-size: clamp(1.6rem, 3vw, 2.6rem);
@@ -341,11 +401,12 @@ const comparisons = [
   .service-arrow {
     color: var(--brand-blue-soft);
     font-size: 1.4rem;
-    transition: transform 0.3s var(--ease);
+    transition: transform 0.3s var(--ease-smooth);
   }
   .service-list > a:hover .service-arrow {
     transform: translate(0.25rem, -0.25rem);
   }
+
   .material-grid {
     display: grid;
     gap: 1px;
@@ -359,12 +420,17 @@ const comparisons = [
     overflow: hidden;
     background: #050906;
     isolation: isolate;
+    transition: transform 0.5s var(--ease-smooth);
+  }
+  .material-card:hover {
+    transform: translateY(-4px);
+    z-index: 2;
   }
   .material-specimen {
     position: absolute;
     inset: 0;
     overflow: hidden;
-    transition: transform 0.8s var(--ease), filter 0.8s var(--ease);
+    transition: transform 0.8s var(--ease-smooth), filter 0.8s var(--ease-smooth);
   }
   .material-card:hover .material-specimen {
     transform: scale(1.06);
@@ -420,6 +486,15 @@ const comparisons = [
     font-size: 0.68rem;
     font-weight: 800;
   }
+
+  .qc-card {
+    transition: transform 0.4s var(--ease-smooth), border-color 0.4s ease;
+  }
+  .qc-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(211, 177, 93, 0.3);
+  }
+
   .showcase-grid {
     display: grid;
     gap: 1rem;
@@ -431,6 +506,10 @@ const comparisons = [
     overflow: hidden;
     background: #050906;
     border-radius: 0.75rem;
+    transition: transform 0.5s var(--ease-smooth);
+  }
+  .showcase-card:hover {
+    transform: translateY(-4px);
   }
   .showcase-card img {
     position: absolute;
@@ -438,7 +517,7 @@ const comparisons = [
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.7s var(--ease);
+    transition: transform 0.7s var(--ease-smooth);
   }
   .showcase-card:hover img {
     transform: scale(1.045);
@@ -468,6 +547,7 @@ const comparisons = [
     color: #fff;
     font-size: 1.8rem;
   }
+
   .process-strip {
     border-block: 1px solid var(--line);
     background: var(--surface);
@@ -501,37 +581,23 @@ const comparisons = [
   }
 
   @media (min-width: 760px) {
-    .material-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-    .material-card:last-child {
-      grid-column: span 2;
-    }
-    .showcase-grid {
-      grid-template-columns: 1.25fr 0.75fr;
-    }
-    .showcase-wide {
-      grid-row: span 2;
-    }
-    .process-strip > .container-custom {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-    .process-strip > .container-custom > div + div {
-      border-left: 1px solid var(--line);
-      padding-left: 2rem;
-    }
+    .trust-grid { grid-template-columns: repeat(3, 1fr); }
+    .material-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .material-card:last-child { grid-column: span 2; }
+    .showcase-grid { grid-template-columns: 1.25fr 0.75fr; }
+    .showcase-wide { grid-row: span 2; }
+    .process-strip > .container-custom { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .process-strip > .container-custom > div + div { border-left: 1px solid var(--line); padding-left: 2rem; }
   }
 
   @media (min-width: 1024px) {
-    .section-head {
-      grid-template-columns: 1.15fr 0.85fr;
-      align-items: end;
-    }
+    .trust-grid { grid-template-columns: repeat(6, 1fr); }
+    .section-head { grid-template-columns: 1.15fr 0.85fr; align-items: end; }
   }
 
   @media (max-width: 640px) {
-    .showcase-card {
-      min-height: 23rem;
-    }
+    .showcase-card { min-height: 23rem; }
+    .trust-grid { grid-template-columns: 1fr; }
+    .trust-item { padding: .75rem 1rem; }
   }
 </style>
