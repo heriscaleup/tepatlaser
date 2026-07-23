@@ -10,7 +10,7 @@ const props = Astro.props;
 const siteUrl = new URL(Astro.site || 'https://tepatlaser.com');
 const generated = props.metaTags || {};
 const pageTitle = props.title || generated.title || 'Tepat Laser — Precision Fabrication';
-const pageDescription = props.description || generated.description || 'Laser cutting, CNC router, fiber laser, CO2, dan galvo engraving untuk kebutuhan industri, arsitektur, interior, signage, dan custom.';
+const pageDescription = props.description || generated.description || 'Laser cutting, CNC router, fiber laser, CO2, dan galvo engraving untuk kebutuhan industri, arsitektur, interior, signage, dan custom. Workshop Tangerang Selatan.';
 const pageKeywords = props.keywords || generated.keywords || 'jasa laser cutting, laser cutting Tangerang Selatan, CNC router, laser fiber, laser CO2';
 const pageUrl = new URL(props.url || generated.url || Astro.url.pathname, siteUrl).href;
 const canonicalUrl = new URL(props.canonical || generated.canonical || pageUrl, siteUrl).href;
@@ -26,24 +26,34 @@ const jsonLd = props.jsonLd || [];
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b0d0e" />
-    <meta name="tepat-release" content="v6-2026-07-21" />
+    <meta name="tepat-release" content="v7-2026-07-24" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content={pageKeywords} />
     <meta name="author" content={props.author || generated.author || 'Tim Teknis Tepat Laser'} />
     <meta name="robots" content={props.noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+    <meta name="googlebot" content={props.noindex ? 'noindex, nofollow' : 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'} />
     <link rel="canonical" href={canonicalUrl} />
-    <link rel="icon" href="/favicon.ico?v=6" />
+    <link rel="icon" href="/favicon.ico?v=7" />
     <link rel="manifest" href="/manifest.json" />
     <link rel="preload" href="/fonts/ClashDisplay-Semibold.woff" as="font" type="font/woff" crossorigin="anonymous" />
-    {Astro.url.pathname === '/' && <link rel="preload" href="/images/generated/fiber-laser-v5.webp" as="image" type="image/webp" fetchpriority="high" />}
+    {Astro.url.pathname === '/' && <link rel="preload" href="/images/generated/fiber-laser-v6.webp" as="image" type="image/webp" fetchpriority="high" />}
     <link rel="dns-prefetch" href="//api.whatsapp.com" />
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     <link rel="dns-prefetch" href="//www.googletagmanager.com" />
     <meta property="og:type" content={generated.openGraph?.type || props.type || 'website'} />
-    <meta property="og:title" content={ogTitle} /><meta property="og:description" content={ogDescription} />
-    <meta property="og:url" content={pageUrl} /><meta property="og:image" content={imageUrl} /><meta property="og:site_name" content="Tepat Laser" /><meta property="og:locale" content="id_ID" />
-    <meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={ogTitle} /><meta name="twitter:description" content={ogDescription} /><meta name="twitter:image" content={imageUrl} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:url" content={pageUrl} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Tepat Laser" />
+    <meta property="og:locale" content="id_ID" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={imageUrl} />
     {props.publishedTime && <meta property="article:published_time" content={props.publishedTime} />}
     {props.modifiedTime && <meta property="article:modified_time" content={props.modifiedTime} />}
     <script is:inline type="application/ld+json" set:html={JSON.stringify({
@@ -58,7 +68,16 @@ const jsonLd = props.jsonLd || [];
       image: imageUrl,
       priceRange: 'Rp',
       address: { '@type': 'PostalAddress', streetAddress: 'Jl. Bintaro BSD No. 1 D', addressLocality: 'Tangerang Selatan', addressRegion: 'Banten', addressCountry: 'ID' },
-      areaServed: ['Tangerang Selatan', 'Jakarta Selatan', 'Depok', 'Tangerang', 'Bogor', 'Bekasi', 'Jabodetabek']
+      geo: { '@type': 'GeoCoordinates', latitude: '-6.2765', longitude: '106.7196' },
+      areaServed: ['Tangerang Selatan', 'Jakarta Selatan', 'Depok', 'Tangerang', 'Bogor', 'Bekasi', 'Jabodetabek'],
+      openingHoursSpecification: [
+        { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'], opens: '08:00', closes: '17:00' }
+      ],
+      sameAs: [
+        'https://www.instagram.com/jasalasercutting.tangsel/',
+        'https://www.facebook.com/profile.php?id=100054220779104',
+        'https://www.youtube.com/@heriasari4189'
+      ]
     })} />
     {jsonLd.map((schema) => <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />)}
     <!-- Marketing tags: antri di dataLayer, load JS SETELAH LCP atau interaksi user -->
@@ -86,12 +105,10 @@ const jsonLd = props.jsonLd || [];
           d.head.appendChild(gtmScript);
         };
 
-        // Trigger 1: interaksi user (paling cepat)
         ['pointerdown','keydown','touchstart','scroll'].forEach(function(eventName){
           w.addEventListener(eventName, loadMarketingTags, { once: true, passive: true });
         });
 
-        // Trigger 2: setelah LCP selesai + 300ms buffer
         try {
           var lcpObserver = new PerformanceObserver(function(list) {
             lcpObserver.disconnect();
@@ -100,7 +117,6 @@ const jsonLd = props.jsonLd || [];
           lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
         } catch(e) {}
 
-        // Trigger 3: fallback 5 detik setelah load
         w.addEventListener('load', function(){ setTimeout(loadMarketingTags, 5000); }, { once: true });
       })(window,document);
     </script>
@@ -110,46 +126,78 @@ const jsonLd = props.jsonLd || [];
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PBR27KH7"
     title="Google Tag Manager" height="0" width="0" style="display:none;visibility:hidden" referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
+
     <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+
+    <!-- Grain overlay for industrial texture -->
+    <div class="grain-overlay" aria-hidden="true"></div>
+
+    <!-- Custom cursor (desktop only) -->
+    <div class="custom-cursor hidden lg:block" id="custom-cursor" aria-hidden="true">
+      <div class="custom-cursor-dot" id="cursor-dot"></div>
+      <div class="custom-cursor-ring" id="cursor-ring" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+    </div>
+
+    <!-- Scroll progress indicator -->
     <div class="pointer-events-none fixed inset-x-0 top-0 z-[80] h-[2px] origin-left scale-x-0" style="background:var(--brand-spectrum)" id="scroll-progress"></div>
+
+    <!-- Page wipe transition -->
     <div class="page-wipe" aria-hidden="true"><span></span><span></span><span></span></div>
+
     <slot name="header" />
     <div id="main-content" class="site-shell min-h-screen"><slot /></div>
     <slot name="footer" />
+
     <script is:inline>
       const initBase = () => {
-        const release = 'v6-2026-07-21';
+        const release = 'v7-2026-07-24';
         if (localStorage.getItem('tepat-release') !== release) {
           navigator.serviceWorker?.getRegistrations?.().then((items) => items.forEach((item) => item.unregister()));
           window.caches?.keys?.().then((keys) => Promise.all(keys.map((key) => window.caches.delete(key))));
           localStorage.setItem('tepat-release', release);
         }
+
+        // Scroll progress
         const progress = document.querySelector('#scroll-progress');
         const updateProgress = () => {
           const max = document.documentElement.scrollHeight - window.innerHeight;
           if (progress) progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
         };
         window.addEventListener('scroll', updateProgress, { passive: true }); updateProgress();
+
+        // WhatsApp tracking
         document.querySelectorAll('a[href*="api.whatsapp.com"], a[href*="wa.me"]').forEach((link) => link.addEventListener('click', () => {
           window.dispatchEvent(new CustomEvent('tepat:whatsapp-click', { detail: { label: link.dataset.waLabel || link.textContent?.trim() || 'WhatsApp Button', path: window.location.pathname } }));
         }));
+
+        // Motion reveal system (V7 enhanced)
         const revealTargets = [...document.querySelectorAll('main > section, main > article > section, main > article + section')].slice(1);
         if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
           const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
             if (entry.isIntersecting) {
               entry.target.classList.add('is-inview');
+              // Also trigger child text-reveal and img-reveal
+              entry.target.querySelectorAll('.text-reveal, .img-reveal').forEach((el) => el.classList.add('is-inview'));
               observer.unobserve(entry.target);
             }
-          }), { rootMargin: '0px 0px -10% 0px', threshold: .08 });
+          }), { rootMargin: '0px 0px -8% 0px', threshold: .06 });
           revealTargets.forEach((section) => {
             if (section.getBoundingClientRect().top > window.innerHeight * .82) {
               section.classList.add('motion-section');
               observer.observe(section);
+            } else {
+              section.classList.add('is-inview');
+              section.querySelectorAll('.text-reveal, .img-reveal').forEach((el) => el.classList.add('is-inview'));
             }
           });
         } else {
-          revealTargets.forEach((section) => section.classList.add('is-inview'));
+          revealTargets.forEach((section) => {
+            section.classList.add('is-inview');
+            section.querySelectorAll('.text-reveal, .img-reveal').forEach((el) => el.classList.add('is-inview'));
+          });
         }
+
+        // Parallax system
         const parallaxTargets = [...document.querySelectorAll('.home-hero-media,.capability-visual,.application-visual,[data-parallax]')];
         parallaxTargets.forEach((target) => target.setAttribute('data-parallax', ''));
         if (parallaxTargets.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.innerWidth > 767) {
@@ -164,6 +212,8 @@ const jsonLd = props.jsonLd || [];
           window.addEventListener('scroll', () => { if (!scheduled) { scheduled = true; requestAnimationFrame(updateParallax); } }, { passive: true });
           updateParallax();
         }
+
+        // Page transition wipe
         document.querySelectorAll('a[href]').forEach((link) => link.addEventListener('click', (event) => {
           if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.target || link.hasAttribute('download')) return;
           const destination = new URL(link.href, location.href);
@@ -173,6 +223,32 @@ const jsonLd = props.jsonLd || [];
           setTimeout(() => location.assign(destination.href), 320);
         }));
         window.addEventListener('pageshow', () => document.body.classList.remove('is-leaving'));
+
+        // Custom cursor (desktop, no reduced motion)
+        if (window.innerWidth > 1023 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          const cursor = document.getElementById('custom-cursor');
+          const dot = document.getElementById('cursor-dot');
+          const ring = document.getElementById('cursor-ring');
+          if (cursor && dot && ring) {
+            let mx = 0, my = 0, dx = 0, dy = 0, rx = 0, ry = 0;
+            document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+            const animateCursor = () => {
+              dx += (mx - dx) * 0.15;
+              dy += (my - dy) * 0.15;
+              rx += (mx - rx) * 0.08;
+              ry += (my - ry) * 0.08;
+              dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
+              ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%, -50%)`;
+              requestAnimationFrame(animateCursor);
+            };
+            animateCursor();
+
+            document.querySelectorAll('a, button, [data-magnetic], summary').forEach((el) => {
+              el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+              el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+            });
+          }
+        }
       };
       document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', initBase, { once: true }) : initBase();
     </script>
