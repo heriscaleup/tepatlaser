@@ -9,7 +9,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
 <header class="fixed inset-x-0 top-0 z-50 glass-header" id="main-header">
   <div class="container-custom flex h-[4.8rem] items-center justify-between gap-5">
     <a href="/" class="brand-lockup" aria-label="Tepat Laser, kembali ke beranda">
-      <img class="brand-logo" src="/images/tepat-laser-mark.svg" alt="Tepat Laser — Precision Beyond Expectation" width="320" height="64" decoding="async" />
+      <span class="header-logo-shell"><img class="brand-logo" src="/images/logo.webp" alt="Tepat Laser — Precision Beyond Expectation" width="320" height="64" decoding="async" /></span>
     </a>
 
     <nav class="desktop-nav hidden items-center gap-7 lg:flex" aria-label="Navigasi utama">
@@ -123,7 +123,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
   .mobile-subgrid a{border:1px solid var(--line);background:var(--surface);padding:.7rem;font-size:.75rem;font-weight:700}
   .mobile-panel summary span,.mobile-panel .btn-primary span{font-family:Arial,sans-serif;font-weight:400;letter-spacing:0}
   .mobile-panel nav>.btn-primary{justify-content:center;border:0;color:#09100d;font-family:Inter,ui-sans-serif,sans-serif;font-size:.85rem;font-weight:800;letter-spacing:0}
-  .brand-logo{width:10.4rem;height:2.35rem;object-fit:contain;object-position:left center}
-  @media(max-width:640px){.brand-logo{width:8.7rem;height:2rem}}
+  .header-logo-shell{display:inline-flex;background:#fff;padding:.25rem .45rem;border-radius:4px}.brand-logo{width:10.4rem;height:auto;object-fit:contain;object-position:left center;mix-blend-mode:multiply}
+  @media(max-width:640px){.brand-logo{width:8.7rem}}
   @keyframes nav-arrive{from{opacity:0;transform:translateY(-.7rem)}to{opacity:1;transform:none}}
 </style>
