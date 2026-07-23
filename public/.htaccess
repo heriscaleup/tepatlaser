@@ -1,11 +1,11 @@
 # Explicitly force LiteSpeed to serve index.html for tepatlaser.com
-DirectoryIndex index.html index.php
+DirectoryIndex index.html public_html/index.html index.php
 
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
 
-    # Serve index.html for root
+    # Serve index.html for root if in subfolder or root
     RewriteRule ^$ index.html [L]
 
     # Fallback to index.html for static routes if file/dir does not exist
@@ -15,3 +15,4 @@ DirectoryIndex index.html index.php
 </IfModule>
 
 Options -Indexes +FollowSymLinks
+
