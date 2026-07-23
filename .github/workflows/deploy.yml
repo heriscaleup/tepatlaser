@@ -46,6 +46,15 @@ jobs:
           echo "version=$RELEASE" >> $GITHUB_OUTPUT
           echo "Release version: $RELEASE"
 
+      # 5.5 Debug list remote FTP directories
+      - name: Debug List FTP Directories
+        shell: bash
+        run: |
+          echo "=== Root FTP Directory ==="
+          curl --ftp-ssl -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" ftp://103.185.53.100/ || true
+          echo "=== public_html Directory ==="
+          curl --ftp-ssl -u "${{ secrets.FTP_USERNAME }}:${{ secrets.FTP_PASSWORD }}" ftp://103.185.53.100/public_html/ || true
+
       # 6. Deploy ke Hostinger via FTP
       - name: Deploy to Hostinger
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
