@@ -56,8 +56,9 @@ jobs:
           port: 21
           protocol: ftps
           local-dir: ./dist/
-          server-dir: /public_html/
-          state-name: .ftp-deploy-sync-state-v11.json
+          server-dir: public_html/
+          state-name: .ftp-deploy-sync-state-v20.json
+          dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.git*/**
