@@ -11,7 +11,7 @@ export const SITE_CONFIG = {
   email: "info@tepatlaser.com",
   address: "Jl. Bintaro–BSD No. 1D, Parigi (samping SD Mentari Intercultural School), Tangerang Selatan, Banten",
   phone: "+62 821-2129-2937",
-  businessHours: "Senin - Sabtu: 08.00 - 17.00 WIB",
+  businessHours: "Senin–Sabtu: 09.00–18.00 WIB",
   socialMedia: {
     facebook: "https://www.facebook.com/profile.php?id=100054220779104",
     instagram: "https://www.instagram.com/jasalasercutting.tangsel/",
@@ -59,10 +59,10 @@ export const SERVICES = [
     slug: "jasa-laser-co2",
     description: "Pemotongan presisi untuk material non-metal seperti akrilik, kayu, MDF, kertas, kain, dan karet",
     features: [
-      "Ketebalan material hingga 20mm",
-      "Presisi hingga 0.1mm",
-      "Tepi potong halus dan rapi",
-      "Ideal untuk signage, dekorasi, prototyping"
+      "Cocok untuk material non-metal yang kompatibel",
+      "Detail potong mengikuti kualitas file dan karakter material",
+      "Parameter diuji untuk menjaga tepi dan permukaan",
+      "Ideal untuk signage, dekorasi, prototyping, dan kemasan"
     ],
     applications: ["Signage", "Dekorasi", "Prototyping", "Kemasan"],
     image: "/images/generated/co2-acrylic-v5.webp",
@@ -75,9 +75,9 @@ export const SERVICES = [
     description: "Pemotongan dan penandaan presisi untuk metal seperti stainless steel, aluminium, besi, dan tembaga",
     features: [
       "Marking permanen & tahan lama",
-      "Cutting metal hingga 10mm",
-      "Kecepatan tinggi dan efisiensi biaya",
-      "Tidak memerlukan bahan kimia berbahaya"
+      "Kapasitas ketebalan dikonfirmasi menurut jenis metal",
+      "Konsisten untuk komponen berulang dan produksi batch",
+      "Parameter gas, fokus, dan kecepatan disesuaikan material"
     ],
     applications: ["Industri", "Otomotif", "Elektronik", "Identitas produk"],
     image: "/images/generated/fiber-laser-v5.webp",
@@ -90,9 +90,9 @@ export const SERVICES = [
     description: "Pengerjaan kompleks untuk material keras seperti ACP, GRC, kayu keras, dan plastik tebal",
     features: [
       "3D carving dan profiling",
-      "Kemampuan memotong material tebal",
+      "Kemampuan memproses panel dan material lebih tebal",
       "Repeatability tinggi untuk produksi massal",
-      "Finishing presisi untuk detail rumit"
+      "Detail mengikuti diameter tool dan strategi pemakanan"
     ],
     applications: ["Fasad", "Furnitur", "Profil", "Signage"],
     image: "/images/generated/cnc-router-v5.webp",
@@ -104,10 +104,10 @@ export const SERVICES = [
     slug: "jasa-galvo-engraving",
     description: "Grafir berkecepatan tinggi untuk personalisasi dan identitas produk pada berbagai material",
     features: [
-      "Kecepatan engraving hingga 10x lebih cepat",
       "Resolusi tinggi untuk detail kompleks",
       "Personalisasi batch dalam waktu singkat",
-      "Ideal untuk serial number, logo, QR code"
+      "Ideal untuk serial number, logo, QR code",
+      "Keterbacaan dan kontras diuji pada material aktual"
     ],
     applications: ["Identitas produk", "Personalisasi", "Ketertelusuran", "Promosi"],
     image: "/images/generated/galvo-engraving-v5.webp",
@@ -150,7 +150,7 @@ export const MATERIALS = [
     id: "metal",
     name: "Metal (Stainless, Aluminium)",
     slug: "jasa-laser-cutting-metal",
-    description: "Laser cutting metal presisi tinggi untuk stainless steel (SS201/SS304/SS316), aluminium, dan plat besi. Toleransi ±0.02mm, ketebalan 0.5–10mm, pengerjaan 1–3 hari kerja.",
+    description: "Laser cutting metal untuk stainless steel, aluminium, dan plat besi. Kelayakan material, toleransi, ketebalan, serta estimasi waktu dikonfirmasi setelah file dan jumlah ditinjau.",
     thickness: "0.5mm - 10mm",
     applications: ["Industri", "Arsitektur", "Otomotif", "Identitas produk"],
     image: "/images/metal.webp",
@@ -204,7 +204,7 @@ export const PORTFOLIO_PROJECTS = [
       "/images/metal.webp",
       "/images/metal.webp"
     ],
-    detailDescription: "Proyek pemotongan plat besi custom dengan ketebalan 5mm menggunakan teknologi laser fiber. Hasil potongan sangat presisi dengan toleransi ±0.1mm, cocok untuk komponen industri yang membutuhkan akurasi tinggi."
+    detailDescription: "Contoh pemotongan plat besi 5 mm menggunakan laser fiber. Toleransi aktual harus ditentukan dari fungsi komponen, geometri, kondisi material, dan metode pemeriksaan yang disepakati."
   },
   {
     id: 2,
@@ -248,9 +248,9 @@ export const PORTFOLIO_PROJECTS = [
     material: "Kayu Jati Solid",
     technique: "CNC Router Machining",
     gallery: [
-      "/tepatlaser/images/mdf.webp",
-      "/tepatlaser/images/mdf.webp",
-      "/tepatlaser/images/mdf.webp"
+      "/images/mdf.webp",
+      "/images/mdf.webp",
+      "/images/mdf.webp"
     ],
     detailDescription: "Pengerjaan kayu jati solid menggunakan CNC router dengan presisi tinggi. Menghasilkan detail ukiran dan bentuk yang kompleks sesuai desain custom untuk furniture berkualitas premium."
   },
@@ -264,9 +264,9 @@ export const PORTFOLIO_PROJECTS = [
     material: "Aluminium 3mm",
     technique: "Fiber Laser Cutting",
     gallery: [
-      "/tepatlaser/images/furnituremetal.webp",
-      "/tepatlaser/images/furnituremetal.webp",
-      "/tepatlaser/images/furnituremetal.webp"
+      "/images/furnituremetal.webp",
+      "/images/furnituremetal.webp",
+      "/images/furnituremetal.webp"
     ],
     detailDescription: "Pemotongan plat aluminium dengan ketebalan 3mm untuk komponen otomotif. Menggunakan laser fiber yang menghasilkan potongan bersih tanpa burr dan presisi tinggi sesuai standar industri otomotif."
   },
@@ -280,9 +280,9 @@ export const PORTFOLIO_PROJECTS = [
     material: "Kayu Mahoni",
     technique: "CO2 Laser Engraving",
     gallery: [
-      "/tepatlaser/images/singagehote.webp",
-      "/tepatlaser/images/singagehote.webp",
-      "/tepatlaser/images/singagehote.webp"
+      "/images/singagehote.webp",
+      "/images/singagehote.webp",
+      "/images/singagehote.webp"
     ],
     detailDescription: "Engraving detail pada kayu mahoni premium menggunakan laser CO2. Menghasilkan detail ukiran yang halus dan artistik, cocok untuk souvenir eksklusif dan produk kerajinan berkualitas tinggi."
   }
@@ -361,7 +361,7 @@ export const FAQ = [
   {
     id: 1,
     question: "Berapa lama waktu pengerjaan laser cutting?",
-    answer: "Waktu pengerjaan mengikuti kompleksitas desain, material, jumlah, dan antrean mesin. Sebagai gambaran awal, banyak pekerjaan dapat selesai dalam 1–3 hari kerja setelah file, material, dan penawaran disetujui. Jadwal final dikonfirmasi sebelum produksi."
+    answer: "Waktu pengerjaan mengikuti kompleksitas desain, material, jumlah, finishing, dan antrean mesin. Estimasi serta tanggal selesai dikonfirmasi setelah file, material, lingkup pekerjaan, dan penawaran disetujui."
   },
   {
     id: 2,
@@ -371,7 +371,7 @@ export const FAQ = [
   {
     id: 3,
     question: "Material apa saja yang bisa dipotong dengan laser?",
-    answer: "Kami menyediakan berbagai pilihan material seperti akrilik, kayu (MDF, Plywood), metal (stainless steel, aluminium), karet, kain, kertas, dan PVC. Untuk informasi lengkap dan ketersediaan material terbaru, silakan hubungi tim kami."
+    answer: "Laser CO2 digunakan untuk material non-metal yang kompatibel seperti akrilik, MDF, plywood, kertas, dan kain; laser fiber untuk metal seperti stainless steel, aluminium, dan besi. PVC diproses dengan CNC router, bukan laser, karena aspek keselamatan material. Kelayakan setiap bahan tetap ditinjau sebelum produksi."
   },
   {
     id: 4,

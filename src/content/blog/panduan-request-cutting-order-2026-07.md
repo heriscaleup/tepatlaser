@@ -58,12 +58,12 @@ Ini adalah tahap paling krusial. File desain yang tidak standar adalah penyebab 
 
 ### Checklist File Sebelum Dikirim
 
-- [ ] Semua garis dalam mode **vektor** (bukan bitmap/raster/JPG/PNG)
-- [ ] Garis potong dan engrave dibedakan dengan **warna berbeda** (standar: merah untuk potong)
-- [ ] Ukuran dinyatakan dalam **milimeter (mm)**
-- [ ] Tidak ada garis tumpang tindih (*overlapping lines*)
-- [ ] Path tertutup sempurna (*closed path*) untuk area yang dipotong
-- [ ] Tidak ada objek tersembunyi di layer yang tidak terpakai
+- ☐ Semua garis dalam mode **vektor** (bukan bitmap/raster/JPG/PNG)
+- ☐ Garis potong dan engrave dibedakan dengan **warna berbeda** (standar: merah untuk potong)
+- ☐ Ukuran dinyatakan dalam **milimeter (mm)**
+- ☐ Tidak ada garis tumpang tindih (*overlapping lines*)
+- ☐ Path tertutup sempurna (*closed path*) untuk area yang dipotong
+- ☐ Tidak ada objek tersembunyi di layer yang tidak terpakai
 
 ---
 

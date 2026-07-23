@@ -8,39 +8,39 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
 
 <header class="fixed inset-x-0 top-0 z-50 glass-header" id="main-header">
   <div class="container-custom flex h-[4.8rem] items-center justify-between gap-5">
-    <a href="/" class="brand-lockup" aria-label="Tepat Laser, kembali ke beranda" data-magnetic>
-      <img class="brand-logo" src="/images/logo.webp" alt="Tepat Laser — Precision Beyond Expectation" width="1200" height="594" decoding="async" />
+    <a href="/" class="brand-lockup" aria-label="Tepat Laser, kembali ke beranda">
+      <img class="brand-logo" src="/images/tepat-laser-mark-dark.svg" alt="Tepat Laser" width="320" height="64" decoding="async" />
     </a>
 
     <nav class="desktop-nav hidden items-center gap-7 lg:flex" aria-label="Navigasi utama">
-      <a href="/" class:list={["nav-link", isActive('/') && "is-active"]} data-magnetic>Beranda</a>
-      <a href="/about/" class:list={["nav-link", isActive('/about/') && "is-active"]} data-magnetic>Tentang</a>
+      <a href="/" class:list={["nav-link", isActive('/') && "is-active"]}>Beranda</a>
+      <a href="/about/" class:list={["nav-link", isActive('/about/') && "is-active"]}>Tentang</a>
       <details class="nav-mega" data-nav-dropdown>
-        <summary class:list={["nav-link cursor-pointer list-none", (isActive('/jasa-') || isActive('/laser-')) && "is-active"]} data-magnetic>
+        <summary class:list={["nav-link cursor-pointer list-none", (isActive('/jasa-') || isActive('/laser-')) && "is-active"]}>
           Layanan <span aria-hidden="true">⌄</span>
         </summary>
         <div class="mega-panel">
           <div>
             <p class="mega-label">Proses produksi</p>
             <div class="mt-4 grid gap-1">
-              {SERVICES.map((item) => <a href={`/${item.slug}/`} data-magnetic><span>{item.name}</span><small>{item.applications.slice(0,2).join(' · ')}</small></a>)}
+              {SERVICES.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><small>{item.applications.slice(0,2).join(' · ')}</small></a>)}
             </div>
           </div>
           <div>
             <p class="mega-label">Material populer</p>
             <div class="mt-4 grid grid-cols-2 gap-1">
-              {MATERIALS.map((item) => <a href={`/${item.slug}/`} data-magnetic><span>{item.name}</span><small>{item.thickness}</small></a>)}
+              {MATERIALS.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><small>{item.thickness}</small></a>)}
             </div>
           </div>
-          <a href="/services/" class="mega-all" data-magnetic>Lihat semua kapabilitas <span>↗</span></a>
+          <a href="/services/" class="mega-all">Lihat semua kapabilitas <span>↗</span></a>
         </div>
       </details>
-      <a href="/portfolio/" class:list={["nav-link", isActive('/portfolio/') && "is-active"]} data-magnetic>Portofolio</a>
-      <a href="/blog/" class:list={["nav-link", isActive('/blog/') && "is-active"]} data-magnetic>Wawasan</a>
+      <a href="/portfolio/" class:list={["nav-link", isActive('/portfolio/') && "is-active"]}>Portofolio</a>
+      <a href="/blog/" class:list={["nav-link", isActive('/blog/') && "is-active"]}>Wawasan</a>
     </nav>
 
     <div class="desktop-cta hidden lg:block">
-      <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary min-h-10 px-5 py-2 text-xs" data-wa-label="Header WhatsApp" data-magnetic>Kirim brief <span>↗</span></a>
+      <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-primary min-h-10 px-5 py-2 text-sm" data-wa-label="Header WhatsApp">Kirim brief <span>↗</span></a>
     </div>
 
     <button id="mobile-menu-button" class="mobile-toggle lg:hidden" aria-expanded="false" aria-controls="mobile-menu" aria-label="Buka menu navigasi">
@@ -74,8 +74,6 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
     const menuButton = document.querySelector('#mobile-menu-button');
     const menu = document.querySelector('#mobile-menu');
     const dropdowns = [...document.querySelectorAll('[data-nav-dropdown]')];
-    let lastScroll = 0;
-    let ticking = false;
 
     const setMobile = (open) => {
       menuButton?.setAttribute('aria-expanded', String(open));
@@ -94,52 +92,31 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
     });
     window.addEventListener('keydown', (event) => { if (event.key === 'Escape') { setMobile(false); dropdowns.forEach((item) => item.open = false); } });
 
-    // Scroll behavior: hide on scroll down, show on scroll up
+    // Add a restrained shadow after the header leaves the top edge.
+    let ticking = false;
     const onScroll = () => {
-      const currentScroll = window.scrollY;
-      header?.classList.toggle('glass-header-scrolled', currentScroll > 10);
-      if (currentScroll > lastScroll && currentScroll > 120) {
-        header?.classList.add('glass-header-hidden');
-      } else {
-        header?.classList.remove('glass-header-hidden');
-      }
-      lastScroll = currentScroll;
+      header?.classList.toggle('glass-header-scrolled', window.scrollY > 10);
       ticking = false;
     };
     window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
     onScroll();
-
-    // Magnetic hover effect for desktop
-    if (window.innerWidth > 1023 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.querySelectorAll('[data-magnetic]').forEach((el) => {
-        el.addEventListener('mousemove', (e) => {
-          const rect = el.getBoundingClientRect();
-          const x = e.clientX - rect.left - rect.width / 2;
-          const y = e.clientY - rect.top - rect.height / 2;
-          el.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-        });
-        el.addEventListener('mouseleave', () => {
-          el.style.transform = '';
-        });
-      });
-    }
   };
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', initHeader, { once: true }) : initHeader();
 </script>
 
 <style>
-  .nav-link{position:relative;display:inline-flex;align-items:center;gap:.35rem;padding:.7rem 0;color:var(--header-muted);font-size:.82rem;font-weight:700;line-height:1;transition:color .2s ease;animation:nav-arrive .7s var(--ease-smooth) both}
+  .nav-link{position:relative;display:inline-flex;align-items:center;gap:.35rem;padding:.7rem 0;color:var(--header-muted);font-size:.9rem;font-weight:700;line-height:1;transition:color .2s ease;animation:nav-arrive .7s var(--ease-smooth) both}
   .desktop-nav>.nav-link:nth-child(2),.desktop-nav>details:nth-child(2){animation-delay:.06s}.desktop-nav>.nav-link:nth-child(3),.desktop-nav>details:nth-child(3){animation-delay:.12s}.desktop-nav>.nav-link:nth-child(4){animation-delay:.18s}.desktop-nav>.nav-link:nth-child(5){animation-delay:.24s}
   .nav-link:hover,.nav-link.is-active{color:var(--header-ink)}
   .nav-link.is-active::after{position:absolute;right:0;bottom:.15rem;left:0;height:2px;content:'';background:var(--brand-spectrum)}
   .nav-mega{position:relative}
   .nav-mega summary::-webkit-details-marker{display:none}
   .mega-panel{position:absolute;top:calc(100% + .7rem);left:50%;display:grid;width:min(53rem,calc(100vw - 3rem));grid-template-columns:.8fr 1.35fr;gap:2rem;border:1px solid var(--line);background:var(--surface);padding:1.4rem;box-shadow:var(--shadow);transform:translateX(-50%)}
-  .mega-label{color:var(--brand-gold-soft);font-size:.65rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.mega-panel>div:nth-child(2) .mega-label{color:var(--brand-blue-soft)}
+  .mega-label{color:var(--brand-gold-soft);font-size:.75rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}.mega-panel>div:nth-child(2) .mega-label{color:var(--brand-blue-soft)}
   .mega-panel a{display:flex;min-width:0;align-items:center;justify-content:space-between;gap:1rem;border-radius:.35rem;padding:.65rem .7rem;transition:background .2s ease}
   .mega-panel a:hover{background:var(--surface-soft)}
-  .mega-panel a span{font-size:.82rem;font-weight:700}
-  .mega-panel a small{overflow:hidden;color:var(--muted);font-size:.62rem;line-height:1.2;text-align:right;text-overflow:ellipsis;white-space:nowrap}
+  .mega-panel a span{font-size:.9rem;font-weight:700}
+  .mega-panel a small{overflow:hidden;color:var(--muted);font-size:.75rem;line-height:1.2;text-align:right;text-overflow:ellipsis;white-space:nowrap}
   .mega-panel .mega-all{position:absolute;right:1.4rem;bottom:-2.55rem;left:1.4rem;border:1px solid var(--brand-gold-soft);background:var(--brand-gold-soft);color:#09100d;padding:.7rem 1rem;box-shadow:var(--shadow)}
   .mega-panel .mega-all:hover{background:#fff}
   .mobile-toggle{position:relative;width:2.75rem;height:2.75rem;border:1px solid var(--header-line);border-radius:50%;background:var(--paper);color:var(--header-ink)}
@@ -151,10 +128,10 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
   .mobile-panel nav>a,.mobile-panel summary{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:1rem 0;font-family:'Clash Display',sans-serif;font-size:1.55rem;font-weight:600;letter-spacing:-.03em}
   .mobile-panel summary{cursor:pointer;list-style:none}.mobile-panel summary::-webkit-details-marker{display:none}
   .mobile-subgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem;padding:.7rem 0 1rem}
-  .mobile-subgrid a{border:1px solid var(--line);background:var(--surface);padding:.7rem;font-size:.75rem;font-weight:700}
+  .mobile-subgrid a{border:1px solid var(--line);background:var(--surface);padding:.8rem;font-size:.85rem;font-weight:700}
   .mobile-panel summary span,.mobile-panel .btn-primary span{font-family:Arial,sans-serif;font-weight:400;letter-spacing:0}
-  .mobile-panel nav>.btn-primary{justify-content:center;border:0;color:#09100d;font-family:Inter,ui-sans-serif,sans-serif;font-size:.85rem;font-weight:800;letter-spacing:0}
-  .brand-logo{width:auto;height:2.3rem;max-height:2.3rem;object-fit:contain;object-position:left center}
-  @media(max-width:640px){.brand-logo{height:2.0rem;max-height:2.0rem}}
+  .mobile-panel nav>.btn-primary{justify-content:center;border:0;color:#09100d;font-family:Inter,ui-sans-serif,sans-serif;font-size:.9rem;font-weight:800;letter-spacing:0}
+  .brand-logo{width:10.5rem;height:auto;object-fit:contain;object-position:left center}
+  @media(max-width:640px){.brand-logo{width:9.25rem}}
   @keyframes nav-arrive{from{opacity:0;transform:translateY(-.7rem)}to{opacity:1;transform:none}}
 </style>

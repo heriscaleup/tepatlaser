@@ -1,8 +1,8 @@
 {
-  "release": "v7-2026-07-24",
-  "version": "v7-2026-07-24",
-  "design": "industrial-premium-awwwards",
-  "pallet": {
+  "release": "v8-2026-07-24",
+  "version": "v8-2026-07-24",
+  "design": "industrial-editorial-performance",
+  "palette": {
     "red": "#EA314F",
     "gold": "#D3B15D",
     "green": "#50874F",
@@ -10,13 +10,13 @@
     "blue": "#3672AC"
   },
   "features": [
-    "custom-cursor",
-    "grain-overlay",
-    "magnetic-hover",
-    "text-reveal",
-    "image-mask-reveal",
-    "scroll-hide-header",
-    "enhanced-motion-system",
-    "social-proof-bar"
+    "responsive-design-system",
+    "content-complete-route-templates",
+    "verified-business-claims",
+    "content-visible-without-javascript",
+    "reduced-motion-support",
+    "accessible-navigation",
+    "structured-data",
+    "deferred-marketing-tags"
   ]
 }

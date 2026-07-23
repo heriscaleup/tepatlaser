@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64" role="img" aria-labelledby="title desc">
+  <title id="title">Tepat Laser</title>
+  <desc id="desc">Wordmark Tepat Laser dengan simbol jalur laser presisi.</desc>
+  <defs>
+    <linearGradient id="brand-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EA314F"/>
+      <stop offset="45%" stop-color="#D3B15D"/>
+      <stop offset="100%" stop-color="#3672AC"/>
+    </linearGradient>
+  </defs>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M8 14h34L26 32 42 50H8" stroke="#0F172A" stroke-width="7"/>
+    <path d="M53 32h23" stroke="url(#brand-grad)" stroke-width="3.5"/>
+    <path d="M67 23v18" stroke="url(#brand-grad)" stroke-width="3.5"/>
+  </g>
+  <text x="88" y="31" fill="#0F172A" font-family="'Clash Display', 'Inter', system-ui, sans-serif" font-size="27" font-weight="800" letter-spacing="-1">TEPAT</text>
+  <text x="89" y="49" fill="#9A6C14" font-family="'Inter', system-ui, sans-serif" font-size="11" font-weight="700" letter-spacing="3.5">LASER</text>
+</svg>

@@ -12,6 +12,38 @@ const { post } = Astro.props; const { Content } = await render(post); const allP
   </main><Footer slot="footer" />
 </BaseLayout>
 <style>
-  .article-page{padding-top:4.8rem}.article-header{border-bottom:1px solid var(--line);background:var(--surface);padding-block:clamp(4rem,8vw,7rem)}.article-back{color:var(--laser-deep);font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.article-head-grid{display:grid;align-items:end;gap:2.5rem;margin-top:2.5rem}.article-title{margin-top:1.2rem;max-width:56rem;font-size:clamp(2.75rem,6vw,5.6rem);line-height:.98;letter-spacing:-.045em}.article-excerpt{max-width:46rem;margin-top:1.5rem;font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.75}.article-byline{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;border-left:1px solid var(--line);padding-left:1.25rem;font-size:.67rem}.article-byline span{color:var(--muted);font-weight:800;letter-spacing:.1em;text-transform:uppercase}.article-byline time,.article-byline strong{color:var(--ink);font-weight:750}.article-cover{width:100%;aspect-ratio:1.9;margin-top:clamp(2rem,5vw,4rem);object-fit:cover}.article-layout{display:grid;gap:2.5rem;max-width:58rem;margin:3rem auto}.article-layout>aside{height:max-content;border-top:2px solid var(--laser);background:var(--surface);padding:1.2rem}.article-layout>aside>p{color:var(--laser-deep);font-size:.65rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.article-layout aside ul{margin:1rem 0 0;padding:0;list-style:none}.article-layout aside li{display:flex;gap:.65rem;color:var(--muted);font-size:.76rem;line-height:1.55}.article-layout aside li+li{margin-top:.65rem}.article-layout aside li span{width:.35rem;height:.35rem;flex:none;margin-top:.45rem;border-radius:50%;background:var(--laser)}.article-related-links{max-width:46rem;margin:4rem auto 6rem;border-top:1px solid var(--line);padding-top:3rem}.article-related-links>div{display:grid;gap:.6rem;margin-top:1.5rem}.article-related-links>div>a{display:flex;justify-content:space-between;gap:1rem;border:1px solid var(--line);background:var(--surface);padding:1rem;font-size:.8rem;font-weight:750}.article-related-links>div>a:hover{border-color:var(--ink)}.article-faq{margin-top:4rem}.article-faq details{border-top:1px solid var(--line);padding:1rem 0}.article-faq details:last-child{border-bottom:1px solid var(--line)}.article-faq summary{display:flex;justify-content:space-between;gap:1rem;cursor:pointer;list-style:none;font-weight:750}.article-faq summary::-webkit-details-marker{display:none}.article-faq summary span{color:var(--laser)}.article-faq p{margin-top:.8rem;font-size:.82rem;line-height:1.75}.more-grid{display:grid;gap:1rem;margin-top:2rem}.more-grid>a{border:1px solid var(--line);background:var(--surface);padding:1.3rem}.more-grid>a>span{color:var(--laser-deep);font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.more-grid h3{margin-top:2.2rem;font-size:1.3rem;line-height:1.08}.more-grid p{margin-top:.75rem;font-size:.75rem;line-height:1.65}
+  .article-page{padding-top:4.8rem}
+  .article-header{border-bottom:1px solid var(--line);background:var(--surface);padding-block:clamp(4rem,8vw,7rem)}
+  .article-back{color:var(--laser-deep);font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .article-head-grid{display:grid;align-items:end;gap:2.5rem;margin-top:2.5rem}
+  .article-title{margin-top:1.2rem;max-width:20ch;font-size:clamp(2.6rem,5vw,4.8rem);line-height:1;letter-spacing:-.043em}
+  .article-excerpt{max-width:46rem;margin-top:1.5rem;font-size:clamp(1rem,1.6vw,1.2rem);line-height:1.75}
+  .article-byline{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;border-left:1px solid var(--line);padding-left:1.25rem;font-size:.78rem}
+  .article-byline span{color:var(--muted);font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+  .article-byline time,.article-byline strong{color:var(--ink);font-weight:750}
+  .article-cover{width:100%;aspect-ratio:1.9;margin-top:clamp(2rem,5vw,4rem);object-fit:cover}
+  .article-layout{display:grid;gap:2.5rem;max-width:62rem;margin:3rem auto}
+  .article-layout>aside{height:max-content;border-top:2px solid var(--laser);background:var(--surface);padding:1.2rem}
+  .article-layout>aside>p{color:var(--laser-deep);font-size:.75rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+  .article-layout aside ul{margin:1rem 0 0;padding:0;list-style:none}
+  .article-layout aside li{display:flex;gap:.65rem;color:var(--muted);font-size:.85rem;line-height:1.6}
+  .article-layout aside li+li{margin-top:.65rem}
+  .article-layout aside li span{width:.35rem;height:.35rem;flex:none;margin-top:.45rem;border-radius:50%;background:var(--laser)}
+  .article-related-links{max-width:48rem;margin:4rem auto 6rem;border-top:1px solid var(--line);padding-top:3rem}
+  .article-related-links>div{display:grid;gap:.6rem;margin-top:1.5rem}
+  .article-related-links>div>a{display:flex;justify-content:space-between;gap:1rem;border:1px solid var(--line);background:var(--surface);padding:1rem;font-size:.9rem;font-weight:750}
+  .article-related-links>div>a:hover{border-color:var(--ink)}
+  .article-faq{margin-top:4rem}
+  .article-faq details{border-top:1px solid var(--line);padding:1rem 0}
+  .article-faq details:last-child{border-bottom:1px solid var(--line)}
+  .article-faq summary{display:flex;justify-content:space-between;gap:1rem;cursor:pointer;list-style:none;font-weight:750}
+  .article-faq summary::-webkit-details-marker{display:none}
+  .article-faq summary span{color:var(--laser)}
+  .article-faq p{margin-top:.8rem;font-size:.92rem;line-height:1.75}
+  .more-grid{display:grid;gap:1rem;margin-top:2rem}
+  .more-grid>a{border:1px solid var(--line);background:var(--surface);padding:1.3rem}
+  .more-grid>a>span{color:var(--laser-deep);font-size:.75rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+  .more-grid h3{margin-top:2rem;font-size:1.3rem;line-height:1.12}
+  .more-grid p{margin-top:.75rem;font-size:.88rem;line-height:1.65}
   @media(min-width:800px){.article-head-grid{grid-template-columns:1fr .3fr}.article-layout{grid-template-columns:.3fr 1fr}.article-layout>aside{position:sticky;top:6.5rem}.more-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 </style>

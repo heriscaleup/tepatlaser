@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SERVICES, MATERIALS, SITE_CONFIG } from '../utils/constants.js';
+
+const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi proyek.')}`;
+---
+
+<BaseLayout
+  title="Halaman Tidak Ditemukan — Tepat Laser"
+  description="Halaman yang Anda cari tidak tersedia. Kembali ke layanan, material, portofolio, atau hubungi Tepat Laser."
+  url="/404/"
+  noindex={true}
+>
+  <Header slot="header" />
+  <main class="not-found">
+    <section>
+      <div class="container-custom error-grid">
+        <div>
+          <span class="error-code">404 / FILE PATH NOT FOUND</span>
+          <h1>Jalurnya meleset.<br />Proyeknya tidak perlu.</h1>
+          <p>Alamat ini mungkin sudah berubah atau tautannya tidak lengkap. Pilih jalur di bawah, atau kirim kebutuhan Anda langsung ke tim Tepat Laser.</p>
+          <div class="error-actions">
+            <a href="/" class="btn-primary">Kembali ke beranda <span>→</span></a>
+            <a href={wa} target="_blank" rel="noopener noreferrer" class="btn-secondary">Konsultasi WhatsApp <span>↗</span></a>
+          </div>
+        </div>
+        <div class="route-panel">
+          <div><span>Layanan</span>{SERVICES.map((item) => <a href={`/${item.slug}/`}>{item.name}<b>↗</b></a>)}</div>
+          <div><span>Material</span>{MATERIALS.slice(0,4).map((item) => <a href={`/${item.slug}/`}>{item.name}<b>↗</b></a>)}</div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .not-found{background:radial-gradient(circle at 78% 24%,rgba(54,114,172,.18),transparent 30rem),var(--canvas)}
+  .not-found>section{display:grid;min-height:calc(100svh - 4.8rem);align-items:center;padding-block:clamp(8rem,14vw,11rem) 5rem}
+  .error-grid{display:grid;gap:3rem;align-items:end}
+  .error-code{color:var(--brand-gold-soft);font-size:.75rem;font-weight:800;letter-spacing:.13em}
+  .not-found h1{margin-top:1.25rem;max-width:12ch;font-size:clamp(3rem,7vw,6.5rem);line-height:.94}
+  .not-found p{margin-top:1.5rem;max-width:42rem;font-size:1.05rem;line-height:1.75}
+  .error-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+  .route-panel{display:grid;gap:1px;border:1px solid var(--line);background:var(--line)}
+  .route-panel>div{background:var(--surface);padding:1.25rem}
+  .route-panel>div>span{display:block;margin-bottom:.75rem;color:var(--brand-gold-soft);font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .route-panel a{display:flex;min-height:2.75rem;align-items:center;justify-content:space-between;border-top:1px solid var(--line);font-size:.9rem;font-weight:700}
+  .route-panel b{color:var(--brand-blue-soft)}
+  @media(min-width:900px){.error-grid{grid-template-columns:1.15fr .85fr}}
+</style>

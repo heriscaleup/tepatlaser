@@ -149,17 +149,17 @@ Keduanya saling melengkapi.
 
 ## Preflight 12 poin
 
-- [ ] Skala 1:1.
-- [ ] Unit jelas.
-- [ ] Geometri 2D pada plane yang benar.
-- [ ] Garis ganda dihapus.
-- [ ] Contour tertutup.
-- [ ] Node disederhanakan.
-- [ ] Font menjadi curve.
-- [ ] Layer proses terpisah.
-- [ ] Detail minimum direview.
-- [ ] Kerf belum dikompensasi ganda.
-- [ ] Revisi tertulis.
-- [ ] PDF preview disertakan.
+- ☐ Skala 1:1.
+- ☐ Unit jelas.
+- ☐ Geometri 2D pada plane yang benar.
+- ☐ Garis ganda dihapus.
+- ☐ Contour tertutup.
+- ☐ Node disederhanakan.
+- ☐ Font menjadi curve.
+- ☐ Layer proses terpisah.
+- ☐ Detail minimum direview.
+- ☐ Kerf belum dikompensasi ganda.
+- ☐ Revisi tertulis.
+- ☐ PDF preview disertakan.
 
 File yang rapi bukan hanya mempercepat mesin. Ia mempercepat seluruh komunikasi dari quotation sampai QC.

@@ -29,7 +29,7 @@ const breadcrumbs = [{ name: 'Beranda', url: '/' }, { name: title, url: route }]
       <div class="container-custom application-hero-grid">
         <div class="application-copy">
           <span class="eyebrow">{eyebrow}</span>
-          <h1 class="heading-xl mt-7">{title}<br /><em>{accent}</em></h1>
+          <h1 class="heading-xl mt-7"><span>{title}</span> <em>{accent}</em></h1>
           <p class="mt-7 max-w-xl text-lg leading-8">{description}</p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row">
             <a href={whatsapp} target="_blank" rel="noopener noreferrer" class="btn-primary" data-wa-label={`${title} hero`}>Konsultasikan proyek <span>↗</span></a>
@@ -56,7 +56,7 @@ const breadcrumbs = [{ name: 'Beranda', url: '/' }, { name: title, url: route }]
       <div class="container-custom">
         <span class="eyebrow">Pilihan aplikasi</span>
         <h2 class="heading-lg mt-6 max-w-4xl">Lihat bagaimana skala, pola, dan material mengubah karakter bidang.</h2>
-        <div class="application-gallery">{gallery.map((item,index) => <figure class:list={[index===0&&'gallery-wide']}><img src={item.image} alt={item.alt} width="1200" height="900" loading={index===0?'eager':'lazy'} decoding="async" /><figcaption><span>{item.label}</span><h3>{item.title}</h3></figcaption></figure>)}</div>
+        <div class="application-gallery">{gallery.map((item,index) => <figure class:list={[index===0&&'gallery-wide']}><img src={item.image} alt={item.alt} width="1200" height="900" loading="lazy" decoding="async" /><figcaption><span>{item.label}</span><h3>{item.title}</h3></figcaption></figure>)}</div>
       </div>
     </section>
 
@@ -73,7 +73,7 @@ const breadcrumbs = [{ name: 'Beranda', url: '/' }, { name: title, url: route }]
         <div class="faq-list">{faqs.map((item,index) => <details open={index===0}><summary>{item.question}<span>＋</span></summary><p>{item.answer}</p></details>)}</div>
       </div>
     </section>
-    <CTA title={ctaTitle} description="Kirim ukuran, foto bidang, dan referensi pola. Kami bantu mengubahnya menjadi keputusan material, struktur, dan proses yang bisa dipertanggungjawabkan." primaryText="Kirim brief via WhatsApp" primaryLink={whatsapp} secondaryText="Lihat semua layanan" secondaryLink="/services/" />
+    <CTA title={ctaTitle} description="Kirim ukuran, foto bidang, dan referensi pola. Kami bantu mengubahnya menjadi keputusan material, struktur, dan proses yang bisa dipertanggungjawabkan." primaryText="Kirim brief via WhatsApp" primaryHref={whatsapp} secondaryText="Lihat semua layanan" secondaryLink="/services/" />
   </main>
   <Footer slot="footer" />
 </BaseLayout>
@@ -82,12 +82,13 @@ const breadcrumbs = [{ name: 'Beranda', url: '/' }, { name: title, url: route }]
   .application-hero{background:radial-gradient(circle at 78% 25%,rgba(54,114,172,.16),transparent 26rem),radial-gradient(circle at 14% 84%,rgba(234,49,79,.09),transparent 24rem),var(--surface)}
   .application-hero-grid{display:grid;min-height:calc(100svh - 4.8rem);align-items:stretch}
   .application-copy{display:flex;flex-direction:column;justify-content:center;padding-block:clamp(4.5rem,8vw,7rem)}
+  .application-copy h1 span,.application-copy h1 em{display:block}
   .application-copy h1 em{color:transparent;background:var(--brand-spectrum);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-style:normal}
-  .application-visual{min-height:32rem}.application-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.application-visual figcaption{position:absolute;z-index:2;right:1.25rem;bottom:1.25rem;left:1.25rem;display:flex;justify-content:space-between;color:#fff;font-size:.62rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .application-visual{min-height:32rem}.application-visual img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.application-visual figcaption{position:absolute;z-index:2;right:1.25rem;bottom:1.25rem;left:1.25rem;display:flex;justify-content:space-between;color:#fff;font-size:.75rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
   .section-heading{display:grid;gap:2rem;align-items:end}.section-heading>p{max-width:34rem;font-size:1rem;line-height:1.8}
-  .benefit-grid,.step-grid{display:grid;gap:1px;margin-top:3.5rem;background:rgba(255,255,255,.14)}.benefit-grid article{background:#09100d;padding:1.5rem}.benefit-grid h3,.step-grid h3{margin-top:3rem;font-size:1.5rem}.benefit-grid p,.step-grid p{margin-top:.8rem;font-size:.8rem;line-height:1.7}
-  .application-gallery{display:grid;gap:1rem;margin-top:3rem}.application-gallery figure{position:relative;min-height:27rem;overflow:hidden;background:#050906}.application-gallery img{position:absolute;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}.application-gallery figure:hover img{transform:scale(1.045)}.application-gallery figure::after{position:absolute;inset:0;content:'';background:linear-gradient(to top,rgba(5,9,6,.86),transparent 62%)}.application-gallery figcaption{position:absolute;z-index:1;right:1.25rem;bottom:1.25rem;left:1.25rem}.application-gallery figcaption span{color:var(--laser);font-size:.64rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.application-gallery h3{margin-top:.45rem;color:#fff;font-size:1.7rem}
-  .step-grid{border:1px solid var(--line);background:var(--line)}.step-grid article{background:var(--surface);padding:1.4rem}.step-grid>article>span{color:var(--laser-deep);font-size:.68rem;font-weight:800}.step-grid p{color:var(--muted)}
+  .benefit-grid,.step-grid{display:grid;gap:1px;margin-top:3.5rem;background:rgba(255,255,255,.14)}.benefit-grid article{background:#09100d;padding:1.5rem}.benefit-grid h3,.step-grid h3{margin-top:2.5rem;font-size:1.5rem}.benefit-grid p,.step-grid p{margin-top:.8rem;font-size:.92rem;line-height:1.7}
+  .application-gallery{display:grid;gap:1rem;margin-top:3rem}.application-gallery figure{position:relative;min-height:27rem;overflow:hidden;background:#050906}.application-gallery img{position:absolute;width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease-smooth)}.application-gallery figure:hover img{transform:scale(1.045)}.application-gallery figure::after{position:absolute;inset:0;content:'';background:linear-gradient(to top,rgba(5,9,6,.86),transparent 62%)}.application-gallery figcaption{position:absolute;z-index:1;right:1.25rem;bottom:1.25rem;left:1.25rem}.application-gallery figcaption span{color:var(--laser);font-size:.75rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}.application-gallery h3{margin-top:.45rem;color:#fff;font-size:1.7rem}
+  .step-grid{border:1px solid var(--line);background:var(--line)}.step-grid article{background:var(--surface);padding:1.4rem}.step-grid>article>span{color:var(--laser-deep);font-size:.75rem;font-weight:800}.step-grid p{color:var(--muted)}
   .faq-layout{display:grid;gap:3rem}.faq-list details{border-top:1px solid var(--line);padding:1.2rem 0}.faq-list details:last-child{border-bottom:1px solid var(--line)}.faq-list summary{display:flex;cursor:pointer;list-style:none;justify-content:space-between;gap:1rem;font-family:'Clash Display',sans-serif;font-size:1.15rem;font-weight:600}.faq-list summary::-webkit-details-marker{display:none}.faq-list summary span{color:var(--laser-deep);font-family:Arial,sans-serif}.faq-list p{max-width:44rem;margin-top:.9rem;line-height:1.75}
   @media(min-width:760px){.benefit-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.step-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.application-gallery{grid-template-columns:1.15fr .85fr}.gallery-wide{grid-row:span 2}.faq-layout{grid-template-columns:.8fr 1.2fr}}
   @media(min-width:1000px){.application-hero-grid{grid-template-columns:1fr .9fr;gap:3rem}.application-copy{padding-right:2rem}.application-visual{margin-block:2rem}.section-heading{grid-template-columns:1.1fr .9fr}}

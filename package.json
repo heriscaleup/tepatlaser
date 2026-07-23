@@ -7,6 +7,8 @@
     "build": "astro build",
     "check": "astro check",
     "verify": "node scripts/verify-site.mjs",
+    "audit:browser": "node scripts/audit-browser.mjs",
+    "audit:lighthouse": "lighthouse http://127.0.0.1:4321/ --quiet --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=qa-v8/lighthouse-home-mobile.json",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -21,5 +23,9 @@
     "astro": "6.4.7",
     "tailwindcss": "^3.4.17",
     "typescript": "6.0.3"
+  },
+  "devDependencies": {
+    "lighthouse": "^13.4.1",
+    "puppeteer-core": "^25.3.0"
   }
 }

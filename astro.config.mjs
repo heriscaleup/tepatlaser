@@ -1,7 +1,7 @@
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import sitemap from '@astrojs/sitemap'; // Baris ini sekarang gak akan error
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://tepatlaser.com',
@@ -34,8 +34,7 @@ export default defineConfig({
   },
   
   build: {
-    // 'always': satu-satunya CSS chunk sitewide (~12 KiB gzip) diinline ke tiap HTML,
-    // menghilangkan request render-blocking terpisah (Footer.[hash].css) di semua halaman.
+    // Inline the single site-wide stylesheet to remove a render-blocking request.
     inlineStylesheets: 'always',
     assets: '_assets'
   },

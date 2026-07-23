@@ -5,7 +5,7 @@ import Footer from './Footer.astro';
 import CTA from './CTA.astro';
 import Breadcrumbs from './Breadcrumbs.astro';
 import { SITE_CONFIG, SERVICES, MATERIALS } from '../utils/constants.js';
-import { generateBreadcrumbSchema } from '../utils/seo.js';
+import { generateBreadcrumbSchema, generateFAQSchema } from '../utils/seo.js';
 
 export interface Item {
   id?: string;
@@ -34,10 +34,10 @@ const features = item.features?.length
   ? item.features
   : [
       item.thickness ? `Ketebalan material umum: ${item.thickness}` : 'Spesifikasi & toleransi disesuaikan kebutuhan proyek',
-      'File CAD Vector (AI, DXF, DWG, SVG) ditinjau ulang oleh tim teknis',
-      'Proses pemotongan terkalibrasi presisi dengan gas pembantu N2/O2',
-      'Pengujian deburring & pembersihan tepi potongan sebelum dikirim',
-      'Garansi QC & potong ulang jika hasil tidak sesuai toleransi brief'
+      'File vektor AI, DXF, DWG, CDR, atau SVG ditinjau sebelum produksi',
+      'Parameter mesin ditetapkan sesuai jenis material dan target hasil',
+      'Kondisi tepi serta dimensi acuan diperiksa sebelum serah terima',
+      'Finishing, packing, dan pengiriman dikonfirmasi sebagai lingkup terpisah'
     ];
 
 const applications = item.applications?.length
@@ -48,13 +48,42 @@ const related = (kind === 'service' ? SERVICES : MATERIALS).filter((entry) => en
 const crumbsInput = [{ name: 'Beranda', url: '/' }, { name: kind === 'material' ? 'Material' : 'Layanan', url: '/services/' }, { name: title, url }];
 const breadcrumbSchema = generateBreadcrumbSchema(crumbsInput);
 const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent(`Halo Tepat Laser, saya ingin konsultasi ${title}.`)}`;
+const intakeItems = [
+  ['Material', 'Jenis atau grade material bila sudah ditentukan'],
+  ['Dimensi', 'Panjang × lebar, ketebalan, dan ukuran komponen'],
+  ['Jumlah', 'Jumlah desain, jumlah per desain, dan total kebutuhan'],
+  ['File', 'DXF, DWG, AI, CDR, SVG, PDF vektor, atau sketsa'],
+  ['Hasil akhir', 'Cutting saja, engraving, bending, finishing, atau siap pasang'],
+  ['Target waktu', 'Tanggal material atau komponen perlu diterima']
+];
+const processSteps = [
+  ['Review brief', 'Tim membaca fungsi, file, ukuran, material, jumlah, dan risiko geometri.'],
+  ['Kunci spesifikasi', 'Rute mesin, scope pekerjaan, toleransi relevan, harga, serta estimasi waktu disepakati.'],
+  ['Produksi terkontrol', 'File final digunakan untuk setup, nesting, proses mesin, dan pekerjaan tambahan yang disetujui.'],
+  ['QC & serah terima', 'Output diperiksa terhadap brief, lalu disiapkan untuk pickup atau pengiriman.']
+];
+const faqs = [
+  { question: `Berapa harga ${title}?`, answer: `Harga ${title} dihitung dari material, ketebalan, panjang jalur atau waktu proses, kompleksitas file, jumlah, finishing, dan target waktu. Kirim data tersebut agar estimasi tidak menyesatkan.` },
+  { question: 'Apakah bisa mulai dari foto atau sketsa?', answer: 'Bisa untuk konsultasi awal. Produksi tetap memerlukan ukuran dan file kerja yang layak; tim akan menjelaskan data yang masih perlu dilengkapi.' },
+  { question: 'Berapa lama pengerjaannya?', answer: 'Lead time ditentukan setelah file, material, jumlah, finishing, dan antrean produksi dikonfirmasi. Tanggal selesai dicantumkan saat scope pekerjaan sudah jelas.' },
+  { question: 'Apakah material bisa disediakan pelanggan?', answer: 'Bisa ditinjau. Jenis, kondisi, ukuran, dan jumlah cadangan material perlu diperiksa karena karakter setiap bahan memengaruhi hasil proses.' }
+];
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: title,
+  description,
+  url: new URL(url, SITE_CONFIG.url).href,
+  provider: { '@type': 'LocalBusiness', '@id': `${SITE_CONFIG.url}/#business`, name: SITE_CONFIG.name },
+  areaServed: ['Tangerang Selatan', 'Jakarta', 'Depok', 'Tangerang', 'Bogor', 'Bekasi']
+};
 const meta = {
   title: `${title} Tangerang Selatan | Tepat Laser`,
   description,
   keywords: item.keywords || `${title}, Tepat Laser, laser cutting Tangerang Selatan, fabrikasi presisi`,
   url,
   image: item.image || '/images/generated/fiber-laser-v6.webp',
-  jsonLd: [breadcrumbSchema]
+  jsonLd: [breadcrumbSchema, generateFAQSchema(faqs), serviceSchema]
 };
 ---
 
@@ -98,7 +127,7 @@ const meta = {
                 height="800"
                 class="w-full h-[20rem] sm:h-[25rem] lg:h-[28rem] object-cover object-center"
                 fetchpriority="high"
-                decoding="sync"
+                decoding="async"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-transparent"></div>
               <div class="absolute bottom-0 inset-x-0 p-4 flex items-center justify-between text-white text-xs font-bold tracking-wider">
@@ -127,7 +156,7 @@ const meta = {
       <div class="container-custom">
         <div class="grid gap-10 lg:grid-cols-12 lg:items-start">
           <div class="lg:col-span-5">
-            <span class="eyebrow">Parameter Teknis</span>
+            <span class="eyebrow text-amber-800">Parameter Teknis</span>
             <h2 class="heading-lg mt-4 text-slate-950">Detail Produksi Yang Kami Kunci Sebelum Mesin Bergerak.</h2>
             <p class="mt-4 text-slate-700 font-medium leading-relaxed">
               Material, ketebalan, geometri potongan, jumlah order, dan target visual akhir saling memengaruhi. Kami membacanya sebagai satu kesatuan keputusan teknik yang terukur.
@@ -137,13 +166,35 @@ const meta = {
             <div class="grid gap-4 sm:grid-cols-2">
               {features.map((feature, index) => (
                 <div class="rounded-xl border border-slate-200 bg-slate-50 p-5 shadow-sm transition-transform hover:-translate-y-0.5">
-                  <span class="inline-block rounded-md bg-amber-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-amber-700 border border-amber-500/20">
+                  <span class="inline-block rounded-md bg-amber-500/10 px-2.5 py-0.5 font-mono text-xs font-bold text-amber-800 border border-amber-500/20">
                     POS 0{index + 1}
                   </span>
                   <p class="mt-3 text-sm font-bold text-slate-900 leading-snug">{feature}</p>
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote readiness -->
+    <section class="section-padding bg-slate-950 text-white">
+      <div class="container-custom">
+        <div class="grid gap-10 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+          <div>
+            <span class="eyebrow text-amber-400">Data untuk estimasi</span>
+            <h2 class="heading-md mt-4 text-white">Enam data yang membuat penawaran lebih cepat dan lebih akurat.</h2>
+            <p class="mt-5 max-w-xl text-slate-300">Belum lengkap tidak masalah. Tandai yang belum diketahui; tim akan membantu memisahkan keputusan wajib dari detail yang bisa menyusul.</p>
+          </div>
+          <div class="intake-grid">
+            {intakeItems.map(([name, detail], index) => (
+              <div>
+                <span>0{index + 1}</span>
+                <h3>{name}</h3>
+                <p>{detail}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -167,23 +218,59 @@ const meta = {
       </div>
     </section>
 
+    <!-- Production flow -->
+    <section class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="max-w-3xl">
+          <span class="eyebrow text-amber-800">Alur yang transparan</span>
+          <h2 class="heading-md mt-4 text-slate-950">Dari brief sampai barang diterima, setiap keputusan punya titik konfirmasi.</h2>
+        </div>
+        <ol class="production-flow">
+          {processSteps.map(([name, detail], index) => (
+            <li>
+              <span>0{index + 1}</span>
+              <div><h3>{name}</h3><p>{detail}</p></div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section-padding bg-slate-50">
+      <div class="container-custom grid gap-10 lg:grid-cols-[.7fr_1.3fr]">
+        <div>
+          <span class="eyebrow text-amber-800">Pertanyaan sebelum order</span>
+          <h2 class="heading-md mt-4 text-slate-950">Jawaban singkat tanpa janji teknis yang dibuat sebelum melihat file.</h2>
+        </div>
+        <div class="capability-faq">
+          {faqs.map((faq, index) => (
+            <details open={index === 0}>
+              <summary>{faq.question}<span aria-hidden="true">＋</span></summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- Related Capabilities -->
     <section class="section-padding bg-slate-50">
       <div class="container-custom">
         <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <span class="eyebrow">Kapabilitas Lainnya</span>
+            <span class="eyebrow text-amber-800">Kapabilitas Lainnya</span>
             <h2 class="heading-md mt-3 text-slate-950">Jelajahi Pilihan Material & Teknologi Tambahan.</h2>
           </div>
-          <a href="/services/" class="text-sm font-bold text-amber-600 hover:text-amber-700">Lihat Semua Kapabilitas ↗</a>
+          <a href="/services/" class="text-sm font-bold text-amber-800 hover:text-amber-900">Lihat Semua Kapabilitas ↗</a>
         </div>
         <div class="mt-8 grid gap-6 sm:grid-cols-3">
           {related.map((entry, index) => (
             <a href={`/${entry.slug}/`} class="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md hover:border-amber-400">
-              <span class="font-mono text-xs font-bold text-slate-400 group-hover:text-amber-600">0{index + 1}</span>
+              <span class="font-mono text-xs font-bold text-slate-600 group-hover:text-amber-800">0{index + 1}</span>
               <h3 class="mt-3 text-xl font-bold text-slate-900 group-hover:text-amber-600">{entry.name}</h3>
               <p class="mt-2 text-xs leading-relaxed text-slate-600 font-medium">{entry.description}</p>
-              <span class="mt-4 inline-block text-xs font-extrabold text-amber-600">Lihat Detail ↗</span>
+              <span class="mt-4 inline-block text-xs font-extrabold text-amber-800">Lihat Detail ↗</span>
             </a>
           ))}
         </div>
@@ -200,3 +287,24 @@ const meta = {
   </main>
   <Footer slot="footer" />
 </BaseLayout>
+
+<style>
+  .intake-grid{display:grid;gap:1px;border:1px solid #334155;background:#334155}
+  .intake-grid>div{background:#0f172a;padding:1.25rem}
+  .intake-grid span,.production-flow>li>span{font-size:.75rem;font-weight:800;letter-spacing:.1em}
+  .intake-grid span{color:#f4c95d}
+  .production-flow>li>span{color:#76520e}
+  .intake-grid h3{margin-top:1.4rem;color:#fff;font-size:1.15rem}
+  .intake-grid p{margin-top:.45rem;color:#cbd5e1;font-size:.9rem;line-height:1.65}
+  .production-flow{display:grid;margin:2.5rem 0 0;padding:0;border-top:1px solid #cbd5e1;list-style:none}
+  .production-flow li{display:grid;grid-template-columns:2.5rem 1fr;gap:1rem;border-bottom:1px solid #cbd5e1;padding:1.4rem 0}
+  .production-flow h3{color:#0f172a;font-size:1.25rem}
+  .production-flow p{margin-top:.45rem;max-width:48rem;color:#475569;font-size:.95rem;line-height:1.7}
+  .capability-faq details{border-top:1px solid #cbd5e1;padding:1.25rem 0}
+  .capability-faq details:last-child{border-bottom:1px solid #cbd5e1}
+  .capability-faq summary{display:flex;cursor:pointer;list-style:none;justify-content:space-between;gap:1rem;color:#0f172a;font-family:'Clash Display',sans-serif;font-size:1.15rem;font-weight:600}
+  .capability-faq summary::-webkit-details-marker{display:none}
+  .capability-faq summary span{color:#9a6c14}
+  .capability-faq p{margin-top:.8rem;max-width:48rem;color:#475569;font-size:.95rem;line-height:1.75}
+  @media(min-width:700px){.intake-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.production-flow{grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid #cbd5e1}.production-flow li{border:0;padding:1.5rem}.production-flow li:nth-child(even){border-left:1px solid #cbd5e1}.production-flow li:nth-child(n+3){border-top:1px solid #cbd5e1}}
+</style>

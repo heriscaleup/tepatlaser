@@ -8,7 +8,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
     <div class="footer-top">
       <div>
         <a href="/" class="brand-lockup footer-brand" aria-label="Tepat Laser, beranda">
-          <span class="footer-logo-shell"><img class="footer-logo" src="/images/logo.webp" alt="Tepat Laser — Precision Beyond Expectation" width="1200" height="594" loading="lazy" decoding="async" /></span>
+          <span class="footer-logo-shell"><img class="footer-logo" src="/images/tepat-laser-mark.svg" alt="Tepat Laser" width="320" height="64" loading="lazy" decoding="async" /></span>
         </a>
         <p class="mt-6 max-w-md text-sm leading-7">Bukan sekadar tempat potong. Kami membantu mengunci material, proses, detail, dan pemeriksaan agar hasil siap melanjutkan proyek Anda.</p>
         <a href={wa} target="_blank" rel="noopener noreferrer" class="footer-action mt-7" data-wa-label="Footer WhatsApp">Kirim kebutuhan Anda <span>↗</span></a>
@@ -48,19 +48,19 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
 <style>
   .site-footer{position:relative;border-top:0;background:#050706;color:#fff}.site-footer::before{position:absolute;top:0;right:0;left:0;height:3px;content:'';background:var(--brand-spectrum)}
   .site-footer p{color:rgba(255,255,255,.62)}
-  .footer-logo-shell{display:inline-flex;background:#fff;padding:.35rem .55rem;border-radius:4px}.footer-logo{width:10.5rem;height:auto;mix-blend-mode:multiply}
-  .footer-action{display:inline-flex;align-items:center;gap:.65rem;color:var(--brand-gold-soft);font-size:.8rem;font-weight:750}.footer-action:hover{color:var(--brand-blue-soft)}
+  .footer-logo-shell{display:inline-flex}.footer-logo{width:11rem;height:auto}
+  .footer-action{display:inline-flex;align-items:center;gap:.65rem;color:var(--brand-gold-soft);font-size:.9rem;font-weight:750}.footer-action:hover{color:var(--brand-blue-soft)}
   .footer-social{display:flex;gap:.75rem;margin-top:1rem}
   .footer-social a{display:grid;width:2.2rem;height:2.2rem;place-items:center;border:1px solid rgba(255,255,255,.15);border-radius:50%;color:rgba(255,255,255,.6);transition:all .25s var(--ease-smooth)}
   .footer-social a:hover{border-color:var(--brand-gold-soft);color:var(--brand-gold-soft);transform:translateY(-2px)}
   .footer-top{display:grid;gap:3.5rem}
   .footer-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem}
-  .footer-links h2{color:var(--brand-gold-soft);font-family:inherit;font-size:.66rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.footer-links>div:nth-child(1) h2{color:var(--brand-red-soft)}.footer-links>div:nth-child(2) h2{color:var(--brand-green-soft)}.footer-links>div:nth-child(3) h2{color:var(--brand-blue-soft)}
-  .footer-links ul{margin:1.1rem 0 0;padding:0;list-style:none}.footer-links li+li{margin-top:.6rem}.footer-links a{color:rgba(255,255,255,.7);font-size:.78rem}.footer-links a:hover{color:#fff}
+  .footer-links h2{color:var(--brand-gold-soft);font-family:inherit;font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.footer-links>div:nth-child(1) h2{color:var(--brand-red-soft)}.footer-links>div:nth-child(2) h2{color:var(--brand-green-soft)}.footer-links>div:nth-child(3) h2{color:var(--brand-blue-soft)}
+  .footer-links ul{margin:1.1rem 0 0;padding:0;list-style:none}.footer-links li+li{margin-top:.65rem}.footer-links a{color:rgba(255,255,255,.76);font-size:.88rem}.footer-links a:hover{color:#fff}
   .footer-workshop{display:grid;gap:1.5rem;margin-top:3.5rem;border-top:1px solid rgba(255,255,255,.12);padding-top:2rem}
-  .footer-workshop span{display:block;margin-bottom:.6rem;color:rgba(255,255,255,.52);font-size:.62rem;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.footer-workshop p{font-size:.76rem;line-height:1.7}
+  .footer-workshop span{display:block;margin-bottom:.6rem;color:rgba(255,255,255,.6);font-size:.75rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}.footer-workshop p{font-size:.88rem;line-height:1.7}
   .footer-workshop a{display:inline-flex;min-height:1.5rem;align-items:center}
-  .footer-bottom{display:flex;justify-content:space-between;gap:1rem;margin-top:3rem;border-top:1px solid rgba(255,255,255,.12);padding-top:1.4rem;color:rgba(255,255,255,.54);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+  .footer-bottom{display:flex;justify-content:space-between;gap:1rem;margin-top:3rem;border-top:1px solid rgba(255,255,255,.12);padding-top:1.4rem;color:rgba(255,255,255,.62);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
   .footer-release{color:var(--brand-gold-soft);font-family:'Clash Display',sans-serif;font-weight:600}
   @media(min-width:900px){.footer-top{grid-template-columns:1fr 1.35fr}.footer-workshop{grid-template-columns:1.5fr .8fr .8fr}}
   @media(max-width:640px){.footer-links{grid-template-columns:repeat(2,minmax(0,1fr))}.footer-bottom{flex-direction:column;gap:.5rem}.footer-release{margin-top:.5rem}}

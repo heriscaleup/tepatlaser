@@ -9,8 +9,8 @@ import { generateFAQSchema } from '../utils/seo.js';
 const wa = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi proyek dan mengirimkan file desain.')}`;
 const meta = {
   title: 'Tepat Laser — Laser Cutting & Fabrikasi Presisi Tangerang Selatan',
-  description: 'Jasa laser cutting metal, stainless steel, akrilik, MDF, aluminium, CNC router ACP/GRC, dan galvo engraving presisi tinggi di Tangerang Selatan. ±0.1mm toleransi, QC berlapis, siap rakit.',
-  keywords: 'jasa laser cutting Tangerang Selatan, laser fiber 12kw, laser CO2, CNC router ACP, galvo engraving metal, laser cutting stainless steel',
+  description: 'Jasa laser cutting metal, stainless steel, akrilik, MDF, aluminium, CNC router ACP/GRC, dan galvo engraving di Tangerang Selatan dengan review file dan QC sebelum serah terima.',
+  keywords: 'jasa laser cutting Tangerang Selatan, laser fiber metal, laser CO2, CNC router ACP, galvo engraving metal, laser cutting stainless steel',
   url: '/',
   image: '/images/generated/fiber-laser-v6.webp',
   jsonLd: [generateFAQSchema(FAQ)]
@@ -23,18 +23,18 @@ const showcases = [
 ];
 
 const qcCheckpoints = [
-  { step: '01', title: 'Review File & Toleransi Geometri', desc: 'File AI, DXF, DWG, atau SVG Anda ditinjau ulang oleh tim teknis kami untuk mengunci toleransi celah, radius potong, dan kerenggangan material.' },
-  { step: '02', title: 'Kalibrasi Mesin & Gas Assist (N₂/O₂)', desc: 'Pengaturan daya laser, fokus optic, dan pilihan gas pembantu disesuaikan presisi agar tidak ada bekas gosong atau perubahan warna material.' },
-  { step: '03', title: 'Deburring & Cleaning Permukaan', desc: 'Setiap hasil potongan melalui proses deburring untuk membersihkan gram/tatal tajam, sehingga tepi potongan halus dan siap rakit.' },
-  { step: '04', title: 'Inspeksi Dimensi & Packing Protektif', desc: 'Pemeriksaan ketebalan dan dimensi dengan jangka sorong digital sebelum dibungkus bubble-wrap tebal demi keamanan saat pengiriman.' }
+  { step: '01', title: 'Review File & Geometri', desc: 'File AI, DXF, DWG, CDR, atau SVG ditinjau untuk membaca ukuran, radius, jarak antarpotongan, dan titik yang berisiko.' },
+  { step: '02', title: 'Kunci Parameter Produksi', desc: 'Mesin, daya, kecepatan, fokus, dan parameter pendukung dipilih sesuai jenis material serta target hasil akhir.' },
+  { step: '03', title: 'Pemeriksaan Tepi & Permukaan', desc: 'Tepi, bekas proses, dan kondisi permukaan diperiksa. Pembersihan atau deburring dilakukan bila termasuk dalam lingkup pekerjaan.' },
+  { step: '04', title: 'Verifikasi Dimensi & Packing', desc: 'Dimensi acuan diperiksa secara sampling atau sesuai brief, lalu metode packing disesuaikan dengan bentuk dan cara serah terima.' }
 ];
 
 const comparisons = [
-  { feature: 'Toleransi & Presisi Potong', tepat: '±0.1 mm (Fiber & CNC Terkalibrasi Presisi)', manual: '±1.0 – 2.0 mm (Sering meleset saat dirakit)' },
-  { feature: 'Kondisi Tepi & Gram Tajam', tepat: 'Halus, Rapi & Bebas Burr (Siap Pasang)', manual: 'Kasar, Ber-gram tajam & Butuh Grinding' },
-  { feature: 'Penanganan File & Desain', tepat: 'Ditinjau & Dioptimalkan Tim Engineer', manual: 'Terima mentah tanpa cek risiko patah' },
-  { feature: 'Kecepatan & Kepastian Order', tepat: '1–3 Hari Selesai (Bisa Same-Day Express)', manual: '3–7 Hari tanpa kepastian jadwal' },
-  { feature: 'Minimum Order Quantity', tepat: 'Tanpa Minimum Order (Terima 1 Pcs)', manual: 'Wajib Partai Besar / Minimal Order Tinggi' }
+  { feature: 'Konsistensi geometri', tepat: 'File digital dan parameter mesin dapat diulang untuk produksi batch', manual: 'Sangat bergantung pada jig, alat, dan keterampilan operator' },
+  { feature: 'Detail pola', tepat: 'Mampu mengikuti kontur dan pola berulang yang sudah lolos review', manual: 'Lebih cocok untuk bentuk sederhana atau koreksi langsung di lapangan' },
+  { feature: 'Penanganan file', tepat: 'File ditinjau sebelum masuk antrean produksi', manual: 'Umumnya dimulai dari marking atau pengukuran langsung' },
+  { feature: 'Perencanaan waktu', tepat: 'Estimasi diberikan setelah material, file, jumlah, dan finishing dikonfirmasi', manual: 'Estimasi dipengaruhi jumlah tahapan serta pengerjaan tangan' },
+  { feature: 'Kapan paling tepat dipakai', tepat: 'Detail berulang, produksi presisi, dan kebutuhan hasil yang konsisten', manual: 'Penyesuaian sederhana, pekerjaan lapangan, atau bentuk yang tidak perlu diprogram' }
 ];
 
 const trustLogos = [
@@ -67,7 +67,7 @@ const trustLogos = [
 
             <div class="text-reveal">
               <p class="mt-6 text-base sm:text-lg leading-relaxed text-slate-700 font-medium max-w-2xl">
-                Dari berkas desain pertama hingga komponen rakitan final, kami menjaga detail teknis yang sering luput: ketebalan material, toleransi potong, pilihan gas optic, finishing tepi, dan quality control berlapis.
+                File, material, toleransi, parameter mesin, finishing, dan QC kami kunci sebelum produksi agar komponen pas saat dipasang.
               </p>
             </div>
 
@@ -90,12 +90,12 @@ const trustLogos = [
                 <div class="text-xs font-bold text-slate-600 mt-0.5">Karakter material</div>
               </div>
               <div>
-                <div class="font-mono text-2xl font-black text-emerald-700">±0.1mm</div>
-                <div class="text-xs font-bold text-slate-600 mt-0.5">Toleransi presisi</div>
+                <div class="font-mono text-2xl font-black text-emerald-700">122×244</div>
+                <div class="text-xs font-bold text-slate-600 mt-0.5">cm area kerja maks.</div>
               </div>
               <div>
-                <div class="font-mono text-2xl font-black text-slate-950">100%</div>
-                <div class="text-xs font-bold text-slate-600 mt-0.5">Garansi QC ulang</div>
+                <div class="font-mono text-2xl font-black text-slate-950">Tangsel</div>
+                <div class="text-xs font-bold text-slate-600 mt-0.5">Lokasi workshop</div>
               </div>
             </div>
           </div>
@@ -116,7 +116,7 @@ const trustLogos = [
               <div class="absolute bottom-0 inset-x-0 p-5 flex items-center justify-between text-white text-xs font-bold tracking-wider">
                 <span class="flex items-center gap-2">
                   <span class="h-2 w-2 rounded-full bg-amber-400"></span>
-                  FIBER LASER CUTTING 12KW
+                  FIBER LASER METAL 1500 W
                 </span>
                 <span class="text-slate-300 font-medium">Workshop Tangsel</span>
               </div>
@@ -137,7 +137,7 @@ const trustLogos = [
     <!-- Social Proof / Trust Bar -->
     <section class="section-padding bg-white border-b border-slate-200">
       <div class="container-custom">
-        <p class="text-center text-xs font-bold uppercase tracking-[.2em] text-slate-400 mb-8">Dipercaya oleh profesional dari berbagai industri</p>
+        <p class="text-center text-sm font-bold uppercase tracking-[.16em] text-slate-500 mb-8">Jalur produksi untuk kebutuhan profesional lintas industri</p>
         <div class="trust-grid">
           {trustLogos.map((logo) => (
             <div class="trust-item">
@@ -232,17 +232,17 @@ const trustLogos = [
     <section class="section-padding bg-white">
       <div class="container-custom">
         <div class="text-center max-w-2xl mx-auto">
-          <span class="eyebrow">Perbandingan Kualitas</span>
+          <span class="eyebrow text-amber-800">Perbandingan Kualitas</span>
           <h2 class="heading-lg mt-4 text-slate-950">Mengapa Kontraktor & Desainer Memilih Tepat Laser?</h2>
-          <p class="mt-4 text-slate-700 font-medium">Bandingkan perbedaan hasil kerja laser terkalibrasi kami dengan metode pemotongan konvensional.</p>
+          <p class="mt-4 text-slate-700 font-medium">Setiap metode punya tempatnya. Tabel ini membantu menentukan kapan produksi berbasis file digital memberi nilai paling besar.</p>
         </div>
         <div class="mt-12 overflow-x-auto rounded-2xl border border-slate-300 shadow-md bg-white">
           <table class="w-full text-left text-sm border-collapse">
             <thead class="bg-slate-950 text-white font-extrabold border-b border-slate-300">
               <tr>
                 <th class="p-4 md:p-5 text-slate-100 text-base">Parameter Kualitas</th>
-                <th class="p-4 md:p-5 text-slate-950 bg-amber-400 text-base">Tepat Laser (Teknologi Modern)</th>
-                <th class="p-4 md:p-5 text-slate-300 text-base">Potongan Manual / Workshop Biasa</th>
+                <th class="p-4 md:p-5 text-slate-950 bg-amber-400 text-base">Produksi digital Tepat Laser</th>
+                <th class="p-4 md:p-5 text-slate-300 text-base">Pemotongan manual</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 font-bold text-slate-950">
@@ -250,10 +250,10 @@ const trustLogos = [
                 <tr class="hover:bg-slate-50 transition-colors">
                   <td class="p-4 md:p-5 font-bold text-slate-950">{row.feature}</td>
                   <td class="p-4 md:p-5 font-black text-slate-950 bg-amber-50 border-x border-amber-200">
-                    <span class="text-emerald-700 font-extrabold mr-1">✓</span> {row.tepat}
+                    {row.tepat}
                   </td>
                   <td class="p-4 md:p-5 font-medium text-slate-600">
-                    <span class="text-rose-600 font-extrabold mr-1">✕</span> {row.manual}
+                    {row.manual}
                   </td>
                 </tr>
               ))}
@@ -268,15 +268,15 @@ const trustLogos = [
       <div class="container-custom">
         <div class="flex flex-col gap-7 md:flex-row md:items-end md:justify-between">
           <div>
-            <span class="eyebrow">Pilihan Aplikasi & Portofolio</span>
-            <h2 class="heading-lg mt-5">Bukan Hanya Rapi Di Foto. Harus Bekerja Di Ruang Sebenarnya.</h2>
+            <span class="eyebrow text-amber-800">Pilihan Aplikasi & Portofolio</span>
+            <h2 class="heading-lg mt-5 text-slate-950">Bukan Hanya Rapi Di Foto. Harus Bekerja Di Ruang Sebenarnya.</h2>
           </div>
           <a href="/portfolio/" class="btn-secondary md:w-auto" data-magnetic>Lihat Portofolio Lengkap <span>↗</span></a>
         </div>
         <div class="showcase-grid">
           {showcases.map((item, index) => (
             <article class:list={["showcase-card", index === 0 && "showcase-wide"]}>
-              <img src={item.image} alt={item.title} width="1200" height="800" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+              <img src={item.image} alt={item.title} width="1200" height="800" loading="lazy" decoding="async" />
               <div>
                 <span>{item.label}</span>
                 <h3>{item.title}</h3>
@@ -326,6 +326,15 @@ const trustLogos = [
     padding-bottom: 4.5rem;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
   }
+  .home-hero .btn-secondary {
+    border-color: #94a3b8;
+    color: #0f172a;
+  }
+  .home-hero .btn-secondary:hover {
+    border-color: #b7791f;
+    background: #fffbeb;
+    color: #0f172a;
+  }
   .section-head {
     display: grid;
     gap: 2rem;
@@ -365,7 +374,7 @@ const trustLogos = [
     flex-shrink: 0;
   }
   .trust-label {
-    font-size: .8rem;
+    font-size: .9rem;
     font-weight: 700;
     color: #334155;
     letter-spacing: -.01em;
@@ -395,7 +404,7 @@ const trustLogos = [
   .service-list p {
     max-width: 42rem;
     margin-top: 0.45rem;
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     line-height: 1.6;
   }
   .service-arrow {
@@ -477,13 +486,13 @@ const trustLogos = [
   .material-grid p {
     margin-top: 0.45rem;
     color: rgba(255, 255, 255, 0.7);
-    font-size: 0.75rem;
+    font-size: 0.82rem;
   }
   .material-copy > span:last-child {
     display: block;
     margin-top: 1.4rem;
     color: var(--laser);
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     font-weight: 800;
   }
 
@@ -537,7 +546,7 @@ const trustLogos = [
   }
   .showcase-card span {
     color: var(--laser);
-    font-size: 0.65rem;
+    font-size: 0.75rem;
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -575,7 +584,7 @@ const trustLogos = [
   }
   .process-strip p {
     margin-top: 0.5rem;
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     line-height: 1.7;
     color: var(--muted);
   }
