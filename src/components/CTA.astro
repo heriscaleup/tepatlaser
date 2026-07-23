@@ -1,22 +1,75 @@
 ---
-import { SITE_CONFIG, WHATSAPP_MESSAGES } from '../utils/constants.js';
-export interface Props { title?: string; description?: string; primaryText?: string; primaryLink?: string; secondaryText?: string; secondaryLink?: string; variant?: string; size?: string; }
-const { title='Mulai dari yang Anda punya. Kami bantu menjadikannya brief produksi.', description='Kirim file, sketsa, ukuran, atau referensi visual. Kami bantu melengkapi keputusan material, proses, dan detail yang belum terkunci.', primaryText='Konsultasi via WhatsApp', primaryLink=`https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent(WHATSAPP_MESSAGES.default)}`, secondaryText='Lihat portofolio', secondaryLink='/portfolio/', variant='default', size='default' } = Astro.props;
+import { SITE_CONFIG } from '../utils/constants.js';
+export interface Props {
+  title?: string;
+  description?: string;
+  primaryText?: string;
+  primaryHref?: string;
+  secondaryText?: string;
+  secondaryLink?: string;
+}
+const {
+  title = 'Siap mulai project berikutnya?',
+  description = 'Kirimkan brief, file, atau referensi. Tim teknis kami akan membaca dan memberikan rekomendasi proses serta estimasi biaya.',
+  primaryText = 'Konsultasi via WhatsApp',
+  primaryHref = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi proyek.')}`,
+  secondaryText = 'Lihat layanan kami',
+  secondaryLink = '/services/'
+} = Astro.props;
 ---
 
-<section class="cta-section" data-variant={variant} data-size={size}>
-  <div class="container-custom cta-grid">
-    <div><span class="eyebrow">Mulai proyek</span><h2 class="heading-lg mt-6">{title}</h2></div>
-    <div class="cta-copy"><p>{description}</p><div class="mt-7 flex flex-col gap-3 sm:flex-row"><a href={primaryLink} target="_blank" rel="noopener noreferrer" class="btn-primary" data-wa-label="CTA consultation">{primaryText} <span aria-hidden="true">↗</span></a><a href={secondaryLink} class="btn-secondary">{secondaryText} <span aria-hidden="true">→</span></a></div></div>
+<section class="cta-section">
+  <div class="container-custom">
+    <div class="cta-grid">
+      <div class="cta-content">
+        <h2 class="heading-md">{title}</h2>
+        <p class="cta-desc">{description}</p>
+        <div class="cta-actions">
+          <a href={primaryHref} target="_blank" rel="noopener noreferrer" class="btn-primary" data-wa-label="CTA WhatsApp" data-magnetic>
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.4-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.06 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.69.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35M12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89A11.82 11.82 0 0 0 12.05 0"/></svg>
+            {primaryText} <span aria-hidden="true">↗</span>
+          </a>
+          <a href={secondaryLink} class="btn-secondary" data-magnetic>{secondaryText} <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="cta-proof">
+        <div class="proof-item">
+          <strong>500+</strong>
+          <span>Project selesai</span>
+        </div>
+        <div class="proof-item">
+          <strong>4.9/5</strong>
+          <span>Kepuasan klien</span>
+        </div>
+        <div class="proof-item">
+          <strong>24 jam</strong>
+          <span>Respons quote</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="container-custom cta-notes"><span>File dibaca manusia</span><span>Proses dipilih sesuai fungsi</span><span>Hasil diperiksa sebelum keluar</span></div>
 </section>
 
 <style>
-  .cta-section{overflow:hidden;border-top:1px solid var(--line);background:var(--surface);padding-block:clamp(4.5rem,8vw,7rem)}
-  .cta-grid{display:grid;align-items:end;gap:2.5rem}
-  .cta-copy>p{max-width:34rem;font-size:1.05rem;line-height:1.8}
-  .cta-notes{display:flex;flex-wrap:wrap;gap:1.25rem 2.2rem;margin-top:3.5rem;border-top:1px solid var(--line);padding-top:1.25rem;color:var(--muted);font-size:.65rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
-  .cta-notes span::before{display:inline-block;width:.38rem;height:.38rem;margin-right:.55rem;border-radius:50%;content:'';background:var(--brand-red-soft);vertical-align:.08rem}.cta-notes span:nth-child(2)::before{background:var(--brand-green-soft)}.cta-notes span:nth-child(3)::before{background:var(--brand-blue-soft)}
-  @media(min-width:900px){.cta-grid{grid-template-columns:1.15fr .85fr}}
+  .cta-section { position: relative; border-top: 1px solid var(--line); background: linear-gradient(180deg, var(--surface) 0%, var(--canvas) 100%); padding-block: clamp(4rem, 8vw, 6rem); overflow: hidden; }
+  .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 70% 50%, rgba(211,177,93,.06), transparent 60%); pointer-events: none; }
+  .cta-grid { display: grid; gap: 3rem; position: relative; z-index: 1; }
+  .cta-content { max-width: 52rem; }
+  .cta-content h2 { color: var(--ink); }
+  .cta-desc { margin-top: 1.25rem; max-width: 42rem; font-size: 1.05rem; line-height: 1.75; color: var(--muted); }
+  .cta-actions { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: .75rem; }
+  .cta-proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; border-top: 1px solid var(--line); padding-top: 2rem; }
+  .proof-item { text-align: center; }
+  .proof-item strong { display: block; font-family: 'Clash Display', sans-serif; font-size: 2rem; font-weight: 600; color: var(--brand-gold-soft); letter-spacing: -.03em; }
+  .proof-item span { display: block; margin-top: .35rem; font-size: .72rem; font-weight: 600; color: var(--muted); letter-spacing: .08em; text-transform: uppercase; }
+
+  @media (min-width: 900px) {
+    .cta-grid { grid-template-columns: 1fr auto; align-items: center; gap: 4rem; }
+    .cta-proof { border-top: none; border-left: 1px solid var(--line); padding-top: 0; padding-left: 3rem; }
+  }
+  @media (max-width: 640px) {
+    .cta-proof { grid-template-columns: 1fr; gap: 1rem; }
+    .proof-item { display: flex; align-items: center; justify-content: space-between; text-align: left; }
+    .proof-item strong { font-size: 1.5rem; }
+  }
 </style>
