@@ -1,5 +1,21 @@
 {
-  "release": "v6-2026-07-21",
-  "design": "industrial-brand-spectrum-material-specimens",
-  "cache": "clean"
+  "version": "v7-2026-07-24",
+  "design": "industrial-premium-awwwards",
+  "pallet": {
+    "red": "#EA314F",
+    "gold": "#D3B15D",
+    "green": "#50874F",
+    "violet": "#A559AE",
+    "blue": "#3672AC"
+  },
+  "features": [
+    "custom-cursor",
+    "grain-overlay",
+    "magnetic-hover",
+    "text-reveal",
+    "image-mask-reveal",
+    "scroll-hide-header",
+    "enhanced-motion-system",
+    "social-proof-bar"
+  ]
 }
