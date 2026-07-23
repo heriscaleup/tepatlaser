@@ -56,8 +56,8 @@ jobs:
           port: 21
           protocol: ftps
           local-dir: ./dist/
-          server-dir: /tepatlaser.com/
-          state-name: .ftp-deploy-sync-state-v77777.json
+          server-dir: ./
+          state-name: .ftp-deploy-sync-state-v1.json
           dangerous-clean-slate: false
           exclude: |
             **/.git*
