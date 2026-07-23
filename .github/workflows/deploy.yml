@@ -42,7 +42,7 @@ jobs:
       - name: Read release version
         id: release
         run: |
-          RELEASE=$(cat dist/release.json | python3 -c "import sys,json; print(json.load(sys.stdin)['release'])")
+          RELEASE=$(cat dist/release.json | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('release') or d.get('version', 'v7-2026-07-24'))")
           echo "version=$RELEASE" >> $GITHUB_OUTPUT
           echo "Release version: $RELEASE"
 
