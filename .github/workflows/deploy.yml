@@ -48,21 +48,16 @@ jobs:
 
       # 6. Deploy ke Hostinger via FTP
       - name: Deploy to Hostinger
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          # Alamat server FTP/SSH dari secret
-          server: ${{ secrets.FTP_SERVER }}
-          # Username FTP dari secret
+          server: 103.185.53.100
           username: ${{ secrets.FTP_USERNAME }}
-          # Password FTP dari secret
           password: ${{ secrets.FTP_PASSWORD }}
-          # Folder hasil build Astro yang akan di-upload (dist bukan out)
+          port: 21
+          protocol: ftps
           local-dir: ./dist/
-          # Folder tujuan di hosting (sesuaikan dengan domain kamu)
-          server-dir: ./
-          # State file unik per run SHA — memaksa full upload setiap deploy
+          server-dir: /public_html/
           state-name: .ftp-deploy-sync-state-v6.json
-          # Exclude file tertentu jika perlu
           exclude: |
             **/.git*
             **/.git*/**
