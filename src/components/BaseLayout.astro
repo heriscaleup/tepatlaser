@@ -18,6 +18,7 @@ const imageUrl = new URL(props.image || generated.openGraph?.image || '/gambar/p
 const ogTitle = generated.openGraph?.title || pageTitle;
 const ogDescription = generated.openGraph?.description || pageDescription;
 const jsonLd = props.jsonLd || [];
+const heroPreload = props.image || generated.openGraph?.image || (Astro.url.pathname === '/' ? '/images/generated/fiber-laser-v6.webp' : '');
 ---
 
 <!doctype html>
@@ -26,7 +27,7 @@ const jsonLd = props.jsonLd || [];
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b0d0e" />
-    <meta name="tepat-release" content="v8-2026-07-24" />
+    <meta name="tepat-release" content="v9-2026-07-24" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content={pageKeywords} />
@@ -36,8 +37,7 @@ const jsonLd = props.jsonLd || [];
     <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" href="/favicon.ico?v=7" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="preload" href="/fonts/ClashDisplay-Semibold.woff" as="font" type="font/woff" crossorigin="anonymous" />
-    {Astro.url.pathname === '/' && <link rel="preload" href="/images/generated/fiber-laser-v6.webp" as="image" type="image/webp" fetchpriority="high" />}
+    {heroPreload && <link rel="preload" href={heroPreload} as="image" type="image/webp" fetchpriority="high" />}
     <link rel="dns-prefetch" href="//api.whatsapp.com" />
     <link rel="dns-prefetch" href="//www.googletagmanager.com" />
     <meta property="og:type" content={generated.openGraph?.type || props.type || 'website'} />
@@ -134,7 +134,7 @@ const jsonLd = props.jsonLd || [];
 
     <script is:inline>
       const initBase = () => {
-        const release = 'v8-2026-07-24';
+        const release = 'v9-2026-07-24';
         if (localStorage.getItem('tepat-release') !== release) {
           navigator.serviceWorker?.getRegistrations?.().then((items) => items.forEach((item) => item.unregister()));
           window.caches?.keys?.().then((keys) => Promise.all(keys.map((key) => window.caches.delete(key))));

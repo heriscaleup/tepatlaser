@@ -1,5 +1,5 @@
 ---
 import CapabilityPage from '../components/CapabilityPage.astro'; import { MATERIALS } from '../utils/constants.js';
-const base = MATERIALS.find((material) => material.id === 'metal')!; const item = { ...base, name:'Estimasi Laser Cutting Metal', slug:'harga-laser-cutting-metal', description:'Estimasi mengikuti material, ketebalan, ukuran, jumlah, panjang jalur potong, dan kebutuhan finishing. Kirim file untuk kalkulasi yang relevan.' };
+const base = MATERIALS.find((material) => material.id === 'metal')!; const item = { ...base, name:'Estimasi Laser Cutting Metal', slug:'harga-laser-cutting-metal', description:'Estimasi mengikuti material, ketebalan, ukuran, jumlah, panjang jalur potong, dan kebutuhan finishing. Kirim file untuk kalkulasi yang relevan.', image:'/images/generated/fiber-laser-v6.webp' };
 ---
 <CapabilityPage item={item} kind="solution" />

@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../components/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import CTA from '../components/CTA.astro'; import PageIntro from '../components/PageIntro.astro'; import { generateBreadcrumbSchema } from '../utils/seo.js';
+import BaseLayout from '../components/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import CTA from '../components/CTA.astro'; import PageIntro from '../components/PageIntro.astro'; import EditorialDepth from '../components/EditorialDepth.astro'; import { generateBreadcrumbSchema } from '../utils/seo.js';
 const schema = generateBreadcrumbSchema([{name:'Beranda',url:'/'},{name:'Portofolio',url:'/portfolio/'}]);
 const projects = [
  {title:'Pagar panel geometris',category:'Eksterior',material:'Panel metal',process:'Laser cutting',image:'/gambar/pagar-laser-cutting-landing/hero-pagar-laser-cutting.webp',desc:'Pola laser cutting memberi privasi, ritme visual, dan identitas pada fasad rumah.'},
@@ -11,6 +11,19 @@ const projects = [
  {title:'Komponen stainless',category:'Metalwork',material:'Stainless steel',process:'Laser fiber',image:'/images/stainlesssteel (3).webp',desc:'Geometri komponen metal disiapkan untuk kebutuhan fabrikasi lanjutan, perakitan, atau pemasangan.'},
  {title:'Signage dan identitas ruang',category:'Komersial',material:'Multi-material',process:'Cutting & assembly',image:'/images/singagehote.webp',desc:'Elemen huruf dan bidang identitas disusun dengan mempertimbangkan skala baca, mounting, dan finishing.'}
 ];
+const portfolioDepth = {
+ eyebrow:'Cara membaca referensi',
+ title:'Portofolio yang berguna membantu mengambil keputusan, bukan hanya mengumpulkan foto bagus.',
+ intro:'Satu tampilan dapat dicapai melalui kombinasi material, ketebalan, struktur, finishing, dan pemasangan yang berbeda. Gunakan galeri sebagai titik diskusi visual, lalu ukur keputusan teknisnya terhadap kondisi proyek Anda.',
+ pillars:[
+  {title:'Pisahkan tampilan dan konstruksi',description:'Motif yang sama dapat dipasang sebagai panel tunggal, modul berangka, railing, secondary skin, atau lapisan dekoratif. Struktur di belakang foto sama pentingnya dengan pola di depan.',evidence:'Pola · rangka · fixing'},
+  {title:'Baca skala dan jarak pandang',description:'Detail yang terlihat proporsional pada foto dekat bisa hilang pada fasad atau terlalu padat pada bidang kecil. Ukuran nyata menentukan kepadatan desain.',evidence:'Ukuran bidang · jarak baca'},
+  {title:'Tanyakan proses setelah cutting',description:'Deburring, bending, welding, coating, lampu, assembly, packing, dan pemasangan sering menentukan sebagian besar kualitas akhir.',evidence:'Finishing · assembly · instalasi'}
+ ],
+ checklistTitle:'Data yang mengubah inspirasi menjadi brief produksi.',
+ checklistIntro:'Semakin jelas konteksnya, semakin kecil kemungkinan referensi visual diterjemahkan secara keliru.',
+ checklist:['Foto bidang dari depan dan sudut yang menunjukkan kondisi sekeliling.','Ukuran total, pembagian panel, serta posisi pintu atau bukaan.','Referensi motif dengan penjelasan bagian yang disukai.','Kebutuhan privasi, ventilasi, cahaya, keamanan, dan perawatan.','Target material, warna, anggaran, lokasi, serta waktu pemasangan.']
+};
 ---
 <BaseLayout title="Portofolio Tepat Laser — Hasil Fabrikasi Presisi" description="Eksplorasi aplikasi laser cutting untuk pagar, railing, fasad, panel interior, dan kebutuhan arsitektural custom." keywords="portfolio laser cutting, pagar laser cutting, railing custom, panel arsitektur" url="/portfolio/" image={projects[0].image} jsonLd={[schema]}><Header slot="header" />
   <main class="overflow-hidden">
@@ -24,6 +37,7 @@ const projects = [
     />
     <section class="portfolio-brief"><div class="container-custom"><div><span>01</span><strong>Lihat fungsi</strong><p>Apakah bidang berperan sebagai pagar, fasad, railing, display, signage, atau komponen.</p></div><div><span>02</span><strong>Catat material</strong><p>Material memengaruhi mesin, detail minimum, struktur, finishing, dan perawatan.</p></div><div><span>03</span><strong>Bawa konteks</strong><p>Foto lokasi, ukuran bidang, referensi pola, dan cara pemasangan mempercepat review.</p></div></div></section>
     <section class="section-padding"><div class="container-custom portfolio-grid">{projects.map((project,index) => <article class:list={["portfolio-card",index===0&&"portfolio-featured"]}><div class="portfolio-media"><img src={project.image} alt={project.title} width="1200" height="800" loading="lazy" decoding="async" /></div><div class="portfolio-copy"><span>{project.category}</span><h2>{project.title}</h2><p>{project.desc}</p><div><small>{project.material}</small><small>{project.process}</small></div></div></article>)}</div></section>
+    <EditorialDepth {...portfolioDepth} />
     <section class="dark-section section-padding"><div class="container-custom portfolio-note"><div><span class="eyebrow">Dari referensi ke file kerja</span><h2 class="heading-md mt-5">Gambar yang Anda sukai belum otomatis menjadi desain yang aman diproduksi.</h2></div><div><p>Tim meninjau skala pola, jarak antarlubang, tepi material, pembagian panel, titik sambungan, kebutuhan rangka, serta finishing. Hasil review tersebut menjadi dasar file produksi dan penawaran.</p><a href="/proses-produksi-lead-time/" class="btn-secondary">Pelajari alur produksi <span>→</span></a></div></div></section>
     <CTA title="Punya ide yang harus terlihat bagus sekaligus bekerja benar?" description="Kirim ukuran, referensi pola, material, dan konteks pemasangan. Kami bantu membaca risiko serta rute produksinya." primaryText="Mulai konsultasi" secondaryText="Lihat layanan" secondaryLink="/services/" />
   </main><Footer slot="footer" />

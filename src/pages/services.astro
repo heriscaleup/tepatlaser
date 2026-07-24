@@ -1,11 +1,25 @@
 ---
-import BaseLayout from '../components/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import CTA from '../components/CTA.astro'; import PageIntro from '../components/PageIntro.astro'; import { SERVICES, MATERIALS, SITE_CONFIG } from '../utils/constants.js'; import { generateBreadcrumbSchema } from '../utils/seo.js';
+import BaseLayout from '../components/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import CTA from '../components/CTA.astro'; import PageIntro from '../components/PageIntro.astro'; import EditorialDepth from '../components/EditorialDepth.astro'; import { SERVICES, MATERIALS, SITE_CONFIG } from '../utils/constants.js'; import { generateBreadcrumbSchema } from '../utils/seo.js';
 const crumbs = generateBreadcrumbSchema([{name:'Beranda',url:'/'},{name:'Layanan',url:'/services/'}]); const wa = `https://api.whatsapp.com/send?phone=${SITE_CONFIG.whatsapp}&text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi layanan untuk proyek saya.')}`;
+const serviceDepth = {
+  eyebrow:'Cara memilih teknologi',
+  title:'Salah memilih proses bisa terlihat murah di awal dan mahal saat dirakit.',
+  intro:'Laser CO2, laser fiber, CNC router, dan galvo engraving memiliki wilayah kerja berbeda. Pemilihan yang benar mempertimbangkan material, bentuk, ketebalan, detail minimum, jumlah, kualitas tepi, serta tahapan setelah proses utama.',
+  pillars:[
+    {title:'Laser untuk energi terfokus',description:'CO2 menangani banyak non-metal yang kompatibel, sedangkan fiber melayani lembaran metal. Keduanya mengikuti geometri digital tetapi memiliki karakter panas dan tepi berbeda.',evidence:'CO2 non-metal · fiber metal'},
+    {title:'Router untuk pemakanan mekanis',description:'CNC router tepat untuk ACP, PVC board, GRC, MDF, plywood, pocket, profiling, dan V-groove. Radius cutter serta clamping menjadi bagian desain.',evidence:'Panel · pocket · profiling'},
+    {title:'Galvo untuk identitas',description:'Galvo unggul pada marking area terbatas, data variabel, serial number, logo, dan personalisasi batch—bukan pemotongan panel lebar.',evidence:'Marking · serial · personalisasi'}
+  ],
+  checklistTitle:'Empat pertanyaan sebelum meminta harga.',
+  checklistIntro:'Jawaban yang jelas akan mempercepat pemilihan mesin sekaligus mengurangi revisi quotation.',
+  checklist:['Apa fungsi produk dan di mana produk digunakan?','Material serta ketebalan apa yang sudah ditentukan?','Bagian mana yang harus dipotong, diukir, dipocket, atau dibending?','Berapa jumlah desain dan jumlah unit setiap desain?','Apakah pekerjaan berhenti di mesin atau mencakup finishing, assembly, dan pemasangan?']
+};
 ---
 <BaseLayout title="Layanan Tepat Laser — Laser Cutting, CNC Router & Engraving" description="Pilih jalur produksi Tepat Laser untuk metal, non-metal, signage, arsitektur, interior, prototyping, dan kebutuhan custom." keywords="jasa laser cutting, laser fiber, laser CO2, CNC router, galvo engraving" url="/services/" jsonLd={[crumbs]}><Header slot="header" />
   <main class="overflow-hidden"><PageIntro eyebrow="Layanan produksi" title="Satu kebutuhan. Empat teknologi. Tanpa salah pilih proses." description="Kami tidak mulai dari nama mesin. Kami mulai dari fungsi, material, detail, jumlah, dan kualitas hasil yang harus Anda capai." actionText="Diskusikan kebutuhan" actionHref={wa} />
     <section class="kinetic-line" aria-label="Sistem produksi" data-no-reveal><div class="kinetic-track"><span>Mesin yang tepat</span><span>Material yang sesuai</span><span>File siap produksi</span><span>Output diperiksa</span><span>Mesin yang tepat</span><span>Material yang sesuai</span><span>File siap produksi</span><span>Output diperiksa</span></div></section>
     <section class="section-padding"><div class="container-custom"><div class="service-table accent-cycle">{SERVICES.map((service,index) => <a href={`/${service.slug}/`} data-magnetic><span class="number-tag">0{index+1}</span><div><h2>{service.name}</h2><p>{service.description}</p></div><div><small>Cocok untuk</small><p>{service.applications.join(' · ')}</p></div><strong>↗</strong></a>)}</div></div></section>
+    <EditorialDepth {...serviceDepth} />
     <section class="warm-section section-padding"><div class="container-custom service-materials"><div><span class="eyebrow">Material</span><h2 class="heading-lg mt-6">Bahan menentukan proses dan kualitas tepi.</h2><p class="mt-6 max-w-lg leading-8">Ketebalan di bawah adalah rentang umum. Kelayakan final tetap mengikuti jenis bahan, geometri, dan target hasil.</p></div><div class="material-list">{MATERIALS.map((item,index) => <a href={`/${item.slug}/`} data-magnetic><span>0{index+1}</span><div><h3>{item.name}</h3><p>{item.thickness}</p></div><strong>→</strong></a>)}</div></div></section>
     <CTA title="Anda tidak perlu hafal nama mesin untuk memulai." description="Kirim file atau referensi. Kami bantu membaca material, geometri, volume, dan kualitas akhir untuk memilih proses yang paling masuk akal." primaryText="Kirim file via WhatsApp" secondaryText="Baca panduan teknis" secondaryLink="/blog/" />
   </main><Footer slot="footer" />

@@ -1,7 +1,7 @@
 {
-  "release": "v8-2026-07-24",
-  "version": "v8-2026-07-24",
-  "design": "industrial-editorial-performance",
+  "release": "v9-2026-07-24",
+  "version": "v9-2026-07-24",
+  "design": "industrial-editorial-trust",
   "palette": {
     "red": "#EA314F",
     "gold": "#D3B15D",
@@ -10,6 +10,11 @@
     "blue": "#3672AC"
   },
   "features": [
+    "original-brand-identity",
+    "readable-mega-menu",
+    "route-specific-visuals",
+    "long-form-non-blog-pages",
+    "trust-first-copy",
     "responsive-design-system",
     "content-complete-route-templates",
     "verified-business-claims",
@@ -17,6 +22,7 @@
     "reduced-motion-support",
     "accessible-navigation",
     "structured-data",
-    "deferred-marketing-tags"
+    "deferred-marketing-tags",
+    "browser-verified"
   ]
 }

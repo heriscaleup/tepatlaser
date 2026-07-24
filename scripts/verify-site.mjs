@@ -38,7 +38,10 @@ for (const file of htmlFiles) {
   const canonicalCount = (html.match(/<link[^>]+rel=["']canonical["']/gi) || []).length;
   const ogTitleCount = (html.match(/<meta[^>]+property=["']og:title["']/gi) || []).length;
   const viewportCount = (html.match(/<meta[^>]+name=["']viewport["']/gi) || []).length;
+  const sectionCount = (html.match(/<section(?:\s|>)/gi) || []).length;
   const visibleText = html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const isBlog = page === '/blog/' || page.startsWith('/blog/');
+  const isContentPage = !redirect && page !== '/404.html' && page !== '/404/';
   if (!redirect && !/<html[^>]+lang=["']id["']/i.test(html)) failures.push(`${page}: lang bukan id`);
   if (titleCount !== 1) failures.push(`${page}: title=${titleCount}`);
   if (!redirect && h1Count !== 1) failures.push(`${page}: h1=${h1Count}`);
@@ -48,10 +51,12 @@ for (const file of htmlFiles) {
   if (!redirect && viewportCount !== 1) failures.push(`${page}: viewport=${viewportCount}`);
   if (!redirect && headerCount !== 1) failures.push(`${page}: header utama=${headerCount}`);
   if (!redirect && footerCount !== 1) failures.push(`${page}: footer utama=${footerCount}`);
-  if (!redirect && !/<img[^>]+class=["'][^"']*brand-logo[^>]+src=["']\/images\/tepat-laser-mark-dark\.svg["']/i.test(html)) failures.push(`${page}: logo navbar tidak konsisten`);
+  if (!redirect && !/<img[^>]+class=["'][^"']*brand-logo[^>]+src=["']\/images\/logo-transparent\.webp["']/i.test(html)) failures.push(`${page}: logo navbar tidak konsisten`);
   if (!redirect && !/aria-label=["']Navigasi utama["']/i.test(html)) failures.push(`${page}: navigasi utama hilang`);
   if (!redirect && (!expectedRelease || !html.includes(`name="tepat-release" content="${expectedRelease}"`))) failures.push(`${page}: release marker tidak sinkron`);
-  if (!redirect && page !== '/404/' && visibleText.length < 900) failures.push(`${page}: isi halaman terlalu tipis (${visibleText.length} karakter)`);
+  if (isContentPage && isBlog && visibleText.length < 900) failures.push(`${page}: isi artikel terlalu tipis (${visibleText.length} karakter)`);
+  if (isContentPage && !isBlog && visibleText.length < 4000) failures.push(`${page}: isi halaman non-blog terlalu tipis (${visibleText.length} karakter, minimum 4000)`);
+  if (isContentPage && !isBlog && sectionCount < 5) failures.push(`${page}: struktur halaman non-blog terlalu ringkas (${sectionCount} section, minimum 5)`);
   if (!redirect && html.length > 250_000) failures.push(`${page}: HTML melebihi budget 250 KB`);
   for (const match of html.matchAll(/<(?:a|link|img|script)[^>]+(?:href|src)=["']([^"']+)["']/gi)) {
     const target = resolveLocal(match[1], file);
@@ -83,7 +88,7 @@ if (existsSync(manifestFile)) {
 }
 
 if (!existsSync(releaseFile)) failures.push('/release.json: release marker hilang');
-else if (!/^v8-\d{4}-\d{2}-\d{2}$/.test(expectedRelease)) failures.push('/release.json: format release V8 tidak valid');
+else if (!/^v9-\d{4}-\d{2}-\d{2}$/.test(expectedRelease)) failures.push('/release.json: format release V9 tidak valid');
 
 console.log(JSON.stringify({ htmlPages: htmlFiles.length, localReferencesChecked: checkedLinks, failures: failures.length }, null, 2));
 if (failures.length) {

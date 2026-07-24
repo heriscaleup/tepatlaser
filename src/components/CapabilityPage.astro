@@ -5,6 +5,7 @@ import Footer from './Footer.astro';
 import CTA from './CTA.astro';
 import Breadcrumbs from './Breadcrumbs.astro';
 import { SITE_CONFIG, SERVICES, MATERIALS } from '../utils/constants.js';
+import { getCapabilityContent } from '../utils/capabilityContent.js';
 import { generateBreadcrumbSchema, generateFAQSchema } from '../utils/seo.js';
 
 export interface Item {
@@ -27,8 +28,21 @@ export interface Props {
   url?: string;
 }
 
+interface DeepDecision { title: string; description: string; }
+interface DeepImage { src: string; alt: string; label: string; caption: string; }
+interface DeepContent {
+  lead: string;
+  decisions: DeepDecision[];
+  fit: string[];
+  notFit: string[];
+  gallery: DeepImage[];
+  priceFactors: string[];
+  qualityChecks: string[];
+}
+
 const { item, kind = 'service', title = item.name, description = item.description, url = `/${item.slug || ''}/` } = Astro.props;
 const label = kind === 'material' ? 'Kapabilitas Material' : kind === 'solution' ? 'Solusi Proyek Custom' : 'Kapabilitas Mesin Produksi';
+const deepContent = getCapabilityContent(item.slug || '', item.image || '/images/generated/fiber-laser-v6.webp', title) as DeepContent;
 
 const features = item.features?.length
   ? item.features
@@ -151,8 +165,29 @@ const meta = {
       </div>
     </section>
 
+    <section class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="decision-intro">
+          <div>
+            <span class="eyebrow text-amber-800">Sebelum memilih proses</span>
+            <h2 class="heading-md mt-4 text-slate-950">Tiga keputusan yang lebih penting daripada sekadar bertanya “bisa dipotong atau tidak”.</h2>
+          </div>
+          <p>{deepContent.lead}</p>
+        </div>
+        <div class="decision-grid">
+          {deepContent.decisions.map((entry, index) => (
+            <article>
+              <span>0{index + 1}</span>
+              <h3>{entry.title}</h3>
+              <p>{entry.description}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- Specifications Grid -->
-    <section id="spesifikasi" class="section-padding bg-white">
+    <section id="spesifikasi" class="section-padding bg-slate-50">
       <div class="container-custom">
         <div class="grid gap-10 lg:grid-cols-12 lg:items-start">
           <div class="lg:col-span-5">
@@ -178,6 +213,26 @@ const meta = {
       </div>
     </section>
 
+    <section class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="grid gap-6 lg:grid-cols-[.8fr_1.2fr] lg:items-end">
+          <div>
+            <span class="eyebrow text-amber-800">Material, proses, dan hasil</span>
+            <h2 class="heading-md mt-4 text-slate-950">Visual yang benar-benar berkaitan dengan {title}.</h2>
+          </div>
+          <p class="max-w-2xl text-slate-600 leading-7">Gambar mesin menjelaskan proses, gambar material menjelaskan karakter bahan, dan gambar aplikasi membantu Anda menilai hasil dalam konteks penggunaan—bukan dekorasi acak yang sekadar memenuhi ruang.</p>
+        </div>
+        <div class="capability-gallery">
+          {deepContent.gallery.map((entry, index) => (
+            <figure class:list={[index === 0 && 'capability-gallery-wide']}>
+              <img src={entry.src} alt={entry.alt} width="1200" height="900" loading="lazy" decoding="async" />
+              <figcaption><span>{entry.label}</span><h3>{entry.caption}</h3></figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- Quote readiness -->
     <section class="section-padding bg-slate-950 text-white">
       <div class="container-custom">
@@ -196,6 +251,26 @@ const meta = {
               </div>
             ))}
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-padding bg-amber-50">
+      <div class="container-custom">
+        <div class="max-w-3xl">
+          <span class="eyebrow text-amber-800">Cocok atau perlu rute lain?</span>
+          <h2 class="heading-md mt-4 text-slate-950">Keputusan yang baik juga menjelaskan kapan {title} bukan pilihan paling efisien.</h2>
+          <p class="mt-5 text-slate-700 leading-7">Jika brief Anda masuk kolom kanan, tim akan mengarahkan ke teknologi, material, atau tahapan lain sebelum biaya terlanjur keluar.</p>
+        </div>
+        <div class="fit-grid">
+          <article>
+            <div class="fit-heading"><span>✓</span><h3>Umumnya cocok untuk</h3></div>
+            <ul>{deepContent.fit.map((entry) => <li>{entry}</li>)}</ul>
+          </article>
+          <article>
+            <div class="fit-heading"><span>→</span><h3>Perlu ditinjau atau dialihkan bila</h3></div>
+            <ul>{deepContent.notFit.map((entry) => <li>{entry}</li>)}</ul>
+          </article>
         </div>
       </div>
     </section>
@@ -233,6 +308,38 @@ const meta = {
             </li>
           ))}
         </ol>
+      </div>
+    </section>
+
+    <section class="section-padding bg-slate-950 text-white">
+      <div class="container-custom grid gap-10 lg:grid-cols-[.7fr_1.3fr] lg:items-start">
+        <div>
+          <span class="eyebrow text-amber-400">Logika harga</span>
+          <h2 class="heading-md mt-4 text-white">Penawaran yang dapat dibandingkan harus menjelaskan apa yang membentuk angkanya.</h2>
+          <p class="mt-5 text-slate-300 leading-7">File, material, jumlah, dan scope pekerjaan dibaca bersama agar angka awal tidak berubah karena asumsi tersembunyi.</p>
+        </div>
+        <ol class="factor-list">
+          {deepContent.priceFactors.map((entry, index) => (
+            <li><span>0{index + 1}</span><p>{entry}</p></li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section-padding bg-white">
+      <div class="container-custom">
+        <div class="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
+          <div>
+            <span class="eyebrow text-amber-800">Kriteria penerimaan</span>
+            <h2 class="heading-md mt-4 text-slate-950">“Rapi” harus diterjemahkan menjadi hal yang bisa diperiksa.</h2>
+            <p class="mt-5 text-slate-700 leading-7">Dimensi kritis, sisi kosmetik, kondisi tepi, jumlah, dan kesiapan untuk proses berikutnya disepakati sesuai fungsi komponen.</p>
+          </div>
+          <ul class="quality-list">
+            {deepContent.qualityChecks.map((entry, index) => (
+              <li><span>{String(index + 1).padStart(2, '0')}</span><p>{entry}</p></li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -289,6 +396,37 @@ const meta = {
 </BaseLayout>
 
 <style>
+  .decision-intro{display:grid;gap:2rem;align-items:end}
+  .decision-intro>p{max-width:44rem;color:#475569;font-size:1rem;line-height:1.8}
+  .decision-grid{display:grid;gap:1rem;margin-top:3rem}
+  .decision-grid article{border:1px solid #cbd5e1;background:#f8fafc;padding:1.5rem}
+  .decision-grid article>span{color:#76520e;font-size:.75rem;font-weight:850;letter-spacing:.12em}
+  .decision-grid h3{margin-top:2rem;color:#0f172a;font-size:1.35rem}
+  .decision-grid p{margin-top:.75rem;color:#475569;font-size:.94rem;line-height:1.75}
+  .capability-gallery{display:grid;gap:1rem;margin-top:3rem}
+  .capability-gallery figure{position:relative;min-height:25rem;overflow:hidden;border-radius:.7rem;background:#050706}
+  .capability-gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .capability-gallery figure::after{position:absolute;inset:0;content:'';background:linear-gradient(to top,rgba(5,7,6,.9),transparent 62%)}
+  .capability-gallery figcaption{position:absolute;z-index:1;right:1.3rem;bottom:1.3rem;left:1.3rem}
+  .capability-gallery figcaption span{color:#edcf79;font-size:.72rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+  .capability-gallery figcaption h3{max-width:30rem;margin-top:.5rem;color:#fff;font-size:1.35rem;line-height:1.15}
+  .fit-grid{display:grid;gap:1rem;margin-top:3rem}
+  .fit-grid article{border:1px solid #d6c8aa;background:#fff;padding:1.5rem}
+  .fit-heading{display:flex;align-items:center;gap:.8rem}
+  .fit-heading>span{display:grid;width:2rem;height:2rem;place-items:center;border-radius:50%;background:#0f172a;color:#fff;font-weight:800}
+  .fit-heading h3{color:#0f172a;font-size:1.25rem}
+  .fit-grid ul{display:grid;gap:.7rem;margin:1.5rem 0 0;padding:0;list-style:none}
+  .fit-grid li{position:relative;padding-left:1.1rem;color:#334155;line-height:1.65}
+  .fit-grid li::before{position:absolute;top:.72rem;left:0;width:.35rem;height:.35rem;border-radius:50%;background:#9a6c14;content:''}
+  .factor-list{display:grid;margin:0;padding:0;border-top:1px solid #334155;list-style:none}
+  .factor-list li{display:grid;grid-template-columns:3rem 1fr;gap:1rem;border-bottom:1px solid #334155;padding:1.15rem 0}
+  .factor-list span{color:#edcf79;font-size:.75rem;font-weight:850}
+  .factor-list p{color:#f8fafc;font-weight:700}
+  .quality-list{display:grid;margin:0;padding:0;border:1px solid #cbd5e1;list-style:none}
+  .quality-list li{display:grid;grid-template-columns:3rem 1fr;gap:1rem;padding:1.2rem}
+  .quality-list li+li{border-top:1px solid #cbd5e1}
+  .quality-list span{color:#76520e;font-size:.75rem;font-weight:850}
+  .quality-list p{color:#334155;font-weight:650;line-height:1.65}
   .intake-grid{display:grid;gap:1px;border:1px solid #334155;background:#334155}
   .intake-grid>div{background:#0f172a;padding:1.25rem}
   .intake-grid span,.production-flow>li>span{font-size:.75rem;font-weight:800;letter-spacing:.1em}
@@ -306,5 +444,5 @@ const meta = {
   .capability-faq summary::-webkit-details-marker{display:none}
   .capability-faq summary span{color:#9a6c14}
   .capability-faq p{margin-top:.8rem;max-width:48rem;color:#475569;font-size:.95rem;line-height:1.75}
-  @media(min-width:700px){.intake-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.production-flow{grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid #cbd5e1}.production-flow li{border:0;padding:1.5rem}.production-flow li:nth-child(even){border-left:1px solid #cbd5e1}.production-flow li:nth-child(n+3){border-top:1px solid #cbd5e1}}
+  @media(min-width:700px){.decision-intro{grid-template-columns:.85fr 1.15fr}.decision-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.capability-gallery{grid-template-columns:1.2fr .8fr}.capability-gallery-wide{grid-row:span 2}.fit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.intake-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.production-flow{grid-template-columns:repeat(2,minmax(0,1fr));border:1px solid #cbd5e1}.production-flow li{border:0;padding:1.5rem}.production-flow li:nth-child(even){border-left:1px solid #cbd5e1}.production-flow li:nth-child(n+3){border-top:1px solid #cbd5e1}}
 </style>

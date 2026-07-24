@@ -8,7 +8,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
     <div class="footer-top">
       <div>
         <a href="/" class="brand-lockup footer-brand" aria-label="Tepat Laser, beranda">
-          <span class="footer-logo-shell"><img class="footer-logo" src="/images/tepat-laser-mark.svg" alt="Tepat Laser" width="320" height="64" loading="lazy" decoding="async" /></span>
+          <span class="footer-logo-shell"><img class="footer-logo" src="/images/logo-light-transparent.webp" alt="Tepat Laser — Laser Cutting" width="1200" height="594" loading="lazy" decoding="async" /></span>
         </a>
         <p class="mt-6 max-w-md text-sm leading-7">Bukan sekadar tempat potong. Kami membantu mengunci material, proses, detail, dan pemeriksaan agar hasil siap melanjutkan proyek Anda.</p>
         <a href={wa} target="_blank" rel="noopener noreferrer" class="footer-action mt-7" data-wa-label="Footer WhatsApp">Kirim kebutuhan Anda <span>↗</span></a>
@@ -36,7 +36,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
       <div><span>Jam kerja</span><p>{SITE_CONFIG.businessHours}</p></div>
       <div><span>Kontak</span><p><a href={`tel:${SITE_CONFIG.phone}`}>{SITE_CONFIG.phone}</a><br /><a href={`mailto:${SITE_CONFIG.email}`}>{SITE_CONFIG.email}</a></p></div>
     </div>
-    <div class="footer-bottom"><span>© {new Date().getFullYear()} Tepat Laser</span><span>Tangerang Selatan · Indonesia</span><span class="footer-release">v7.2026</span></div>
+    <div class="footer-bottom"><span>© {new Date().getFullYear()} Tepat Laser</span><span>Tangerang Selatan · Indonesia</span><span class="footer-release">V9</span></div>
   </div>
 
   <a href={wa} target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Konsultasi Tepat Laser melalui WhatsApp" data-wa-label="Floating WhatsApp">
@@ -48,7 +48,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
 <style>
   .site-footer{position:relative;border-top:0;background:#050706;color:#fff}.site-footer::before{position:absolute;top:0;right:0;left:0;height:3px;content:'';background:var(--brand-spectrum)}
   .site-footer p{color:rgba(255,255,255,.62)}
-  .footer-logo-shell{display:inline-flex}.footer-logo{width:11rem;height:auto}
+  .footer-logo-shell{display:inline-flex;align-items:center}.footer-logo{width:12rem;height:5.8rem;object-fit:contain;object-position:left center}
   .footer-action{display:inline-flex;align-items:center;gap:.65rem;color:var(--brand-gold-soft);font-size:.9rem;font-weight:750}.footer-action:hover{color:var(--brand-blue-soft)}
   .footer-social{display:flex;gap:.75rem;margin-top:1rem}
   .footer-social a{display:grid;width:2.2rem;height:2.2rem;place-items:center;border:1px solid rgba(255,255,255,.15);border-radius:50%;color:rgba(255,255,255,.6);transition:all .25s var(--ease-smooth)}

@@ -9,7 +9,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
 <header class="fixed inset-x-0 top-0 z-50 glass-header" id="main-header">
   <div class="container-custom flex h-[4.8rem] items-center justify-between gap-5">
     <a href="/" class="brand-lockup" aria-label="Tepat Laser, kembali ke beranda">
-      <img class="brand-logo" src="/images/tepat-laser-mark-dark.svg" alt="Tepat Laser" width="320" height="64" decoding="async" />
+      <img class="brand-logo" src="/images/logo-transparent.webp" alt="Tepat Laser — Laser Cutting" width="1200" height="594" decoding="async" />
     </a>
 
     <nav class="desktop-nav hidden items-center gap-7 lg:flex" aria-label="Navigasi utama">
@@ -22,13 +22,13 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
         <div class="mega-panel">
           <div>
             <p class="mega-label">Proses produksi</p>
-            <div class="mt-4 grid gap-1">
+            <div class="mega-service-list">
               {SERVICES.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><small>{item.applications.slice(0,2).join(' · ')}</small></a>)}
             </div>
           </div>
           <div>
             <p class="mega-label">Material populer</p>
-            <div class="mt-4 grid grid-cols-2 gap-1">
+            <div class="mega-material-list">
               {MATERIALS.map((item) => <a href={`/${item.slug}/`}><span>{item.name}</span><small>{item.thickness}</small></a>)}
             </div>
           </div>
@@ -111,13 +111,16 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
   .nav-link.is-active::after{position:absolute;right:0;bottom:.15rem;left:0;height:2px;content:'';background:var(--brand-spectrum)}
   .nav-mega{position:relative}
   .nav-mega summary::-webkit-details-marker{display:none}
-  .mega-panel{position:absolute;top:calc(100% + .7rem);left:50%;display:grid;width:min(53rem,calc(100vw - 3rem));grid-template-columns:.8fr 1.35fr;gap:2rem;border:1px solid var(--line);background:var(--surface);padding:1.4rem;box-shadow:var(--shadow);transform:translateX(-50%)}
-  .mega-label{color:var(--brand-gold-soft);font-size:.75rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}.mega-panel>div:nth-child(2) .mega-label{color:var(--brand-blue-soft)}
-  .mega-panel a{display:flex;min-width:0;align-items:center;justify-content:space-between;gap:1rem;border-radius:.35rem;padding:.65rem .7rem;transition:background .2s ease}
-  .mega-panel a:hover{background:var(--surface-soft)}
-  .mega-panel a span{font-size:.9rem;font-weight:700}
-  .mega-panel a small{overflow:hidden;color:var(--muted);font-size:.75rem;line-height:1.2;text-align:right;text-overflow:ellipsis;white-space:nowrap}
-  .mega-panel .mega-all{position:absolute;right:1.4rem;bottom:-2.55rem;left:1.4rem;border:1px solid var(--brand-gold-soft);background:var(--brand-gold-soft);color:#09100d;padding:.7rem 1rem;box-shadow:var(--shadow)}
+  .mega-panel{position:absolute;top:calc(100% + .7rem);left:50%;display:grid;width:min(60rem,calc(100vw - 3rem));grid-template-columns:.8fr 1.45fr;gap:1.5rem;border:1px solid #343837;background:#090c0b;padding:1.5rem;box-shadow:0 1.5rem 5rem rgba(0,0,0,.38);transform:translateX(-50%)}
+  .mega-label{margin:0;color:#edcf79!important;font-size:.75rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}.mega-panel>div:nth-child(2) .mega-label{color:#78b7ef!important}
+  .mega-service-list{display:grid;gap:.35rem;margin-top:1rem}
+  .mega-material-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.35rem;margin-top:1rem}
+  .mega-panel a{display:flex;min-width:0;align-items:flex-start;justify-content:space-between;gap:.8rem;border:1px solid transparent;border-radius:.4rem;padding:.7rem .75rem;color:#f5f7f4!important;transition:background .2s ease,border-color .2s ease}
+  .mega-panel a:hover,.mega-panel a:focus-visible{border-color:#39413d;background:#151a17}
+  .mega-panel a span{min-width:0;color:#f5f7f4!important;font-size:.88rem;font-weight:750;line-height:1.35}
+  .mega-panel a small{flex:none;color:#bdc7c1!important;font-size:.72rem;line-height:1.4;text-align:right;white-space:normal}
+  .mega-panel .mega-all{grid-column:1/-1;align-items:center;border:1px solid #edcf79;background:#edcf79;color:#09100d!important;padding:.8rem 1rem;box-shadow:none}
+  .mega-panel .mega-all span{color:#09100d!important}
   .mega-panel .mega-all:hover{background:#fff}
   .mobile-toggle{position:relative;width:2.75rem;height:2.75rem;border:1px solid var(--header-line);border-radius:50%;background:var(--paper);color:var(--header-ink)}
   .mobile-toggle span{position:absolute;right:.75rem;left:.75rem;height:1px;background:var(--header-ink);transition:transform .2s ease}
@@ -131,7 +134,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
   .mobile-subgrid a{border:1px solid var(--line);background:var(--surface);padding:.8rem;font-size:.85rem;font-weight:700}
   .mobile-panel summary span,.mobile-panel .btn-primary span{font-family:Arial,sans-serif;font-weight:400;letter-spacing:0}
   .mobile-panel nav>.btn-primary{justify-content:center;border:0;color:#09100d;font-family:Inter,ui-sans-serif,sans-serif;font-size:.9rem;font-weight:800;letter-spacing:0}
-  .brand-logo{width:10.5rem;height:auto;object-fit:contain;object-position:left center}
-  @media(max-width:640px){.brand-logo{width:9.25rem}}
+  .brand-logo{width:8.6rem;height:3.45rem;object-fit:contain;object-position:left center}
+  @media(max-width:640px){.brand-logo{width:7.6rem;height:3rem}}
   @keyframes nav-arrive{from{opacity:0;transform:translateY(-.7rem)}to{opacity:1;transform:none}}
 </style>

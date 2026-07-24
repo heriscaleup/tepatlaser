@@ -5,7 +5,7 @@ import puppeteer from 'puppeteer-core';
 const root = resolve('dist');
 const baseUrl = process.env.AUDIT_BASE_URL || 'http://127.0.0.1:4321';
 const chromePath = process.env.CHROME_PATH;
-const reportDir = resolve(process.env.AUDIT_REPORT_DIR || 'qa-v8');
+const reportDir = resolve(process.env.AUDIT_REPORT_DIR || 'qa-v9');
 const screenshotDir = resolve(process.env.AUDIT_SCREENSHOT_DIR || '/tmp/tepatlaser-browser-audit');
 
 if (!chromePath || !existsSync(chromePath)) {
@@ -40,10 +40,18 @@ const profiles = [
 
 const sampleRoutes = new Set([
   '/',
+  '/about/',
+  '/services/',
+  '/jasa-laser-co2/',
   '/jasa-laser-fiber/',
+  '/jasa-cnc-router/',
+  '/jasa-mihrab-masjid/',
   '/pagar-laser-cutting/',
+  '/railing-laser-cutting/',
   '/portfolio/',
   '/contact/',
+  '/faq/',
+  '/proses-produksi-lead-time/',
   '/blog/',
   '/blog/panduan-file-desain-laser-cutting-akurat/',
   '/lokasi/jakarta/'
@@ -72,6 +80,19 @@ try {
     for (const route of pages) {
       consoleErrors.length = 0;
       const response = await page.goto(`${baseUrl}${route}`, { waitUntil: 'domcontentloaded' });
+      await page.evaluate(async () => {
+        const images = [...document.images];
+        images.forEach((image) => { image.loading = 'eager'; });
+        await Promise.race([
+          Promise.all(images.map((image) => image.complete
+            ? Promise.resolve()
+            : new Promise((resolvePromise) => {
+                image.addEventListener('load', resolvePromise, { once: true });
+                image.addEventListener('error', resolvePromise, { once: true });
+              }))),
+          new Promise((resolvePromise) => setTimeout(resolvePromise, 3_000))
+        ]);
+      });
       await new Promise((resolvePromise) => setTimeout(resolvePromise, 80));
 
       const audit = await page.evaluate(() => {
@@ -86,8 +107,11 @@ try {
         return {
           title: document.title,
           h1: document.querySelectorAll('h1').length,
+          sections: document.querySelectorAll('main section').length,
           header: Boolean(document.querySelector('#main-header')),
           footer: Boolean(document.querySelector('.site-footer')),
+          headerLogo: document.querySelector('#main-header .brand-logo')?.getAttribute('src') || null,
+          footerLogo: document.querySelector('.site-footer .footer-logo')?.getAttribute('src') || null,
           bodyText: document.body.innerText.trim().length,
           horizontalOverflow: Math.max(0, document.documentElement.scrollWidth - document.documentElement.clientWidth),
           failedImages: images.filter((image) => image.complete && image.naturalWidth === 0).map((image) => image.currentSrc || image.src),
@@ -133,6 +157,31 @@ try {
         const slug = route === '/' ? 'home' : route.replace(/^\/|\/$/g, '').replaceAll('/', '--');
         await page.screenshot({ path: join(screenshotDir, `${profile.name}-${slug}.png`), fullPage: true });
       }
+
+      if (profile.name === 'desktop' && route === '/') {
+        await page.evaluate(() => {
+          const dropdown = document.querySelector('[data-nav-dropdown]');
+          if (dropdown) dropdown.open = true;
+        });
+        await new Promise((resolvePromise) => setTimeout(resolvePromise, 120));
+        const megaAudit = await page.evaluate(() => {
+          const panel = document.querySelector('.mega-panel');
+          const items = [...document.querySelectorAll('.mega-panel a span, .mega-panel a small')];
+          const panelRect = panel?.getBoundingClientRect();
+          return {
+            visible: Boolean(panel && panelRect && panelRect.width > 0 && panelRect.height > 0 && getComputedStyle(panel).visibility !== 'hidden'),
+            clipped: Boolean(panelRect && (panelRect.left < 0 || panelRect.right > innerWidth)),
+            unreadableItems: items.filter((item) => {
+              const style = getComputedStyle(item);
+              const rect = item.getBoundingClientRect();
+              return style.visibility === 'hidden' || style.display === 'none' || Number(style.opacity) === 0 || rect.width === 0 || rect.height === 0;
+            }).length,
+            labels: items.map((item) => item.textContent?.trim()).filter(Boolean)
+          };
+        });
+        results.push({ profile: 'desktop', route: '/#mega-menu', status: 200, consoleErrors: [], h1: 1, header: true, footer: true, mainVisible: true, horizontalOverflow: 0, failedImages: [], missingImageAlt: 0, emptyLinks: 0, megaAudit });
+        await page.screenshot({ path: join(screenshotDir, 'desktop-mega-menu.png') });
+      }
     }
     await page.close();
   }
@@ -150,7 +199,10 @@ const failures = results.filter((item) =>
   item.failedImages.length ||
   item.missingImageAlt ||
   item.emptyLinks ||
-  item.consoleErrors.length
+  item.consoleErrors.length ||
+  (item.headerLogo && item.headerLogo !== '/images/logo-transparent.webp') ||
+  (item.footerLogo && item.footerLogo !== '/images/logo-light-transparent.webp') ||
+  (item.megaAudit && (!item.megaAudit.visible || item.megaAudit.clipped || item.megaAudit.unreadableItems))
 );
 
 const report = {

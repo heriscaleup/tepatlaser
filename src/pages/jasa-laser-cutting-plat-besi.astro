@@ -1,5 +1,5 @@
 ---
 import CapabilityPage from '../components/CapabilityPage.astro'; import { MATERIALS } from '../utils/constants.js';
-const base = MATERIALS.find((material) => material.id === 'metal')!; const item = { ...base, name:'Laser Cutting Plat Besi', slug:'jasa-laser-cutting-plat-besi', description:'Pemotongan plat besi untuk braket, penutup, panel, ornamen, dan komponen pesanan yang perlu dimensi terukur.' };
+const base = MATERIALS.find((material) => material.id === 'metal')!; const item = { ...base, name:'Laser Cutting Plat Besi', slug:'jasa-laser-cutting-plat-besi', description:'Pemotongan plat besi untuk braket, penutup, panel, ornamen, dan komponen pesanan yang perlu dimensi terukur.', image:'/images/furnituremetal.webp' };
 ---
 <CapabilityPage item={item} kind="solution" />

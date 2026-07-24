@@ -288,36 +288,6 @@ export const PORTFOLIO_PROJECTS = [
   }
 ];
 
-export const TESTIMONIALS = [
-  {
-    id: 1,
-    name: "Budi Santoso",
-    company: "PT. Kreatif Nusantara Serang",
-    position: "Project Manager",
-    content: "Kualitas laser cutting terbaik yang pernah kami gunakan di indonesia. Presisi tinggi dan hasil sempurna untuk semua project signage kami.",
-    rating: 5,
-    image: "/images/budisantoso.webp"
-  },
-  {
-    id: 2,
-    name: "Sari Dewi",
-    company: "Studio Arsitektur Modern Tangerang",
-    position: "Lead Architect",
-    content: "Pelayanan profesional dan hasil cutting yang sangat memuaskan. Recommended untuk semua kebutuhan laser cutting di indonesia.",
-    rating: 5,
-    image: "/images/Sari Dewi.webp"
-  },
-  {
-    id: 3,
-    name: "Ahmad Rizki",
-    company: "Furniture Mebel Jaya Cilegon",
-    position: "Owner",
-    content: "Sudah 3 tahun menggunakan Tepat Laser. Selalu puas dengan kualitas dan ketepatan waktu pengerjaan, pengiriman ke Cilegon juga cepat.",
-    rating: 5,
-    image: "/images/Ahmad Rizki.webp"
-  }
-];
-
 export const PORTFOLIO = [
   {
     id: 1,

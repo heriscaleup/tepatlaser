@@ -1,11 +1,37 @@
 ---
-import BaseLayout from '../components/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import CTA from '../components/CTA.astro'; import PageIntro from '../components/PageIntro.astro'; import { FAQ } from '../utils/constants.js'; import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
+import BaseLayout from '../components/BaseLayout.astro'; import Header from '../components/Header.astro'; import Footer from '../components/Footer.astro'; import CTA from '../components/CTA.astro'; import PageIntro from '../components/PageIntro.astro'; import EditorialDepth from '../components/EditorialDepth.astro'; import { FAQ } from '../utils/constants.js'; import { generateFAQSchema, generateBreadcrumbSchema } from '../utils/seo.js';
 const breadcrumb = generateBreadcrumbSchema([{name:'Beranda',url:'/'},{name:'FAQ',url:'/faq/'}]);
-const extra = {question:'Format file apa yang paling cepat diproses?',answer:'DXF, DWG, AI, CDR, SVG, atau PDF vektor dengan skala 1:1. Jika belum punya file final, kirim sketsa atau referensi untuk peninjauan awal.'};
+const extras = [
+ {question:'Format file apa yang paling cepat diproses?',answer:'DXF, DWG, AI, CDR, SVG, atau PDF vektor dengan skala 1:1. Jika belum punya file final, kirim sketsa atau referensi untuk peninjauan awal.'},
+ {question:'Apakah bisa membawa material sendiri?',answer:'Bisa ditinjau. Informasikan jenis, grade, ketebalan, ukuran, kondisi permukaan, dan jumlah cadangan. Material pelanggan tetap perlu diperiksa karena lembar melengkung, coating, atau identitas bahan yang tidak jelas dapat memengaruhi proses.'},
+ {question:'Apakah menerima jumlah satuan atau sampel?',answer:'Kelayakannya mengikuti material, setup, ukuran, dan antrean. Sampel justru disarankan untuk sambungan, material baru, tampilan kosmetik, atau batch besar sebelum produksi penuh.'},
+ {question:'Bagaimana harga laser cutting dihitung?',answer:'Harga dipengaruhi material, ketebalan, panjang jalur, jumlah pierce, ukuran part, utilisasi lembar, jumlah unit, serta proses tambahan. File vektor membuat estimasi lebih relevan daripada foto saja.'},
+ {question:'Apakah ada minimum order?',answer:'Tidak semua proses memiliki batas yang sama. Beberapa pekerjaan satuan dapat diproses, tetapi biaya setup dan material tetap diperhitungkan. Kirim data agar tim dapat menilai secara jujur.'},
+ {question:'Bisakah Tepat Laser membantu desain?',answer:'Tim dapat membantu review kelayakan, koreksi dasar, atau persiapan file sesuai scope. Pembuatan desain, tracing kompleks, gambar kerja, dan pengembangan motif dapat menjadi pekerjaan terpisah.'},
+ {question:'Apakah hasil langsung siap dipasang?',answer:'Tergantung scope. Cutting saja berbeda dengan produk yang sudah melalui deburring, bending, welding, cat, assembly, rangka, atau instalasi. Status hasil akhir perlu dinyatakan pada penawaran.'},
+ {question:'Bagaimana menangani revisi setelah quotation?',answer:'Revisi file, ukuran, material, jumlah, atau finishing dapat mengubah nesting, waktu mesin, dan harga. Versi final perlu dikunci kembali sebelum produksi berjalan.'},
+ {question:'Apakah bisa dikirim ke Jakarta, Depok, atau Bekasi?',answer:'Bisa dibahas. Ukuran, berat, risiko gores atau tekuk, jenis kendaraan, dan kebutuhan packing menentukan opsi pengiriman. Pickup dari workshop Tangerang Selatan juga tersedia sesuai jadwal.'},
+ {question:'Bagaimana jika hasil membutuhkan toleransi tertentu?',answer:'Tandai dimensi kritis, datum, toleransi, dan metode ukur pada drawing. Tim akan menilai apakah proses, material, serta alat ukur yang tersedia sesuai sebelum menerima kriteria tersebut.'}
+];
+const allFaqs = [...FAQ, ...extras];
+const faqDepth = {
+ eyebrow:'Cara menggunakan FAQ',
+ title:'Jawaban umum membantu orientasi. Keputusan produksi tetap mengikuti data proyek.',
+ intro:'Dua proyek dengan material yang sama dapat membutuhkan parameter, finishing, dan pemeriksaan berbeda. Gunakan halaman ini untuk menyiapkan pertanyaan, lalu kirim file serta konteks agar jawaban dapat berubah dari “umumnya” menjadi spesifik.',
+ pillars:[
+  {title:'Bedakan estimasi dan komitmen',description:'Rentang awal membantu budgeting. Harga dan tanggal selesai baru dikunci setelah file, material, jumlah, serta scope disetujui.',evidence:'Estimasi awal · quotation final'},
+  {title:'Bedakan kemampuan dan kelayakan',description:'Mesin mungkin mampu memproses suatu bahan, tetapi geometri, kondisi lembar, detail kecil, atau target hasil dapat membuat rute lain lebih aman.',evidence:'Mesin · bahan · geometri'},
+  {title:'Bedakan cutting dan produk jadi',description:'Komponen keluar mesin belum tentu sudah deburr, dibending, dicat, dirakit, atau dipasang. Pastikan batas pekerjaan terlihat.',evidence:'Cutting · finishing · instalasi'}
+ ],
+ checklistTitle:'Pertanyaan yang sebaiknya dibawa saat konsultasi.',
+ checklistIntro:'Semakin konkret pertanyaannya, semakin cepat tim dapat menjawab dengan keputusan yang dapat ditindaklanjuti.',
+ checklist:['Proses apa yang direkomendasikan dan mengapa?','Risiko terbesar dari material atau geometri saya apa?','Data apa yang masih kurang untuk harga final?','Apa saja yang termasuk dan tidak termasuk dalam penawaran?','Bagaimana hasil diperiksa sebelum pickup atau pengiriman?']
+};
 ---
-<BaseLayout title="FAQ Tepat Laser — Pertanyaan Teknis Laser Cutting" description="Jawaban praktis seputar material, file desain, kapasitas mesin, biaya, lead time, dan pengiriman Tepat Laser." keywords="FAQ laser cutting, ketentuan potong laser, format file DXF, harga laser cutting" url="/faq/" jsonLd={[breadcrumb,generateFAQSchema([...FAQ,extra])]}><Header slot="header" />
+<BaseLayout title="FAQ Tepat Laser — Pertanyaan Teknis Laser Cutting" description="Jawaban praktis seputar material, file desain, kapasitas mesin, biaya, lead time, dan pengiriman Tepat Laser." keywords="FAQ laser cutting, ketentuan potong laser, format file DXF, harga laser cutting" url="/faq/" jsonLd={[breadcrumb,generateFAQSchema(allFaqs)]}><Header slot="header" />
   <main class="overflow-hidden"><PageIntro eyebrow="Pertanyaan umum" title="Pertanyaan kecil lebih murah daripada koreksi setelah produksi." description="Jawaban praktis mengenai file, material, biaya, kapasitas, dan waktu pengerjaan—supaya keputusan penting tidak tertinggal sebagai asumsi." />
-    <section class="section-padding"><div class="container-custom faq-list">{[...FAQ,extra].map((faq,index) => <details open={index===0}><summary><span class="number-tag">0{index+1}</span><strong>{faq.question}</strong><i>＋</i></summary><p>{faq.answer}</p></details>)}</div></section>
+    <section class="section-padding"><div class="container-custom faq-list">{allFaqs.map((faq,index) => <details open={index===0}><summary><span class="number-tag">{String(index+1).padStart(2,'0')}</span><strong>{faq.question}</strong><i>＋</i></summary><p>{faq.answer}</p></details>)}</div></section>
+    <EditorialDepth {...faqDepth} />
     <CTA title="Ada detail yang belum yakin? Kunci sebelum material terpotong." primaryText="Tanya tim teknis" secondaryText="Lihat proses produksi" secondaryLink="/proses-produksi-lead-time/" />
   </main><Footer slot="footer" />
 </BaseLayout>
