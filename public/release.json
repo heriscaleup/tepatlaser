@@ -1,7 +1,7 @@
 {
-  "release": "v9-2026-07-24",
-  "version": "v9-2026-07-24",
-  "design": "industrial-editorial-trust",
+  "release": "v10-2026-07-24",
+  "version": "v10-2026-07-24",
+  "design": "industrial-editorial-realism",
   "palette": {
     "red": "#EA314F",
     "gold": "#D3B15D",
@@ -11,8 +11,12 @@
   },
   "features": [
     "original-brand-identity",
+    "official-whatsapp-icon",
     "readable-mega-menu",
     "route-specific-visuals",
+    "realistic-machine-photography",
+    "eight-material-grid",
+    "clickable-portfolio-case-pages",
     "long-form-non-blog-pages",
     "trust-first-copy",
     "responsive-design-system",

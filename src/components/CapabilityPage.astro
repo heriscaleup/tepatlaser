@@ -42,7 +42,7 @@ interface DeepContent {
 
 const { item, kind = 'service', title = item.name, description = item.description, url = `/${item.slug || ''}/` } = Astro.props;
 const label = kind === 'material' ? 'Kapabilitas Material' : kind === 'solution' ? 'Solusi Proyek Custom' : 'Kapabilitas Mesin Produksi';
-const deepContent = getCapabilityContent(item.slug || '', item.image || '/images/generated/fiber-laser-v6.webp', title) as DeepContent;
+const deepContent = getCapabilityContent(item.slug || '', item.image || '/images/v10/home-fiber-workshop-real.webp', title) as DeepContent;
 
 const features = item.features?.length
   ? item.features
@@ -96,7 +96,7 @@ const meta = {
   description,
   keywords: item.keywords || `${title}, Tepat Laser, laser cutting Tangerang Selatan, fabrikasi presisi`,
   url,
-  image: item.image || '/images/generated/fiber-laser-v6.webp',
+  image: item.image || '/images/v10/home-fiber-workshop-real.webp',
   jsonLd: [breadcrumbSchema, generateFAQSchema(faqs), serviceSchema]
 };
 ---
@@ -135,7 +135,7 @@ const meta = {
           <div class="lg:col-span-5">
             <div class="relative overflow-hidden rounded-2xl border border-slate-300 bg-slate-900 shadow-xl">
               <img
-                src={item.image || '/images/generated/fiber-laser-v6.webp'}
+                src={item.image || '/images/v10/home-fiber-workshop-real.webp'}
                 alt={`${title} — Tepat Laser`}
                 width="1200"
                 height="800"

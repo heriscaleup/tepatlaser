@@ -57,6 +57,10 @@ for (const file of htmlFiles) {
   if (isContentPage && isBlog && visibleText.length < 900) failures.push(`${page}: isi artikel terlalu tipis (${visibleText.length} karakter)`);
   if (isContentPage && !isBlog && visibleText.length < 4000) failures.push(`${page}: isi halaman non-blog terlalu tipis (${visibleText.length} karakter, minimum 4000)`);
   if (isContentPage && !isBlog && sectionCount < 5) failures.push(`${page}: struktur halaman non-blog terlalu ringkas (${sectionCount} section, minimum 5)`);
+  if (page === '/' && (html.match(/<a[^>]+data-material=/g) || []).length !== 8) failures.push(`${page}: grid material tidak berisi tepat 8 item`);
+  if (page === '/portfolio/' && (html.match(/class="portfolio-card/g) || []).length !== 8) failures.push(`${page}: portofolio tidak berisi tepat 8 kartu yang dapat dibuka`);
+  if (page === '/' && !html.includes('cta-whatsapp-icon')) failures.push(`${page}: ikon WhatsApp resmi pada CTA tidak ditemukan`);
+  if (['/jasa-laser-co2/','/jasa-laser-fiber/','/jasa-galvo-engraving/'].includes(page) && /\/images\/generated\/(?:co2|fiber|galvo)/i.test(html)) failures.push(`${page}: visual mesin generatif lama masih digunakan`);
   if (!redirect && html.length > 250_000) failures.push(`${page}: HTML melebihi budget 250 KB`);
   for (const match of html.matchAll(/<(?:a|link|img|script)[^>]+(?:href|src)=["']([^"']+)["']/gi)) {
     const target = resolveLocal(match[1], file);
@@ -88,7 +92,7 @@ if (existsSync(manifestFile)) {
 }
 
 if (!existsSync(releaseFile)) failures.push('/release.json: release marker hilang');
-else if (!/^v9-\d{4}-\d{2}-\d{2}$/.test(expectedRelease)) failures.push('/release.json: format release V9 tidak valid');
+else if (!/^v10-\d{4}-\d{2}-\d{2}$/.test(expectedRelease)) failures.push('/release.json: format release V10 tidak valid');
 
 console.log(JSON.stringify({ htmlPages: htmlFiles.length, localReferencesChecked: checkedLinks, failures: failures.length }, null, 2));
 if (failures.length) {

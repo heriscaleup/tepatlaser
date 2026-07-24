@@ -5,7 +5,7 @@ import puppeteer from 'puppeteer-core';
 const root = resolve('dist');
 const baseUrl = process.env.AUDIT_BASE_URL || 'http://127.0.0.1:4321';
 const chromePath = process.env.CHROME_PATH;
-const reportDir = resolve(process.env.AUDIT_REPORT_DIR || 'qa-v9');
+const reportDir = resolve(process.env.AUDIT_REPORT_DIR || 'qa-v10');
 const screenshotDir = resolve(process.env.AUDIT_SCREENSHOT_DIR || '/tmp/tepatlaser-browser-audit');
 
 if (!chromePath || !existsSync(chromePath)) {
@@ -45,10 +45,13 @@ const sampleRoutes = new Set([
   '/jasa-laser-co2/',
   '/jasa-laser-fiber/',
   '/jasa-cnc-router/',
+  '/jasa-galvo-engraving/',
   '/jasa-mihrab-masjid/',
   '/pagar-laser-cutting/',
   '/railing-laser-cutting/',
   '/portfolio/',
+  '/portfolio/pagar-panel-geometris/',
+  '/portfolio/komponen-stainless/',
   '/contact/',
   '/faq/',
   '/proses-produksi-lead-time/',

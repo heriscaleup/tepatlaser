@@ -18,7 +18,7 @@ const imageUrl = new URL(props.image || generated.openGraph?.image || '/gambar/p
 const ogTitle = generated.openGraph?.title || pageTitle;
 const ogDescription = generated.openGraph?.description || pageDescription;
 const jsonLd = props.jsonLd || [];
-const heroPreload = props.image || generated.openGraph?.image || (Astro.url.pathname === '/' ? '/images/generated/fiber-laser-v6.webp' : '');
+const heroPreload = props.image || generated.openGraph?.image || (Astro.url.pathname === '/' ? '/images/v10/home-fiber-workshop-real.webp' : '');
 ---
 
 <!doctype html>
@@ -27,7 +27,7 @@ const heroPreload = props.image || generated.openGraph?.image || (Astro.url.path
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0b0d0e" />
-    <meta name="tepat-release" content="v9-2026-07-24" />
+    <meta name="tepat-release" content="v10-2026-07-24" />
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     <meta name="keywords" content={pageKeywords} />
@@ -134,7 +134,7 @@ const heroPreload = props.image || generated.openGraph?.image || (Astro.url.path
 
     <script is:inline>
       const initBase = () => {
-        const release = 'v9-2026-07-24';
+        const release = 'v10-2026-07-24';
         if (localStorage.getItem('tepat-release') !== release) {
           navigator.serviceWorker?.getRegistrations?.().then((items) => items.forEach((item) => item.unregister()));
           window.caches?.keys?.().then((keys) => Promise.all(keys.map((key) => window.caches.delete(key))));

@@ -12,7 +12,7 @@ export const CAPABILITY_CONTENT = {
     fit: ['Signage dan display akrilik', 'Panel dekoratif MDF atau plywood', 'Template, kemasan, dan prototipe non-metal', 'Engraving identitas pada kayu atau akrilik'],
     notFit: ['PVC dan material berklorin', 'Plat metal yang membutuhkan laser fiber', 'Komponen dengan pocket atau profil bertingkat yang lebih tepat dikerjakan CNC router'],
     gallery: [
-      image('/images/generated/co2-acrylic-v5.webp', 'Laser CO2 memotong lembaran akrilik', 'Proses', 'Sinar terfokus mengikuti jalur vektor pada material non-metal.'),
+      image('/images/v10/co2-acrylic-workshop-real.webp', 'Mesin laser CO2 memotong lembaran akrilik di workshop', 'Proses nyata', 'Cutting head bergerak di atas honeycomb bed dengan protective film tetap terlihat pada tepi bahan.'),
       image('/images/akrilik (3).webp', 'Contoh produk akrilik hasil laser cutting dan engraving', 'Hasil aplikasi', 'Akrilik dapat dipotong, diukir, dan dirakit menjadi display atau produk identitas.'),
       image('/images/mdf (2).webp', 'Panel MDF dekoratif hasil pemotongan laser', 'Material', 'Detail pola harus mempertimbangkan ketebalan jembatan dan bekas panas pada tepi.')
     ],
@@ -29,7 +29,7 @@ export const CAPABILITY_CONTENT = {
     fit: ['Bracket dan komponen lembaran', 'Panel, cover, dan enclosure', 'Elemen arsitektur metal', 'Produksi batch berbasis DXF atau DWG'],
     notFit: ['Material non-metal seperti MDF dan akrilik', 'Pekerjaan bubut atau milling tiga dimensi', 'Desain tanpa ukuran yang masih harus ditentukan di lapangan'],
     gallery: [
-      image('/images/generated/fiber-laser-v5.webp', 'Mesin laser fiber memotong lembaran metal', 'Proses', 'Cutting head, fokus, dan parameter dipilih menurut jenis serta ketebalan metal.'),
+      image('/images/v10/fiber-metal-workshop-real.webp', 'Mesin laser fiber memotong lembaran metal di workshop', 'Proses nyata', 'Cutting head, fokus, dan parameter dipilih menurut jenis serta ketebalan metal.'),
       image('/images/stainlesssteel (3).webp', 'Lembaran stainless berpola setelah laser cutting', 'Hasil potong', 'Kepadatan pola, jembatan, dan potensi deformasi perlu dinilai sebelum produksi.'),
       image('/images/furnituremetal.webp', 'Lembaran metal pada meja mesin laser fiber', 'Area produksi', 'Nesting yang baik membantu penggunaan bahan dan urutan pengambilan part.')
     ],
@@ -63,7 +63,7 @@ export const CAPABILITY_CONTENT = {
     fit: ['Logo dan identitas produk', 'Serial number dan kode produksi', 'QR code serta data matrix', 'Personalisasi batch dan souvenir'],
     notFit: ['Pemotongan lembaran berukuran besar', 'Engraving sangat dalam tanpa uji waktu proses', 'Permukaan melengkung ekstrem tanpa rotary atau jig yang sesuai'],
     gallery: [
-      image('/images/generated/galvo-engraving-v5.webp', 'Proses galvo engraving pada permukaan produk', 'Proses', 'Mirror galvo mengarahkan sinar pada area marking dengan cepat.'),
+      image('/images/v10/galvo-marking-workshop-real.webp', 'Mesin galvo melakukan marking pada nameplate stainless di workshop', 'Proses nyata', 'Scan head, focus distance, dan jig membantu menjaga posisi marking antarunit.'),
       image('/images/engraving.webp', 'Mesin engraving menandai komponen metal', 'Marking metal', 'Fokus, posisi, dan jig menentukan konsistensi antarunit.'),
       image('/images/akrilik (2).webp', 'Papan identitas hasil cutting dan engraving', 'Identitas', 'Keterbacaan informasi dinilai pada jarak penggunaan yang sebenarnya.')
     ],
@@ -80,7 +80,7 @@ export const CAPABILITY_CONTENT = {
     fit: ['Display dan etalase', 'Signage serta huruf', 'Plakat dan merchandise', 'Cover, template, dan prototipe'],
     notFit: ['Aplikasi struktur berat', 'Area panas tinggi tanpa evaluasi material', 'Desain snap-fit tanpa sampel ketebalan aktual'],
     gallery: [
-      image('/images/generated/acrylic-material-v5.webp', 'Lembaran akrilik berwarna dan transparan', 'Pilihan bahan', 'Warna, tingkat transparansi, dan ketebalan dipilih berdasarkan fungsi.'),
+      image('/images/Acrylic.webp', 'Lembaran akrilik transparan dalam beberapa ketebalan', 'Pilihan bahan', 'Warna, tingkat transparansi, dan ketebalan dipilih berdasarkan fungsi.'),
       image('/images/akrilik (3).webp', 'Produk display dan plakat dari akrilik', 'Produk', 'Cutting, engraving, dan assembly dapat digabung dalam satu produk.'),
       image('/images/akrilik (4).webp', 'Panel akrilik bermotif hasil laser cutting', 'Detail potong', 'Pola kecil memerlukan jembatan yang cukup serta perlindungan permukaan.')
     ],
@@ -233,7 +233,7 @@ export const CAPABILITY_CONTENT = {
     fit: ['Penyusunan budget proyek metal', 'Perbandingan opsi material dan ketebalan', 'Produksi batch berbasis file', 'Estimasi cutting plus proses lanjutan'],
     notFit: ['Permintaan harga final tanpa ukuran atau file', 'Perbandingan vendor dengan scope berbeda', 'Target toleransi tanpa drawing dan metode ukur'],
     gallery: [
-      image('/images/generated/fiber-laser-v6.webp', 'Laser fiber memotong lembaran metal di workshop', 'Sumber biaya proses', 'Waktu mesin dipengaruhi geometri, pierce, material, dan parameter.'),
+      image('/images/v10/fiber-metal-workshop-real.webp', 'Laser fiber memotong lembaran metal di workshop', 'Sumber biaya proses', 'Waktu mesin dipengaruhi geometri, pierce, material, dan parameter.'),
       image('/images/metal.webp', 'Pilihan lembaran metal dengan beberapa finishing', 'Sumber biaya bahan', 'Grade, ketebalan, ukuran lembar, dan kondisi permukaan memengaruhi harga.'),
       image('/images/stainlesssteel (2).webp', 'Panel metal dengan pola padat hasil laser cutting', 'Sumber biaya desain', 'Pola padat biasanya meningkatkan panjang jalur serta jumlah pierce.')
     ],

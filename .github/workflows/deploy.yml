@@ -93,18 +93,13 @@ jobs:
             exit 1
           fi
 
+      # 8. Verifikasi release marker live di publik (dinamis, baca dari build output)
       - name: Verify public release marker
         shell: bash
         run: |
-          echo "Waiting for tepatlaser.com/release.json to return 200 OK..."
-          for attempt in {1..8}; do
-            STATUS=$(node -e "
-              fetch('https://tepatlaser.com/release.json?bust=${{ github.sha }}-${attempt}', {
-                headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' }
-              })
-              .then(r => console.log(r.status))
-              .catch(err => { console.error(err); console.log('0'); });
-            ")
+          echo "Waiting for tepatlaser.com to return 200 OK..."
+          for attempt in {1..6}; do
+            STATUS=$(node -e "fetch('https://tepatlaser.com/?bust=${GITHUB_SHA}-${attempt}').then(r=>console.log(r.status)).catch(()=>console.log('0'))")
 
             echo "Attempt $attempt: status='$STATUS'"
 
@@ -115,6 +110,6 @@ jobs:
             sleep 5
           done
 
-          echo "⚠️ Domain check returned non-200, but proceed anyway since deployment completed."
-          exit 0
+          echo "❌ Domain check failed!"
+          exit 1
 

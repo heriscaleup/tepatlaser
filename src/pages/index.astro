@@ -12,14 +12,14 @@ const meta = {
   description: 'Jasa laser cutting metal, stainless steel, akrilik, MDF, aluminium, CNC router ACP/GRC, dan galvo engraving di Tangerang Selatan dengan review file dan QC sebelum serah terima.',
   keywords: 'jasa laser cutting Tangerang Selatan, laser fiber metal, laser CO2, CNC router ACP, galvo engraving metal, laser cutting stainless steel',
   url: '/',
-  image: '/images/generated/fiber-laser-v6.webp',
+  image: '/images/v10/home-fiber-workshop-real.webp',
   jsonLd: [generateFAQSchema(FAQ)]
 };
 
 const showcases = [
-  { title: 'Pagar & Fasad Laser Panel', label: 'Arsitektural Eksterior', image: '/gambar/pagar-laser-cutting-landing/hero-pagar-laser-cutting.webp' },
-  { title: 'Reling Tangga & Partisi Pola', label: 'Interior Custom', image: '/gambar/railing-laser-cutting-landing/reling-tangga-daylight.webp' },
-  { title: 'Fasad ACP Gedung & Signage', label: 'Panel Bangunan Commercial', image: '/gambar/pagar-laser-cutting-landing/fasad-gedung-laser-cutting.webp' }
+  { title: 'Pagar & Fasad Laser Panel', label: 'Arsitektural Eksterior', image: '/gambar/pagar-laser-cutting-landing/hero-pagar-laser-cutting.webp', slug: 'pagar-panel-geometris' },
+  { title: 'Reling Tangga & Partisi Pola', label: 'Interior Custom', image: '/gambar/railing-laser-cutting-landing/reling-tangga-daylight.webp', slug: 'reling-tangga-berpola' },
+  { title: 'Fasad ACP Gedung & Signage', label: 'Panel Bangunan Commercial', image: '/gambar/pagar-laser-cutting-landing/fasad-gedung-laser-cutting.webp', slug: 'fasad-panel-custom' }
 ];
 
 const qcCheckpoints = [
@@ -86,7 +86,7 @@ const trustLogos = [
                 <div class="text-xs font-bold text-slate-600 mt-0.5">Teknologi produksi</div>
               </div>
               <div>
-                <div class="font-mono text-2xl font-black text-slate-950">7+</div>
+                <div class="font-mono text-2xl font-black text-slate-950">8</div>
                 <div class="text-xs font-bold text-slate-600 mt-0.5">Karakter material</div>
               </div>
               <div>
@@ -104,10 +104,10 @@ const trustLogos = [
           <div class="lg:col-span-5">
             <div class="img-reveal relative overflow-hidden rounded-2xl border border-slate-300 bg-slate-900 shadow-2xl">
               <img
-                src="/images/generated/fiber-laser-v6.webp"
+                src="/images/v10/home-fiber-workshop-real.webp"
                 alt="Proses kerja mesin fiber laser memotong lembaran metal presisi di workshop Tepat Laser"
                 width="1600"
-                height="900"
+                height="1000"
                 class="w-full h-[22rem] sm:h-[28rem] lg:h-[32rem] object-cover object-center"
                 fetchpriority="high"
                 decoding="sync"
@@ -275,13 +275,13 @@ const trustLogos = [
         </div>
         <div class="showcase-grid">
           {showcases.map((item, index) => (
-            <article class:list={["showcase-card", index === 0 && "showcase-wide"]}>
+            <a href={`/portfolio/${item.slug}/`} class:list={["showcase-card", index === 0 && "showcase-wide"]} aria-label={`Lihat detail ${item.title}`}>
               <img src={item.image} alt={item.title} width="1200" height="800" loading="lazy" decoding="async" />
               <div>
                 <span>{item.label}</span>
                 <h3>{item.title}</h3>
               </div>
-            </article>
+            </a>
           ))}
         </div>
       </div>
@@ -466,6 +466,9 @@ const trustLogos = [
   .material-card[data-material='grc'] .material-specimen {
     background: radial-gradient(circle at 14% 24%, rgba(255, 255, 255, 0.18) 0 2px, transparent 3px), linear-gradient(145deg, #777c78, #c4c5bb 45%, #666d6b);
   }
+  .material-card[data-material='stainless'] .material-specimen {
+    background: linear-gradient(118deg, #60686b 0%, #eef1ef 17%, #8e9698 31%, #f9faf8 45%, #6f777a 61%, #d9dedc 77%, #71797c 100%);
+  }
   .material-shade {
     position: absolute;
     inset: 0;
@@ -592,7 +595,6 @@ const trustLogos = [
   @media (min-width: 760px) {
     .trust-grid { grid-template-columns: repeat(3, 1fr); }
     .material-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .material-card:last-child { grid-column: span 2; }
     .showcase-grid { grid-template-columns: 1.25fr 0.75fr; }
     .showcase-wide { grid-row: span 2; }
     .process-strip > .container-custom { grid-template-columns: repeat(3, minmax(0, 1fr)); }

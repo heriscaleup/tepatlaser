@@ -1,0 +1,215 @@
+---
+import BaseLayout from '../../components/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTA from '../../components/CTA.astro';
+import { PORTFOLIO_PROJECTS_V10 } from '../../data/portfolioProjects.js';
+import { generateBreadcrumbSchema } from '../../utils/seo.js';
+
+export const getStaticPaths = () => PORTFOLIO_PROJECTS_V10.map((project) => ({
+  params: { slug: project.slug },
+  props: { project }
+}));
+
+const { project } = Astro.props;
+const route = `/portfolio/${project.slug}/`;
+const breadcrumbs = [
+  { name: 'Beranda', url: '/' },
+  { name: 'Portofolio', url: '/portfolio/' },
+  { name: project.title, url: route }
+];
+const related = PORTFOLIO_PROJECTS_V10.filter((entry) => entry.slug !== project.slug).slice(0, 3);
+const faq = [
+  {
+    question: `Apakah referensi ${project.title.toLowerCase()} ini bisa dibuat sama persis?`,
+    answer: 'Referensi dipakai untuk menyamakan arah visual, bukan langsung disalin menjadi file produksi. Ukuran bidang, material, struktur, finishing, hak desain, dan kondisi pemasangan harus ditinjau lebih dulu. Tim akan menjelaskan bagian yang dapat dipertahankan dan bagian yang perlu disesuaikan.'
+  },
+  {
+    question: 'Data apa yang paling membantu saat meminta estimasi?',
+    answer: 'Kirim ukuran, jumlah, material bila sudah ditentukan, foto lokasi atau produk, file vector/drawing bila tersedia, kebutuhan finishing, lokasi serah terima, dan target waktu. Data yang belum ada dapat ditandai agar dibahas sebagai keputusan terbuka.'
+  },
+  {
+    question: 'Apakah Tepat Laser juga mengerjakan finishing dan pemasangan?',
+    answer: 'Lingkup dapat berbeda menurut jenis proyek. Cutting, routing, engraving, deburring, bending, welding, coating, assembly, pengiriman, survey, atau pemasangan harus ditulis eksplisit pada brief dan penawaran agar tidak ada asumsi tersembunyi.'
+  }
+];
+const schema = [
+  generateBreadcrumbSchema(breadcrumbs),
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: project.title,
+    description: project.desc,
+    image: project.gallery.map((image) => new URL(image, Astro.site || 'https://tepatlaser.com').href),
+    url: new URL(route, Astro.site || 'https://tepatlaser.com').href,
+    creator: { '@type': 'Organization', name: 'Tepat Laser' }
+  }
+];
+---
+
+<BaseLayout
+  title={`${project.title} — Studi Aplikasi Tepat Laser`}
+  description={`${project.desc} Pelajari keputusan material, proses, data brief, dan kontrol kualitas untuk aplikasi ini.`}
+  keywords={`${project.title}, ${project.material}, ${project.process}, portofolio Tepat Laser`}
+  url={route}
+  image={project.image}
+  jsonLd={schema}
+>
+  <Header slot="header" />
+  <main class="portfolio-detail overflow-hidden">
+    <div class="pt-[4.8rem]"><Breadcrumbs crumbs={breadcrumbs} /></div>
+
+    <section class="detail-hero">
+      <div class="container-custom detail-hero-grid">
+        <div class="detail-hero-copy">
+          <span class="eyebrow text-amber-800">{project.category} · Studi aplikasi</span>
+          <h1 class="heading-xl mt-6 text-slate-950">{project.title}</h1>
+          <p class="mt-6">{project.desc}</p>
+          <div class="detail-tags">
+            <span>{project.material}</span>
+            <span>{project.process}</span>
+          </div>
+          <a href="#brief" class="btn-primary mt-8">Pelajari keputusan proyek <span>↓</span></a>
+        </div>
+        <figure class="detail-hero-media">
+          <img src={project.image} alt={`Referensi aplikasi ${project.title}`} width="1600" height="1000" fetchpriority="high" decoding="sync" />
+          <figcaption><span>Referensi aplikasi</span><span>Tepat Laser</span></figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="detail-context section-padding" id="brief">
+      <div class="container-custom context-grid">
+        <div>
+          <span class="eyebrow text-amber-800">Membaca konteks</span>
+          <h2 class="heading-md mt-5 text-slate-950">Foto memberi arah visual. Brief menentukan apakah hasilnya benar-benar bisa bekerja.</h2>
+        </div>
+        <div class="context-copy">
+          <p>{project.context}</p>
+          <div>
+            <span>Risiko yang perlu dicegah</span>
+            <p>{project.challenge}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="decision-section section-padding">
+      <div class="container-custom">
+        <span class="eyebrow">Tiga keputusan utama</span>
+        <h2 class="heading-lg mt-5">Sebelum file masuk mesin, tiga hal ini harus punya jawaban.</h2>
+        <div class="decision-cards">
+          {project.decisions.map((decision, index) => (
+            <article>
+              <span>0{index + 1}</span>
+              <h3>{decision[0]}</h3>
+              <p>{decision[1]}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-gallery section-padding">
+      <div class="container-custom">
+        <div class="gallery-heading">
+          <div><span class="eyebrow text-amber-800">Visual dan detail</span><h2 class="heading-md mt-5 text-slate-950">Lihat aplikasi dari lebih dari satu sudut.</h2></div>
+          <p>Galeri membantu membaca proporsi, pola, material, dan cara hasil digunakan. Spesifikasi tidak ditarik hanya dari foto; setiap detail tetap dikonfirmasi melalui ukuran serta file kerja.</p>
+        </div>
+        <div class="gallery-grid">
+          {project.gallery.map((image, index) => (
+            <figure class:list={[index === 0 && 'gallery-featured']}>
+              <img src={image} alt={`${project.title} — referensi ${index + 1}`} width="1200" height="900" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+              <figcaption>0{index + 1} · {index === 0 ? 'Konteks utama' : index === 1 ? 'Detail aplikasi' : 'Material dan hasil'}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="spec-section section-padding">
+      <div class="container-custom spec-grid">
+        <div>
+          <span class="eyebrow text-amber-800">Data untuk review</span>
+          <h2 class="heading-md mt-5 text-slate-950">Brief yang lengkap mempercepat estimasi dan mengurangi koreksi.</h2>
+          <p class="mt-5">Anda tidak harus mengetahui semua istilah teknis. Kirim data yang sudah ada, tandai yang belum diputuskan, lalu gunakan daftar ini sebagai agenda pembahasan bersama tim.</p>
+          <div class="application-list">
+            <span>Aplikasi relevan</span>
+            <div>{project.applications.map((item) => <small>{item}</small>)}</div>
+          </div>
+        </div>
+        <ol>
+          {project.specifications.map((item, index) => <li><span>0{index + 1}</span><p>{item}</p></li>)}
+        </ol>
+      </div>
+    </section>
+
+    <section class="qc-section section-padding">
+      <div class="container-custom qc-grid">
+        <div>
+          <span class="eyebrow">Kriteria penerimaan</span>
+          <h2 class="heading-md mt-5">Kualitas harus diterjemahkan menjadi pemeriksaan yang dapat dilakukan.</h2>
+          <p class="mt-5">Istilah “rapi”, “presisi”, atau “siap pasang” perlu memiliki konteks. Pemeriksaan dipilih menurut fungsi produk, sisi yang terlihat, sambungan, proses berikutnya, dan kesepakatan pada brief.</p>
+        </div>
+        <ul>{project.qc.map((item, index) => <li><span>{String(index + 1).padStart(2, '0')}</span><p>{item}</p></li>)}</ul>
+      </div>
+    </section>
+
+    <section class="faq-section section-padding">
+      <div class="container-custom faq-grid">
+        <div><span class="eyebrow text-amber-800">Sebelum meminta penawaran</span><h2 class="heading-md mt-5 text-slate-950">Pertanyaan yang mencegah ekspektasi berbeda.</h2></div>
+        <div>
+          {faq.map((item, index) => (
+            <details open={index === 0}>
+              <summary>{item.question}<span>＋</span></summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="related-section section-padding">
+      <div class="container-custom">
+        <div class="related-heading">
+          <div><span class="eyebrow text-amber-800">Referensi berikutnya</span><h2 class="heading-md mt-5 text-slate-950">Bandingkan aplikasi sebelum menentukan arah.</h2></div>
+          <a href="/portfolio/">Kembali ke seluruh portofolio ↗</a>
+        </div>
+        <div class="related-grid">
+          {related.map((entry) => (
+            <a href={`/portfolio/${entry.slug}/`}>
+              <img src={entry.image} alt={entry.title} width="800" height="600" loading="lazy" decoding="async" />
+              <span>{entry.category}</span>
+              <h3>{entry.title}</h3>
+              <p>{entry.material} · {entry.process}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CTA
+      title={`Punya kebutuhan yang arahnya mirip ${project.title.toLowerCase()}?`}
+      description="Kirim foto, ukuran, referensi, material, jumlah, lokasi, serta target waktu. Tim akan memisahkan keputusan yang sudah jelas dari data yang masih perlu dikonfirmasi."
+      primaryText="Kirim brief melalui WhatsApp"
+      secondaryText="Pelajari proses produksi"
+      secondaryLink="/proses-produksi-lead-time/"
+    />
+  </main>
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .detail-hero{background:#f8fafc;color:#0f172a}.detail-hero-grid{display:grid;gap:2rem;padding-block:clamp(3.5rem,7vw,6.5rem)}.detail-hero-copy{align-self:center}.detail-hero-copy>p{max-width:42rem;color:#475569;font-size:1.08rem;line-height:1.8}.detail-tags{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.6rem}.detail-tags span{border:1px solid #cbd5e1;border-radius:999px;background:#fff;padding:.45rem .75rem;color:#334155;font-size:.75rem;font-weight:800;text-transform:uppercase}.detail-hero-media{position:relative;min-height:30rem;overflow:hidden;border-radius:.75rem;background:#0b0d0e;box-shadow:0 1.5rem 4rem rgba(15,23,42,.18)}.detail-hero-media::after{position:absolute;inset:0;content:'';background:linear-gradient(to top,rgba(2,6,23,.82),transparent 55%)}.detail-hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.detail-hero-media figcaption{position:absolute;z-index:1;right:1.2rem;bottom:1.2rem;left:1.2rem;display:flex;justify-content:space-between;color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+  .detail-context{background:#fff}.context-grid{display:grid;gap:3rem}.context-copy>p{color:#475569;font-size:1.05rem;line-height:1.9}.context-copy>div{margin-top:1.5rem;border-left:3px solid #d3b15d;background:#fffbeb;padding:1.25rem}.context-copy span{color:#76520e;font-size:.72rem;font-weight:850;letter-spacing:.11em;text-transform:uppercase}.context-copy>div p{margin-top:.7rem;color:#334155;line-height:1.8}
+  .decision-section{background:#07090a}.decision-cards{display:grid;gap:1px;margin-top:3rem;background:#343837}.decision-cards article{background:#0b0d0e;padding:1.5rem}.decision-cards article>span{color:#edcf79;font-size:.75rem;font-weight:850}.decision-cards h3{margin-top:2.5rem;color:#fff;font-size:1.45rem}.decision-cards p{margin-top:.8rem;color:#b8bfbb;font-size:.92rem;line-height:1.75}
+  .detail-gallery{background:#f8fafc}.gallery-heading{display:grid;gap:2rem}.gallery-heading>p{max-width:40rem;color:#475569;line-height:1.8}.gallery-grid{display:grid;gap:1rem;margin-top:3rem}.gallery-grid figure{position:relative;min-height:25rem;overflow:hidden;background:#111}.gallery-grid img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}.gallery-grid figure:hover img{transform:scale(1.035)}.gallery-grid figcaption{position:absolute;right:1rem;bottom:1rem;left:1rem;background:rgba(2,6,23,.82);padding:.65rem .8rem;color:#fff;font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
+  .spec-section{background:#fff}.spec-grid{display:grid;gap:3rem}.spec-grid>div>p{max-width:40rem;color:#475569;line-height:1.8}.spec-grid ol{margin:0;padding:0;border-top:1px solid #cbd5e1;list-style:none}.spec-grid li{display:grid;grid-template-columns:3rem 1fr;gap:1rem;border-bottom:1px solid #cbd5e1;padding:1.2rem 0}.spec-grid li>span{color:#76520e;font-size:.75rem;font-weight:850}.spec-grid li p{color:#334155;font-weight:700}.application-list{margin-top:2rem}.application-list>span{color:#76520e;font-size:.72rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}.application-list>div{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem}.application-list small{border:1px solid #cbd5e1;border-radius:999px;padding:.35rem .65rem;color:#334155;font-weight:750}
+  .qc-section{background:#020617}.qc-grid{display:grid;gap:3rem}.qc-grid h2{color:#fff}.qc-grid>div>p{max-width:38rem;color:#cbd5e1;line-height:1.8}.qc-grid ul{margin:0;padding:0;border-top:1px solid #334155;list-style:none}.qc-grid li{display:grid;grid-template-columns:3rem 1fr;gap:1rem;border-bottom:1px solid #334155;padding:1.15rem 0}.qc-grid li span{color:#edcf79;font-size:.75rem;font-weight:850}.qc-grid li p{color:#f8fafc;font-weight:700}
+  .faq-section{background:#f8fafc}.faq-grid{display:grid;gap:3rem}.faq-grid details{border-top:1px solid #cbd5e1;padding:1.2rem 0}.faq-grid details:last-child{border-bottom:1px solid #cbd5e1}.faq-grid summary{display:flex;cursor:pointer;list-style:none;justify-content:space-between;gap:1rem;color:#0f172a;font-family:'Clash Display',sans-serif;font-size:1.1rem;font-weight:600}.faq-grid summary::-webkit-details-marker{display:none}.faq-grid summary span{color:#76520e}.faq-grid details p{margin-top:.8rem;color:#475569;line-height:1.8}
+  .related-section{background:#fff}.related-heading{display:flex;flex-direction:column;gap:1.5rem}.related-heading>a{color:#76520e;font-size:.85rem;font-weight:850}.related-grid{display:grid;gap:1rem;margin-top:2.5rem}.related-grid>a{display:block;border:1px solid #cbd5e1;background:#f8fafc;padding:1rem;transition:transform .25s ease,border-color .25s ease}.related-grid>a:hover{border-color:#d3b15d;transform:translateY(-4px)}.related-grid img{width:100%;aspect-ratio:1.35;object-fit:cover}.related-grid span{display:block;margin-top:1rem;color:#76520e;font-size:.7rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase}.related-grid h3{margin-top:.55rem;color:#0f172a;font-size:1.3rem}.related-grid p{margin-top:.5rem;color:#64748b;font-size:.78rem}
+  @media(min-width:760px){.decision-cards{grid-template-columns:repeat(3,minmax(0,1fr))}.gallery-grid{grid-template-columns:1.2fr .8fr}.gallery-featured{grid-row:span 2}.related-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.related-heading{flex-direction:row;align-items:end;justify-content:space-between}}
+  @media(min-width:1000px){.detail-hero-grid{grid-template-columns:.9fr 1.1fr;min-height:calc(100svh - 8rem)}.context-grid,.gallery-heading,.spec-grid,.qc-grid,.faq-grid{grid-template-columns:.85fr 1.15fr;align-items:start}}
+  @media(max-width:640px){.detail-hero-media{min-height:24rem}.gallery-grid figure{min-height:21rem}}
+</style>

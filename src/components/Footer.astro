@@ -27,7 +27,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
       </div>
       <div class="footer-links">
         <div><h2>Layanan</h2><ul>{SERVICES.map((item) => <li><a href={`/${item.slug}/`}>{item.name}</a></li>)}</ul></div>
-        <div><h2>Material</h2><ul>{MATERIALS.slice(0,6).map((item) => <li><a href={`/${item.slug}/`}>{item.name}</a></li>)}</ul></div>
+        <div><h2>Material</h2><ul>{MATERIALS.map((item) => <li><a href={`/${item.slug}/`}>{item.name}</a></li>)}</ul></div>
         <div><h2>Informasi</h2><ul><li><a href="/about/">Tentang kami</a></li><li><a href="/proses-produksi-lead-time/">Proses kerja</a></li><li><a href="/faq/">Pertanyaan umum</a></li><li><a href="/blog/">Wawasan teknis</a></li><li><a href="/contact/">Kontak</a></li></ul></div>
       </div>
     </div>
@@ -36,7 +36,7 @@ const wa = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Hal
       <div><span>Jam kerja</span><p>{SITE_CONFIG.businessHours}</p></div>
       <div><span>Kontak</span><p><a href={`tel:${SITE_CONFIG.phone}`}>{SITE_CONFIG.phone}</a><br /><a href={`mailto:${SITE_CONFIG.email}`}>{SITE_CONFIG.email}</a></p></div>
     </div>
-    <div class="footer-bottom"><span>© {new Date().getFullYear()} Tepat Laser</span><span>Tangerang Selatan · Indonesia</span><span class="footer-release">V9</span></div>
+    <div class="footer-bottom"><span>© {new Date().getFullYear()} Tepat Laser</span><span>Tangerang Selatan · Indonesia</span><span class="footer-release">V10</span></div>
   </div>
 
   <a href={wa} target="_blank" rel="noopener noreferrer" class="whatsapp-float" aria-label="Konsultasi Tepat Laser melalui WhatsApp" data-wa-label="Floating WhatsApp">

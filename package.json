@@ -8,7 +8,7 @@
     "check": "astro check",
     "verify": "node scripts/verify-site.mjs",
     "audit:browser": "node scripts/audit-browser.mjs",
-    "audit:lighthouse": "lighthouse http://127.0.0.1:4321/ --quiet --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=qa-v9/lighthouse-home-mobile.json",
+    "audit:lighthouse": "lighthouse http://127.0.0.1:4321/ --quiet --chrome-flags='--headless --no-sandbox --disable-dev-shm-usage' --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=qa-v10/lighthouse-home-mobile.json",
     "preview": "astro preview",
     "astro": "astro"
   },

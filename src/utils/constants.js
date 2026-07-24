@@ -65,7 +65,7 @@ export const SERVICES = [
       "Ideal untuk signage, dekorasi, prototyping, dan kemasan"
     ],
     applications: ["Signage", "Dekorasi", "Prototyping", "Kemasan"],
-    image: "/images/generated/co2-acrylic-v5.webp",
+    image: "/images/v10/co2-acrylic-workshop-real.webp",
     keywords: "jasa laser co2 indonesia, cutting akrilik serang, laser kayu tangerang, potong mdf cilegon, laser cutting pandeglang, cutting kain lebak, laser karet indonesia"
   },
   {
@@ -80,7 +80,7 @@ export const SERVICES = [
       "Parameter gas, fokus, dan kecepatan disesuaikan material"
     ],
     applications: ["Industri", "Otomotif", "Elektronik", "Identitas produk"],
-    image: "/images/generated/fiber-laser-v5.webp",
+    image: "/images/v10/fiber-metal-workshop-real.webp",
     keywords: "jasa laser fiber indonesia, cutting stainless serang, laser alumunium tangerang, potong besi cilegon, laser cutting metal pandeglang, marking tembaga lebak"
   },
   {
@@ -110,7 +110,7 @@ export const SERVICES = [
       "Keterbacaan dan kontras diuji pada material aktual"
     ],
     applications: ["Identitas produk", "Personalisasi", "Ketertelusuran", "Promosi"],
-    image: "/images/generated/galvo-engraving-v5.webp",
+    image: "/images/v10/galvo-marking-workshop-real.webp",
     keywords: "jasa galvo engraving indonesia, laser engraving serang, engrave tangerang, potong engraving cilegon, laser engrave pandeglang, branding produk lebak"
   }
 ];
@@ -123,7 +123,7 @@ export const MATERIALS = [
     description: "Material transparan berkualitas tinggi untuk berbagai aplikasi signage dan dekorasi",
     thickness: "1mm - 20mm",
     applications: ["Signage", "Etalase", "Dekorasi", "Prototipe"],
-    image: "/images/generated/acrylic-material-v5.webp",
+    image: "/images/Acrylic.webp",
     keywords: "potong akrilik indonesia, cutting acrylic serang, laser acrylic tangerang, potong acrylic cilegon, cutting acrylic pandeglang"
   },
   {
@@ -185,6 +185,16 @@ export const MATERIALS = [
     applications: ["Fasad", "Ornamen", "Panel", "Eksterior"],
     image: "/images/grc.webp",
     keywords: "potong grc indonesia, grc laser cutting serang, fasad grc tangerang, cutting grc cilegon, laser grc pandeglang"
+  },
+  {
+    id: "stainless",
+    name: "Stainless Steel",
+    slug: "laser-stainless-bintaro",
+    description: "Stainless steel untuk komponen, signage, panel dekoratif, dan kebutuhan fabrikasi dengan permukaan yang perlu dijaga",
+    thickness: "0.5mm - 6mm",
+    applications: ["Komponen", "Signage", "Interior", "Fabrikasi"],
+    image: "/images/stainlesssteel (3).webp",
+    keywords: "laser cutting stainless steel, potong stainless bintaro, jasa laser stainless tangsel, cutting stainless jabodetabek"
   }
 ];
 
