@@ -15,6 +15,20 @@ keyTakeaways:
   - "Presisi laser fiber dapat mencapai toleransi plusminus 0,05mm — jauh lebih ketat dibanding plasma cutting."
   - "Cutting yang presisi mengurangi reject rate, mempercepat assembly, dan menekan biaya total produksi."
   - "Konsistensi antar-batch adalah syarat mutlak untuk industri yang membutuhkan sertifikasi kualitas ISO atau OEM."
+relatedLinks:
+  - title: "Jasa laser cutting metal"
+    url: "/jasa-laser-cutting-metal/"
+  - title: "Jasa laser cutting plat besi"
+    url: "/jasa-laser-cutting-plat-besi/"
+  - title: "Laser cutting stainless Bintaro"
+    url: "/laser-stainless-bintaro/"
+faq:
+  - question: "Berapa toleransi presisi laser cutting untuk kebutuhan industri?"
+    answer: "Laser fiber berkualitas tinggi mampu bekerja dalam toleransi sekitar plusminus 0,05-0,1mm, jauh lebih ketat dibanding plasma cutting yang berkisar plusminus 0,5-1mm."
+  - question: "Apakah presisi tinggi membuat biaya produksi lebih mahal?"
+    answer: "Justru sebaliknya bila dilihat dari total cost of production — presisi tinggi mengurangi rework, mempercepat lead time, dan menekan material waste sehingga biaya per unit lebih rendah dalam jangka panjang."
+  - question: "Parameter apa yang perlu ditanyakan ke vendor laser cutting?"
+    answer: "Tanyakan positioning accuracy, repeatability, kerf width, dan squareness hasil potongan. Vendor profesional biasanya bersedia memberikan data spesifikasi mesin dan sample cutting untuk validasi."
 draft: false
 ---
 

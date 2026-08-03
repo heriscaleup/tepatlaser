@@ -41,7 +41,7 @@ export const NAVIGATION = [
       { name: 'Akrilik', href: '/laser-cutting-akrilik/' },
       { name: 'MDF', href: '/jasa-laser-cutting-mdf-ai/' },
       { name: 'Plywood/Multiplex', href: '/jasa-laser-cutting-plywood/' },
-      { name: 'Metal (Stainless, Aluminium)', href: '/jasa-laser-cutting-metal/' },
+      { name: 'Metal (Stainless, Plat Galvanis)', href: '/jasa-laser-cutting-metal/' },
       { name: 'Laser Cutting Stainless', href: '/laser-stainless-bintaro/' },
       { name: 'ACP', href: '/jasa-laser-cutting-acp/' },
       { name: 'PVC BOARD', href: '/jasa-laser-cutting-pvc/' },
@@ -148,12 +148,12 @@ export const MATERIALS = [
   },
   {
     id: "metal",
-    name: "Metal (Stainless, Aluminium)",
+    name: "Metal (Stainless, Plat Galvanis)",
     slug: "jasa-laser-cutting-metal",
-    description: "Laser cutting metal untuk stainless steel, aluminium, dan plat besi. Kelayakan material, toleransi, ketebalan, serta estimasi waktu dikonfirmasi setelah file dan jumlah ditinjau.",
+    description: "Laser cutting metal untuk stainless steel, plat galvanis, dan plat besi. Kelayakan material, toleransi, ketebalan, serta estimasi waktu dikonfirmasi setelah file dan jumlah ditinjau.",
     thickness: "0.5mm - 10mm",
     applications: ["Industri", "Arsitektur", "Otomotif", "Identitas produk"],
-    image: "/images/metal.webp",
+    image: "/images/v10/fiber-metal-workshop-real.webp",
     keywords: "jasa laser cutting metal, laser cutting stainless jakarta, harga laser cutting plat besi, laser cutting metal tangerang, potong stainless ss304"
   },
   {

@@ -15,6 +15,20 @@ keyTakeaways:
   - "Selalu ukur dimensi aktual dengan alat presisi dan bandingkan ke toleransi yang disepakati di PO."
   - "Inspeksi visual tepi potongan adalah indikator langsung kualitas proses laser yang digunakan."
   - "Assembly test sebelum terima seluruh batch menghindari kerugian produksi yang jauh lebih besar."
+relatedLinks:
+  - title: "Jasa laser cutting metal"
+    url: "/jasa-laser-cutting-metal/"
+  - title: "Jasa laser cutting plat besi"
+    url: "/jasa-laser-cutting-plat-besi/"
+  - title: "Laser cutting stainless Bintaro"
+    url: "/laser-stainless-bintaro/"
+faq:
+  - question: "Alat ukur apa yang cukup untuk QC hasil laser cutting sehari-hari?"
+    answer: "Jangka sorong (vernier caliper) dengan akurasi sekitar plusminus 0,02mm sudah cukup untuk sebagian besar kebutuhan QC. Untuk dimensi kritis atau material tipis, mikrometer atau CMM bisa digunakan."
+  - question: "Berapa persen sampel yang perlu diuji assembly test untuk batch besar?"
+    answer: "Uji minimal 3-5% dari total kuantitas, atau minimal 3 part (mana yang lebih banyak). Jika ada satu part gagal, investigasi dulu sebelum menerima seluruh batch."
+  - question: "Apa tanda hasil laser cutting yang kualitasnya kurang baik?"
+    answer: "Perhatikan dross berlebih di tepi bawah potongan, sudut potongan tidak tegak lurus, striasi yang tidak beraturan, dan burn mark berlebihan — semua ini menandakan parameter mesin belum optimal."
 draft: false
 ---
 

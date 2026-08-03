@@ -122,7 +122,7 @@ export const CAPABILITY_CONTENT = {
     qualityChecks: ['Muka yang tampil dijaga orientasinya', 'Tepi dan area void diperiksa', 'Bekas asap dibersihkan sesuai scope', 'Slot diuji terhadap ketebalan aktual', 'Komponen kecil dihitung dan dipisahkan']
   },
   'jasa-laser-cutting-metal': {
-    lead: 'Halaman ini membantu memilih rute untuk stainless, mild steel, atau aluminium—bukan menganggap semua metal identik. Fungsi komponen, grade, ketebalan, finishing, serta proses setelah cutting menentukan keputusan mesin dan kriteria QC.',
+    lead: 'Halaman ini membantu memilih rute untuk stainless, mild steel, atau plat galvanis—bukan menganggap semua metal identik. Fungsi komponen, grade, ketebalan, finishing, serta proses setelah cutting menentukan keputusan mesin dan kriteria QC.',
     decisions: [
       decision('Fungsi lebih dulu daripada nama bahan', 'Panel dekoratif, bracket, cover, dan komponen las memiliki risiko serta ukuran kritis yang berbeda.'),
       decision('Pisahkan ukuran bahan dan ukuran jadi', 'Bending, welding, coating, dan assembly dapat mengubah allowance yang dibutuhkan pada file cutting.'),
@@ -131,7 +131,7 @@ export const CAPABILITY_CONTENT = {
     fit: ['Komponen industri lembaran', 'Panel arsitektur dan interior', 'Signage serta huruf metal', 'Bracket, cover, dan enclosure'],
     notFit: ['Komponen 3D yang membutuhkan machining', 'Material tanpa identitas grade untuk kebutuhan kritis', 'Desain final yang belum memperhitungkan bending atau welding'],
     gallery: [
-      image('/images/metal.webp', 'Lembaran metal stainless dan aluminium', 'Pilihan metal', 'Grade, ketebalan, dan kondisi permukaan perlu dinyatakan pada brief.'),
+      image('/images/v10/fiber-metal-workshop-real.webp', 'Mesin fiber laser memotong lembaran metal stainless dan plat galvanis', 'Pilihan metal', 'Grade, ketebalan, dan kondisi permukaan perlu dinyatakan pada brief.'),
       image('/images/stainlesssteel (2).webp', 'Panel stainless berpola setelah laser cutting', 'Panel metal', 'Kepadatan pola dan bidang sisa memengaruhi deformasi serta proses pemasangan.'),
       image('/images/furnituremetal.webp', 'Pemotongan lembaran metal pada meja laser', 'Produksi', 'Nesting dan penandaan part membantu alur proses berikutnya.')
     ],
