@@ -73,14 +73,14 @@ Hasilnya: lebih sedikit trial-and-error, lebih sedikit material terbuang, dan ku
 
 ---
 
-## 4. Cutting Tembaga dan Aluminium Tanpa Hambatan
+## 4. Cutting Tembaga Tanpa Hambatan
 
-Material dengan reflektivitas tinggi seperti tembaga dan aluminium murni selama ini menjadi tantangan untuk laser fiber karena risiko kerusakan optikal akibat sinar yang dipantulkan balik ke sumber. Di 2026, dua solusi utama telah mengatasi masalah ini:
+Material dengan reflektivitas tinggi seperti tembaga murni selama ini menjadi tantangan untuk laser fiber karena risiko kerusakan optikal akibat sinar yang dipantulkan balik ke sumber. Di 2026, dua solusi utama telah mengatasi masalah ini:
 
 - **Green laser fiber** — panjang gelombang sekitar 515nm yang diserap jauh lebih baik oleh tembaga dan logam berwarna
-- **Anti-reflective beam delivery system** — sistem optik yang lebih tahan terhadap pantulan, memungkinkan cutting tembaga dan aluminium tebal dengan aman
+- **Anti-reflective beam delivery system** — sistem optik yang lebih tahan terhadap pantulan, memungkinkan cutting tembaga tebal dengan aman
 
-Ini membuka peluang baru untuk industri elektronik, HVAC, dan kendaraan listrik yang banyak menggunakan material tersebut.
+Ini membuka peluang baru untuk industri elektronik dan kelistrikan yang banyak menggunakan material tersebut.
 
 ---
 

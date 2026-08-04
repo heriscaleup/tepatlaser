@@ -47,11 +47,11 @@ Stainless dapat dipotong dengan nitrogen untuk mengurangi oksidasi edge. Grade, 
 
 Permukaan visual membutuhkan perlindungan dari goresan sejak loading sampai packing.
 
-## Aluminium
+## Plat Galvanis
 
-Aluminium memiliki konduktivitas termal dan reflektivitas tinggi. Sistem fiber modern dapat memprosesnya, tetapi alloy, ketebalan, permukaan, dan gas memengaruhi hasil.
+Plat galvanis jadi pilihan populer untuk kebutuhan tahan karat dengan biaya lebih terjangkau dibanding stainless. Ketebalan lapisan zinc, jenis coating, dan gas potong memengaruhi kualitas tepi hasil cutting.
 
-Jangan menganggap semua seri aluminium memiliki process window identik.
+Perhatikan juga fume yang dihasilkan saat proses, karena lapisan zinc memerlukan ventilasi kerja yang memadai.
 
 ## Brass
 

@@ -62,7 +62,7 @@ Memberi serat natural dan kekuatan sekrup lebih baik. Void internal, jenis venee
 
 ### Metal
 
-Mild steel ekonomis dan mudah difinishing. Stainless dipilih untuk korosi serta tampilan; grade harus ditulis. Aluminium ringan tetapi respons cutting dan handling berbeda.
+Mild steel ekonomis dan mudah difinishing. Stainless dipilih untuk korosi serta tampilan; grade harus ditulis. Plat galvanis jadi alternatif tahan karat dengan biaya lebih terjangkau dibanding stainless.
 
 ### ACP, GRC, dan PVC board
 
@@ -89,7 +89,7 @@ Pilih dari beban dan bentang, bukan asumsi “lebih tebal selalu lebih bagus”.
 | Plywood | clear coat, stain, paint |
 | Mild steel | powder coating, cat |
 | Stainless | 2B, hairline, mirror, polish |
-| Aluminium | anodize, powder coating |
+| Plat Galvanis | powder coating, cat |
 | Akrilik | dibiarkan, print, adhesive |
 
 Finishing memengaruhi sisi muka, arah grain, allowance, dan handling.

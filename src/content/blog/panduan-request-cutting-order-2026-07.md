@@ -74,7 +74,6 @@ Tepat Laser mengoperasikan mesin **fiber laser** untuk logam dan **laser CO2** u
 ### Material Logam (Fiber Laser)
 - Baja mild steel (MS) — 1mm hingga 20mm
 - Stainless steel grade 304/316 — 0,5mm hingga 12mm
-- Aluminium alloy 5052/6061 — 1mm hingga 10mm
 - Galvanis/BJLS — untuk konstruksi dan furnitur
 
 ### Material Non-Metal (Laser CO2)
