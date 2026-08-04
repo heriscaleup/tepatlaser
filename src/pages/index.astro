@@ -18,7 +18,7 @@ const meta = {
 
 const showcases = [
   { title: 'Pagar & Fasad Laser Panel', label: 'Arsitektural Eksterior', image: '/gambar/pagar-laser-cutting-landing/hero-pagar-laser-cutting.webp', slug: 'pagar-panel-geometris' },
-  { title: 'Reling Tangga & Partisi Pola', label: 'Interior Custom', image: '/gambar/railing-laser-cutting-landing/reling-tangga-daylight.webp', slug: 'reling-tangga-berpola' },
+  { title: 'Reling Tangga & Partisi Pola', label: 'Interior Custom', image: '/gambar/pagar-laser-cutting-landing/reling-balkon-laser-cutting.webp', slug: 'reling-tangga-berpola' },
   { title: 'Fasad ACP Gedung & Signage', label: 'Panel Bangunan Commercial', image: '/gambar/pagar-laser-cutting-landing/fasad-gedung-laser-cutting.webp', slug: 'fasad-panel-custom' }
 ];
 
@@ -192,7 +192,9 @@ const trustLogos = [
         <div class="material-grid accent-cycle">
           {MATERIALS.map((material, index) => (
             <a href={`/${material.slug}/`} class="material-card" data-material={material.id} data-magnetic>
-              <div class="material-specimen" aria-hidden="true"><span></span><span></span><span></span></div>
+              <div class="material-specimen">
+                <img src={material.image} alt={material.name} loading="lazy" width="600" height="450" />
+              </div>
               <div class="material-shade"></div>
               <div class="material-copy">
                 <span class="number-tag">0{index + 1}</span>
@@ -440,6 +442,12 @@ const trustLogos = [
     inset: 0;
     overflow: hidden;
     transition: transform 0.8s var(--ease-smooth), filter 0.8s var(--ease-smooth);
+  }
+  .material-specimen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .material-card:hover .material-specimen {
     transform: scale(1.06);
