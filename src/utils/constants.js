@@ -266,19 +266,19 @@ export const PORTFOLIO_PROJECTS = [
   },
   {
     id: 5,
-    title: "Cutting Plat Aluminium",
+    title: "Cutting Plat Besi",
     category: "Laser Fiber",
     image: "/images/furnituremetal.webp",
-    description: "Pemotongan plat aluminium untuk komponen otomotif",
+    description: "Pemotongan plat besi untuk komponen otomotif",
     client: "PT. Otomotif Nusantara",
-    material: "Aluminium 3mm",
+    material: "Besi (Mild Steel) 3mm",
     technique: "Fiber Laser Cutting",
     gallery: [
       "/images/furnituremetal.webp",
       "/images/furnituremetal.webp",
       "/images/furnituremetal.webp"
     ],
-    detailDescription: "Pemotongan plat aluminium dengan ketebalan 3mm untuk komponen otomotif. Menggunakan laser fiber yang menghasilkan potongan bersih tanpa burr dan presisi tinggi sesuai standar industri otomotif."
+    detailDescription: "Pemotongan plat besi (mild steel) dengan ketebalan 3mm untuk komponen otomotif. Menggunakan laser fiber yang menghasilkan potongan bersih tanpa burr dan presisi tinggi sesuai standar industri otomotif."
   },
   {
     id: 6,
