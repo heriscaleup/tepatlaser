@@ -72,7 +72,7 @@ export const SERVICES = [
     id: "laser-fiber",
     name: "Laser Fiber",
     slug: "jasa-laser-fiber",
-    description: "Pemotongan dan penandaan presisi untuk metal seperti stainless steel, aluminium, besi, dan tembaga",
+    description: "Pemotongan dan penandaan presisi untuk metal seperti stainless steel, plat galvanis, besi, dan tembaga",
     features: [
       "Marking permanen & tahan lama",
       "Kapasitas ketebalan dikonfirmasi menurut jenis metal",
@@ -81,7 +81,7 @@ export const SERVICES = [
     ],
     applications: ["Industri", "Otomotif", "Elektronik", "Identitas produk"],
     image: "/images/v10/fiber-metal-workshop-real.webp",
-    keywords: "jasa laser fiber indonesia, cutting stainless serang, laser alumunium tangerang, potong besi cilegon, laser cutting metal pandeglang, marking tembaga lebak"
+    keywords: "jasa laser fiber indonesia, cutting stainless serang, laser plat galvanis tangerang, potong besi cilegon, laser cutting metal pandeglang, marking tembaga lebak"
   },
   {
     id: "cnc-router",
