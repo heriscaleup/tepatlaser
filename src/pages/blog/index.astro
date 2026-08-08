@@ -19,18 +19,18 @@ const blogSchema = {'@context':'https://schema.org','@type':'Blog','name':'Wawas
   </main><Footer slot="footer" />
 </BaseLayout>
 <style>
-  .blog-section{background:radial-gradient(circle at 12% 12%,rgba(54,114,172,.09),transparent 24rem)}
+  .blog-section{background:#080b0a;background-image:radial-gradient(circle at 12% 12%,rgba(54,114,172,.16),transparent 24rem)}
   .blog-toolbar{display:flex;justify-content:space-between;gap:1rem;border-bottom:1px solid var(--line);padding-bottom:1rem;color:var(--muted);font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
   .blog-toolbar span:first-child{color:var(--laser-deep)}
-  .blog-featured{display:grid;overflow:hidden;margin-top:2rem;border:1px solid var(--line);background:var(--surface)}
+  .blog-featured{display:grid;overflow:hidden;margin-top:2rem;border:1px solid rgba(245,247,244,.14);background:#111514}
   .featured-media{position:relative;display:block;min-height:25rem;overflow:hidden;background:#050906}
   .featured-media::after{position:absolute;inset:0;content:'';background:linear-gradient(90deg,transparent,rgba(5,9,6,.16))}
   .featured-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .featured-copy{display:flex;flex-direction:column;justify-content:center;padding:clamp(1.5rem,4vw,3.5rem)}
-  .featured-copy h2{margin-top:1.3rem;font-size:clamp(2rem,3.5vw,3.4rem);line-height:1}
-  .featured-copy>p{margin-top:1.2rem;font-size:1rem;line-height:1.75}
+  .featured-copy h2{margin-top:1.3rem;color:#f8fafc;font-size:clamp(2rem,3.5vw,3.4rem);line-height:1}
+  .featured-copy>p{margin-top:1.2rem;color:#cbd5d1;font-size:1rem;line-height:1.75}
   .blog-grid{display:grid;gap:1rem;margin-top:1rem}
-  .blog-card{overflow:hidden;border:1px solid var(--line);background:var(--surface);transition:transform .45s var(--ease-smooth),border-color .45s var(--ease-smooth)}
+  .blog-card{overflow:hidden;border:1px solid rgba(245,247,244,.14);background:#111514;transition:transform .45s var(--ease-smooth),border-color .45s var(--ease-smooth)}
   .blog-card:hover{border-color:var(--laser);transform:translateY(-5px)}
   .blog-media{display:block;aspect-ratio:1.35;overflow:hidden;background:var(--surface-soft)}
   .blog-media img{width:100%;height:100%;object-fit:cover;filter:saturate(.78);transition:transform .75s var(--ease-smooth),filter .75s var(--ease-smooth)}
@@ -38,8 +38,8 @@ const blogSchema = {'@context':'https://schema.org','@type':'Blog','name':'Wawas
   .blog-copy{padding:1.35rem}
   .blog-meta{display:flex;justify-content:space-between;gap:.7rem;color:var(--laser-deep);font-size:.75rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
   .blog-meta span:last-child{color:var(--muted)}
-  .blog-copy h2{margin-top:1rem;font-size:1.4rem;line-height:1.12}
-  .blog-copy>p{display:-webkit-box;overflow:hidden;margin-top:.8rem;font-size:.9rem;line-height:1.7;-webkit-box-orient:vertical;-webkit-line-clamp:3}
+  .blog-copy h2{margin-top:1rem;color:#f8fafc;font-size:1.4rem;line-height:1.12}
+  .blog-copy>p{display:-webkit-box;overflow:hidden;margin-top:.8rem;color:#cbd5d1;font-size:.9rem;line-height:1.7;-webkit-box-orient:vertical;-webkit-line-clamp:3}
   .blog-bottom{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.2rem;border-top:1px solid var(--line);padding-top:1rem;font-size:.78rem;font-weight:750}
   .blog-bottom time{color:var(--muted)}
   .blog-bottom a{color:var(--laser-deep)}

@@ -250,6 +250,25 @@
     background: #fffbeb;
     color: #0f172a;
   }
+
+  /* Explicit contrast helpers for mixed light/dark brand pages. */
+  .bg-white :where(p:not([class*="text-"]), li:not([class*="text-"]), small:not([class*="text-"])),
+  .bg-slate-50 :where(p:not([class*="text-"]), li:not([class*="text-"]), small:not([class*="text-"])),
+  .page-intro :where(li:not([class*="text-"]), small:not([class*="text-"])) {
+    color: #334155;
+  }
+  .bg-white :where(h1:not([class*="text-"]), h2:not([class*="text-"]), h3:not([class*="text-"]), h4:not([class*="text-"])),
+  .bg-slate-50 :where(h1:not([class*="text-"]), h2:not([class*="text-"]), h3:not([class*="text-"]), h4:not([class*="text-"])) {
+    color: #0f172a;
+  }
+  .bg-white :where(a:not(.btn-primary):not(.btn-secondary):not([class*="text-"])),
+  .bg-slate-50 :where(a:not(.btn-primary):not(.btn-secondary):not([class*="text-"])) {
+    color: #0f172a;
+  }
+  .dark-section :where(p:not([class*="text-"]), li:not([class*="text-"]), small:not([class*="text-"])),
+  .warm-section :where(p:not([class*="text-"]), li:not([class*="text-"]), small:not([class*="text-"])) {
+    color: var(--muted);
+  }
 }
 
 @keyframes header-arrive { from { transform: translateY(-100%); } to { transform: translateY(0); } }
