@@ -265,6 +265,22 @@
   .bg-slate-50 :where(a:not(.btn-primary):not(.btn-secondary):not([class*="text-"])) {
     color: #0f172a;
   }
+  .bg-white .btn-secondary,
+  .bg-slate-50 .btn-secondary {
+    border-color: #94a3b8;
+    background: #ffffff;
+    color: #0f172a;
+    box-shadow: 0 .45rem 1.35rem rgba(15, 23, 42, .06);
+  }
+  .bg-white .btn-secondary:hover,
+  .bg-white .btn-secondary:focus-visible,
+  .bg-slate-50 .btn-secondary:hover,
+  .bg-slate-50 .btn-secondary:focus-visible {
+    border-color: #b7791f;
+    background: #fffbeb;
+    color: #0f172a;
+    box-shadow: 0 .75rem 1.8rem rgba(146, 64, 14, .12);
+  }
   .dark-section :where(p:not([class*="text-"]), li:not([class*="text-"]), small:not([class*="text-"])),
   .warm-section :where(p:not([class*="text-"]), li:not([class*="text-"]), small:not([class*="text-"])) {
     color: var(--muted);
