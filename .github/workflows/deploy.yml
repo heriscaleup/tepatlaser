@@ -93,23 +93,44 @@ jobs:
             exit 1
           fi
 
-      # 8. Verifikasi release marker live di publik (dinamis, baca dari build output)
-      - name: Verify public release marker
+      # 8. Verifikasi halaman dan aset penting live di publik.
+      # Gunakan browser-like User-Agent karena proteksi edge dapat menolak fetch default dari Node.
+      - name: Verify public blog assets
         shell: bash
         run: |
-          echo "Waiting for tepatlaser.com to return 200 OK..."
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"
+          BLOG_IMAGES=(
+            "https://tepatlaser.com/images/blog/kenapa-presisi-laser-cutting-penting-industri-manufaktur.webp"
+            "https://tepatlaser.com/images/blog/tips-audit-kualitas-hasil-laser-cutting.webp"
+            "https://tepatlaser.com/images/blog/studi-kasus-custom-part-industri-berat-2026-07.webp"
+          )
+
+          echo "Waiting for tepatlaser.com /blog/ and critical blog thumbnails..."
           for attempt in {1..6}; do
-            STATUS=$(node -e "fetch('https://tepatlaser.com/?bust=${GITHUB_SHA}-${attempt}').then(r=>console.log(r.status)).catch(()=>console.log('0'))")
+            BLOG_STATUS=$(curl -A "$UA" -sS -o /tmp/blog.html -w "%{http_code}" "https://tepatlaser.com/blog/?bust=${GITHUB_SHA}-${attempt}" || echo "0")
+            echo "Attempt $attempt: /blog/ status='$BLOG_STATUS'"
 
-            echo "Attempt $attempt: status='$STATUS'"
+            if [ "$BLOG_STATUS" = "200" ]; then
+              ALL_IMAGES_OK=true
+              for image_url in "${BLOG_IMAGES[@]}"; do
+                HEADERS_FILE="/tmp/$(basename "$image_url").headers"
+                HTTP_CODE=$(curl -A "$UA" -sS -L -o /dev/null -D "$HEADERS_FILE" -w "%{http_code}" "${image_url}?bust=${GITHUB_SHA}-${attempt}" || echo "0")
+                CONTENT_TYPE=$(awk 'BEGIN{IGNORECASE=1} /^content-type:/ {print $2; exit}' "$HEADERS_FILE" | tr -d '\r')
+                echo "Attempt $attempt: $image_url status='$HTTP_CODE' content-type='$CONTENT_TYPE'"
 
-            if [ "$STATUS" = "200" ]; then
-              echo "✅ https://tepatlaser.com/ is LIVE with 200 OK!"
-              exit 0
+                if [ "$HTTP_CODE" != "200" ] || [[ "$CONTENT_TYPE" != image/webp* ]]; then
+                  ALL_IMAGES_OK=false
+                fi
+              done
+
+              if [ "$ALL_IMAGES_OK" = "true" ]; then
+                echo "✅ Blog page and critical thumbnails are live with image/webp responses."
+                exit 0
+              fi
             fi
+
             sleep 5
           done
 
-          echo "❌ Domain check failed!"
+          echo "❌ Blog page or critical thumbnail verification failed."
           exit 1
-
