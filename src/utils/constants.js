@@ -4,7 +4,7 @@ export const SITE_CONFIG = {
   name: "Tepat Laser",
   title: "Jasa Laser Cutting & CNC Router | Tepat Laser",
   description: "Jasa laser cutting, CNC router, dan laser engraving untuk kebutuhan industri, interior, signage, serta produk pesanan khusus di Jakarta dan Tangerang Selatan.",
-  keywords: "laser cutting indonesia, cnc router serang, laser fiber tangerang, laser co2 cilegon, cutting akrilik pandeglang, potong kayu lebak, laser metal indonesia",
+  keywords: "jasa laser cutting Tangerang Selatan, laser cutting Jakarta, CNC router Tangerang, laser fiber metal Jabodetabek, laser CO2 akrilik, galvo engraving Tangerang",
   url: "https://tepatlaser.com",
   author: "Tim Teknis Tepat Laser",
   whatsapp: "6282121292937",
@@ -57,7 +57,7 @@ export const SERVICES = [
     id: "laser-co2",
     name: "Laser CO2",
     slug: "jasa-laser-co2",
-    description: "Pemotongan presisi untuk material non-metal seperti akrilik, kayu, MDF, kertas, kain, dan karet",
+    description: "Laser CO2 untuk cutting dan engraving material non-metal yang kompatibel, dengan review jenis bahan, ketebalan, detail file, dan target tepi sebelum produksi",
     features: [
       "Cocok untuk material non-metal yang kompatibel",
       "Detail potong mengikuti kualitas file dan karakter material",
@@ -66,52 +66,52 @@ export const SERVICES = [
     ],
     applications: ["Signage", "Dekorasi", "Prototyping", "Kemasan"],
     image: "/images/v10/co2-acrylic-workshop-real.webp",
-    keywords: "jasa laser co2 indonesia, cutting akrilik serang, laser kayu tangerang, potong mdf cilegon, laser cutting pandeglang, cutting kain lebak, laser karet indonesia"
+    keywords: "jasa laser CO2 Tangerang Selatan, laser cutting akrilik Tangsel, laser kayu Jakarta, laser MDF Tangerang, engraving akrilik Jabodetabek"
   },
   {
     id: "laser-fiber",
     name: "Laser Fiber",
     slug: "jasa-laser-fiber",
-    description: "Pemotongan dan penandaan presisi untuk metal seperti stainless steel, plat galvanis, besi, dan tembaga",
+    description: "Laser fiber untuk cutting lembaran metal seperti stainless, galvanis, dan besi, dengan grade, ketebalan, geometri, dan proses lanjutan ditinjau dari file",
     features: [
-      "Marking permanen & tahan lama",
+      "Kondisi tepi dan permukaan ditinjau sesuai material serta fungsi part",
       "Kapasitas ketebalan dikonfirmasi menurut jenis metal",
       "Konsisten untuk komponen berulang dan produksi batch",
       "Parameter gas, fokus, dan kecepatan disesuaikan material"
     ],
     applications: ["Industri", "Otomotif", "Elektronik", "Identitas produk"],
     image: "/images/v10/fiber-metal-workshop-real.webp",
-    keywords: "jasa laser fiber indonesia, cutting stainless serang, laser plat galvanis tangerang, potong besi cilegon, laser cutting metal pandeglang, marking tembaga lebak"
+    keywords: "jasa laser fiber Tangerang Selatan, laser cutting metal Tangerang, laser stainless Jakarta, potong plat besi Jabodetabek, laser galvanis Tangsel"
   },
   {
     id: "cnc-router",
     name: "CNC Router",
     slug: "jasa-cnc-router",
-    description: "Pengerjaan kompleks untuk material keras seperti ACP, GRC, kayu keras, dan plastik tebal",
+    description: "CNC router untuk cut-through, pocket, profiling, V-groove, dan relief pada panel seperti ACP, GRC, MDF, plywood, kayu, serta material lain yang sesuai",
     features: [
       "3D carving dan profiling",
       "Kemampuan memproses panel dan material lebih tebal",
-      "Repeatability tinggi untuk produksi massal",
+      "Toolpath dapat digunakan ulang untuk produksi batch setelah file dikunci",
       "Detail mengikuti diameter tool dan strategi pemakanan"
     ],
     applications: ["Fasad", "Furnitur", "Profil", "Signage"],
     image: "/images/generated/cnc-router-v5.webp",
-    keywords: "jasa cnc router indonesia, cutting acp serang, laser grc tangerang, potong kayu cilegon, cnc router pandeglang, carving akrilik lebak"
+    keywords: "jasa CNC router Tangerang Selatan, CNC ACP Tangerang, CNC GRC Jakarta, router plywood Tangsel, CNC panel Jabodetabek"
   },
   {
     id: "galvo-engraving",
     name: "Galvo Engraving",
     slug: "jasa-galvo-engraving",
-    description: "Grafir berkecepatan tinggi untuk personalisasi dan identitas produk pada berbagai material",
+    description: "Galvo engraving untuk logo, serial number, QR code, dan data variabel dengan posisi, kontras, serta keterbacaan diuji pada permukaan aktual",
     features: [
-      "Resolusi tinggi untuk detail kompleks",
-      "Personalisasi batch dalam waktu singkat",
+      "Detail dan ukuran marking disesuaikan dengan keterbacaan yang dibutuhkan",
+      "Jig dan data variabel membantu menjaga posisi antarunit pada pekerjaan batch",
       "Ideal untuk serial number, logo, QR code",
       "Keterbacaan dan kontras diuji pada material aktual"
     ],
     applications: ["Identitas produk", "Personalisasi", "Ketertelusuran", "Promosi"],
     image: "/images/v10/galvo-marking-workshop-real.webp",
-    keywords: "jasa galvo engraving indonesia, laser engraving serang, engrave tangerang, potong engraving cilegon, laser engrave pandeglang, branding produk lebak"
+    keywords: "jasa galvo engraving Tangerang Selatan, laser engraving metal Tangerang, marking serial number Jakarta, QR engraving Jabodetabek, laser marking Tangsel"
   }
 ];
 
@@ -120,31 +120,31 @@ export const MATERIALS = [
     id: "acrylic",
     name: "Akrilik",
     slug: "laser-cutting-akrilik",
-    description: "Material transparan berkualitas tinggi untuk berbagai aplikasi signage dan dekorasi",
+    description: "Akrilik bening atau berwarna untuk signage, display, dekorasi, dan komponen custom; jenis lembaran, ketebalan aktual, serta target tepi perlu dikonfirmasi",
     thickness: "1mm - 20mm",
     applications: ["Signage", "Etalase", "Dekorasi", "Prototipe"],
     image: "/images/Acrylic.webp",
-    keywords: "potong akrilik indonesia, cutting acrylic serang, laser acrylic tangerang, potong acrylic cilegon, cutting acrylic pandeglang"
+    keywords: "laser cutting akrilik Tangerang Selatan, potong acrylic Tangsel, akrilik custom Jakarta, cutting acrylic Jabodetabek"
   },
   {
     id: "mdf",
     name: "MDF",
     slug: "jasa-laser-cutting-mdf-ai",
-    description: "Kayu engineered dengan permukaan halus, ideal untuk painting dan aplikasi dekoratif",
+    description: "MDF untuk panel, model, signage, dan komponen interior; pilihan laser atau CNC bergantung pada ketebalan, detail, serta target finishing",
     thickness: "3mm - 25mm",
     applications: ["Furnitur", "Dekorasi", "Kerajinan", "Model"],
     image: "/images/mdf.webp",
-    keywords: "potong mdf indonesia, laser cutting mdf serang, cutting mdf tangerang, potong mdf cilegon, laser mdf pandeglang"
+    keywords: "laser cutting MDF Tangerang Selatan, CNC MDF Tangerang, potong MDF Jakarta, panel MDF custom Jabodetabek"
   },
   {
     id: "ply-wood-multiplex",
     name: "Plywood/Multiplex",
     slug: "jasa-laser-cutting-plywood",
-    description: "Kayu lapis berkualitas untuk kekuatan struktural dan tampilan alami yang menarik",
+    description: "Plywood atau multiplex untuk panel, interior, furnitur ringan, jig, dan dekorasi; grade, arah serat, lem, serta ketebalan memengaruhi pilihan proses",
     thickness: "3mm - 25mm",
     applications: ["Furnitur", "Dekorasi", "Kerajinan", "Interior"],
     image: "/images/Ply Wood.webp",
-    keywords: "potong plywood indonesia, laser kayu serang, cutting multiplex tangerang, potong kayu cilegon, laser plywood pandeglang"
+    keywords: "potong plywood Tangerang Selatan, laser plywood Tangsel, CNC multiplex Tangerang, cutting kayu Jakarta, plywood custom Jabodetabek"
   },
   {
     id: "metal",
@@ -160,31 +160,31 @@ export const MATERIALS = [
     id: "acp",
     name: "ACP (Aluminium Composite Panel)",
     slug: "jasa-laser-cutting-acp",
-    description: "Panel komposit ringan namun kuat untuk aplikasi fasad dan signage premium",
+    description: "ACP untuk fasad, signage, interior, dan panel custom; pola, V-groove, arah coating, serta urutan pemasangan perlu dipertimbangkan sebelum CNC routing",
     thickness: "2mm - 6mm",
     applications: ["Signage", "Fasad", "Interior", "Eksterior"],
     image: "/images/acppro (3).webp",
-    keywords: "potong acp aluminium indonesia, cutting acp serang, acp laser tangerang, potong acp cilegon, cutting acp pandeglang"
+    keywords: "CNC ACP Tangerang Selatan, potong ACP Tangsel, router ACP Jakarta, fasad ACP custom Jabodetabek"
   },
   {
     id: "pvc",
     name: "PVC BOARD",
     slug: "jasa-laser-cutting-pvc",
-    description: "Pemotongan PVC sesuai desain untuk kebutuhan industri dan kreatif",
+    description: "PVC board diproses dengan rute yang sesuai karakter material; CNC router digunakan untuk cutting dan profiling ketika proses laser tidak aman atau tidak sesuai",
     thickness: "1mm - 10mm",
     applications: ["Signage", "Prototipe", "Etalase", "Kemasan"],
     image: "/images/pvc.webp",
-    keywords: "potong pvc indonesia, cutting pvc serang, laser pvc tangerang, potong pvc cilegon, cutting pvc pandeglang"
+    keywords: "CNC PVC board Tangerang Selatan, potong PVC board Tangsel, router PVC Jakarta, PVC custom Jabodetabek"
   },
   {
     id: "grc",
     name: "GRC",
     slug: "jasa-laser-cutting-grc",
-    description: "Cutting GRC (Glassfibre Reinforced Concrete) untuk fasad dan ornamen bangunan",
+    description: "CNC routing GRC untuk pola fasad, ornamen, dan panel; tool, ketebalan, kekuatan jembatan, debu, serta metode pemasangan perlu masuk review",
     thickness: "8mm - 15mm",
     applications: ["Fasad", "Ornamen", "Panel", "Eksterior"],
     image: "/images/grcpro (4).webp",
-    keywords: "potong grc indonesia, grc laser cutting serang, fasad grc tangerang, cutting grc cilegon, laser grc pandeglang"
+    keywords: "CNC GRC Tangerang Selatan, potong GRC Tangsel, panel GRC Jakarta, fasad GRC custom Jabodetabek"
   },
   {
     id: "stainless",
