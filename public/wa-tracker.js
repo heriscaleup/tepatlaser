@@ -24,7 +24,7 @@
   'use strict';
 
   // ─── CONFIG ─────────────────────────────────────────────────────────────────
-  var BACKEND_URL         = 'https://filter-bot-crmcutting.qk6yxt.easypanel.host';
+  var BACKEND_URL         = 'https://crm-cutting.163.61.44.41.sslip.io';
   var WA_PHONE            = '6282121292937';
   var CONSULTATION_PREFIX = 'TL-METAL';
   var STORAGE_KEY         = '_wa_gclid';
