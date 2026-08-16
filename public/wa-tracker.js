@@ -140,6 +140,24 @@
       // Google Ads conversion: klik link WA
       gtag('event', 'conversion', { send_to: ADS_CONVERSION_ID });
     }
+
+    // Hermes Telegram Lead Capture Dispatch (Non-blocking)
+    try {
+      var leadBody = {
+        page_url: window.location.href,
+        wa_message: (btn && btn.getAttribute ? btn.getAttribute('data-wa-msg') : '') || 'Klik Konsultasi WhatsApp',
+        gclid: payload.gclid || '',
+        utm_source: payload.utm_source || 'organic_seo',
+        utm_campaign: payload.utm_campaign || '',
+        utm_term: payload.utm_term || payload.keyword_text || ''
+      };
+      fetch('https://crm-cutting.163.61.44.41.sslip.io/api/lead-capture', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadBody),
+        mode: 'cors'
+      }).catch(function () {});
+    } catch (e) {}
   }
 
   // ── Pre-register saat halaman load ──────────────────────────────────────────
