@@ -1,0 +1,69 @@
+name: Autonomous Daily Blog Publisher (Cloud Cron)
+
+on:
+  schedule:
+    # Berjalan otomatis setiap hari jam 07:00 WIB (00:00 UTC)
+    - cron: '0 0 * * *'
+  # Bisa dipicu manual dari tab Actions
+  workflow_dispatch:
+
+concurrency:
+  group: tepatlaser-daily-publisher
+  cancel-in-progress: true
+
+jobs:
+  auto-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Run Autonomous AI Blog Publisher
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          git config user.name "Ddos-spec"
+          git config user.email "setgraph69@gmail.com"
+          node scripts/auto-blog-publisher.mjs
+
+      - name: Deploy Astro to Hostinger FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: 103.185.53.100
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ./
+          state-name: .ftp-deploy-sync-state-v1.json
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+
+      - name: Purge Cloudflare Cache
+        shell: bash
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
+        run: |
+          echo "Purging Cloudflare cache for zone $CF_ZONE_ID..."
+          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
+            -H "Authorization: Bearer ${CF_API_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --data '{"purge_everything":true}'
