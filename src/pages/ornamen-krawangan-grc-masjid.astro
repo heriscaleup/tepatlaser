@@ -1,0 +1,144 @@
+---
+import ApplicationLandingPage from '../components/ApplicationLandingPage.astro';
+
+const benefits = [
+  {
+    title: 'Keagungan Pola Geometris Islami',
+    description: 'Akurasi pemotongan digital menghadirkan simetri motif bintang 8 (octagram), arabesque, dan kaligrafi Arab kufi/tsuluts dengan detail lengkungan sempurna.'
+  },
+  {
+    title: 'Kombinasi Material Kokoh & Elegan',
+    description: 'Pilihan bahan luas mulai dari panel GRC krawangan tahan air, plat stainless mirror gold, hingga kayu MDF HMR hijau untuk pencahayaan LED warm white.'
+  },
+  {
+    title: 'Struktur Modul Siap Pasang',
+    description: 'Setiap panel dipotong dengan toleransi sambungan antar-modul yang rapat sehingga tidak terlihat garis patahan saat disusun menjadi dinding mihrab besar.'
+  }
+];
+
+const gallery = [
+  {
+    image: '/images/grcpro (1).webp',
+    title: 'Mihrab Masjid & Dinding Pengimaman',
+    label: 'Mihrab Utama',
+    alt: 'Ornamen mihrab masjid laser cutting motif krawangan islami'
+  },
+  {
+    image: '/images/grcpro (2).webp',
+    title: 'Panel Krawangan Musholla & Partisi',
+    label: 'Krawangan GRC',
+    alt: 'Panel krawangan musholla laser cutting geometris islami'
+  },
+  {
+    image: '/gambar/mdf/5.png',
+    title: 'Partisi Interior Kayu Motif Geometris',
+    label: 'Interior Partisi',
+    alt: 'Partisi interior masjid kayu MDF laser cutting pola arabesque'
+  },
+  {
+    image: '/gambar/mdf/6.png',
+    title: 'Ceiling & Plafon Ornamen Kaligrafi',
+    label: 'Plafon Masjid',
+    alt: 'Ornamen plafon kubah masjid laser cutting kaligrafi'
+  },
+  {
+    image: '/gambar/mdf/7.png',
+    title: 'Relief Dinding Pembatas Shaf',
+    label: 'Pembatas Jamaah',
+    alt: 'Dinding partisi pembatas shaf ikhwan akhwat laser cutting'
+  },
+  {
+    image: '/gambar/mdf/8.png',
+    title: 'Variasi Pola Arabesque Klasik & Modern',
+    label: 'Katalog Motif',
+    alt: 'Katalog variasi motif krawangan islami laser cutting'
+  }
+];
+
+const steps = [
+  {
+    title: 'Kirim Ukuran Bidang Mihrab',
+    description: 'Kirimkan foto dinding pengimaman/musholla beserta ukuran lebar, tinggi lengkungan kubah, dan kedalaman ceruk mihrab.'
+  },
+  {
+    title: 'Pilih Motif & Kaligrafi',
+    description: 'Pilih motif dari katalog krawangan kami atau ajukan ayat Al-Quran / kaligrafi custom yang ingin diwujudkan.'
+  },
+  {
+    title: 'Simulasi Skala & Visual 3D',
+    description: 'Tim kami membuatkan layout proporsional agar kaligrafi dan ornamen terbaca jelas dari shaf jamaah paling belakang.'
+  },
+  {
+    title: 'Produksi Presisi & Delivery',
+    description: 'Pemotongan CNC Router / Laser, pembersihan tepi, uji sambungan modul (dry assembly), dan pengiriman aman.'
+  }
+];
+
+const faqs = [
+  {
+    question: 'Berapa biaya pembuatan ornamen mihrab masjid dan krawangan?',
+    answer: 'Biaya jasa cutting krawangan mulai dari Rp 175.000 - Rp 350.000/m2 untuk jasa potong. Paket lengkap material (MDF HMR Hijau, GRC Board, ACP Emas, atau Stainless Gold) berkisar antara Rp 750.000 - Rp 2.500.000/m2 tergantung kemewahan bahan dan ketebalan panel.'
+  },
+  {
+    question: 'Material apa yang paling bagus untuk mihrab masjid indoor?',
+    answer: 'Untuk area indoor ber-AC, kombinasi MDF HMR (High Moisture Resistant) warna putih duco dengan background Stainless Steel Mirror Gold atau Akrilik diffuse LED warm-white menghasilkan kesan yang sangat megah dan syahdu.'
+  },
+  {
+    question: 'Apakah panel krawangan tahan jika dipasang di outdoor musholla?',
+    answer: 'Untuk outdoor atau area semi-terbuka yang terkena tampias hujan, kami menyarankan material GRC (Glassfiber Reinforced Concrete), ACP PVDF eksterior, atau Plat Stainless Steel 304 anti karat.'
+  },
+  {
+    question: 'Apakah menyediakan kaligrafi nama masjid dan ayat Kursi?',
+    answer: 'Ya. Kami memiliki database kaligrafi vector resolusi tinggi untuk ayat Kursi, Surat Al-Fatihah, kalimat tauhid, serta nama masjid timbul dari stainless steel / akrilik gold.'
+  }
+];
+
+const fit = [
+  'Proyek pembangunan / renovasi masjid agung, musholla kantor, dan perumahan',
+  'Pengurus DKM atau panitia pembangunan yang mencari produsen tangan pertama',
+  'Arsitek dan kontraktor interior bernuansa islami modern',
+  'Menginginkan mihrab berwibawa dengan detail kaligrafi tajam dan presisi'
+];
+
+const notFit = [
+  'Mihrab tanpa pengukuran dinding aktual di lapangan',
+  'Menggunakan bahan kayu olahan murah non-HMR di ruangan yang lembab/bocor'
+];
+
+const priceFactors = [
+  'Luas total bidang mihrab (panjang x tinggi lengkungan kubah)',
+  'Pilihan bahan (GRC Krawangan, Stainless Mirror Gold 304, ACP Emas, MDF Hijau HMR)',
+  'Tingkat kerumitan kaligrafi Arab dan kerapatan motif geometris',
+  'Penambahan tata lampu LED tersembunyi (indirect warm lighting)',
+  'Jasa pemasangan rangka hollow dan instalasi di lokasi masjid'
+];
+
+const qualityChecks = [
+  'Keterbacaan dan kebenaran harakat pada kaligrafi diverifikasi seksama',
+  'Pertemuan garis antar modul panel krawangan diuji presisi (zero gap)',
+  'Permukaan panel halus bebas serabut dan siap diaplikasikan cat duco',
+  'Modul disusun rapi dan dipacking dengan proteksi kayu untuk pengiriman'
+];
+---
+
+<ApplicationLandingPage 
+  title="Ornamen Mihrab Masjid & Krawangan" 
+  accent="megah, syahdu, dan penuh nilai seni." 
+  eyebrow="Fabrikasi Ornamen Islami Presisi" 
+  description="Hadirkan suasana ibadah yang khusyuk dan megah dengan panel mihrab masjid, partisi shaf, plafon kubah, dan krawangan GRC kaligrafi laser cutting presisi tangan pertama." 
+  metaDescription="Jasa pembuatan mihrab masjid laser cutting, krawangan GRC islami, dan partisi musholla custom di Jabodetabek. Harga tangan pertama & konsultasi DKM gratis." 
+  keyword="mihrab masjid laser cutting, krawangan grc masjid, ornamen dinding musholla bintaro tangsel, partisi islami kaligrafi, laser cutting grc" 
+  route="/ornamen-krawangan-grc-masjid/" 
+  heroImage="/images/grcpro (1).webp" 
+  heroAlt="Mihrab masjid ornamen krawangan geometris laser cutting megah Tepat Laser" 
+  {benefits} 
+  {gallery} 
+  {steps} 
+  {faqs} 
+  {fit} 
+  {notFit} 
+  {priceFactors} 
+  {qualityChecks} 
+  ctaTitle="Ingin memperindah masjid atau musholla Anda?" 
+  waMessage="Halo Tepat Laser, saya dari panitia masjid/DKM ingin konsultasi pembuatan ornamen mihrab / krawangan laser cutting." 
+/>

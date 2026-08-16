@@ -9,6 +9,7 @@ updatedDate: "2026-08-13"
 image: "/images/blog/perbedaan-laser-cutting-cnc-router-galvo-engraving.webp"
 imageAlt: "Perbandingan pengerjaan mesin CNC router dan mesin laser cutting di workshop"
 author: "Tim Tepat Laser"
+primaryKeyword: "Panduan Memilih Antara Mesin CNC Router dan Laser "
 keywords: "cnc router vs laser cutting, perbedaan cnc router dan laser, pemotongan kayu tebal, mesin potong kustom"
 keyTakeaways:
   - "CNC router memotong dengan pisau mata bit berputar secara mekanis, sangat unggul untuk material tebal seperti kayu solid, MDF tebal, dan ACP."

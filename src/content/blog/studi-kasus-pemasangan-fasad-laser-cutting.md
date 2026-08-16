@@ -9,6 +9,7 @@ updatedDate: "2026-08-13"
 image: "/images/blog/karakteristik-keunggulan-acp-fasad-gedung.webp"
 imageAlt: "Panel fasad eksterior bermotif laser cutting dipasang pada struktur bangunan"
 author: "Tim Tepat Laser"
+primaryKeyword: "Panduan Perencanaan dan Pemasangan Fasad Laser Cut"
 keywords: "fasad laser cutting, secondary skin facade, rangka fasad metal, panel pemotong laser"
 keyTakeaways:
   - "Fasad laser cutting berfungsi sebagai secondary skin yang menyaring sinar matahari langsung sekaligus mempercantik tampilan bangunan."

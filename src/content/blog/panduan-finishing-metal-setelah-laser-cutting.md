@@ -9,6 +9,7 @@ updatedDate: "2026-08-13"
 image: "/images/blog/panduan-file-desain-laser-cutting-akurat.webp"
 imageAlt: "Proses inspeksi finishing permukaan metal setelah pemotongan laser"
 author: "Tim Tepat Laser"
+primaryKeyword: "finishing metal setelah laser cutting"
 keywords: "finishing laser cutting, powder coating metal, anodizing alumunium, polishing stainless steel, pasca produksi laser cutting"
 keyTakeaways:
   - "Pemilihan finishing harus disesuaikan dengan jenis material utama (plat besi, stainless, atau aluminium) dan lingkungan penggunaan (indoor vs outdoor)."

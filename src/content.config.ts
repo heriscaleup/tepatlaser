@@ -12,11 +12,11 @@ const blogCollection = defineCollection({
     category: z.string(),
     readTime: z.string(),
     publishDate: z.string(),
-    updatedDate: z.string(),
+    updatedDate: z.string().optional(),
     image: z.string(),
     imageAlt: z.string(),
     keywords: z.string(),
-    primaryKeyword: z.string(),
+    primaryKeyword: z.string().optional(),
     author: z.string().default('Tim Teknis Tepat Laser'),
     keyTakeaways: z.array(z.string()).min(2).max(5),
     relatedLinks: z.array(z.object({

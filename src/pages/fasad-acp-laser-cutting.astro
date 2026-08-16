@@ -1,0 +1,144 @@
+---
+import ApplicationLandingPage from '../components/ApplicationLandingPage.astro';
+
+const benefits = [
+  {
+    title: 'Kontrol Cahaya & Efisiensi Energi',
+    description: 'Pola perforated laser cutting pada secondary skin mereduksi panas matahari langsung hingga 40% tanpa mengorbankan sirkulasi udara alami gedung.'
+  },
+  {
+    title: 'Bobot Ringan & Tahan Gempa',
+    description: 'Panel Aluminium Composite Panel (ACP) dan plat aluminium laser cut memiliki rasio kekuatan terhadap bobot yang optimal, meringankan beban struktur utama.'
+  },
+  {
+    title: 'Coating PVDF Anti Pudar 15+ Tahun',
+    description: 'Menggunakan material ACP grade eksterior dengan lapisan cat PVDF (Seven, Marks, Alustar) yang tahan terhadap sinar UV, polusi asam, dan hujan ekstrim.'
+  }
+];
+
+const gallery = [
+  {
+    image: '/gambar/facade gedung.jpg',
+    title: 'Fasad Gedung Komersial ACP Perforated',
+    label: 'Gedung & Kantor',
+    alt: 'Fasad gedung komersial dengan panel ACP laser cutting perforated modern'
+  },
+  {
+    image: '/gambar/facade bangunan.jpg',
+    title: 'Secondary Skin Bangunan Arsitektural',
+    label: 'Arsitektur Modern',
+    alt: 'Secondary skin bangunan bertingkat laser cutting motif geometris'
+  },
+  {
+    image: '/gambar/facade rumah.jpg',
+    title: 'Fasad Rumah Tinggal & Villa',
+    label: 'Residensial Mewah',
+    alt: 'Fasad eksterior rumah tinggal mewah motif laser cut minimalis'
+  },
+  {
+    image: '/gambar/pagar-laser-cutting-landing/fasad-gedung-laser-cutting.webp',
+    title: 'Panel Selubung Bangunan Ruko',
+    label: 'Komersial Ruko',
+    alt: 'Panel selubung fasad ruko laser cutting'
+  },
+  {
+    image: '/images/acppro (1).webp',
+    title: 'Modul Panel ACP CNC Router',
+    label: 'Detail Fabrikasi',
+    alt: 'Modul panel ACP CNC router presisi tinggi'
+  },
+  {
+    image: '/images/acppro (2).webp',
+    title: 'Pola Geometris & Floral Tropis',
+    label: 'Pilihan Pola',
+    alt: 'Pilihan pola laser cutting fasad bernuansa tropis'
+  }
+];
+
+const steps = [
+  {
+    title: 'Kirim Gambar Elevasi / 3D',
+    description: 'Kirimkan gambar fasad tampak depan (DWG, PDF, sketsa 3D) beserta modul bidang dan estimasi luas total m2.'
+  },
+  {
+    title: 'Penentuan Modul & Rangka',
+    description: 'Tim engineer kami membagi bidang menjadi modul lembaran standar (1.2 x 2.4m) untuk efisiensi bahan dan kemudahan pasang.'
+  },
+  {
+    title: 'Nesting CAD & Penawaran',
+    description: 'Perhitungan simulasi nesting pola, estimasi waktu potong CNC/Laser, serta penawaran biaya per meter persegi (m2).'
+  },
+  {
+    title: 'Produksi, Bending & Delivery',
+    description: 'Pemotongan panel continuous, proses grooving dan bending kupingan (flange) baut, QC dimensi, dan pengiriman ke lokasi.'
+  }
+];
+
+const faqs = [
+  {
+    question: 'Berapa biaya jasa laser cutting fasad ACP per meter persegi?',
+    answer: 'Biaya jasa cutting ACP berkisar antara Rp 150.000 - Rp 350.000/m2 tergantung kepadatan motif perforasi. Untuk paket komplit (termasuk material ACP Seven PVDF 4mm + jasa potong + grooving kupingan) berkisar antara Rp 650.000 - Rp 1.200.000/m2.'
+  },
+  {
+    question: 'Apa perbedaan ACP PE vs PVDF untuk fasad?',
+    answer: 'ACP PE (Polyester) dirancang khusus untuk interior karena warnanya mudah pudar jika terpapar panas matahari luar ruang. Untuk fasad eksterior, WAJIB menggunakan ACP PVDF (Polyvinylidene Fluoride) yang memiliki garansi ketahanan warna terhadap sinar UV dan cuaca hingga 10-15 tahun.'
+  },
+  {
+    question: 'Apakah panel ACP sudah dilengkapi kupingan baut (flange)?',
+    answer: 'Bisa. Kami menyediakan layanan grooving V-groove presisi pada bagian belakang panel ACP sehingga tepi panel dapat ditekuk rapi membentuk box flange siap sekrup ke rangka hollow di lapangan.'
+  },
+  {
+    question: 'Berapa lama waktu pengerjaan fasad gedung volume besar?',
+    answer: 'Dengan mesin CNC Router dan Fiber Laser berkapasitas meja kerja 1500 x 3000 mm, kami mampu memproduksi 50 hingga 150 panel ACP per hari untuk mengejar deadline serah terima proyek kontraktor.'
+  }
+];
+
+const fit = [
+  'Proyek fasad gedung, renovasi ruko, showroom, kafe, atau hunian bertingkat',
+  'Memiliki gambar arsitektur / shop drawing modul tampak bangunan',
+  'Membutuhkan material tahan cuaca ekstrim yang tidak membebani struktur beton',
+  'Menginginkan tampilan bangunan ikonik yang terlihat standout dari kejauhan'
+];
+
+const notFit = [
+  'Pemasangan eksterior yang berniat menggunakan ACP grade interior (PE) murah',
+  'Belum memperhitungkan sistem rangka hollow besi penopang beban angin'
+];
+
+const priceFactors = [
+  'Luas total bidang fasad (m2) dan jumlah lembaran modul panel',
+  'Merk dan spesifikasi material (ACP Seven 4mm 0.3mm PVDF, Plat Besi, Aluminium)',
+  'Kerapatan lubang perforasi (% open area) dan panjang keliling garis potong',
+  'Kebutuhan tekuk grooving keliling (flange) dan lubang rivet/baut',
+  'Layanan pengiriman armada flatbed dan proteksi bubble wrap per modul'
+];
+
+const qualityChecks = [
+  'Ketepatan dimensi modul diuji terhadap toleransi shop drawing (±0.5mm)',
+  'Kedalaman jalur grooving V tepat agar tekukan ACP tidak retak atau patah',
+  'Film pelindung (protective sheet) ACP tetap utuh selama proses potong',
+  'Tiap panel diberi kode label lokasi modul sesuai denah tampak arsitektur'
+];
+---
+
+<ApplicationLandingPage 
+  title="Fasad ACP & Secondary Skin Gedung" 
+  accent="modern, megah, dan hemat energi." 
+  eyebrow="Fasad Arsitektural Laser Cutting" 
+  description="Ubah tampilan ruko, gedung kantor, showroom, dan hunian mewah Anda menjadi ikon arsitektur modern dengan panel fasad ACP dan secondary skin plat metal laser cutting presisi." 
+  metaDescription="Jasa cutting fasad ACP gedung, perforated sheet, dan secondary skin laser cutting tahan cuaca PVDF. Kapasitas produksi kontraktor skala besar di Jabodetabek." 
+  keyword="fasad acp laser cutting, secondary skin gedung, jasa cutting acp bintaro serpong, panel perforated ruko, fasad rumah laser cutting" 
+  route="/fasad-acp-laser-cutting/" 
+  heroImage="/gambar/facade gedung.jpg" 
+  heroAlt="Fasad gedung komersial ACP laser cutting perforated modern Tepat Laser" 
+  {benefits} 
+  {gallery} 
+  {steps} 
+  {faqs} 
+  {fit} 
+  {notFit} 
+  {priceFactors} 
+  {qualityChecks} 
+  ctaTitle="Siap merombak tampilan tampak depan bangunan Anda?" 
+  waMessage="Halo Tepat Laser, saya ingin konsultasi proyek fasad ACP / secondary skin laser cutting." 
+/>

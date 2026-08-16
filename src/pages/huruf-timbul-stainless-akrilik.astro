@@ -1,0 +1,146 @@
+---
+import ApplicationLandingPage from '../components/ApplicationLandingPage.astro';
+
+const benefits = [
+  {
+    title: 'Presisi Sudut & Lettering',
+    description: 'Pemotongan mesin fiber laser dan laser CO2 menghasilkan lekukan huruf tajam dan radius sudut yang sangat rapi tanpa distorsi.'
+  },
+  {
+    title: 'Sistem Penerangan LED Terintegrasi',
+    description: 'Rancangan rongga huruf dan dudukan modul LED disesuaikan agar pancaran cahaya backlight maupun frontlight merata sempurna.'
+  },
+  {
+    title: 'Material Tahan Cuaca Eksterior',
+    description: 'Menggunakan Stainless Steel Grade 201/304 anti karat dan Akrilik Marga Cipta murni yang tidak menguning terkena terik matahari.'
+  }
+];
+
+const gallery = [
+  {
+    image: '/gambar/huruf timbul stainless backlight.jpg',
+    title: 'Huruf Timbul Stainless Backlight LED',
+    label: 'Luxury Signage',
+    alt: 'Huruf timbul stainless steel dengan pencahayaan LED backlight mewah'
+  },
+  {
+    image: '/gambar/huruf timbul akrilik 2.jpg',
+    title: 'Huruf Timbul Akrilik 3D Storefront',
+    label: 'Ritel & Kafe',
+    alt: 'Papan nama toko huruf timbul akrilik 3D menyala terang'
+  },
+  {
+    image: '/gambar/huruf timbul stainless.jpg',
+    title: 'Stainless Hairline & Mirror Finish',
+    label: 'Fasad Kantor',
+    alt: 'Logo perusahaan stainless steel hairline finish outdoor'
+  },
+  {
+    image: '/gambar/Akrilik/PApan nama Akrilik.png',
+    title: 'Papan Nama Akrilik Ruangan & Kantor',
+    label: 'Corporate Sign',
+    alt: 'Signage papan nama akrilik presisi kantor modern'
+  },
+  {
+    image: '/gambar/Akrilik/dekorasi display akrilik.jpg',
+    title: 'Display & Merchandise Akrilik',
+    label: 'Display Toko',
+    alt: 'Display produk akrilik bening presisi laser cut'
+  },
+  {
+    image: '/gambar/Akrilik/plakat akrilik.jpg',
+    title: 'Plakat & Trophy Akrilik Grafir',
+    label: 'Event & Award',
+    alt: 'Plakat akrilik penghargaan laser engraving presisi'
+  }
+];
+
+const steps = [
+  {
+    title: 'Kirim Logo & Ukuran',
+    description: 'Kirimkan file logo vector (AI, EPS, CDR, PDF) atau font beserta ukuran tinggi huruf dan lebar bidang dinding.'
+  },
+  {
+    title: 'Review Material & Lighting',
+    description: 'Tim kami merekomendasikan kombinasi bahan (stainless, akrilik, galvanis) dan sistem lampu (backlight / frontlight).'
+  },
+  {
+    title: 'Nesting & Approval',
+    description: 'Simulasi skala layout, ketebalan timbul (spon / kaki baut), dan penawaran harga resmi disetujui.'
+  },
+  {
+    title: 'Produksi, QC & Rakit',
+    description: 'Pemotongan presisi, bending kupingan huruf, perakitan modul LED, uji nyala lampu, dan packing proteksi.'
+  }
+];
+
+const faqs = [
+  {
+    question: 'Berapa harga pembuatan huruf timbul per cm?',
+    answer: 'Harga huruf timbul dihitung berdasarkan tinggi huruf (per cm tinggi) dikalikan jumlah huruf dan jenis material. Sebagai patokan kasar: Akrilik standar mulai Rp 8.000 - Rp 15.000/cm, Stainless Steel mulai Rp 12.000 - Rp 25.000/cm. Tambahan lampu LED dan adaptor dihitung sesuai kebutuhan daya.'
+  },
+  {
+    question: 'Apa perbedaan huruf timbul backlight vs frontlight?',
+    answer: 'Backlight (cahaya belakang) menggunakan badan huruf stainless padat sehingga cahaya LED memancar ke dinding di belakang huruf, menghasilkan efek bayangan halo yang elegan dan mewah. Frontlight (cahaya depan) menggunakan muka akrilik tembus pandang sehingga tulisan menyala terang dari depan.'
+  },
+  {
+    question: 'Bisa pesan huruf timbul tanpa lampu?',
+    answer: 'Tentu bisa. Huruf timbul non-lampu (solid stainless hairline/mirror atau akrilik solid) sangat cocok untuk resepsionis kantor, ruang meeting, dan signage indoor dengan pencahayaan spotlight dari luar.'
+  },
+  {
+    question: 'Apakah Tepat Laser melayani jasa pemasangan di lokasi?',
+    answer: 'Kami melayani fabrikasi lengkap siap pasang (disertai mal kertas 1:1 dan dudukan baut agar mudah dipasang sendiri), serta melayani survei dan pemasangan langsung oleh tim teknisi kami untuk area Jabodetabek.'
+  }
+];
+
+const fit = [
+  'Sudah memiliki file logo vector atau nama font yang jelas',
+  'Ukuran bidang dinding atau fasad toko sudah diukur akurat',
+  'Membutuhkan tampilan identitas visual yang profesional dan mewah',
+  'Menginginkan material awet tahan hujan dan panas matahari bertahun-tahun'
+];
+
+const notFit = [
+  'Logo hanya berupa foto buram resolusi rendah tanpa nama font',
+  'Pemasangan outdoor tanpa mempertimbangkan sumber daya listrik untuk LED',
+  'Mengharapkan bahan murah tipis yang mudah penyok terkena angin luar'
+];
+
+const priceFactors = [
+  'Tinggi dan ketebalan timbul huruf (tinggi x tebal spon/plat)',
+  'Pilihan material (Stainless Steel 304, Akrilik Marga Cipta, Plat Galvanis)',
+  'Kompleksitas lekukan logo atau jenis tipografi (font kaligrafi vs blok)',
+  'Spesifikasi modul LED waterproof, trafo/power supply, dan kabel instalasi',
+  'Kebutuhan mal pemasangan, finishing cat duco/powder coating, dan jasa pasang'
+];
+
+const qualityChecks = [
+  'Akurasi skala logo 1:1 dicocokkan dengan approval desain klien',
+  'Tepi potongan plat bebas terak dan sudut tekukan rapi tanpa goresan',
+  'Modul LED diuji menyala continuous minimum 2 jam sebelum serah terima',
+  'Waterproofing sealant pada sambungan huruf luar ruang diverifikasi',
+  'Setiap huruf diberi nomor dan mal kertas 1:1 disertakan dalam paket'
+];
+---
+
+<ApplicationLandingPage 
+  title="Huruf Timbul & Signage Mewah" 
+  accent="yang mempertegas identitas bisnis Anda." 
+  eyebrow="Signage Akrilik & Stainless Steel" 
+  description="Tingkatkan wibawa toko, kantor, dan brand Anda dengan huruf timbul stainless steel, akrilik LED backlight, dan neon box presisi tahan cuaca eksterior." 
+  metaDescription="Jasa pembuatan huruf timbul stainless steel, akrilik LED backlight, dan signage toko kantor presisi di Jabodetabek. Konsultasi desain & estimasi harga gratis." 
+  keyword="huruf timbul stainless, huruf timbul akrilik, jasa pembuatan signage toko, huruf timbul led backlight, neon box akrilik bintaro tangsel" 
+  route="/huruf-timbul-stainless-akrilik/" 
+  heroImage="/gambar/huruf timbul stainless backlight.jpg" 
+  heroAlt="Huruf timbul stainless steel backlight LED signage toko kantor mewah" 
+  {benefits} 
+  {gallery} 
+  {steps} 
+  {faqs} 
+  {fit} 
+  {notFit} 
+  {priceFactors} 
+  {qualityChecks} 
+  ctaTitle="Ingin merek Anda tampil lebih profesional dan mencolok?" 
+  waMessage="Halo Tepat Laser, saya ingin konsultasi dan minta penawaran pembuatan huruf timbul / signage custom." 
+/>
