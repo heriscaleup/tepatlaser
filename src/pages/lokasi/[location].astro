@@ -1,45 +1,496 @@
 ---
-import BaseLayout from '../../components/BaseLayout.astro'; import Header from '../../components/Header.astro'; import Footer from '../../components/Footer.astro'; import CTA from '../../components/CTA.astro'; import PageIntro from '../../components/PageIntro.astro'; import EditorialDepth from '../../components/EditorialDepth.astro'; import { SERVICES, SITE_CONFIG } from '../../utils/constants.js'; import { generateBreadcrumbSchema, generateFAQSchema } from '../../utils/seo.js';
+import BaseLayout from '../../components/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import CTA from '../../components/CTA.astro';
+import PageIntro from '../../components/PageIntro.astro';
+import EditorialDepth from '../../components/EditorialDepth.astro';
+import { SERVICES, SITE_CONFIG } from '../../utils/constants.js';
+import { generateBreadcrumbSchema, generateFAQSchema } from '../../utils/seo.js';
+
 export async function getStaticPaths() {
-  return [
-    {slug:'jakarta',name:'Jakarta',focus:'signage, interior komersial, komponen metal, panel arsitektur, dan kebutuhan event',handover:'Pengambilan di workshop atau pengiriman kurir/logistik setelah ukuran paket dan jadwal disepakati.',note:'Untuk proyek gedung atau area dengan jam bongkar terbatas, cantumkan jadwal penerimaan serta PIC lokasi sejak tahap estimasi.',image:'/images/singagehote.webp',imageAlt:'Signage komersial sebagai contoh kebutuhan proyek Jakarta',pillars:[{title:'Akses gedung',description:'Jam bongkar, loading dock, izin masuk, lift barang, dan PIC penerima perlu dikonfirmasi sebelum kendaraan berangkat.',evidence:'Loading · PIC · jadwal'},{title:'Skala baca komersial',description:'Signage dan interior ritel dinilai dari jarak pengguna, pencahayaan, posisi mounting, serta konsistensi identitas merek.',evidence:'Brand · mounting · cahaya'},{title:'Deadline event',description:'Pekerjaan dengan tanggal acara membutuhkan file final, approval cepat, serta buffer untuk packing dan perjalanan.',evidence:'Approval · buffer · delivery'}],checklist:['Alamat lengkap dan aturan penerimaan gedung.','Nama serta nomor PIC yang berada di lokasi.','Ukuran paket terbesar dan akses lift atau tangga.','Tanggal wajib diterima, bukan hanya tanggal acara.','Kebutuhan packing, instalasi, atau serah terima langsung.']},
-    {slug:'depok',name:'Depok',focus:'interior, furnitur custom, kebutuhan pendidikan, signage, panel dekoratif, dan prototyping',handover:'Brief dapat direview daring; hasil diambil di workshop atau dikirim sesuai dimensi serta kebutuhan proteksi.',note:'Foto lokasi dan ukuran aktual sangat membantu untuk pekerjaan yang akan dirakit atau dipasang oleh tim lain.',image:'/images/mdf (3).webp',imageAlt:'Panel dekoratif interior sebagai contoh kebutuhan proyek Depok',pillars:[{title:'Ukuran lapangan',description:'Interior dan furnitur sangat dipengaruhi dinding yang tidak siku, list, stop kontak, plafond, serta ruang untuk assembly.',evidence:'Foto · dimensi · toleransi ruang'},{title:'Material dan finishing',description:'MDF, plywood, akrilik, atau metal memberi berat, tepi, warna, dan metode pemasangan berbeda.',evidence:'Bahan · coating · fixing'},{title:'Prototipe sebelum batch',description:'Sampel membantu menguji slot, skala pola, warna, dan cara perakitan sebelum jumlah penuh diproses.',evidence:'Sample · fit · approval'}],checklist:['Foto bidang dari depan dan kedua sudut.','Ukuran total serta titik penghalang di lokasi.','Material, warna, dan sisi permukaan yang tampil.','Siapa yang melakukan assembly atau instalasi.','Alamat, akses kendaraan, dan target penerimaan.']},
-    {slug:'bekasi',name:'Bekasi',focus:'komponen manufaktur ringan, jig, panel mesin, nameplate, signage kawasan, dan kebutuhan gudang',handover:'Komponen dapat dikelompokkan per part atau batch; metode packing dan pengiriman dikonfirmasi sebelum produksi.',note:'Sertakan kode part, jumlah per kode, revisi file, serta kebutuhan marking agar komponen mudah diverifikasi saat diterima.',image:'/images/v10/fiber-metal-workshop-real.webp',imageAlt:'Mesin fiber laser untuk kebutuhan komponen metal proyek Bekasi',pillars:[{title:'Kontrol revisi',description:'Kode part, nomor drawing, dan revision level mencegah file lama masuk kembali ke antrean produksi.',evidence:'Part number · revision · quantity'},{title:'Batch dan grouping',description:'Komponen dapat dipisahkan menurut assembly, mesin, atau purchase order agar pemeriksaan saat diterima lebih cepat.',evidence:'Batch · label · packing'},{title:'Kesiapan proses lanjut',description:'Bending, welding, coating, dan machining perlu diketahui sejak cutting untuk menentukan allowance serta identitas part.',evidence:'Bending · weld · coating'}],checklist:['Part number dan revision level setiap file.','Material, grade, ketebalan, serta quantity per part.','Dimensi kritis dan datum pada drawing.','Kebutuhan marking atau label pada komponen.','Pembagian packing serta alamat area penerimaan.']}
-  ].map((location) => ({params:{location:location.slug},props:{location}}));
+  const locations = [
+    {
+      slug: 'bintaro',
+      name: 'Bintaro',
+      focus: 'pagar laser cutting, partisi stainless, huruf timbul toko, interior ritel, dan fasad arsitektural',
+      handover: 'Pengiriman instan armada workshop ke seluruh sektor Bintaro Jaya (Sektor 1-9, Graha Raya, Pondok Aren) atau pengambilan langsung.',
+      note: 'Workshop berjarak sangat dekat dengan Bintaro. Review file online via WhatsApp dan sampel fisik dapat diuji cepat.',
+      image: '/gambar/laser cutting pintu gerbang.jpg',
+      imageAlt: 'Pagar dan pintu gerbang laser cutting motif custom untuk proyek Bintaro',
+      pillars: [
+        { title: 'Akses Cepat Wilayah', description: 'Pengiriman same-day untuk pesanan express Bintaro Sektor 1-9, Discovery, Emerald, dan Graha Raya.', evidence: 'Radius 15 Menit · Same Day · Direct Delivery' },
+        { title: 'Presisi Arsitektural', description: 'Toleransi potong ±0.02mm pada plat besi dan stainless steel untuk kesesuaian opening pagar dan balkon.', evidence: 'Fiber Laser · Toleransi ±0.02mm · Bebas Dross' },
+        { title: 'Review File Gratis', description: 'Pemeriksaan titik rawan file CAD/DWG/AI/DXF sebelum mesin beroperasi untuk mencegah salah potong.', evidence: 'File Audit · Nesting Bahan · Cost Optimization' }
+      ],
+      checklist: [
+        'Ukuran opening aktual di lokasi Bintaro (panjang x tinggi).',
+        'Material yang diinginkan (plat besi, stainless steel 304, akrilik, ACP).',
+        'File vector (DXF, DWG, AI, CDR) atau sketsa coretan tangan.',
+        'Kebutuhan finishing (mentah, powder coating, bending, atau rakit).',
+        'Target tanggal pemasangan di lokasi proyek.'
+      ]
+    },
+    {
+      slug: 'bsd-serpong',
+      name: 'BSD & Serpong',
+      focus: 'fasad gedung ACP, pagar motif plat besi, partisi arsitektur, display ritel mall, dan komponen mekanikal',
+      handover: 'Pengiriman langsung ke kawasan cluster perumahan dan zona industri/komersial BSD City & Gading Serpong.',
+      note: 'Dukungan kapasitas mesin berdaya besar untuk volume batch kontraktor dan pengembang properti BSD.',
+      image: '/gambar/facade gedung.jpg',
+      imageAlt: 'Fasad gedung komersial dan panel arsitektural laser cutting untuk kawasan BSD Serpong',
+      pillars: [
+        { title: 'Skala Kontraktor & Proyek', description: 'Kapasitas potong continuous 24 jam untuk mendukung timeline ketat fit-out ruko dan gedung BSD.', evidence: 'Batch Besar · Lead-Time Cepat · High Duty' },
+        { title: 'Material Fasad & Eksterior', description: 'Spesialis CNC Router panel ACP Seven/Marks dan laser cutting plat besi tahan cuaca ekstrim.', evidence: 'ACP Fasad · GRC Dinding · Anti Korosi' },
+        { title: 'Quality Inspection', description: 'Setiap panel diukur kembali terhadap drawing sebelum packing untuk mempermudah perakitan mandor di lapangan.', evidence: 'QC Dimensi · Label Kode Part · Safe Packing' }
+      ],
+      checklist: [
+        'Gambar kerja (Shop Drawing) dengan dimensi toleransi.',
+        'Spesifikasi tebal dan merk material (contoh: ACP 4mm 0.3mm PE/PVDF).',
+        'Kebutuhan perkuatan rangka atau lubang baut (bolt holes).',
+        'Jadwal loading dock bila masuk area mall (AEON, SMS, QBig).',
+        'Alamat serah terima dan nomor PIC lapangan.'
+      ]
+    },
+    {
+      slug: 'tangerang-selatan',
+      name: 'Tangerang Selatan',
+      focus: 'fabrikasi laser fiber metal, CNC router kayu/MDF, akrilik presisi, dan engraving marking industri',
+      handover: 'Pick-up mandiri di workshop Tangsel atau pengiriman kurir/armada pickup untuk seluruh kecamatan Tangsel.',
+      note: 'Workshop Tepat Laser berdomisili di Tangsel. Klien dipersilakan berkunjung untuk konsultasi teknis atau drop material.',
+      image: '/gambar/metal/laser cutting metal.jpg',
+      imageAlt: 'Workshop pemotongan plat metal laser fiber presisi Tangerang Selatan',
+      pillars: [
+        { title: 'Lokasi Workshop Terdekat', description: 'Akses tercepat bagi warga dan pelaku bisnis Tangsel untuk memotong material lembaran presisi.', evidence: 'Workshop Fisik · Drop Material · Konsultasi Langsung' },
+        { title: 'Layanan Material Sendiri', description: 'Menerima jasa potong ongkos kerja (bawa bahan sendiri) maupun paket komplit termasuk material.', evidence: 'Jasa Potong · Paket Komplit · Bahan Grade A' },
+        { title: 'Fleksibilitas Volume', description: 'Melayani mulai dari 1 pcs sampel prototipe hingga ribuan pcs produksi massal.', evidence: 'Tanpa Minimum Order · 1 Pcs Sample OK · Partai Besar' }
+      ],
+      checklist: [
+        'Rincian apakah bahan disediakan sendiri atau dari Tepat Laser.',
+        'Ukuran lembaran bahan yang dibawa (maksimal meja mesin 1500x3000mm).',
+        'Jenis finishing dan kebutuhan lubang mounting.',
+        'Tanggal target pengambilan di workshop.'
+      ]
+    },
+    {
+      slug: 'ciputat',
+      name: 'Ciputat',
+      focus: 'potong plat besi pagar, stainless steel dekorasi, signage akrilik neon box, dan partisi MDF',
+      handover: 'Pengiriman armada lokal ke Ciputat, Cireundeu, Rempoa, dan Pondok Ranji.',
+      note: 'Akses dekat dari jalan utama Ciputat Raya untuk pengantaran cepat.',
+      image: '/gambar/partisi ruangan laer cutting.jpg',
+      imageAlt: 'Partisi ruangan dekoratif motif laser cutting presisi area Ciputat',
+      pillars: [
+        { title: 'Efisiensi Biaya', description: 'Perhitungan nesting cerdas untuk meminimalkan waste sisa potongan plat agar biaya per proyek lebih hemat.', evidence: 'Auto-Nesting · Hemat Bahan · Harga Transparan' },
+        { title: 'Kecepatan Pengerjaan', description: 'Standar pengerjaan 1-3 hari kerja dengan opsi prioritas express untuk pesanan mendesak.', evidence: 'Express 24 Jam · Lead-Time Pasti · Real-Time Update' },
+        { title: 'Hasil Tepi Halus', description: 'Parameter potong gas Nitrogen/Oksigen disesuaikan agar tepi bebas terak dan siap dicat.', evidence: 'Bebas Deburring · Siap Las · Tepi Presisi' }
+      ],
+      checklist: [
+        'Ukuran detail bidang atau part yang akan dipotong.',
+        'File vector dalam format DXF/DWG/AI/PDF.',
+        'Alamat pengiriman di area Ciputat dan sekitarnya.'
+      ]
+    },
+    {
+      slug: 'pamulang',
+      name: 'Pamulang',
+      focus: 'pagar laser cut rumah, railing balkon, ornamen musholla GRC, dan display toko',
+      handover: 'Pengantaran armada pickup ke Pamulang Barat, Pamulang Timur, Pondok Benda, dan sekitarnya.',
+      note: 'Dukungan tim technical support untuk membantu konversi gambar sketsa manual menjadi file siap potong.',
+      image: '/gambar/railing balkon laser cutting.jpg',
+      imageAlt: 'Railing balkon dan pagar laser cutting motif minimalis di Pamulang',
+      pillars: [
+        { title: 'Bantuan Konversi Desain', description: 'Bagi Anda yang belum memiliki file CAD, tim desainer kami siap membantu redesain dari foto referensi.', evidence: 'Desain Support · CAD Drafting · Skala Akurat' },
+        { title: 'Material Logam & Kayu', description: 'Kombinasi mesin fiber dan router untuk kebutuhan partisi interior maupun eksterior bangunan.', evidence: 'Fiber Metal · CNC Kayu · Akrilik CO2' },
+        { title: 'Packing Aman', description: 'Proteksi sudut dan lapisan kardus untuk mencegah plat tergores saat tiba di rumah Anda.', evidence: 'Safe Packaging · Anti Baret · Rapi' }
+      ],
+      checklist: [
+        'Foto referensi motif jika belum memiliki file vector.',
+        'Ukuran akurat kusen atau rangka yang sudah terpasang di lokasi.',
+        'Konfirmasi pengiriman ke area Pamulang.'
+      ]
+    },
+    {
+      slug: 'alam-sutera',
+      name: 'Alam Sutera',
+      focus: 'partisi arsitektural mewah, fasad bangunan, dekorasi stainless gold/mirror, dan signage korporat',
+      handover: 'Pengiriman terjadwal dan proteksi ekstra ke kawasan residensial dan perkantoran Alam Sutera.',
+      note: 'Standar kualitas finishing tinggi untuk kebutuhan hunian kelas atas dan tenant komersial.',
+      image: '/gambar/huruf timbul stainless backlight.jpg',
+      imageAlt: 'Signage huruf timbul stainless backlight mewah di Alam Sutera',
+      pillars: [
+        { title: 'Standar Estetika Premium', description: 'Pemotongan material stainless mirror dan hairline tanpa merusak lapisan pelindung (protective film).', evidence: 'Laser Film-Safe · No Scratch · Mirror Finish' },
+        { title: 'Kerapian Sudut Geometris', description: 'Akurasi pemotongan pola mikro pada partisi ruang tamu dan panel lobby gedung.', evidence: 'Detail Halus · Sudut Tajam · Clean Look' },
+        { title: 'Kerahasiaan Desain', description: 'Jaminan file proprietary milik arsitek dan desainer interior tidak disebarluaskan ke pihak lain.', evidence: 'Design NDA · Exclusive Pattern · Original' }
+      ],
+      checklist: [
+        'Grade material stainless yang dibutuhkan (201 atau 304 anti karat).',
+        'Arah serat hairline atau orientasi permukaan mirror.',
+        'Aturan penerimaan barang cluster/kantor di Alam Sutera.'
+      ]
+    },
+    {
+      slug: 'ciledug',
+      name: 'Ciledug',
+      focus: 'potong plat besi bengkel las, pintu folding gate motif, huruf timbul stainless, dan panel partisi',
+      handover: 'Pengiriman armada workshop langsung ke jalur Ciledug Raya, Larangan, dan Karang Tengah.',
+      note: 'Mitra andalan puluhan bengkel las dan pengrajin konstruksi di area Ciledug.',
+      image: '/gambar/metal/laesr cutting galvanis.jpg',
+      imageAlt: 'Pemotongan plat galvanis dan besi pagar laser cutting Ciledug',
+      pillars: [
+        { title: 'Harga Bengkel Bersahabat', description: 'Skema harga khusus untuk repeat order bengkel las dan aplikator konstruksi.', evidence: 'Harga Khusus Mitra · Repeat Order · B2B Friendly' },
+        { title: 'Kemudahan Antar-Jemput', description: 'Bisa titip bahan atau kami sediakan bahan besi langsung dari supplier tangan pertama.', evidence: 'Logistik Fleksibel · Bahan Lengkap · Siap Potong' },
+        { title: 'Tepat Waktu', description: 'Kapasitas mesin ganda memastikan order bengkel selesai sesuai deadline serah terima konsumen.', evidence: 'Mesin Dobel · Lead-Time Disiplin · Zero Delay' }
+      ],
+      checklist: [
+        'Tebal plat yang dipesan (1.8mm, 2.0mm, 2.5mm, 3.0mm, dll).',
+        'Jumlah daun pintu atau panel pagar.',
+        'Alamat bengkel atau lokasi proyek di Ciledug.'
+      ]
+    },
+    {
+      slug: 'karawaci',
+      name: 'Karawaci & Kota Tangerang',
+      focus: 'komponen mesin industri, fasad ACP ruko/gedung, plakat akrilik, dan partisi fabrikasi',
+      handover: 'Pengiriman armada ke Lippo Karawaci, Cikokol, Batuceper, dan seluruh wilayah Kota Tangerang.',
+      note: 'Kapasitas produksi siap melayani pesanan tender komersial dan industri manufaktur.',
+      image: '/gambar/metal/laser cutting stainlist.jpg',
+      imageAlt: 'Pemotongan plat stainless steel presisi untuk komponen industri Karawaci Tangerang',
+      pillars: [
+        { title: 'Presisi Komponen Mekanikal', description: 'Pembuatan bracket, flange, baseplate, dan part mesin dengan akurasi lubang presisi tinggi.', evidence: 'Baseplate · Flange · Bracket Industri' },
+        { title: 'Laporan Dimensi Part', description: 'Pemeriksaan vernier caliper dan QC dimensional sebelum part dilepas ke pelanggan.', evidence: 'QC Caliper · Dimensional Accuracy · Sertifikasi' },
+        { title: 'Support Invoice & Faktur Pajak', description: 'Kemudahan administrasi resmi untuk kebutuhan PT dan institusi korporat.', evidence: 'Invoice Resmi · Legalitas Jelas · Transaksi Aman' }
+      ],
+      checklist: [
+        'Technical Drawing dengan toleransi dimensional yang ketat.',
+        'Kode part dan quantity per batch pesanan.',
+        'Kebutuhan faktur pajak atau dokumen legalitas pengadaan.'
+      ]
+    },
+    {
+      slug: 'jakarta-selatan',
+      name: 'Jakarta Selatan',
+      focus: 'interior butik & kafe, signage akrilik premium, partisi stainless gold, dan pagar mewah Pondok Indah',
+      handover: 'Pengiriman via kurir express atau armada logistik langsung ke Kebayoran, Pondok Indah, TB Simatupang, dan Cilandak.',
+      note: 'Solusi fabrikasi digital terpercaya bagi konsultan arsitektur dan desainer interior Jakarta Selatan.',
+      image: '/gambar/partision design laser cutting.jpg',
+      imageAlt: 'Partisi interior mewah pola laser cutting untuk area Jakarta Selatan',
+      pillars: [
+        { title: 'Standar Estetika Ritel & Kafe', description: 'Detail potongan sempurna untuk interior yang dinikmati dari jarak sangat dekat.', evidence: 'High-End Retail · Aesthetic Interior · Smooth Edge' },
+        { title: 'Solusi Signage & Lighting', description: 'Presisi celah LED dan kombinasi akrilik-stainless untuk huruf timbul menyala mewah.', evidence: 'Channel Letter · LED Fit · Acrylic Diffuser' },
+        { title: 'Pengiriman Door-to-Door', description: 'Kurir langsung mengantar ke lokasi proyek atau workshop interior Anda di Jaksel.', evidence: 'Kurir Langsung · Direct Site · Safe Delivery' }
+      ],
+      checklist: [
+        'Spesifikasi finishing (powder coating, electroplating, anodizing).',
+        'File vector siap potong (1:1 scale mm).',
+        'Jadwal instalasi di lokasi proyek Jakarta Selatan.'
+      ]
+    },
+    {
+      slug: 'jakarta-barat',
+      name: 'Jakarta Barat',
+      focus: 'display toko ritel, merchandise akrilik, secondary skin fasad, dan partisi dekoratif',
+      handover: 'Pengiriman cepat ke Puri Indah, Kebon Jeruk, Meruya, Palmerah, dan Kembangan.',
+      note: 'Mendukung bisnis kreatif, percetakan advertising, dan kontraktor interior di Jakarta Barat.',
+      image: '/gambar/Akrilik/dekorasi display akrilik.jpg',
+      imageAlt: 'Display akrilik dan dekorasi toko ritel laser cutting Jakarta Barat',
+      pillars: [
+        { title: 'Kecepatan Cetak & Potong', description: 'Solusi kilat untuk kebutuhan exhibition booth dan display toko ritel Jakarta Barat.', evidence: 'Booth Display · Ritel Display · Pengerjaan Kilat' },
+        { title: 'Akrilik Bening Tanpa Kabur', description: 'Pemotongan laser CO2 dengan tepi bening mengkilap (*flame-polished edge effect*).', evidence: 'Flame Polish Effect · Bening Kristal · Tepi Halus' },
+        { title: 'Kapasitas Seri Massal', description: 'Kemampuan memproses ribuan part akrilik display dalam waktu singkat.', evidence: 'Mass Production · Konsistensi Bentuk · Cepat' }
+      ],
+      checklist: [
+        'Jumlah unit display atau part akrilik yang dipesan.',
+        'Ketebalan akrilik (2mm, 3mm, 5mm, 10mm).',
+        'Alamat kantor / gudang di Jakarta Barat.'
+      ]
+    },
+    {
+      slug: 'jakarta-timur',
+      name: 'Jakarta Timur',
+      focus: 'plat konstruksi, panel fasad GRC/ACP, partisi musholla, dan bracket industri',
+      handover: 'Pengiriman armada logistik ke Rawamangun, Cakung, Pulo Gadung, dan Jatinegara.',
+      note: 'Dukungan mesin fiber dan CNC router untuk proyek komersial dan kawasan industri Jaktim.',
+      image: '/gambar/facade bangunan.jpg',
+      imageAlt: 'Secondary skin fasad bangunan dan plat konstruksi laser cutting Jakarta Timur',
+      pillars: [
+        { title: 'Kapasitas Plat Tebal', description: 'Pemotongan plat besi hingga 12mm dan stainless steel hingga 6mm dengan laser fiber.', evidence: 'Plat Tebal 12mm · High Power Laser · Kuat' },
+        { title: 'Panel Fasad Arsitektur', description: 'Pembuatan modul fasad ACP berulang dengan akurasi sambungan presisi.', evidence: 'Modul Fasad · Sambungan Presisi · Cepat Pasang' },
+        { title: 'Kesiapan Pengiriman Truk/Pickup', description: 'Fasilitas loading yang siap mengangkut lembaran ukuran penuh 1.2 x 2.4 meter.', evidence: 'Full Sheet Loading · Pengiriman Aman · Armada Siap' }
+      ],
+      checklist: [
+        'Tipe sambungan antar-panel pada modul fasad.',
+        'Spesifikasi ketebalan dan jenis plat besi.',
+        'Alamat penerimaan di wilayah Jakarta Timur.'
+      ]
+    },
+    {
+      slug: 'jakarta-pusat',
+      name: 'Jakarta Pusat',
+      focus: 'display pameran event, signage kantor Sudirman-Thamrin, plakat penghargaan, dan partisi kantor',
+      handover: 'Pengiriman kurir kilat ke Sudirman, Thamrin, Kuningan, Menteng, dan JIExpo Kemayoran.',
+      note: 'Spesialis deadline super ketat untuk kebutuhan pameran, event organizer, dan renovasi kantor.',
+      image: '/gambar/Akrilik/plakat akrilik.jpg',
+      imageAlt: 'Plakat akrilik penghargaan dan display event kantor laser cutting Jakarta Pusat',
+      pillars: [
+        { title: 'Prioritas Deadline Event', description: 'Jalur produksi ekspres untuk barang yang wajib tiba sebelum jam gladi bersih event.', evidence: 'Event Priority · 24-Hour Turnaround · On Time' },
+        { title: 'Plakat & Trophy Eksklusif', description: 'Kombinasi laser grafir galvo, akrilik bening tebal, dan aksen stainless mewah.', evidence: 'Plakat Eksklusif · Grafir Detail · Mewah' },
+        { title: 'Kesesuaian Regulasi Gedung', description: 'Surat jalan dan rincian packaging rapi untuk kemudahan izin bongkar muat gedung perkantoran.', evidence: 'Surat Jalan Resmi · Packing Gedung · Mudah Masuk' }
+      ],
+      checklist: [
+        'Tanggal dan jam wajib tiba di venue/gedung.',
+        'Nama PIC dan aturan loading dock gedung perkantoran.',
+        'File logo atau piagam dalam format vector (AI/EPS).'
+      ]
+    },
+    {
+      slug: 'jakarta-utara',
+      name: 'Jakarta Utara & PIK',
+      focus: 'partisi restoran & kafe PIK, fasad eksterior ruko, huruf timbul LED, dan signage marina',
+      handover: 'Pengiriman armada langsung ke kawasan Pantai Indah Kapuk (PIK 1 & 2), Pluit, Sunter, dan Kelapa Gading.',
+      note: 'Dukungan material anti-karat (Stainless 304, ACP PVDF) khusus untuk wilayah pesisir berkadar garam tinggi.',
+      image: '/gambar/facade rumah.jpg',
+      imageAlt: 'Fasad rumah dan panel arsitektural laser cutting modern di Jakarta Utara dan PIK',
+      pillars: [
+        { title: 'Ketahanan Korosi Pesisir', description: 'Rekomendasi material Stainless Steel 304/316 dan ACP coating PVDF untuk iklim pantai PIK & Pluit.', evidence: 'Stainless 304 · PVDF Coating · Tahan Garam' },
+        { title: 'Desain Komersial F&B', description: 'Mendukung arsitek resto dan kafe kekinian untuk membuat ceiling panel dan partisi bernilai seni tinggi.', evidence: 'F&B Interior · Ceiling Panel · Estetik' },
+        { title: 'Pengiriman Khusus PIK', description: 'Rute pengiriman harian ke seluruh cluster residensial dan kawasan ruko PIK.', evidence: 'Rute Harian PIK · Antar Sampai Lokasi · Cepat' }
+      ],
+      checklist: [
+        'Konfirmasi apakah lokasi berada di area pesisir (outdoor/indoor).',
+        'Kebutuhan material tahan karat spesifik.',
+        'Ukuran dan file gambar kerja arsitektur.'
+      ]
+    },
+    {
+      slug: 'depok',
+      name: 'Depok',
+      focus: 'interior rumah, furnitur custom, kebutuhan pendidikan, signage toko, dan panel dekoratif',
+      handover: 'Brief dapat direview online via WhatsApp; hasil diambil di workshop Tangsel atau dikirim armada ke Depok & Cinere.',
+      note: 'Foto lokasi dan ukuran aktual sangat membantu untuk pekerjaan partisi yang akan dipasang langsung.',
+      image: '/gambar/mdf/4.png',
+      imageAlt: 'Panel dekoratif interior kayu MDF pola geometris proyek Depok',
+      pillars: [
+        { title: 'Kustomisasi Interior', description: 'Solusi partisi ruangan MDF dan plywood yang dipotong presisi menyesuaikan lekukan dinding rumah.', evidence: 'Custom Fit · MDF Hijau HMR · Presisi' },
+        { title: 'Material Beragam', description: 'Pilihan bahan luas: mulai dari plat metal, kayu olahan, hingga akrilik signage.', evidence: 'Multi Material · Bebas Pilih · Kualitas Terjamin' },
+        { title: 'Dukungan Prototyping', description: 'Uji sampel potongan skala kecil sebelum memproses jumlah pesanan penuh.', evidence: 'Sample First · Akurat · Minim Risiko' }
+      ],
+      checklist: [
+        'Foto bidang dinding atau opening dari depan.',
+        'Ukuran total serta titik penghalang di lokasi Depok.',
+        'Material, warna, dan jenis finishing yang diinginkan.',
+        'Alamat penerimaan dan PIC penerima.'
+      ]
+    },
+    {
+      slug: 'bekasi',
+      name: 'Bekasi & Cikarang',
+      focus: 'komponen manufaktur industri, jig & fixture, panel mesin, nameplate kabel, signage pabrik, dan fasad',
+      handover: 'Komponen dikelompokkan per part number atau batch; metode packing kayu/box dikonfirmasi sebelum kirim.',
+      note: 'Dukungan kapasitas fiber laser untuk vendor manufaktur, perumahan Summarecon Bekasi, dan kawasan industri Cikarang.',
+      image: '/gambar/metal/laser cutting metal.jpg',
+      imageAlt: 'Mesin fiber laser untuk kebutuhan komponen plat metal proyek Bekasi',
+      pillars: [
+        { title: 'Kontrol Revisi & Part Number', description: 'Sistem tagging drawing ketat agar tidak terjadi kesalahan varian pada pesanan batch part manufaktur.', evidence: 'Part Number · QC Tagging · Revision Safe' },
+        { title: 'Kesiapan Fabrikasi Lanjutan', description: 'Allowance tekuk (bending allowance) dan chamfer disesuaikan untuk proses welding di pabrik Anda.', evidence: 'Bending Ready · Clean Edge · Siap Las' },
+        { title: 'Pengiriman Batch Industri', description: 'Pengiriman terjadwal menggunakan armada box tertutup langsung ke kawasan industri Bekasi & Cikarang.', evidence: 'Armada Industri · Jadwal Pasti · Box Packing' }
+      ],
+      checklist: [
+        'Part number dan revision level setiap file DXF/DWG.',
+        'Material, grade, ketebalan, serta quantity per part.',
+        'Dimensi kritis dan datum penting pada drawing.',
+        'Kebutuhan marking atau label nama part.',
+        'Alamat kawasan industri atau penerimaan di Bekasi.'
+      ]
+    }
+  ];
+
+  return locations.map(location => ({
+    params: { location: location.slug },
+    props: { location, allLocations: locations }
+  }));
 }
-const { location } = Astro.props;
-const title = `Tepat Laser untuk Proyek di ${location.name}`;
-const description = `Konsultasi laser cutting, CNC router, dan engraving untuk proyek di ${location.name}. Kirim file dan kebutuhan Anda ke tim Tepat Laser.`;
+
+const { location, allLocations = [] } = Astro.props;
+const title = `Jasa Laser Cutting ${location.name} Terdekat | Presisi & Cepat | Tepat Laser`;
+const description = `Jasa laser cutting metal, stainless, akrilik, MDF, dan CNC router ACP terdekat untuk wilayah ${location.name}. Konsultasi & review file gratis di Tepat Laser.`;
 const faqs = [
-  {question:`Apakah Tepat Laser memiliki workshop di ${location.name}?`,answer:`Workshop Tepat Laser berada di Tangerang Selatan. Konsultasi dan review file untuk proyek ${location.name} dapat dilakukan secara daring sebelum pickup atau pengiriman.`},
-  {question:`Bagaimana pengiriman hasil ke ${location.name}?`,answer:location.handover},
-  {question:'Data apa yang perlu dikirim untuk estimasi?',answer:'Jenis material, ketebalan, ukuran, jumlah, file atau sketsa, finishing, target waktu, dan alamat serah terima bila membutuhkan pengiriman.'}
+  { question: `Apakah Tepat Laser melayani jasa laser cutting untuk area ${location.name}?`, answer: `Ya, kami melayani pemesanan laser cutting metal, akrilik, kayu, dan ACP untuk seluruh wilayah ${location.name}. Review file dan konsultasi dapat dilakukan secara daring via WhatsApp sebelum pickup atau pengiriman armada.` },
+  { question: `Bagaimana cara pengiriman hasil potong ke ${location.name}?`, answer: location.handover },
+  { question: 'Data apa yang perlu dikirim untuk mendapatkan estimasi harga?', answer: 'Cukup kirimkan jenis material, ketebalan, ukuran bidang (P x L), jumlah unit, dan file vector desain (DXF, DWG, AI, CDR, PDF) atau foto referensi sketsa.' },
+  { question: 'Bisa potong menggunakan material sendiri atau paket komplit?', answer: 'Bisa keduanya! Anda dapat membawa material lembaran sendiri ke workshop kami, atau kami menyediakan material bersertifikasi berkualitas tinggi.' }
 ];
-const breadcrumb = generateBreadcrumbSchema([{name:'Beranda',url:'/'},{name:`Area ${location.name}`,url:`/lokasi/${location.slug}/`}]);
+
+const breadcrumb = generateBreadcrumbSchema([
+  { name: 'Beranda', url: '/' },
+  { name: 'Area Layanan', url: '/services/' },
+  { name: location.name, url: `/lokasi/${location.slug}/` }
+]);
+
 const locationDepth = {
-  eyebrow:`Konteks proyek ${location.name}`,
-  title:`Jarak dikelola lewat data, approval, dan serah terima yang direncanakan.`,
-  intro:`Kolaborasi lintas kota tidak harus menambah ketidakpastian. File, foto, ukuran, PIC, jadwal penerimaan, dan metode packing dikunci sebelum barang bergerak dari workshop.`,
-  pillars:location.pillars,
-  checklistTitle:`Checklist pengiriman proyek ${location.name}.`,
-  checklistIntro:'Informasi logistik yang datang terlambat dapat mengubah kendaraan, packing, biaya, dan waktu tiba.',
-  checklist:location.checklist
+  eyebrow: `Konteks proyek ${location.name}`,
+  title: `Jarak dikelola lewat data, approval presisi, dan serah terima yang terencana.`,
+  intro: `Kolaborasi lintas wilayah tidak harus menambah ketidakpastian. File CAD, foto ukuran, PIC lokasi, jadwal pengiriman, dan metode packing dikunci sebelum material dipotong di workshop.`,
+  pillars: location.pillars,
+  checklistTitle: `Checklist order proyek di ${location.name}.`,
+  checklistIntro: 'Kelengkapan informasi di awal mempermudah kalkulasi biaya termurah dan menjamin hasil potong langsung pas di lokasi.',
+  checklist: location.checklist
 };
 ---
-<BaseLayout title={title} description={description} keywords={`laser cutting ${location.name}, Tepat Laser, CNC router ${location.name}`} url={`/lokasi/${location.slug}/`} jsonLd={[breadcrumb,generateFAQSchema(faqs)]}><Header slot="header" />
-  <main class="overflow-hidden"><PageIntro eyebrow={`Area layanan · ${location.name}`} title={`Jarak boleh berbeda. Standar produksi tetap sama untuk ${location.name}.`} description={`Workshop berada di Tangerang Selatan. Kami melayani review untuk ${location.focus}. Konfirmasi teknis dilakukan sebelum hasil diambil atau dikirim.`} image={location.image} imageAlt={location.imageAlt} imageTag={`CONTOH KEBUTUHAN PROYEK ${location.name.toUpperCase()}`} />
-    <section class="location-intro"><div class="container-custom"><div><span>Workshop</span><strong>Tangerang Selatan</strong><p>{SITE_CONFIG.address}</p></div><div><span>Serah terima</span><strong>Pickup atau kirim</strong><p>{location.handover}</p></div><div><span>Catatan proyek</span><strong>Konfirmasi sebelum produksi</strong><p>{location.note}</p></div></div></section>
-    <section class="section-padding"><div class="container-custom"><span class="eyebrow">Kapabilitas tersedia</span><div class="location-grid">{SERVICES.map((service,index) => <a href={`/${service.slug}/`}><span class="number-tag">0{index+1}</span><h2>{service.name}</h2><p>{service.description}</p><strong>Lihat layanan ↗</strong></a>)}</div></div></section>
-    <section class="dark-section section-padding"><div class="container-custom location-process"><div><span class="eyebrow">Kolaborasi jarak jauh</span><h2 class="heading-md mt-5">File dan keputusan bergerak lebih dulu. Barang bergerak setelah semuanya jelas.</h2></div><ol><li><span>01</span><div><h3>Kirim brief</h3><p>Material, ukuran, jumlah, file, finishing, target waktu, serta alamat serah terima.</p></div></li><li><span>02</span><div><h3>Review teknis</h3><p>Tim memeriksa geometri, skala, rute mesin, risiko, dan data yang masih kurang.</p></div></li><li><span>03</span><div><h3>Konfirmasi</h3><p>Scope, harga, jadwal, metode packing, dan serah terima disetujui sebelum produksi.</p></div></li><li><span>04</span><div><h3>Produksi & QC</h3><p>Output diproses, diperiksa, dikelompokkan bila perlu, lalu disiapkan untuk perjalanan.</p></div></li></ol></div></section>
+
+<BaseLayout 
+  title={title} 
+  description={description} 
+  keywords={`laser cutting ${location.name}, jasa laser cutting terdekat ${location.name}, CNC router ${location.name}, cutting plat besi ${location.name}, pagar laser cutting ${location.name}`} 
+  url={`/lokasi/${location.slug}/`} 
+  jsonLd={[breadcrumb, generateFAQSchema(faqs)]}
+>
+  <Header slot="header" />
+  
+  <main class="overflow-hidden">
+    <PageIntro 
+      eyebrow={`Area layanan terdekat · ${location.name}`} 
+      title={`Jasa Laser Cutting & Fabrikasi Presisi untuk Wilayah ${location.name}.`} 
+      description={`Workshop berkapasitas tinggi di Tangerang Selatan melayani review dan produksi untuk ${location.focus}. Garansi presisi tinggi dan hasil potong siap pakai.`} 
+      image={location.image} 
+      imageAlt={location.imageAlt} 
+      imageTag={`AREA LAYANAN ${location.name.toUpperCase()}`} 
+    />
+
+    <section class="location-intro">
+      <div class="container-custom">
+        <div>
+          <span>Workshop Terdekat</span>
+          <strong>Tangerang Selatan</strong>
+          <p>{SITE_CONFIG.address}</p>
+        </div>
+        <div>
+          <span>Metode Serah Terima</span>
+          <strong>Pickup atau Kirim Armada</strong>
+          <p>{location.handover}</p>
+        </div>
+        <div>
+          <span>Catatan Proyek</span>
+          <strong>Review Teknis Sebelum Potong</strong>
+          <p>{location.note}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Machine Capability Grid -->
+    <section class="section-padding">
+      <div class="container-custom">
+        <span class="eyebrow">Kapabilitas Mesin & Material</span>
+        <h2 class="heading-md mt-3 mb-6">4 Lini Mesin Utama Siap Memproses Pesanan di {location.name}</h2>
+        <div class="location-grid">
+          {SERVICES.map((service, index) => (
+            <a href={`/${service.slug}/`} class="group">
+              <span class="number-tag">0{index + 1}</span>
+              <h2>{service.name}</h2>
+              <p>{service.description}</p>
+              <strong>Lihat spesifikasi ↗</strong>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="dark-section section-padding">
+      <div class="container-custom location-process">
+        <div>
+          <span class="eyebrow">Alur Kerja Cepat & Transparan</span>
+          <h2 class="heading-md mt-5">File & Keputusan Disepakati Lebih Dulu. Produksi Berjalan Akurat Tanpa Revisi Berulang.</h2>
+        </div>
+        <ol>
+          <li>
+            <span>01</span>
+            <div>
+              <h3>Kirim Brief & Ukuran</h3>
+              <p>Kirim jenis material, ukuran bidang, jumlah, dan file vector atau foto sketsa melalui WhatsApp.</p>
+            </div>
+          </li>
+          <li>
+            <span>02</span>
+            <div>
+              <h3>Review Teknis & Nesting</h3>
+              <p>Tim memeriksa geometri, toleransi potong, efisiensi lembaran, dan mengestimasi harga terbaik.</p>
+            </div>
+          </li>
+          <li>
+            <span>03</span>
+            <div>
+              <h3>Konfirmasi & SPK</h3>
+              <p>Spesifikasi bahan, harga final, lead-time pengerjaan, dan metode serah terima disepakati.</p>
+            </div>
+          </li>
+          <li>
+            <span>04</span>
+            <div>
+              <h3>Produksi, QC & Kirim</h3>
+              <p>Mesin beroperasi presisi, hasil diperiksa QC, dipacking rapi, lalu dikirim aman ke {location.name}.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
     <EditorialDepth {...locationDepth} />
-    <section class="section-padding"><div class="container-custom location-faq"><div><span class="eyebrow">Pertanyaan area layanan</span><h2 class="heading-md mt-5">Yang perlu jelas sebelum menghitung ongkos dan jadwal serah terima.</h2></div><div>{faqs.map((faq,index) => <details open={index===0}><summary>{faq.question}<span>＋</span></summary><p>{faq.answer}</p></details>)}</div></div></section>
-    <CTA title={`Mulai dari brief proyek di ${location.name}.`} description="Kirim ukuran, material, jumlah, target waktu, dan file bila sudah ada. Kami akan meninjau rute produksinya lebih dulu." primaryText="Kirim brief via WhatsApp" secondaryText="Lihat proses kerja" secondaryLink="/proses-produksi-lead-time/" />
-  </main><Footer slot="footer" />
+
+    <!-- FAQ Section -->
+    <section class="section-padding">
+      <div class="container-custom location-faq">
+        <div>
+          <span class="eyebrow">Pertanyaan Wilayah Layanan</span>
+          <h2 class="heading-md mt-5">Hal yang Sering Ditanyakan Sebelum Order di {location.name}.</h2>
+        </div>
+        <div>
+          {faqs.map((faq, index) => (
+            <details open={index === 0}>
+              <summary>
+                {faq.question}
+                <span>＋</span>
+              </summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Other Regional Hubs Linking -->
+    <section class="border-t border-[var(--line)] py-10 bg-[var(--surface)] text-center">
+      <div class="container-custom">
+        <span class="text-xs font-bold uppercase tracking-widest text-[var(--laser)] mb-4 block">Wilayah Layanan Terdekat Lainnya:</span>
+        <div class="flex flex-wrap justify-center gap-2">
+          {allLocations.map((loc: any) => (
+            <a 
+              href={`/lokasi/${loc.slug}/`} 
+              class={`text-xs py-2 px-4 rounded-full border transition-all ${loc.slug === location.slug ? 'bg-[var(--laser)] text-black border-[var(--laser)] font-bold shadow-md' : 'bg-black/40 text-gray-300 border-[var(--line)] hover:border-[var(--laser)] hover:text-white'}`}
+            >
+              {loc.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <CTA 
+      title={`Mulai konsultasi proyek Anda di ${location.name}.`} 
+      description="Kirim ukuran, jenis material, jumlah, dan file desain bila sudah ada. Tim teknis kami merespons cepat dengan estimasi harga resmi." 
+      primaryText="Kirim File via WhatsApp" 
+      secondaryText="Lihat Portofolio Hasil Kerja" 
+      secondaryLink="/portfolio/" 
+    />
+  </main>
+
+  <Footer slot="footer" />
 </BaseLayout>
+
 <style>
   .location-intro{border-block:1px solid var(--line);background:var(--surface);padding-block:2rem}.location-intro>div{display:grid;gap:1.5rem}.location-intro span{color:var(--laser);font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.location-intro strong{display:block;margin-top:.45rem;color:#fff;font-family:'Clash Display',sans-serif;font-size:1.15rem}.location-intro p{margin-top:.35rem;font-size:.88rem;line-height:1.65}
-  .location-grid{display:grid;gap:1px;margin-top:2rem;border:1px solid var(--line);background:var(--line)}.location-grid>a{background:var(--surface);padding:1.4rem;transition:background .35s var(--ease-smooth),transform .35s var(--ease-smooth)}.location-grid>a:hover{background:rgba(54,114,172,.09);transform:translateY(-4px)}.location-grid h2{margin-top:2.5rem;font-size:1.55rem}.location-grid p{margin-top:.8rem;font-size:.9rem;line-height:1.7}.location-grid strong{display:block;margin-top:1.3rem;color:var(--laser-deep);font-size:.78rem}
-  .location-process{display:grid;gap:3rem}.location-process ol{display:grid;margin:0;padding:0;border:1px solid var(--line);list-style:none}.location-process li{display:grid;grid-template-columns:2.25rem 1fr;gap:.75rem;padding:1.25rem}.location-process li+li{border-top:1px solid var(--line)}.location-process li>span{color:var(--laser);font-size:.75rem;font-weight:800}.location-process h3{font-size:1.2rem}.location-process p{margin-top:.4rem;font-size:.9rem;line-height:1.65}
-  .location-faq{display:grid;gap:3rem}.location-faq details{border-top:1px solid var(--line);padding:1.2rem 0}.location-faq details:last-child{border-bottom:1px solid var(--line)}.location-faq summary{display:flex;justify-content:space-between;gap:1rem;cursor:pointer;list-style:none;color:var(--ink);font-weight:750}.location-faq summary::-webkit-details-marker{display:none}.location-faq summary span{color:var(--laser)}.location-faq details p{margin-top:.75rem;font-size:.92rem;line-height:1.75}
+  .location-grid{display:grid;gap:1px;margin-top:2rem;border:1px solid var(--line);background:var(--line)}.location-grid>a{background:var(--surface);padding:1.4rem;transition:background .35s var(--ease-smooth),transform .35s var(--ease-smooth)}.location-grid>a:hover{background:rgba(54,114,172,.09);transform:translateY(-4px)}.location-grid h2{margin-top:2.5rem;font-size:1.55rem;color:#fff}.location-grid p{margin-top:.8rem;font-size:.9rem;line-height:1.7;color:var(--ink-muted)}.location-grid strong{display:block;margin-top:1.3rem;color:var(--laser-deep);font-size:.78rem}
+  .location-process{display:grid;gap:3rem}.location-process ol{display:grid;margin:0;padding:0;border:1px solid var(--line);list-style:none}.location-process li{display:grid;grid-template-columns:2.25rem 1fr;gap:.75rem;padding:1.25rem}.location-process li+li{border-top:1px solid var(--line)}.location-process li>span{color:var(--laser);font-size:.75rem;font-weight:800}.location-process h3{font-size:1.2rem;color:#fff}.location-process p{margin-top:.4rem;font-size:.9rem;line-height:1.65;color:var(--ink-muted)}
+  .location-faq{display:grid;gap:3rem}.location-faq details{border-top:1px solid var(--line);padding:1.2rem 0}.location-faq details:last-child{border-bottom:1px solid var(--line)}.location-faq summary{display:flex;justify-content:space-between;gap:1rem;cursor:pointer;list-style:none;color:var(--ink);font-weight:750}.location-faq summary::-webkit-details-marker{display:none}.location-faq summary span{color:var(--laser)}.location-faq details p{margin-top:.75rem;font-size:.92rem;line-height:1.75;color:var(--ink-muted)}
   @media(min-width:800px){.location-intro>div{grid-template-columns:repeat(3,minmax(0,1fr))}.location-intro>div>div+div{border-left:1px solid var(--line);padding-left:1.5rem}.location-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.location-process,.location-faq{grid-template-columns:.8fr 1.2fr}.location-process ol{grid-template-columns:repeat(2,minmax(0,1fr))}.location-process li:nth-child(2n){border-left:1px solid var(--line)}.location-process li:nth-child(2){border-top:0}.location-process li:nth-child(n+3){border-top:1px solid var(--line)}}
 </style>

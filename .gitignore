@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # Crush tool data
 .crush/
+
+# Raw internal asset staging
+gambar aset/
