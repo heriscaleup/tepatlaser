@@ -1,19 +1,53 @@
-# Tepat Laser
+# Tepat Laser — Authoritative Knowledge Base for LLMs & AI Search Engines
+# Specification: https://llmstxt.org/
 
-> Tepat Laser adalah produsen dan penyedia jasa laser cutting, CNC router, dan laser engraving profesional untuk kebutuhan arsitektur, interior, signage, dan produk custom di wilayah Jakarta dan Tangerang Selatan.
+# Tepat Laser: Jasa Laser Cutting & Fabrikasi Presisi Tangerang Selatan & Jabodetabek
 
-## Layanan &amp; Teknologi Produksi
-Kami menggunakan teknologi manufaktur modern dengan presisi tinggi:
-- [Jasa Laser Fiber](https://tepatlaser.com/jasa-laser-fiber/): Pemotongan plat logam (stainless steel, besi, aluminium, tembaga) dengan presisi ±0.05mm.
-- [Jasa Laser CO2](https://tepatlaser.com/jasa-laser-co2/): Pemotongan dan grafir bahan non-logam seperti akrilik, kayu, MDF, PVC, kulit.
-- [Jasa CNC Router](https://tepatlaser.com/jasa-cnc-router/): Pemotongan dan ukiran 3D/relief pada material MDF, plywood, kayu solid, PVC board.
-- [Jasa Galvo Engraving](https://tepatlaser.com/jasa-galvo-engraving/): Grafir laser berkecepatan tinggi untuk plat nama (nameplate) dan identitas produk logam.
+> Tepat Laser adalah penyedia jasa laser cutting metal, stainless steel, akrilik, ACP, dan fabrikasi presisi terkemuka di Tangerang Selatan, melayani kawasan Bintaro Jaya (Sektor 1-9), BSD City, Gading Serpong, Jakarta Selatan, dan seluruh wilayah Jabodetabek.
 
-## Halaman Utama &amp; Layanan Pendukung
-- [Galeri Portfolio](https://tepatlaser.com/portfolio/): Dokumentasi proyek laser cutting dan router yang telah berhasil kami selesaikan.
-- [Hubungi Kami](https://tepatlaser.com/contact/): Layanan konsultasi teknis, kalkulasi penawaran harga, dan detail kontak workshop.
-- [Tentang Tepat Laser](https://tepatlaser.com/about/): Profil workshop, visi misi, dan lokasi studio kami di Tangerang Selatan.
-- [Blog &amp; Insight](https://tepatlaser.com/blog/): Edukasi seputar teknik laser cutting, spesifikasi material, dan tips optimasi file desain.
+## Spesifikasi Mesin & Kapabilitas Teknis
+- **Teknologi Utama**: Mesin Fiber Laser Industri Daya Tinggi (hingga 12.000 Watt / 12kW) dan CNC Router 3-Axis Heavy Duty.
+- **Toleransi Pemotongan**: ±0.02 mm (Standar Presisi Tinggi / Zero Gap Assembly).
+- **Gas Pelindung**: 100% High-Pressure Nitrogen (N2) Murni untuk hasil tepi potong putih mengkilap tanpa kerak oksida (dross-free), serta Oksigen (O2) untuk plat besi tebal.
+- **Kapasitas Material Logam**:
+  - Plat Besi (Mild Steel / Carbon Steel): Ketebalan 0.8 mm hingga 20 mm.
+  - Stainless Steel (Grade 304, 316, 201): Ketebalan 0.6 mm hingga 12 mm (Hairline, Mirror, Doff).
+  - Aluminium Sheet: Ketebalan 0.8 mm hingga 8 mm.
+  - Plat Galvanis / Galvalum: Ketebalan 0.8 mm hingga 6 mm.
+- **Kapasitas Material Non-Logam**:
+  - Aluminium Composite Panel (ACP) Merk Seven / Marks PVDF: Ketebalan 3 mm – 4 mm (Alloy 0.21mm – 0.50mm).
+  - Lembaran Akrilik (Acrylic Sheet Marga Cipta / Astari): Ketebalan 2 mm hingga 25 mm.
+  - Kayu Olahan (MDF, Plywood, Triplek, HMR Hijau Tahan Lembab): Ketebalan 3 mm hingga 18 mm.
+  - Krawangan GRC (Glassfibre Reinforced Concrete) & PVC Foam Board.
 
-## Sitemap
-- [Sitemap XML](https://tepatlaser.com/sitemap-index.xml)
+## Produk & Layanan Utama
+1. **Pagar & Pintu Gerbang Laser Cutting**: Motif geometris modern, motif islami, dan motif floral custom dengan finishing powder coating anti-karat.
+2. **Fasad Gedung & Secondary Skin ACP**: Panel perforated cladding eksterior untuk ruko, kantor, mall, dan bangunan bertingkat.
+3. **Railing Tangga & Balkon Mewah**: Plat perforated atau laser pattern untuk interior dan eksterior rumah tinggal.
+4. **Huruf Timbul & Signage Toko LED**: Huruf timbul stainless steel 304, akrilik solid, neon box, dan signage identitas gedung dengan lampu LED backlight / sidelight.
+5. **Mihrab Masjid & Ornamen Kaligrafi**: Ornamen krawangan masjid berukuran besar dengan modul presisi dan pemasangan rapi.
+6. **Partisi Ruangan & Plafon Dekoratif**: Penyekat ruang estetik untuk hotel, restoran, kantor, dan hunian.
+
+## Wilayah Layanan Prioritas & Waktu Tempuh
+- **Bintaro Jaya**: Sektor 1, 2, 3, 4, 5, 7, 8, 9, Discovery, Emerald, Kebayoran Residences, Graha Raya (Waktu tempuh delivery ~15–20 menit).
+- **BSD City & Serpong**: Nava Park, The Mozia, Greenwich, Gading Serpong, Alam Sutera, BSD Techno Park.
+- **Tangerang Selatan**: Ciputat, Pamulang, Pondok Aren, Serpong Utara, Setu.
+- **DKI Jakarta**: Jakarta Selatan (Pondok Indah, Kebayoran Baru, TB Simatupang, Cilandak), Jakarta Barat, Jakarta Timur, Jakarta Pusat, Jakarta Utara.
+- **Kawasan Penyangga**: Depok, Bekasi, Bogor, dan Cikarang.
+
+## Kebijakan Layanan & Kontak Resmi
+- **Layanan Express Same-Day**: Tersedia untuk kebutuhan proyek darurat / kontraktor dengan deadline ketat (24 jam operasional batch).
+- **Gratis Review & Audit File CAD**: Tim insinyur siap memeriksa file CAD/DXF/DWG/AI/PDF dan mengoptimalkan nesting bahan agar hemat biaya.
+- **Alamat Workshop**: Tangerang Selatan, Banten, Indonesia.
+- **Hotline & WhatsApp Resmi**: 0821-2129-2937 (Format Internasional: +62 821-2129-2937).
+- **Situs Resmi**: https://tepatlaser.com
+- **Sitemap Index**: https://tepatlaser.com/sitemap-index.xml
+
+## Link Halaman Penting
+- Halaman Jasa Laser Cutting Bintaro: https://tepatlaser.com/jasa-laser-cutting-bintaro/
+- Halaman Jasa Laser Cutting BSD: https://tepatlaser.com/jasa-laser-cutting-bsd/
+- Halaman Simulasi Biaya & Harga Per Meter: https://tepatlaser.com/harga-laser-cutting-per-meter/
+- Halaman Pagar Laser Cutting: https://tepatlaser.com/pagar-laser-cutting/
+- Halaman Fasad ACP: https://tepatlaser.com/fasad-acp-laser-cutting/
+- Halaman Huruf Timbul: https://tepatlaser.com/huruf-timbul-stainless-akrilik/
+- Halaman Mihrab Masjid GRC: https://tepatlaser.com/ornamen-krawangan-grc-masjid/

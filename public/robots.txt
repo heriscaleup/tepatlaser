@@ -1,12 +1,40 @@
-# public/robots.txt
+# robots.txt for TepatLaser.com
+# Optimized for Googlebot, Bingbot, and Generative AI Search Bots (GEO Engine)
 
 User-agent: *
 Allow: /
 
-# Sitemap
-# URL ini harus sesuai dengan 'site' di astro.config.mjs
-Sitemap: https://tepatlaser.com/sitemap-index.xml
+# Explicit AI Search Engine Crawlers (OpenAI ChatGPT, Perplexity, Anthropic Claude, Google Gemini, Apple Intelligence)
+User-agent: GPTBot
+Allow: /
 
-# Disallow admin areas
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Structured Sitemaps & LLM Knowledge Standards
+Sitemap: https://tepatlaser.com/sitemap-index.xml
+Sitemap: https://tepatlaser.com/sitemap-0.xml
+
+# LLMs Text Standard Discovery
+# https://llmstxt.org/
+# Knowledge base for LLM reasoning and generative search models
+# LLMs-Txt: https://tepatlaser.com/llms.txt
+
+# Disallow Private Areas
 Disallow: /admin/
 Disallow: /private/
