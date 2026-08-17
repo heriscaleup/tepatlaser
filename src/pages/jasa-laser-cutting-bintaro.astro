@@ -1,0 +1,539 @@
+---
+import BaseLayout from '../components/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CTA from '../components/CTA.astro';
+import PageIntro from '../components/PageIntro.astro';
+import { SITE_CONFIG, SERVICES } from '../utils/constants.js';
+
+const canonicalUrl = 'https://tepatlaser.com/jasa-laser-cutting-bintaro/';
+const waUrl = `https://wa.me/${SITE_CONFIG.whatsapp}?text=${encodeURIComponent('Halo Tepat Laser, saya ingin konsultasi jasa laser cutting untuk proyek di area Bintaro.')}`;
+
+const faqItems = [
+  {
+    question: 'Berapa lama estimasi pengerjaan laser cutting untuk wilayah Bintaro?',
+    answer: 'Untuk pesanan reguler, estimasi pengerjaan adalah 1–3 hari kerja setelah approval drawing CAD/DWG. Untuk kebutuhan darurat atau fit-out mendesak di Bintaro Sektor 1–9, kami menyediakan layanan Express Same-Day 24 jam.'
+  },
+  {
+    question: 'Bagaimana pengiriman hasil potongan ke lokasi proyek di Bintaro?',
+    answer: 'Kami menyediakan armada pickup langsung ke lokasi proyek Anda di seluruh area Bintaro Jaya (Sektor 1–9, Discovery, Graha Raya, Emerald, Kebayoran Residences) dengan waktu tempuh pengiriman hanya sekitar 15–20 menit dari workshop.'
+  },
+  {
+    question: 'Material apa saja yang bisa dipotong di workshop Tepat Laser?',
+    answer: 'Kami melayani pemotongan Plat Besi (Mild Steel 1.2mm – 12mm), Stainless Steel 304/201 (0.8mm – 6mm), Aluminium (1mm – 5mm), Akrilik (2mm – 15mm), ACP Seven/Marks PVDF, Kayu MDF HMR, dan Krawangan GRC.'
+  },
+  {
+    question: 'Apakah saya bisa membawa bahan sendiri (jasa potong saja)?',
+    answer: 'Sangat bisa. Kami melayani opsi jasa potong ongkos kerja (bawa material sendiri) maupun paket terima beres termasuk material bersertifikasi berkualitas tinggi.'
+  },
+  {
+    question: 'Apakah dibantu review file jika gambar saya belum format CAD/DWG?',
+    answer: 'Tim engineering kami siap membantu mengonversi sketsa coretan tangan, PDF, atau foto referensi motif Anda menjadi file vector cutting presisi (DXF/DWG/AI) secara gratis sebelum proses potong.'
+  }
+];
+
+const schemaLocalBusiness = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  'name': 'Tepat Laser — Jasa Laser Cutting Bintaro',
+  'description': 'Penyedia jasa laser cutting presisi plat besi, stainless steel, akrilik, dan ACP terdekat melayani kawasan Bintaro Jaya Sektor 1-9 dan Tangerang Selatan.',
+  'url': canonicalUrl,
+  'telephone': SITE_CONFIG.phone,
+  'address': {
+    '@type': 'PostalAddress',
+    'streetAddress': SITE_CONFIG.address,
+    'addressLocality': 'Tangerang Selatan',
+    'addressRegion': 'Banten',
+    'addressCountry': 'ID'
+  },
+  'areaServed': [
+    { '@type': 'AdministrativeArea', 'name': 'Bintaro Jaya Sektor 1-9' },
+    { '@type': 'AdministrativeArea', 'name': 'Graha Raya Bintaro' },
+    { '@type': 'AdministrativeArea', 'name': 'Pondok Aren' },
+    { '@type': 'AdministrativeArea', 'name': 'Tangerang Selatan' }
+  ],
+  'priceRange': 'Rp 50.000 - Rp 1.500.000'
+};
+
+const schemaFaq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  'mainEntity': faqItems.map(f => ({
+    '@type': 'Question',
+    'name': f.question,
+    'acceptedAnswer': {
+      '@type': 'Answer',
+      'text': f.answer
+    }
+  }))
+};
+---
+
+<BaseLayout
+  title="Jasa Laser Cutting Bintaro Presisi Terdekat — Plat Besi, Stainless & ACP"
+  description="Pusat jasa laser cutting Bintaro Sektor 1-9 & Graha Raya. Mesin fiber laser 12kW presisi ±0.02mm untuk pagar, fasad, railing, huruf timbul, dan partisi dekoratif. Free audit file CAD via WhatsApp."
+  keywords="jasa laser cutting bintaro, laser cutting bintaro terdekat, potong plat besi bintaro, pagar laser cutting bintaro, laser cutting stainless bintaro sektor 9, jasa cnc router bintaro"
+  url={canonicalUrl}
+  jsonLd={[schemaLocalBusiness, schemaFaq]}
+>
+  <Header slot="header" />
+
+  <main class="overflow-hidden">
+    <!-- Hero Header -->
+    <PageIntro
+      eyebrow="LAYANAN PRIORITAS BINTARO JAYA"
+      title="Jasa Laser Cutting Bintaro: Presisi Tinggi, Hasil Rapi Bebas Dross & Pengiriman Cepat."
+      description="Didukung mesin Fiber Laser Industri berdaya tinggi hingga 12kW dengan toleransi potong ±0.02mm. Siap melayani kebutuhan arsitek, kontraktor, desainer interior, dan pemilik hunian di seluruh kawasan Bintaro Sektor 1–9, Graha Raya, dan sekitarnya."
+      image="/gambar/laser cutting pintu gerbang.jpg"
+      imageAlt="Workshop dan hasil pengerjaan jasa laser cutting plat besi untuk kawasan Bintaro"
+      imageTag="AREA BINTARO SEKTOR 1-9"
+    />
+
+    <!-- Highlight Stats Bar -->
+    <section class="stat-highlight-bar">
+      <div class="container-custom grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div class="stat-box">
+          <span class="stat-num">±0.02 mm</span>
+          <span class="stat-lbl">Toleransi Mesin Fiber</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">15 Menit</span>
+          <span class="stat-lbl">Radius Kirim ke Bintaro</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">100% Bebas</span>
+          <span class="stat-lbl">Kerak Oksida (Gas Nitrogen)</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-num">24 Jam</span>
+          <span class="stat-lbl">Layanan Prioritas Express</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="section-padding content-section">
+      <div class="container-custom">
+        <div class="grid gap-12 lg:grid-cols-12">
+          
+          <!-- Left Column (Articles & Deep Technical Info) -->
+          <div class="lg:col-span-8 space-y-12">
+            
+            <div class="prose-custom">
+              <h2>Solusi Fabrikasi Laser Cutting Presisi untuk Kawasan Bintaro</h2>
+              <p>
+                Kawasan Bintaro Jaya dikenal dengan arsitektur hunian modern, ruko komersial berestetika tinggi, dan proyek interior premium. Kebutuhan fabrikasi logam seperti <strong>pagar laser cutting motif floral/geometris</strong>, <strong>secondary skin fasad ACP</strong>, <strong>railing balkon stainless</strong>, hingga <strong>huruf timbul toko LED</strong> menuntut presisi mutlak tanpa cela.
+              </p>
+              <p>
+                Di <strong>Tepat Laser</strong>, kami mengeliminasi kendala umum pemotongan tradisional (tepi gosong, plat melengkung akibat panas berlebih, lubang baut meleset) melalui kombinasi teknologi <strong>Fiber Laser CNC generasi terbaru</strong> dan <strong>perangkat lunak Auto-Nesting CAD cerdas</strong> yang memaksimalkan efisiensi bahan hingga 92%.
+              </p>
+            </div>
+
+            <!-- Visual Comparison Matrix -->
+            <div class="comparison-card">
+              <h3 class="text-xl font-bold text-white mb-4">Kenapa Memilih Tepat Laser Dibandingkan Bengkel Lain di Bintaro?</h3>
+              <div class="overflow-x-auto">
+                <table class="tech-table">
+                  <thead>
+                    <tr>
+                      <th>Parameter Produksi</th>
+                      <th class="highlight-col">Tepat Laser (Kami)</th>
+                      <th>Bengkel Konvensional</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Kualitas Tepi Potong</strong></td>
+                      <td class="highlight-col text-green-400">Halus, putih mengkilap, 100% bebas dross (Gas N2 Murni)</td>
+                      <td>Banyak kerak gosong, perlu gerinda ulang</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Akurasi Dimensi</strong></td>
+                      <td class="highlight-col text-green-400">Toleransi ketat ±0.02 mm (Zero Gap Assembly)</td>
+                      <td>Deviasi 1.0 – 2.5 mm (rawan macet saat rakit)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Audit File CAD</strong></td>
+                      <td class="highlight-col text-green-400">Gratis pemeriksaan titik rapuh & optimasi nesting</td>
+                      <td>Langsung potong tanpa verifikasi (resiko salah)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Waktu Pengiriman Bintaro</strong></td>
+                      <td class="highlight-col text-green-400">Armada pickup langsung (15–20 menit ke lokasi)</td>
+                      <td>Ekspedisi umum lama atau biaya ongkir tinggi</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Material Portfolio Cluster -->
+            <div>
+              <h3 class="text-2xl font-bold text-white mb-6">Aplikasi Produk Populer di Kawasan Bintaro</h3>
+              <div class="grid gap-6 sm:grid-cols-2">
+                <div class="app-card">
+                  <img src="/gambar/laser cutting pintu gerbang.jpg" alt="Pagar Laser Cutting Bintaro" class="app-img" />
+                  <div class="app-info">
+                    <h4>Pagar & Pintu Gerbang Mewah</h4>
+                    <p>Plat besi 2mm – 3mm motif geometris minimalis dan islami dengan finishing powder coating anti karat.</p>
+                    <a href="/pagar-laser-cutting/" class="app-link">Lihat Detail Pagar ↗</a>
+                  </div>
+                </div>
+
+                <div class="app-card">
+                  <img src="/gambar/facade gedung.jpg" alt="Fasad Gedung ACP Bintaro" class="app-img" />
+                  <div class="app-info">
+                    <h4>Fasad Gedung & Ruko ACP</h4>
+                    <p>Panel perforated ACP Seven/Marks PVDF tahan cuaca untuk secondary skin ruko dan kantor di Bintaro.</p>
+                    <a href="/fasad-acp-laser-cutting/" class="app-link">Lihat Detail Fasad ACP ↗</a>
+                  </div>
+                </div>
+
+                <div class="app-card">
+                  <img src="/gambar/huruf timbul stainless backlight.jpg" alt="Huruf Timbul Signage Toko Bintaro" class="app-img" />
+                  <div class="app-info">
+                    <h4>Huruf Timbul & Signage Toko</h4>
+                    <p>Stainless 304 & akrilik LED backlight untuk branding toko retail di Bintaro Xchange dan Graha Raya.</p>
+                    <a href="/huruf-timbul-stainless-akrilik/" class="app-link">Lihat Detail Huruf Timbul ↗</a>
+                  </div>
+                </div>
+
+                <div class="app-card">
+                  <img src="/images/grcpro (1).webp" alt="Mihrab Masjid Krawangan Bintaro" class="app-img" />
+                  <div class="app-info">
+                    <h4>Mihrab Masjid & Krawangan GRC</h4>
+                    <p>Ornamen dinding masjid, kaligrafi arab, dan partisi penyekat ruang presisi modul zero gap.</p>
+                    <a href="/ornamen-krawangan-grc-masjid/" class="app-link">Lihat Detail Mihrab ↗</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step by Step Order Workflow -->
+            <div class="workflow-card">
+              <h3 class="text-xl font-bold text-white mb-4">Alur Pemesanan Cepat & Praktis</h3>
+              <ol class="step-list">
+                <li>
+                  <strong>1. Kirim File Drawing / Sketsa:</strong>
+                  <span>Kirimkan file vector (DXF, DWG, AI, CDR) atau foto sketsa ukuran opening Anda via WhatsApp.</span>
+                </li>
+                <li>
+                  <strong>2. Audit Teknis & Penawaran Harga:</strong>
+                  <span>Tim kami menghitung estimasi panjang potong, kebutuhan bahan lembaran, dan menerbitkan surat penawaran resmi.</span>
+                </li>
+                <li>
+                  <strong>3. Eksekusi Laser Fiber & QC:</strong>
+                  <span>Mesin beroperasi memotong bahan sesuai drawing, dilanjutkan quality control dimensi sebelum packing.</span>
+                </li>
+                <li>
+                  <strong>4. Pengiriman Instan Bintaro:</strong>
+                  <span>Barang siap diantar langsung ke alamat proyek Anda di Bintaro atau diambil langsung di workshop.</span>
+                </li>
+              </ol>
+            </div>
+
+            <!-- FAQ Accordion -->
+            <div>
+              <h3 class="text-2xl font-bold text-white mb-6">Pertanyaan Seputar Jasa Laser Cutting Bintaro (FAQ)</h3>
+              <div class="space-y-4">
+                {faqItems.map((faq) => (
+                  <details class="faq-item">
+                    <summary class="faq-quest">{faq.question}</summary>
+                    <p class="faq-ans">{faq.answer}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column (Sticky Direct Action Sidebar) -->
+          <div class="lg:col-span-4">
+            <div class="sticky-sidebar space-y-6">
+              
+              <!-- Contact Card -->
+              <div class="action-card">
+                <span class="badge-priority">FAST RESPONSE BINTARO</span>
+                <h3 class="text-lg font-bold text-white mt-3">Konsultasi Drawing & Estimasi Biaya Gratis</h3>
+                <p class="text-sm text-gray-300 mt-2">
+                  Dapatkan review file CAD, perhitungan nesting bahan paling hemat, dan harga terbaik langsung dari workshop.
+                </p>
+                <a href={waUrl} target="_blank" rel="noopener noreferrer" class="btn-wa-action mt-5">
+                  <span>Chat WhatsApp Sekarang</span>
+                  <span class="text-lg">↗</span>
+                </a>
+                <div class="contact-meta mt-4">
+                  <span>📞 Hotline: 0821-2129-2937</span>
+                  <span>📍 Jarak: ~15 Menit ke Sektor 1-9</span>
+                </div>
+              </div>
+
+              <!-- Service Coverage Checklist -->
+              <div class="coverage-card">
+                <h4 class="text-sm font-bold text-cyan-400 uppercase tracking-wider mb-3">Wilayah Layanan di Bintaro:</h4>
+                <ul class="coverage-list">
+                  <li>✔ Bintaro Sektor 1, 2, 3, 4, 5</li>
+                  <li>✔ Bintaro Sektor 7, 8, 9 & Discovery</li>
+                  <li>✔ Kawasan Graha Raya & Pondok Jagung</li>
+                  <li>✔ Emerald Bintaro & Kebayoran Residences</li>
+                  <li>✔ Pondok Aren, Jurang Mangu & Ceger</li>
+                  <li>✔ Mall Bintaro Xchange & Plaza Bintaro</li>
+                </ul>
+              </div>
+
+              <!-- Price Estimator Link Box -->
+              <div class="estimator-box">
+                <h4>Mau Hitung Biaya Sendiri?</h4>
+                <p>Gunakan kalkulator simulasi harga potong plat besi, stainless, dan akrilik per meter kami.</p>
+                <a href="/harga-laser-cutting-per-meter/" class="estimator-link">Buka Kalkulator Harga ↗</a>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Bottom Action Banner -->
+    <CTA />
+  </main>
+
+  <Footer slot="footer" />
+</BaseLayout>
+
+<style>
+  .stat-highlight-bar {
+    background: #0d121c;
+    border-top: 1px solid rgba(0, 240, 255, 0.2);
+    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+    padding: 1.5rem 0;
+  }
+  .stat-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 0.5rem;
+  }
+  .stat-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #00f0ff;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .stat-lbl {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    margin-top: 0.2rem;
+  }
+  .content-section {
+    background: #080b10;
+  }
+  .prose-custom h2 {
+    color: #ffffff;
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 1rem;
+  }
+  .prose-custom p {
+    color: #cbd5e1;
+    font-size: 1rem;
+    line-height: 1.75;
+    margin-bottom: 1rem;
+  }
+  .comparison-card {
+    background: #111622;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .tech-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    text-align: left;
+  }
+  .tech-table th {
+    background: #0a0e17;
+    color: #94a3b8;
+    padding: 10px 12px;
+    border-bottom: 2px solid #242f44;
+  }
+  .tech-table td {
+    padding: 12px;
+    border-bottom: 1px solid #1e293b;
+    color: #cbd5e1;
+  }
+  .tech-table .highlight-col {
+    background: rgba(0, 240, 255, 0.04);
+    font-weight: 600;
+  }
+  .app-card {
+    background: #111622;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .app-card:hover {
+    transform: translateY(-3px);
+    border-color: #00f0ff;
+  }
+  .app-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+  }
+  .app-info {
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  .app-info h4 {
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .app-info p {
+    color: #94a3b8;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    flex: 1;
+    margin-bottom: 1rem;
+  }
+  .app-link {
+    color: #00f0ff;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+  .workflow-card {
+    background: #111622;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .step-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .step-list strong {
+    color: #00f0ff;
+    font-size: 0.95rem;
+  }
+  .step-list span {
+    color: #cbd5e1;
+    font-size: 0.88rem;
+  }
+  .faq-item {
+    background: #111622;
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 1rem 1.2rem;
+  }
+  .faq-quest {
+    color: #ffffff;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  .faq-ans {
+    color: #94a3b8;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-top: 0.8rem;
+  }
+  .sticky-sidebar {
+    position: sticky;
+    top: 6rem;
+  }
+  .action-card {
+    background: linear-gradient(145deg, #111827, #0b111e);
+    border: 1px solid #00f0ff;
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.15);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  .badge-priority {
+    background: rgba(0, 240, 255, 0.15);
+    color: #00f0ff;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
+  .btn-wa-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #22c55e;
+    color: #000000;
+    font-weight: 800;
+    padding: 0.8rem 1rem;
+    border-radius: 4px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-wa-action:hover {
+    background: #4ade80;
+    transform: translateY(-2px);
+  }
+  .contact-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 0.8rem;
+    color: #94a3b8;
+    border-top: 1px solid #1e293b;
+    padding-top: 0.8rem;
+  }
+  .coverage-card {
+    background: #111622;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 1.2rem;
+  }
+  .coverage-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #cbd5e1;
+  }
+  .estimator-box {
+    background: #0d121c;
+    border: 1px dashed #242f44;
+    border-radius: 8px;
+    padding: 1.2rem;
+  }
+  .estimator-box h4 {
+    color: #ffe600;
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+  }
+  .estimator-box p {
+    color: #94a3b8;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+  }
+  .estimator-link {
+    color: #00f0ff;
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+</style>
