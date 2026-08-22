@@ -156,7 +156,7 @@ export const CAPABILITY_CONTENT = {
     qualityChecks: ['Arah coating dan sisi tampil diverifikasi', 'Kedalaman groove diperiksa', 'Dimensi modul serta lipatan diuji', 'Tepi dan protective film dijaga', 'Nomor panel disesuaikan dengan layout pemasangan']
   },
   'jasa-laser-cutting-acp-2': {
-    lead: 'Untuk fasad dan signage, keputusan ACP tidak berhenti pada motif. Skala baca, jarak pandang, rangka, modul, pencahayaan, lipatan, serta akses pemasangan menentukan apakah desain terlihat profesional setelah berada di bangunan.',
+    lead: 'Untuk fasad dan signage, keputusan ACP tidak berhenti pada motif. Skala baca, jarak pandang, rangka, modul, pencahayaan, lipatan, serta akses pemasangan menentukan apakah desain terlihat profesional setelah berada di bangunan. Jasa cutting ACP ini melayani material dari merek apa pun (bukan menjual bahan ACP), dengan jangkauan utama Tangerang Selatan, Jakarta Selatan, dan Jakarta Barat — untuk Jakarta Timur atau Utara, hubungi dulu untuk cek kelayakan jarak pengiriman.',
     decisions: [
       decision('Uji pola pada skala bangunan', 'Motif yang menarik di layar dapat menjadi terlalu rapat atau hilang ketika dilihat dari jalan.'),
       decision('Bagi modul secara sadar', 'Ukuran lembar, nat, akses lifting, dan rangka menentukan pembagian panel serta posisi sambungan.'),
