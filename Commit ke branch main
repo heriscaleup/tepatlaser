@@ -1,0 +1,44 @@
+# LASER (@jasalasercutting.tangsel) — Product & Content Knowledge
+
+Brand pilot untuk AI Social Media Team milik Heri (heri.scaleup@gmail.com). Simpan sebagai referensi permanen — baca ini sebelum bikin konten/analisis baru untuk brand LASER.
+
+## Identitas bisnis
+Bukan cuma "jasa laser cutting CO2" — bisnis ini adalah **fabrikasi custom lengkap** dengan 3 mesin, mencakup non-logam sampai logam. Lokasi: Tangerang Selatan. CTA WA: +62 812 9636 1446.
+
+## Product knowledge: 3 mesin (WAJIB dipahami sebelum klaim kapasitas di caption)
+
+### 1. CNC Laser CO2 — non-logam, presisi tinggi (±0.01mm)
+- Material: acrylic, kayu (plywood/MDF), kulit, kain, kertas/karton, foam, karet
+- Kekuatan: tepi potongan halus/rapi, tanpa perlu finishing lanjut
+- Tidak bisa memotong logam
+
+### 2. CNC Router — mata pisau berputar (mekanis), material tebal/keras
+- Material: kayu solid/plywood/MDF (lebih tebal dari laser), acrylic tebal (pocketing/3D relief), ACP/aluminium composite panel, PVC board, HDF, foam board, logam lunak (aluminium, kuningan — bukan spesialisasi utama)
+- Use case: furniture, kitchen set, signage 3D, partisi tebal
+- Kekurangan: tepi lebih kasar dari laser, kadang perlu sanding/finishing
+
+### 3. CNC Laser Fiber 1500W — khusus logam
+- Mild steel/besi: hingga ±14mm (hasil produksi rapi 10-12mm)
+- Stainless steel: hingga ±6mm
+- Aluminium: hingga ±5mm
+- Kuningan: ±5mm, tembaga: ±4mm, galvanized steel: ±5mm
+- Ini yang bikin konten "plat besi 10mm", "stainless pin perusahaan" itu VALID (bukan salah kaprah) — verified via web search Agustus 2026.
+
+## Implikasi untuk konten
+Bisnis ini bisa garap segmen jauh lebih luas dari UKM/dekorasi kayu-akrilik: **B2B/industrial fabrikasi** (plakat logam, part custom besi/stainless, nameplate, kitchen set ACP) yang belum pernah disentuh kontennya. Jangan batasi ide konten hanya ke CO2 laser.
+
+## Baseline analisis performa (per 22 Agustus 2026, 97 post published)
+- 72% post (70/97) nol engagement sama sekali (no likes/comments/saves/shares)
+- Total komentar di SELURUH 97 post: cuma 2 — KPI utama (lead via komentar tanya harga) praktis belum tercapai
+- Avg reach/post: ~34.6 (akun ~1.7-1.8K follower)
+- Pola yang terbukti kerja: konten SPESIFIK & EDUKATIF (mis. "5 produk paling laris bulan ini", "material apa saja yang bisa dipotong laser CO2?", "plat besi 10mm untuk baseplat", "stainless untuk pin perusahaan") — bukan hook formula generik/countdown ("H-13 menuju 17 Agustus...") yang justru SEMUANYA nol-engagement.
+- Endpoint data: `GET https://zernio.com/api/v1/analytics?accountId={id}&limit=100` (Zernio API key di brief harian)
+
+## ID penting
+- LASER: profile=69fada8309cb7b8f62a4e120 | account=6a0c0e0f5e333c05299aea4e | @jasalasercutting.tangsel
+- content_id format: `laser-ig-YYYYMMDD`, dipakai juga di link WA berlabel untuk tracking lead per post
+
+## Alur kerja yang sudah terbukti jalan
+1. Generate gambar (photorealistic, wajib) + caption → kirim draft ke Telegram (chat_id 966354179), JANGAN langsung publish ke Zernio
+2. User approve via balasan Telegram ("setuju"/"approve") → bot minta konfirmasi terakhir ("balas YA") → baru publish via `POST /api/v1/posts` (status: "published", platforms: [{platform:"instagram", accountId, profileId}])
+3. Polling approval pakai CronCreate (session-only, mati kalau sesi ditutup — perlu dibuat ulang tiap sesi baru kalau approval belum masuk)
