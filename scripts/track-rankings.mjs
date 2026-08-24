@@ -1,69 +1,49 @@
-const TARGET_DOMAIN = 'tepatlaser.com';
-const KEYWORDS = [
-  { keyword: 'jasa laser cutting bintaro', targetPage: '/lokasi/bintaro/' },
-  { keyword: 'laser cutting bsd serpong', targetPage: '/lokasi/bsd-serpong/' },
-  { keyword: 'harga laser cutting per meter', targetPage: '/harga-laser-cutting-per-meter/' },
-  { keyword: 'pagar laser cutting custom', targetPage: '/pagar-laser-cutting/' },
-  { keyword: 'railing tangga laser cutting', targetPage: '/railing-laser-cutting/' },
-  { keyword: 'huruf timbul stainless led', targetPage: '/huruf-timbul-stainless-akrilik/' },
-  { keyword: 'fasad acp laser cutting', targetPage: '/fasad-acp-laser-cutting/' },
-  { keyword: 'mihrab masjid laser cutting', targetPage: '/ornamen-krawangan-grc-masjid/' },
-  { keyword: 'jasa laser cutting tangerang selatan', targetPage: '/lokasi/tangerang-selatan/' },
-  { keyword: 'laser cutting jakarta selatan', targetPage: '/lokasi/jakarta-selatan/' }
-];
+// CLI entry point — real ranking audit backed by Google Search Console
+// (see scripts/lib/rank-tracker.mjs and scripts/lib/gsc-client.mjs).
+// Previously scraped DuckDuckGo HTML results, which was fragile and not an
+// authoritative ranking source. Now also persists every run to
+// data/rankings/history.json so opportunity-picker.mjs can track trends.
 
-async function checkRankings() {
-  console.log('🔍 MEMULAI AUDIT RANKING ORGANIK SEARCH ENGINE...\n');
-  console.log(`Domain Target: ${TARGET_DOMAIN}`);
+import { checkAllRankings, persistSnapshot } from './lib/rank-tracker.mjs';
+
+const STATUS_LABEL = {
+  RANK_1: '👑 RANK #1',
+  TOP_3: '💎 TOP 3',
+  PAGE_1: '🔥 PAGE 1',
+  PAGE_2_3: '📈 PAGE 2-3',
+  DEEP: '📉 DEEP (30+)',
+  NOT_RANKING: '❓ NOT RANKING (no GSC impressions)',
+  UNAVAILABLE: '⚠️ UNAVAILABLE'
+};
+
+async function main() {
+  console.log('🔍 MEMULAI AUDIT RANKING ORGANIK (Google Search Console)...\n');
+
+  const snapshot = await checkAllRankings();
+  console.log(`Domain Target: tepatlaser.com`);
+  console.log(`GSC Configured: ${snapshot.gscConfigured ? 'YA' : 'TIDAK — set GSC_SERVICE_ACCOUNT_JSON'}`);
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
 
-  let pageOneCount = 0;
-
-  for (let i = 0; i < KEYWORDS.length; i++) {
-    const item = KEYWORDS[i];
-    try {
-      const query = encodeURIComponent(item.keyword);
-      const url = `https://html.duckduckgo.com/html/?q=${query}`;
-      
-      const res = await fetch(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36'
-        }
-      });
-      const html = await res.text();
-      
-      const regex = /<a[^>]+class="result__url"[^>]*href="([^"]+)"/gi;
-      let match;
-      let rank = 1;
-      let foundRank = 0;
-
-      while ((match = regex.exec(html)) !== null) {
-        if (match[1].includes(TARGET_DOMAIN)) {
-          foundRank = rank;
-          break;
-        }
-        rank++;
-      }
-
-      const status = foundRank > 0 && foundRank <= 3 
-        ? '💎 TOP 3' 
-        : (foundRank > 0 && foundRank <= 10 ? '🔥 PAGE 1' : '📈 CRAWLING / INDEXING');
-
-      if (foundRank > 0 && foundRank <= 10) pageOneCount++;
-
-      const displayRank = foundRank > 0 ? `#${foundRank}` : '100+';
-      console.log(`${i + 1}. [${displayRank}] ${item.keyword}`);
-      console.log(`   ↳ Status: ${status} | Target: ${item.targetPage}`);
-      
-      // Gentle delay to respect search engines
-      await new Promise(r => setTimeout(r, 800));
-    } catch (e) {
-      console.log(`${i + 1}. [ERR] ${item.keyword}: ${e.message}`);
-    }
-  }
+  snapshot.results.forEach((item, i) => {
+    const displayRank = item.position != null ? `#${item.position}` : '—';
+    console.log(`${i + 1}. [${displayRank}] ${item.keyword}`);
+    console.log(`   ↳ Status: ${STATUS_LABEL[item.status] || item.status} | Target: ${item.targetPage}${item.error ? ` | Error: ${item.error}` : ''}`);
+  });
 
   console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-  console.log(`🏆 Audit Selesai! Halaman terdaftar: 102 URL | IndexNow & GSC: ACTIVE`);
+  console.log(`🏆 Audit Selesai! Rank #1: ${snapshot.rankOneCount}/${snapshot.totalTracked} | Page 1: ${snapshot.pageOneCount}/${snapshot.totalTracked}`);
+
+  await persistSnapshot(snapshot);
+  console.log('💾 Snapshot tersimpan ke data/rankings/history.json');
+
+  return snapshot;
 }
 
-checkRankings();
+if (process.argv[1] && process.argv[1].endsWith('track-rankings.mjs')) {
+  main().catch(err => {
+    console.error('❌ track-rankings gagal:', err.message);
+    process.exitCode = 1;
+  });
+}
+
+export { main };
