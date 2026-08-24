@@ -59,11 +59,16 @@ jobs:
             **/node_modules/**
 
       - name: Purge Cloudflare Cache
+        continue-on-error: true
         shell: bash
         env:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
         run: |
+          if [ -z "$CF_API_TOKEN" ] || [ -z "$CF_ZONE_ID" ]; then
+            echo "⚠️ CF_API_TOKEN or CF_ZONE_ID secret not configured. Skipping cache purge."
+            exit 0
+          fi
           echo "Purging Cloudflare cache for zone $CF_ZONE_ID..."
           curl -s -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
             -H "Authorization: Bearer ${CF_API_TOKEN}" \

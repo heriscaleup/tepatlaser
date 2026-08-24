@@ -64,13 +64,19 @@ jobs:
             **/.git*/**
             **/node_modules/**
 
-      # 7. Purge Cloudflare cache otomatis setelah FTP upload selesai
+      # 7. Purge Cloudflare cache otomatis setelah FTP upload selesai (Non-fatal)
       - name: Purge Cloudflare Cache
+        continue-on-error: true
         shell: bash
         env:
           CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CF_ZONE_ID: ${{ secrets.CF_ZONE_ID }}
         run: |
+          if [ -z "$CF_API_TOKEN" ] || [ -z "$CF_ZONE_ID" ]; then
+            echo "⚠️ CF_API_TOKEN or CF_ZONE_ID secret not configured. Skipping cache purge."
+            exit 0
+          fi
+
           echo "Purging Cloudflare cache for zone $CF_ZONE_ID..."
           RESPONSE=$(curl -s -o /tmp/cf_purge_response.json -w "%{http_code}" \
             -X POST "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/purge_cache" \
@@ -79,18 +85,17 @@ jobs:
             --data '{"purge_everything":true}')
 
           cat /tmp/cf_purge_response.json
+          echo ""
 
           if [ "$RESPONSE" = "200" ]; then
-            SUCCESS=$(cat /tmp/cf_purge_response.json | python3 -c "import sys,json; print(json.load(sys.stdin).get('success', False))")
+            SUCCESS=$(cat /tmp/cf_purge_response.json | python3 -c "import sys,json; print(json.load(sys.stdin).get('success', False))" 2>/dev/null || echo "False")
             if [ "$SUCCESS" = "True" ]; then
               echo "✅ Cloudflare cache purged successfully."
             else
-              echo "⚠️ CF API returned 200 but success=false. Check token permissions."
-              exit 1
+              echo "⚠️ CF API returned 200 but success=false. Continuing deployment."
             fi
           else
-            echo "❌ CF API returned HTTP $RESPONSE. Purge failed."
-            exit 1
+            echo "⚠️ CF API returned HTTP $RESPONSE (Authentication error/token expired). Continuing deployment since FTP upload succeeded."
           fi
 
       # 8. Verifikasi halaman dan aset penting di origin hosting.
