@@ -77,6 +77,34 @@ function validateArticleJson(data) {
   return errors;
 }
 
+async function callGemini(system, user) {
+  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
+  if (!apiKey) throw new Error('GEMINI_API_KEY is not configured');
+
+  const model = process.env.MAYA_GEMINI_MODEL || 'gemini-3.6-flash';
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      system_instruction: { parts: [{ text: system }] },
+      contents: [{ parts: [{ text: user }] }],
+      generationConfig: {
+        responseMimeType: 'application/json',
+        temperature: 0.7,
+      },
+    }),
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(`Gemini API error: ${data.error?.message || res.status}`);
+  }
+  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  return text;
+}
+
 async function callClaude(system, user) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not configured');
@@ -104,6 +132,16 @@ async function callClaude(system, user) {
   return text;
 }
 
+async function callLlm(system, user) {
+  if (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY) {
+    return callGemini(system, user);
+  }
+  if (process.env.ANTHROPIC_API_KEY) {
+    return callClaude(system, user);
+  }
+  throw new Error('Neither GEMINI_API_KEY nor ANTHROPIC_API_KEY is configured');
+}
+
 /**
  * @param {object} target - one row from rank-tracker.mjs's checkAllRankings().results
  * @returns {Promise<object>} article JSON matching content.config.ts fields (minus image/publishDate/readTime, added by the caller)
@@ -114,7 +152,7 @@ export async function generateArticle(target) {
 
   let lastErrors = [];
   for (let attempt = 1; attempt <= 2; attempt += 1) {
-    const raw = await callClaude(system, attempt === 1 ? user : `${user}\n\nCatatan: respons sebelumnya tidak valid (${lastErrors.join('; ')}). Balas ULANG hanya dengan JSON yang valid sesuai struktur yang diminta.`);
+    const raw = await callLlm(system, attempt === 1 ? user : `${user}\n\nCatatan: respons sebelumnya tidak valid (${lastErrors.join('; ')}). Balas ULANG hanya dengan JSON yang valid sesuai struktur yang diminta.`);
     let parsed;
     try {
       parsed = JSON.parse(extractJson(raw));
@@ -127,5 +165,5 @@ export async function generateArticle(target) {
     lastErrors = errors;
   }
 
-  throw new Error(`claude-writer: failed to get valid article JSON after 2 attempts: ${lastErrors.join('; ')}`);
+  throw new Error(`ai-writer: failed to get valid article JSON after 2 attempts: ${lastErrors.join('; ')}`);
 }
