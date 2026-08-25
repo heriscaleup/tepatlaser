@@ -11,6 +11,9 @@ concurrency:
   group: tepatlaser-daily-publisher
   cancel-in-progress: true
 
+permissions:
+  contents: write
+
 jobs:
   auto-publish:
     runs-on: ubuntu-latest
