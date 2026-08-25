@@ -24,6 +24,7 @@ import { checkAllRankings, persistSnapshot } from './lib/rank-tracker.mjs';
 import { pickOpportunity } from './lib/opportunity-picker.mjs';
 import { generateArticle } from './lib/claude-writer.mjs';
 import { pickImage } from './lib/image-picker.mjs';
+import { syncWorkshopPhotos } from './lib/gdrive-syncer.mjs';
 
 const TARGET_DIR = path.resolve('src/content/blog');
 const STATUS_PATH = path.resolve('data/maya-status.json');
@@ -162,7 +163,17 @@ async function sendTelegramReport({ opportunity, liveUrl, article }) {
 export async function publishNextArticle() {
   console.log('🚀 MEMULAI AUTONOMOUS AI BLOG PUBLISHER ENGINE (agentic)...\n');
 
-  console.log('🔍 Mengecek ranking live via Google Search Console...');
+  console.log('☁️ Mensinkronisasikan foto workshop terbaru dari Google Drive...');
+  try {
+    const syncRes = await syncWorkshopPhotos();
+    if (syncRes.newlySynced > 0) {
+      console.log(`   📸 Berhasil mengunduh ${syncRes.newlySynced} foto workshop baru dari Google Drive!`);
+    }
+  } catch (syncErr) {
+    console.warn(`⚠️ GDrive sync warning (non-fatal): ${syncErr.message}`);
+  }
+
+  console.log('\n🔍 Mengecek ranking live via Google Search Console...');
   const snapshot = await checkAllRankings();
   await persistSnapshot(snapshot);
   console.log(`   Rank #1: ${snapshot.rankOneCount}/${snapshot.totalTracked} | Page 1: ${snapshot.pageOneCount}/${snapshot.totalTracked}`);
@@ -241,7 +252,7 @@ export async function publishNextArticle() {
   try {
     execSync('git config user.name "Ddos-spec"');
     execSync('git config user.email "setgraph69@gmail.com"');
-    execSync(`git add "src/content/blog/${slug}.md" data/maya-status.json data/rankings/history.json`);
+    execSync(`git add "src/content/blog/${slug}.md" data/maya-status.json data/rankings/history.json data/gdrive-synced.json public/images/workshop/ 2>/dev/null || true`);
     execSync(`git commit -m "feat(blog): auto-publish '${article.title}' for keyword '${target.keyword}' [Maya AI Autonomous Publisher]"`);
     execSync('git push origin main');
     console.log('🚀 ARTIKEL BERHASIL DIPUSH KE GITHUB & OTOMATIS LIVE DI HOSTINGER!');
