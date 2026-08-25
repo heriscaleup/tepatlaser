@@ -1,6 +1,16 @@
 // Google Drive automated photo sync for Tepat Laser workshop uploads.
 // Fetches new photos from the shared Google Drive folder, saves them locally to
 // public/images/workshop/, and tracks synced IDs in data/gdrive-synced.json.
+//
+// Uses the real Drive API v3 (REST, plain fetch, no SDK) instead of scraping
+// the Drive web UI's HTML. The old scraping approach broke silently (0 files
+// found) once Google changed the folder page's markup — the API is the
+// officially supported, stable way to read a "Anyone with the link" folder.
+//
+// Required env var: GOOGLE_API_KEY (or GEMINI_API_KEY as a fallback — many
+// Google Cloud projects share one key across APIs). The Drive API v3 must be
+// enabled for that key's project (Generative Language API and Drive API are
+// separate APIs — enabling one does not automatically enable the other).
 
 import fs from 'fs';
 import path from 'path';
@@ -12,6 +22,18 @@ const SYNC_DIR = path.join(REPO_ROOT, 'public', 'images', 'workshop');
 const TRACKING_FILE = path.join(REPO_ROOT, 'data', 'gdrive-synced.json');
 
 const DEFAULT_FOLDER_ID = process.env.GDRIVE_WORKSHOP_FOLDER_ID || '1whpVatGSjhpGNiBsK6q6XbzzM3o4UQqp';
+const DRIVE_API_BASE = 'https://www.googleapis.com/drive/v3';
+
+const MIME_EXTENSIONS = {
+  'image/jpeg': '.jpg',
+  'image/png': '.png',
+  'image/webp': '.webp',
+  'image/heic': '.heic'
+};
+
+function getApiKey() {
+  return process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || null;
+}
 
 function loadSyncedIds() {
   if (!fs.existsSync(TRACKING_FILE)) return new Set();
@@ -42,9 +64,9 @@ function saveSyncedIds(syncedSet, newRecords = []) {
   fs.writeFileSync(TRACKING_FILE, JSON.stringify(payload, null, 2), 'utf8');
 }
 
-function sanitizeFilename(name, id) {
-  const ext = path.extname(name).toLowerCase() || '.webp';
-  const base = path.basename(name, ext)
+function sanitizeFilename(name, id, mimeType) {
+  const ext = MIME_EXTENSIONS[mimeType] || path.extname(name).toLowerCase() || '.jpg';
+  const base = path.basename(name, path.extname(name))
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
@@ -52,35 +74,58 @@ function sanitizeFilename(name, id) {
   return `workshop-${cleanBase}-${id.slice(0, 8)}${ext}`;
 }
 
+/**
+ * Lists image files directly inside the given Drive folder via the real
+ * Drive API v3 (files.list), paginating through nextPageToken as needed.
+ */
 export async function parseFolderFiles(folderId = DEFAULT_FOLDER_ID) {
-  const url = `https://drive.google.com/drive/folders/${folderId}`;
-  const res = await fetch(url, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-    }
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to access Google Drive folder: HTTP ${res.status}`);
-  }
-  const html = await res.text();
+  const apiKey = getApiKey();
+  if (!apiKey) throw new Error('GOOGLE_API_KEY (or GEMINI_API_KEY) is not configured');
 
-  const fileRegex = /\["([a-zA-Z0-9_-]{25,})",\["([^"]+\.(?:jpg|jpeg|png|webp))"/gi;
   const files = [];
-  const seen = new Set();
-  let match;
-  while ((match = fileRegex.exec(html)) !== null) {
-    const id = match[1];
-    const name = match[2];
-    if (!seen.has(id)) {
-      seen.add(id);
-      files.push({ id, name });
+  let pageToken = null;
+
+  do {
+    const params = new URLSearchParams({
+      q: `'${folderId}' in parents and trashed = false and mimeType contains 'image/'`,
+      fields: 'nextPageToken, files(id, name, mimeType, size)',
+      pageSize: '1000',
+      key: apiKey
+    });
+    if (pageToken) params.set('pageToken', pageToken);
+
+    const res = await fetch(`${DRIVE_API_BASE}/files?${params.toString()}`);
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(`Drive API list failed: ${data.error?.message || res.status}`);
     }
-  }
+
+    for (const file of data.files || []) {
+      files.push({ id: file.id, name: file.name, mimeType: file.mimeType, size: Number(file.size) || 0 });
+    }
+    pageToken = data.nextPageToken || null;
+  } while (pageToken);
+
   return files;
 }
 
+async function downloadFile(fileId, apiKey) {
+  const res = await fetch(`${DRIVE_API_BASE}/files/${fileId}?alt=media&key=${apiKey}`);
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`Drive API download failed: HTTP ${res.status} ${body.slice(0, 200)}`);
+  }
+  return Buffer.from(await res.arrayBuffer());
+}
+
 export async function syncWorkshopPhotos(folderId = DEFAULT_FOLDER_ID) {
-  console.log(`📡 Memeriksa folder Google Drive (ID: ${folderId})...`);
+  console.log(`📡 Memeriksa folder Google Drive via Drive API (ID: ${folderId})...`);
+  const apiKey = getApiKey();
+  if (!apiKey) {
+    console.warn('⚠️ GOOGLE_API_KEY belum di-set — melewati sync foto workshop.');
+    return { syncedCount: 0, newFiles: [], error: 'GOOGLE_API_KEY not configured' };
+  }
+
   const syncedSet = loadSyncedIds();
   fs.mkdirSync(SYNC_DIR, { recursive: true });
 
@@ -93,28 +138,27 @@ export async function syncWorkshopPhotos(folderId = DEFAULT_FOLDER_ID) {
   }
 
   const pending = remoteFiles.filter(f => !syncedSet.has(f.id));
-  console.log(`   Ditemukan ${remoteFiles.length} file di Drive (${pending.length} file baru).`);
+  console.log(`   Ditemukan ${remoteFiles.length} foto di Drive (${pending.length} foto baru).`);
 
   const newRecords = [];
   for (const item of pending) {
     try {
-      const fileName = sanitizeFilename(item.name, item.id);
+      const fileName = sanitizeFilename(item.name, item.id, item.mimeType);
       const destPath = path.join(SYNC_DIR, fileName);
-      const downloadUrl = `https://drive.google.com/uc?export=download&id=${item.id}`;
 
-      console.log(`   📥 Mengunduh "${item.name}" ➔ ${fileName}...`);
-      const dlRes = await fetch(downloadUrl);
-      if (!dlRes.ok) {
-        console.warn(`   ⚠️ Gagal download file ${item.id}: HTTP ${dlRes.status}`);
+      console.log(`   📥 Mengunduh "${item.name}" (${item.mimeType}) ➔ ${fileName}...`);
+      const buffer = await downloadFile(item.id, apiKey);
+      if (buffer.length < 1000) {
+        console.warn(`   ⚠️ File terlalu kecil (${buffer.length} bytes), kemungkinan bukan foto asli — dilewati: ${item.id}`);
         continue;
       }
-      const buffer = Buffer.from(await dlRes.arrayBuffer());
       fs.writeFileSync(destPath, buffer);
 
       syncedSet.add(item.id);
       newRecords.push({
         id: item.id,
         originalName: item.name,
+        mimeType: item.mimeType,
         localFile: `/images/workshop/${fileName}`,
         syncedAt: new Date().toISOString()
       });
