@@ -1,0 +1,30 @@
+name: Discover Real Keywords (GSC)
+
+on:
+  workflow_dispatch:
+    inputs:
+      filter:
+        description: 'Substring to search for in real GSC queries (e.g. "acp")'
+        required: true
+        default: 'acp'
+      min_impressions:
+        description: 'Minimum impressions (90 days) for a query to be included'
+        required: false
+        default: '1'
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Run keyword discovery (read-only, no publish/deploy)
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+        run: node scripts/discover-keywords.mjs "${{ github.event.inputs.filter }}" --min-impressions=${{ github.event.inputs.min_impressions }}

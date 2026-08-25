@@ -100,6 +100,53 @@ export async function queryKeywordPosition(siteUrl, keyword, { windowDays = 28, 
   };
 }
 
+/**
+ * Returns every real search query GSC has evidence for (at least one
+ * impression in the window), sorted by impressions descending. Unlike
+ * queryKeywordMetrics, this does NOT filter by a pre-guessed keyword — it's
+ * the discovery tool: "what are people actually searching that finds us?"
+ * instead of "how does this one keyword I guessed perform?".
+ */
+export async function queryTopQueries(siteUrl, { windowDays = 28, lagDays = 3, rowLimit = 5000 } = {}) {
+  const token = await getAccessToken();
+
+  const end = new Date();
+  end.setDate(end.getDate() - lagDays);
+  const start = new Date(end);
+  start.setDate(start.getDate() - windowDays);
+
+  const body = {
+    startDate: formatDate(start),
+    endDate: formatDate(end),
+    dimensions: ['query'],
+    rowLimit
+  };
+
+  const url = `${SEARCH_ANALYTICS_ENDPOINT}/${encodeURIComponent(siteUrl)}/searchAnalytics/query`;
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`
+    },
+    body: JSON.stringify(body)
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(`GSC top-queries fetch failed for ${siteUrl}: ${data.error?.message || res.status}`);
+  }
+
+  const rows = (data.rows || []).map(row => ({
+    query: row.keys[0],
+    clicks: Number(row.clicks) || 0,
+    impressions: Number(row.impressions) || 0,
+    ctr: Number(row.ctr) || 0,
+    position: Math.round((Number(row.position) || 0) * 10) / 10
+  }));
+  rows.sort((a, b) => b.impressions - a.impressions);
+  return { rows, dateRange: { startDate: body.startDate, endDate: body.endDate } };
+}
+
 /** Returns aggregate query metrics and every ranking page reported by GSC. */
 export async function queryKeywordMetrics(siteUrl, keyword, { windowDays = 28, lagDays = 3 } = {}) {
   const token = await getAccessToken();
