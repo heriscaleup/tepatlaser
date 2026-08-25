@@ -15,7 +15,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const HISTORY_PATH = path.resolve(__dirname, '..', '..', 'data', 'rankings', 'history.json');
 const MAX_HISTORY_SNAPSHOTS = 200;
 
-export const SITE_URL = 'https://tepatlaser.com/';
+export const SITE_URL = process.env.GSC_SITE_URL || 'sc-domain:tepatlaser.com';
 
 // Canonical target-keyword registry. Seeded from the original track-rankings.mjs
 // list. Grow this over time as new pages/silos are published — this list is
