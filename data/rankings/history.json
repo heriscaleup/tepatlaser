@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-25T09:10:47.140Z",
+  "snapshots": [
+    {
+      "checkedAt": "2026-08-25T09:10:45.873Z",
+      "siteUrl": "sc-domain:tepatlaser.com",
+      "gscConfigured": true,
+      "results": [
+        {
+          "keyword": "jasa laser cutting bintaro",
+          "targetPage": "/lokasi/bintaro/",
+          "found": false,
+          "position": null,
+          "clicks": 0,
+          "impressions": 0,
+          "page": null,
+          "status": "NOT_RANKING",
+          "error": null
+        },
+        {
+          "keyword": "laser cutting bsd serpong",
+          "targetPage": "/lokasi/bsd-serpong/",
+          "found": false,
+          "position": null,
+          "clicks": 0,
+          "impressions": 0,
+          "page": null,
+          "status": "NOT_RANKING",
+          "error": null
+        },
+        {
+          "keyword": "harga laser cutting per meter",
+          "targetPage": "/harga-laser-cutting-per-meter/",
+          "found": false,
+          "position": null,
+          "clicks": 0,
+          "impressions": 0,
+          "page": null,
+          "status": "NOT_RANKING",
+          "error": null
+        },
+        {
+          "keyword": "pagar laser cutting custom",
+          "targetPage": "/pagar-laser-cutting/",
+          "found": false,
+          "position": null,
+          "clicks": 0,
+          "impressions": 0,
+          "page": null,
+          "status": "NOT_RANKING",
+          "error": null
+        },
+        {
+          "keyword": "railing tangga laser cutting",
+          "targetPage": "/railing-laser-cutting/",
+          "found": false,
+          "position": null,
+          "clicks": 0,
+          "impressions": 0,
+          "page": null,
+          "status": "NOT_RANKING",
+          "error": null
+        },
+        {
+          "keyword": "huruf timbul stainless led",
+          "targetPage": "/huruf-timbul-stainless-akrilik/",
+          "found": false,
+          "position": null,
+          "clicks": 0,
+          "impressions": 0,
+          "page": null,
+          "status": "NOT_RANKING",
+          "error": null
+        },
+        {
+          "keyword": "fasad acp laser cutting",
+          "targetPage": "/fasad-acp-laser-cutting/",
+          "found": false,
+          "position": null,
+          "clicks": 0,
+          "impressions": 0,
+          "page": null,
+          "status": "NOT_RANKING",
+          "error": null
+        },
+        {
+          "keyword": "mihrab masjid laser cutting",
+          "targetPage": "/ornamen-krawangan-grc-masjid/",
+          "found": false,
+          "position": null,
+          "clicks": 0,
+          "impressions": 0,
+          "page": null,
+          "status": "NOT_RANKING",
+          "error": null
+        },
+        {
+          "keyword": "jasa laser cutting tangerang selatan",
+          "targetPage": "/lokasi/tangerang-selatan/",
+          "found": true,
+          "position": 1,
+          "clicks": 0,
+          "impressions": 1,
+          "page": "https://tepatlaser.com/",
+          "status": "RANK_1",
+          "error": null
+        },
+        {
+          "keyword": "laser cutting jakarta selatan",
+          "targetPage": "/lokasi/jakarta-selatan/",
+          "found": false,
+          "position": null,
+          "clicks": 0,
+          "impressions": 0,
+          "page": null,
+          "status": "NOT_RANKING",
+          "error": null
+        }
+      ],
+      "rankOneCount": 1,
+      "pageOneCount": 1,
+      "totalTracked": 10
+    }
+  ]
+}
