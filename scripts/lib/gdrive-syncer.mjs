@@ -2,18 +2,17 @@
 // Fetches new photos from the shared Google Drive folder, saves them locally to
 // public/images/workshop/, and tracks synced IDs in data/gdrive-synced.json.
 //
-// Uses the real Drive API v3 (REST, plain fetch, no SDK) instead of scraping
-// the Drive web UI's HTML. The old scraping approach broke silently (0 files
-// found) once Google changed the folder page's markup — the API is the
-// officially supported, stable way to read a "Anyone with the link" folder.
+// Uses the real Drive API v3 with Service Account JWT Bearer authentication
+// (Node's built-in crypto module, zero external SDK/npm dependencies).
+// Matches gsc-client.mjs's proven architecture.
 //
-// Required env var: GOOGLE_API_KEY (or GEMINI_API_KEY as a fallback — many
-// Google Cloud projects share one key across APIs). The Drive API v3 must be
-// enabled for that key's project (Generative Language API and Drive API are
-// separate APIs — enabling one does not automatically enable the other).
+// Required env var: GDRIVE_SERVICE_ACCOUNT_JSON (or GSC_SERVICE_ACCOUNT_JSON as fallback).
+// The Google Drive API must be enabled on the GCP project, and the Drive folder
+// must be shared with the Service Account client_email (Viewer access).
 
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -22,6 +21,7 @@ const SYNC_DIR = path.join(REPO_ROOT, 'public', 'images', 'workshop');
 const TRACKING_FILE = path.join(REPO_ROOT, 'data', 'gdrive-synced.json');
 
 const DEFAULT_FOLDER_ID = process.env.GDRIVE_WORKSHOP_FOLDER_ID || '1whpVatGSjhpGNiBsK6q6XbzzM3o4UQqp';
+const TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
 const DRIVE_API_BASE = 'https://www.googleapis.com/drive/v3';
 
 const MIME_EXTENSIONS = {
@@ -31,8 +31,61 @@ const MIME_EXTENSIONS = {
   'image/heic': '.heic'
 };
 
-function getApiKey() {
-  return process.env.GOOGLE_API_KEY || process.env.GEMINI_API_KEY || null;
+let cachedDriveToken = null; // { accessToken, expiresAt }
+
+function loadServiceAccount() {
+  const raw = process.env.GDRIVE_SERVICE_ACCOUNT_JSON || process.env.GSC_SERVICE_ACCOUNT_JSON || process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+  if (!raw) return null;
+  try {
+    return JSON.parse(raw);
+  } catch (e) {
+    throw new Error(`Service Account JSON is not valid JSON: ${e.message}`);
+  }
+}
+
+export function isConfigured() {
+  return !!(process.env.GDRIVE_SERVICE_ACCOUNT_JSON || process.env.GSC_SERVICE_ACCOUNT_JSON || process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+}
+
+async function getAccessToken() {
+  if (cachedDriveToken && cachedDriveToken.expiresAt > Date.now() + 30_000) {
+    return cachedDriveToken.accessToken;
+  }
+
+  const account = loadServiceAccount();
+  if (!account) {
+    throw new Error('GDRIVE_SERVICE_ACCOUNT_JSON / GSC_SERVICE_ACCOUNT_JSON is not configured');
+  }
+
+  const nowSec = Math.floor(Date.now() / 1000);
+  const header = { alg: 'RS256', typ: 'JWT' };
+  const claim = {
+    iss: account.client_email,
+    scope: 'https://www.googleapis.com/auth/drive.readonly',
+    aud: TOKEN_ENDPOINT,
+    iat: nowSec,
+    exp: nowSec + 3600
+  };
+
+  const unsigned = `${Buffer.from(JSON.stringify(header)).toString('base64url')}.${Buffer.from(JSON.stringify(claim)).toString('base64url')}`;
+  const signature = crypto.createSign('RSA-SHA256').update(unsigned).end().sign(account.private_key).toString('base64url');
+  const assertion = `${unsigned}.${signature}`;
+
+  const res = await fetch(TOKEN_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+      assertion
+    })
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw new Error(`Google Drive auth failed: ${data.error_description || data.error || res.status}`);
+  }
+
+  cachedDriveToken = { accessToken: data.access_token, expiresAt: Date.now() + data.expires_in * 1000 };
+  return cachedDriveToken.accessToken;
 }
 
 function loadSyncedIds() {
@@ -75,13 +128,10 @@ function sanitizeFilename(name, id, mimeType) {
 }
 
 /**
- * Lists image files directly inside the given Drive folder via the real
- * Drive API v3 (files.list), paginating through nextPageToken as needed.
+ * Lists image files directly inside the given Drive folder via Drive API v3.
  */
 export async function parseFolderFiles(folderId = DEFAULT_FOLDER_ID) {
-  const apiKey = getApiKey();
-  if (!apiKey) throw new Error('GOOGLE_API_KEY (or GEMINI_API_KEY) is not configured');
-
+  const token = await getAccessToken();
   const files = [];
   let pageToken = null;
 
@@ -89,12 +139,15 @@ export async function parseFolderFiles(folderId = DEFAULT_FOLDER_ID) {
     const params = new URLSearchParams({
       q: `'${folderId}' in parents and trashed = false and mimeType contains 'image/'`,
       fields: 'nextPageToken, files(id, name, mimeType, size)',
-      pageSize: '1000',
-      key: apiKey
+      pageSize: '1000'
     });
     if (pageToken) params.set('pageToken', pageToken);
 
-    const res = await fetch(`${DRIVE_API_BASE}/files?${params.toString()}`);
+    const res = await fetch(`${DRIVE_API_BASE}/files?${params.toString()}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
     const data = await res.json();
     if (!res.ok) {
       throw new Error(`Drive API list failed: ${data.error?.message || res.status}`);
@@ -109,8 +162,12 @@ export async function parseFolderFiles(folderId = DEFAULT_FOLDER_ID) {
   return files;
 }
 
-async function downloadFile(fileId, apiKey) {
-  const res = await fetch(`${DRIVE_API_BASE}/files/${fileId}?alt=media&key=${apiKey}`);
+async function downloadFile(fileId, token) {
+  const res = await fetch(`${DRIVE_API_BASE}/files/${fileId}?alt=media`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
   if (!res.ok) {
     const body = await res.text().catch(() => '');
     throw new Error(`Drive API download failed: HTTP ${res.status} ${body.slice(0, 200)}`);
@@ -120,17 +177,18 @@ async function downloadFile(fileId, apiKey) {
 
 export async function syncWorkshopPhotos(folderId = DEFAULT_FOLDER_ID) {
   console.log(`📡 Memeriksa folder Google Drive via Drive API (ID: ${folderId})...`);
-  const apiKey = getApiKey();
-  if (!apiKey) {
-    console.warn('⚠️ GOOGLE_API_KEY belum di-set — melewati sync foto workshop.');
-    return { syncedCount: 0, newFiles: [], error: 'GOOGLE_API_KEY not configured' };
+  if (!isConfigured()) {
+    console.warn('⚠️ GSC_SERVICE_ACCOUNT_JSON belum dikonfigurasi — melewati sinkronisasi foto Google Drive.');
+    return { syncedCount: 0, newFiles: [], error: 'Service Account not configured' };
   }
 
   const syncedSet = loadSyncedIds();
   fs.mkdirSync(SYNC_DIR, { recursive: true });
 
   let remoteFiles = [];
+  let token;
   try {
+    token = await getAccessToken();
     remoteFiles = await parseFolderFiles(folderId);
   } catch (err) {
     console.warn(`⚠️ GDrive fetch warning: ${err.message}`);
@@ -147,7 +205,7 @@ export async function syncWorkshopPhotos(folderId = DEFAULT_FOLDER_ID) {
       const destPath = path.join(SYNC_DIR, fileName);
 
       console.log(`   📥 Mengunduh "${item.name}" (${item.mimeType}) ➔ ${fileName}...`);
-      const buffer = await downloadFile(item.id, apiKey);
+      const buffer = await downloadFile(item.id, token);
       if (buffer.length < 1000) {
         console.warn(`   ⚠️ File terlalu kecil (${buffer.length} bytes), kemungkinan bukan foto asli — dilewati: ${item.id}`);
         continue;
