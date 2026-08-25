@@ -30,7 +30,35 @@ export const TARGET_KEYWORDS = [
   { keyword: 'fasad acp laser cutting', targetPage: '/fasad-acp-laser-cutting/' },
   { keyword: 'mihrab masjid laser cutting', targetPage: '/ornamen-krawangan-grc-masjid/' },
   { keyword: 'jasa laser cutting tangerang selatan', targetPage: '/lokasi/tangerang-selatan/' },
-  { keyword: 'laser cutting jakarta selatan', targetPage: '/lokasi/jakarta-selatan/' }
+  { keyword: 'laser cutting jakarta selatan', targetPage: '/lokasi/jakarta-selatan/' },
+
+  // ACP cluster — added 2026-08-25, sourced from real GSC query data (see
+  // scripts/discover-keywords.mjs), not guessed. Every one of these already
+  // has at least 1 real impression in the last 90 days. Bos wants every
+  // ACP-related query treated as a rank-#1 target, not just a curated subset.
+  { keyword: 'jasa laser cutting acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'cutting acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'cutting laser acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'laser cutting acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'jasa potong motif acp', targetPage: '/jasa-laser-cutting-acp-2/' },
+  { keyword: 'acp cutting', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'cutting acp motif', targetPage: '/jasa-laser-cutting-acp-2/' },
+  { keyword: 'jasa cutting acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'laser cut acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'acp laser cutting', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'fasad acp cutting', targetPage: '/fasad-acp-laser-cutting/' },
+  { keyword: 'laser acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'motif cutting acp', targetPage: '/jasa-laser-cutting-acp-2/' },
+  { keyword: 'acp cutting laser', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'harga cutting laser acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'mesin cutting acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'acp cnc', targetPage: '/jasa-laser-cutting-acp-2/' },
+  { keyword: 'acp cnc cutting', targetPage: '/jasa-laser-cutting-acp-2/' },
+  { keyword: 'acp panel cutting', targetPage: '/jasa-laser-cutting-acp-2/' },
+  { keyword: 'cnc acp', targetPage: '/jasa-laser-cutting-acp-2/' },
+  { keyword: 'cuting acp', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'cutting acp terdekat', targetPage: '/jasa-laser-cutting-acp/' },
+  { keyword: 'motif acp cutting', targetPage: '/jasa-laser-cutting-acp-2/' }
 ];
 
 export function classifyStatus(position) {
