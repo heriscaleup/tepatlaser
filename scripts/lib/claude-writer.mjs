@@ -77,69 +77,159 @@ function validateArticleJson(data) {
   return errors;
 }
 
+const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 async function callGemini(system, user) {
   const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY;
   if (!apiKey) throw new Error('GEMINI_API_KEY is not configured');
 
-  const model = process.env.MAYA_GEMINI_MODEL || 'gemini-3.6-flash';
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+  // Candidate models cascade in order of speed & availability
+  const candidateModels = [
+    process.env.MAYA_GEMINI_MODEL,
+    'gemini-2.5-flash',
+    'gemini-2.5-flash-lite',
+    'gemini-1.5-flash',
+    'gemini-2.5-pro',
+  ].filter((m, i, arr) => m && arr.indexOf(m) === i);
 
-  const res = await fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      system_instruction: { parts: [{ text: system }] },
-      contents: [{ parts: [{ text: user }] }],
-      generationConfig: {
-        responseMimeType: 'application/json',
-        temperature: 0.7,
-      },
-    }),
-  });
+  let lastErr = null;
 
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error(`Gemini API error: ${data.error?.message || res.status}`);
+  for (const model of candidateModels) {
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: system }] },
+            contents: [{ parts: [{ text: user }] }],
+            generationConfig: {
+              responseMimeType: 'application/json',
+              temperature: 0.7,
+            },
+          }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+          const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+          if (text) return text;
+          throw new Error(`Empty response from Gemini model ${model}`);
+        }
+
+        const errMsg = data.error?.message || `HTTP ${res.status}`;
+        lastErr = new Error(`Gemini (${model}) error: ${errMsg}`);
+
+        // If 404 (model not found), don't retry this model, switch to next fallback immediately
+        if (res.status === 404) {
+          console.warn(`⚠️ Model ${model} not found (404), switching to next fallback model...`);
+          break;
+        }
+
+        // Retryable errors: 429, 500, 502, 503, 504, or high demand / overloaded messages
+        const isRetryable = res.status === 429 || res.status >= 500 || /demand|spike|quota|rate|overloaded/i.test(errMsg);
+        if (isRetryable && attempt < 3) {
+          const backoff = attempt * 2000 + Math.floor(Math.random() * 1000);
+          console.warn(`⚠️ Gemini (${model}) temporary demand spike: "${errMsg}". Retrying in ${backoff}ms (attempt ${attempt}/3)...`);
+          await wait(backoff);
+          continue;
+        } else if (isRetryable && attempt === 3) {
+          console.warn(`⚠️ Gemini (${model}) exhausted 3 retries with error: "${errMsg}". Switching to next fallback model...`);
+          break;
+        } else {
+          // Non-retryable error, break to next model
+          break;
+        }
+      } catch (networkErr) {
+        lastErr = networkErr;
+        if (attempt < 3) {
+          const backoff = attempt * 2000 + Math.floor(Math.random() * 1000);
+          console.warn(`⚠️ Network error calling Gemini (${model}): ${networkErr.message}. Retrying in ${backoff}ms...`);
+          await wait(backoff);
+        }
+      }
+    }
   }
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-  return text;
+
+  throw lastErr || new Error('All Gemini candidate models failed.');
 }
 
 async function callClaude(system, user) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) throw new Error('ANTHROPIC_API_KEY is not configured');
 
-  const res = await fetch(ANTHROPIC_API_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-api-key': apiKey,
-      'anthropic-version': ANTHROPIC_VERSION
-    },
-    body: JSON.stringify({
-      model: DEFAULT_MODEL,
-      max_tokens: 4096,
-      system,
-      messages: [{ role: 'user', content: user }]
-    })
-  });
+  let lastErr = null;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const res = await fetch(ANTHROPIC_API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': apiKey,
+          'anthropic-version': ANTHROPIC_VERSION,
+        },
+        body: JSON.stringify({
+          model: DEFAULT_MODEL,
+          max_tokens: 4096,
+          system,
+          messages: [{ role: 'user', content: user }],
+        }),
+      });
 
-  const data = await res.json();
-  if (!res.ok) {
-    throw new Error(`Claude API error: ${data.error?.message || res.status}`);
+      const data = await res.json();
+      if (!res.ok) {
+        const errMsg = data.error?.message || `HTTP ${res.status}`;
+        lastErr = new Error(`Claude API error: ${errMsg}`);
+        if ((res.status === 429 || res.status >= 500 || /overloaded/i.test(errMsg)) && attempt < 3) {
+          const backoff = attempt * 2000 + Math.floor(Math.random() * 1000);
+          console.warn(`⚠️ Claude temporary issue: "${errMsg}". Retrying in ${backoff}ms (attempt ${attempt}/3)...`);
+          await wait(backoff);
+          continue;
+        }
+        throw lastErr;
+      }
+
+      const text = (data.content || []).map((block) => block.text || '').join('');
+      if (text) return text;
+      throw new Error('Empty response from Claude');
+    } catch (err) {
+      lastErr = err;
+      if (attempt < 3) {
+        const backoff = attempt * 2000 + Math.floor(Math.random() * 1000);
+        await wait(backoff);
+      }
+    }
   }
-  const text = (data.content || []).map(block => block.text || '').join('');
-  return text;
+
+  throw lastErr || new Error('Claude generation failed.');
 }
 
 async function callLlm(system, user) {
-  if (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY) {
-    return callGemini(system, user);
+  const hasGemini = Boolean(process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY);
+  const hasClaude = Boolean(process.env.ANTHROPIC_API_KEY);
+
+  if (!hasGemini && !hasClaude) {
+    throw new Error('Neither GEMINI_API_KEY nor ANTHROPIC_API_KEY is configured');
   }
-  if (process.env.ANTHROPIC_API_KEY) {
-    return callClaude(system, user);
+
+  // If Gemini is available, try Gemini first (with model cascade & backoff)
+  if (hasGemini) {
+    try {
+      return await callGemini(system, user);
+    } catch (geminiErr) {
+      console.warn(`⚠️ All Gemini attempts failed: ${geminiErr.message}`);
+      if (hasClaude) {
+        console.log('🔄 Failing over to Claude provider...');
+        return await callClaude(system, user);
+      }
+      throw geminiErr;
+    }
   }
-  throw new Error('Neither GEMINI_API_KEY nor ANTHROPIC_API_KEY is configured');
+
+  // Fallback to Claude
+  return await callClaude(system, user);
 }
 
 /**
