@@ -86,10 +86,13 @@ async function callGemini(system, user) {
   // Candidate models cascade in order of speed & availability
   const candidateModels = [
     process.env.MAYA_GEMINI_MODEL,
-    'gemini-2.5-flash',
-    'gemini-2.5-flash-lite',
-    'gemini-1.5-flash',
-    'gemini-2.5-pro',
+    'gemini-3.7-flash',
+    'gemini-3.6-flash',
+    'gemini-3.5-flash',
+    'gemini-flash-latest',
+    'gemini-3.5-flash-lite',
+    'gemini-flash-lite-latest',
+    'gemini-pro-latest',
   ].filter((m, i, arr) => m && arr.indexOf(m) === i);
 
   let lastErr = null;
