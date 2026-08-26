@@ -1,8 +1,10 @@
 {
-  "updatedAt": "2026-08-25T01:47:16.877Z",
-  "totalSynced": 1,
+  "updatedAt": "2026-08-26T13:17:11.272Z",
+  "totalSynced": 3,
   "syncedIds": [
-    "1ZlikZGjt8tN8_408YbvvnnVh0Il4mJz0"
+    "1ZlikZGjt8tN8_408YbvvnnVh0Il4mJz0",
+    "175SDt3s41Nq44OVDzILserQiSN-4Bfzx",
+    "1LbuS4PECqVfknOT8QC8h97HDbyS5UtFK"
   ],
   "history": [
     {
@@ -10,6 +12,18 @@
       "originalName": "IMG-20260611-WA0073.jpg",
       "localFile": "/images/workshop/workshop-img-20260611-wa0073-1ZlikZGj.jpg",
       "syncedAt": "2026-08-25T01:47:16.875Z"
+    },
+    {
+      "id": "175SDt3s41Nq44OVDzILserQiSN-4Bfzx",
+      "originalName": "cutting laser stainless mirror.jpg",
+      "localFile": "/images/workshop/workshop-cutting-laser-stainless-mirror-175SDt3s.jpg",
+      "syncedAt": "2026-08-26T13:17:09.513Z"
+    },
+    {
+      "id": "1LbuS4PECqVfknOT8QC8h97HDbyS5UtFK",
+      "originalName": "projek plafon PVC.jpg",
+      "localFile": "/images/workshop/workshop-projek-plafon-pvc-1LbuS4PE.jpg",
+      "syncedAt": "2026-08-26T13:17:11.272Z"
     }
   ]
 }
