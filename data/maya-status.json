@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-27T00:59:32.847Z",
+  "updatedAt": "2026-08-27T08:14:25.107Z",
   "runs": [
     {
       "runId": "run-1787649078378",
@@ -40,6 +40,19 @@
       "publishedSlug": "cutting-acp-2",
       "publishedUrl": "https://tepatlaser.com/blog/cutting-acp-2/",
       "title": "Panduan Cutting ACP Custom: Jenis Material, Mesin, & Estimasi Biaya"
+    },
+    {
+      "runId": "run-1787818465107",
+      "timestamp": "2026-08-27T08:14:25.107Z",
+      "keyword": "cutting acp",
+      "targetPage": "/jasa-laser-cutting-acp/",
+      "action": "improve",
+      "reason": "\"cutting acp\" is at position 7.2 (PAGE_1) with 20 impressions — closest to #1.",
+      "prevRank": 7.2,
+      "prevStatus": "PAGE_1",
+      "publishedSlug": "cutting-acp-3",
+      "publishedUrl": "https://tepatlaser.com/blog/cutting-acp-3/",
+      "title": "Jasa Cutting ACP Presisi: Panduan Teknik, Ketebalan, & Estimasi Biaya"
     }
   ]
 }
