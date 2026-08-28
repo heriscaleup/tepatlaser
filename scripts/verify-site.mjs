@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, extname, join, relative, resolve, sep } from 'node:path';
 
 const root = resolve('dist');
@@ -94,7 +94,11 @@ if (existsSync(manifestFile)) {
 if (!existsSync(releaseFile)) failures.push('/release.json: release marker hilang');
 else if (!/^v10-\d{4}-\d{2}-\d{2}$/.test(expectedRelease)) failures.push('/release.json: format release V10 tidak valid');
 
-console.log(JSON.stringify({ htmlPages: htmlFiles.length, localReferencesChecked: checkedLinks, failures: failures.length }, null, 2));
+const summary = { htmlPages: htmlFiles.length, localReferencesChecked: checkedLinks, failures: failures.length };
+console.log(JSON.stringify(summary, null, 2));
+if (process.env.VERIFY_REPORT_PATH) {
+  writeFileSync(process.env.VERIFY_REPORT_PATH, JSON.stringify({ summary, failures }, null, 2));
+}
 if (failures.length) {
   console.error(failures.slice(0, 100).join('\n'));
   process.exitCode = 1;
