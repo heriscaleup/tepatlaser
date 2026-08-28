@@ -47,7 +47,7 @@ if ((!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) && fs.existsSync(HERMES_ENV_PATH)
   });
 }
 
-function slugify(value) {
+export function slugify(value) {
   return String(value)
     .toLowerCase()
     .replace(/[^a-z0-9\s-]/g, '')
@@ -66,6 +66,64 @@ function uniqueSlug(baseSlug) {
   return slug;
 }
 
+// Same lightweight parser scripts/audit-blog-images.mjs already uses for
+// this repo's flat-scalar blog frontmatter. Normalize CRLF first — these
+// blog files are checked in with \r\n line endings, and a trailing \r left
+// on each line otherwise makes every field (not just primaryKeyword) fail
+// to match, since JS regex "." never consumes "\r".
+export function parseFrontmatter(text) {
+  text = text.replace(/\r\n/g, '\n');
+  if (!text.startsWith('---')) return {};
+  const end = text.indexOf('\n---', 3);
+  if (end < 0) return {};
+  const fm = text.slice(3, end);
+  const data = {};
+  for (const line of fm.split('\n')) {
+    const m = line.match(/^([A-Za-z0-9_]+):\s*(.*)$/);
+    if (!m) continue;
+    let v = m[2].trim();
+    v = v.replace(/^["']|["']$/g, '');
+    data[m[1]] = v;
+  }
+  return data;
+}
+
+/**
+ * Finds the article already publishing this exact keyword, so an "improve"
+ * pick edits it in place instead of uniqueSlug() minting a fresh competing
+ * URL. Without this, pickOpportunity() re-selecting the same stuck keyword
+ * on consecutive runs produced 4 separate live pages for "cutting acp"
+ * (cutting-acp, -2, -3, -4) all targeting the same query — cannibalizing
+ * each other's ranking instead of consolidating it.
+ */
+export function findArticleByKeyword(keyword, dir = TARGET_DIR) {
+  const baseSlug = slugify(keyword);
+  const baseFile = path.join(dir, `${baseSlug}.md`);
+  if (fs.existsSync(baseFile)) {
+    const data = parseFrontmatter(fs.readFileSync(baseFile, 'utf8'));
+    if (data.primaryKeyword === keyword) {
+      return { slug: baseSlug, publishDate: data.publishDate || null };
+    }
+  }
+
+  if (!fs.existsSync(dir)) return null;
+  const matches = [];
+  for (const file of fs.readdirSync(dir)) {
+    if (!file.endsWith('.md')) continue;
+    const data = parseFrontmatter(fs.readFileSync(path.join(dir, file), 'utf8'));
+    if (data.primaryKeyword === keyword) {
+      matches.push({ slug: file.slice(0, -3), publishDate: data.publishDate || null });
+    }
+  }
+  if (matches.length === 0) return null;
+
+  // Multiple pre-existing duplicates (from before this fix): converge future
+  // updates onto the shortest / oldest slug instead of piling onto the most
+  // recent duplicate, so the canonical URL stabilizes over time.
+  matches.sort((a, b) => a.slug.length - b.slug.length || a.slug.localeCompare(b.slug));
+  return matches[0];
+}
+
 function estimateReadTime(bodyMarkdown) {
   const words = bodyMarkdown.trim().split(/\s+/).length;
   const minutes = Math.max(3, Math.round(words / 180));
@@ -78,6 +136,9 @@ function yamlString(value) {
 
 function assembleMarkdown(article, meta) {
   const today = new Date().toISOString().split('T')[0];
+  // Editing an existing article keeps its original publishDate (so the page's
+  // age/freshness signal stays honest) and only bumps updatedDate.
+  const publishDate = meta.publishDate || today;
   const keyTakeaways = article.keyTakeaways.map(item => `  - ${yamlString(item)}`).join('\n');
   const relatedLinks = article.relatedLinks.map(link => `  - title: ${yamlString(link.title)}\n    url: ${yamlString(link.url)}`).join('\n');
   const faq = article.faq.map(item => `  - question: ${yamlString(item.question)}\n    answer: ${yamlString(item.answer)}`).join('\n');
@@ -88,7 +149,7 @@ description: ${yamlString(article.description)}
 excerpt: ${yamlString(article.excerpt)}
 category: ${yamlString(article.category)}
 readTime: ${yamlString(estimateReadTime(article.bodyMarkdown))}
-publishDate: ${yamlString(today)}
+publishDate: ${yamlString(publishDate)}
 updatedDate: ${yamlString(today)}
 image: ${yamlString(meta.image)}
 imageAlt: ${yamlString(meta.imageAlt)}
@@ -123,7 +184,7 @@ function appendMayaStatus(record) {
   fs.writeFileSync(STATUS_PATH, JSON.stringify(status, null, 2), 'utf8');
 }
 
-async function sendTelegramReport({ opportunity, liveUrl, article }) {
+async function sendTelegramReport({ opportunity, liveUrl, article, isUpdate }) {
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
     console.log('ℹ️ Telegram credentials belum diset. Melewati push report.');
     return;
@@ -135,7 +196,7 @@ async function sendTelegramReport({ opportunity, liveUrl, article }) {
     : `📊 <b>Rank sebelumnya:</b> Belum ranking`;
   const wibTime = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
   const msg =
-    `📰 <b>ARTIKEL BLOG BARU TERBIT OTOMATIS!</b>\n` +
+    `📰 <b>${isUpdate ? 'ARTIKEL BLOG DIPERBARUI OTOMATIS!' : 'ARTIKEL BLOG BARU TERBIT OTOMATIS!'}</b>\n` +
     `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
     `📌 <b>Judul:</b> ${article.title}\n` +
     `🔑 <b>Target Keyword:</b> <code>${target.keyword}</code>\n` +
@@ -195,19 +256,28 @@ export async function publishNextArticle() {
   const imageChoice = await pickImage({ keyword: target.keyword, category: article.category });
   console.log(`   Gambar: ${imageChoice.image}`);
 
-  const slug = uniqueSlug(slugify(target.keyword));
+  // "improve" means edit the article already targeting this keyword in place;
+  // only mint a brand-new slug when no such article exists yet (covers both
+  // action === 'new' and an 'improve' pick with no matching article on disk).
+  const existingArticle = opportunity.action === 'improve' ? findArticleByKeyword(target.keyword) : null;
+  const slug = existingArticle ? existingArticle.slug : uniqueSlug(slugify(target.keyword));
+  const isUpdate = Boolean(existingArticle);
+
   const meta = {
     image: imageChoice.image,
     imageAlt: imageChoice.imageAlt,
     primaryKeyword: target.keyword,
-    keywords: `${target.keyword}, jasa laser cutting terdekat, Tepat Laser Tangsel`
+    keywords: `${target.keyword}, jasa laser cutting terdekat, Tepat Laser Tangsel`,
+    publishDate: existingArticle?.publishDate
   };
   const markdown = assembleMarkdown(article, meta);
   const targetFile = path.join(TARGET_DIR, `${slug}.md`);
 
   fs.mkdirSync(TARGET_DIR, { recursive: true });
   fs.writeFileSync(targetFile, markdown, 'utf8');
-  console.log(`✅ File Markdown dibuat: ${targetFile}`);
+  console.log(isUpdate
+    ? `✅ File Markdown DIPERBARUI (bukan artikel baru): ${targetFile}`
+    : `✅ File Markdown dibuat: ${targetFile}`);
 
   console.log('\n🔍 Menjalankan Image Safety Gate...');
   // Note: intentionally NOT shelling out to scripts/audit-blog-images.mjs here —
@@ -253,7 +323,8 @@ export async function publishNextArticle() {
     execSync('git config user.name "Ddos-spec"');
     execSync('git config user.email "setgraph69@gmail.com"');
     execSync(`git add "src/content/blog/${slug}.md" data/maya-status.json data/rankings/history.json data/gdrive-synced.json public/images/workshop/ 2>/dev/null || true`);
-    execSync(`git commit -m "feat(blog): auto-publish '${article.title}' for keyword '${target.keyword}' [Maya AI Autonomous Publisher]"`);
+    const commitVerb = isUpdate ? 'update' : 'auto-publish';
+    execSync(`git commit -m "feat(blog): ${commitVerb} '${article.title}' for keyword '${target.keyword}' [Maya AI Autonomous Publisher]"`);
     execSync('git push origin main');
     console.log('🚀 ARTIKEL BERHASIL DIPUSH KE GITHUB & OTOMATIS LIVE DI HOSTINGER!');
   } catch (gitErr) {
@@ -269,7 +340,7 @@ export async function publishNextArticle() {
 
   const liveUrl = `https://tepatlaser.com/blog/${slug}/`;
   console.log(`\n📱 Mengirim notifikasi report ke Telegram: ${liveUrl}`);
-  await sendTelegramReport({ opportunity, liveUrl, article });
+  await sendTelegramReport({ opportunity, liveUrl, article, isUpdate });
 
   console.log('\n🎉 PROSES SELESAI SEMPURNA! ARTIKEL TELAH LIVE & TERLAPOR DI TELEGRAM.');
   return { slug, liveUrl, target, article };
