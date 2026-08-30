@@ -1,10 +1,10 @@
 ---
-title: "Checklist Serah Terima Hasil Laser Cutting: Checklist Praktis Sebelum Produksi"
-description: "Panduan memeriksa file, material, ukuran, toleransi, dan hasil akhir untuk kebutuhan checklist serah terima hasil laser cutting sebelum pekerjaan masuk produksi."
-excerpt: "Checklist netral untuk menyamakan spesifikasi checklist serah terima hasil laser cutting antara pemesan, desainer, dan tim produksi."
+title: "Checklist Serah Terima Hasil Laser Cutting: Panduan Pemeriksaan"
+description: "Panduan memeriksa file, material, ukuran, toleransi, dan hasil akhir laser cutting agar spesifikasi pra-produksi dan penerimaan barang tercatat jelas."
+excerpt: "Panduan netral untuk menyamakan spesifikasi dan kriteria penerimaan antara pemesan, desainer, dan tim produksi."
 category: "Panduan Produksi"
 readTime: "6 menit"
-publishDate: "2026-08-29"
+publishDate: "2026-08-28"
 image: "/gambar/pagar-laser-cutting-landing/fasad-gedung-laser-cutting.webp"
 imageAlt: "Contoh panel hasil proses laser cutting untuk pemeriksaan kualitas"
 keywords: "checklist serah terima hasil laser cutting, checklist laser cutting, inspeksi hasil cutting, persiapan file produksi"
@@ -26,13 +26,13 @@ faq:
     answer: "Karena istilah presisi dapat ditafsirkan berbeda. Nilai toleransi harus mengikuti fungsi komponen dan kemampuan proses yang sudah dikonfirmasi."
 ---
 
-## Checklist Serah Terima Hasil Laser Cutting: Checklist Praktis
+## Checklist Serah Terima Hasil Laser Cutting: Panduan Pemeriksaan
 
-Permintaan **checklist serah terima hasil laser cutting** sebaiknya tidak langsung diterjemahkan menjadi pekerjaan mesin. Tahap terpenting justru menyamakan definisi hasil yang diterima: bentuk, ukuran, material, jumlah, kondisi tepi, dan proses lanjutan. Panduan ini bersifat prosedural; kemampuan aktual tetap harus dikonfirmasi berdasarkan material, file, dan mesin yang dipakai untuk pesanan.
+Serah terima yang rapi dimulai sebelum produksi: pemesan dan tim produksi menyamakan definisi hasil yang akan diterima. Setelah pekerjaan selesai, definisi yang sama dipakai untuk memeriksa bentuk, ukuran, material, jumlah, kondisi tepi, dan proses lanjutan. Panduan ini bersifat prosedural; kemampuan aktual tetap harus dikonfirmasi berdasarkan material, file, dan mesin yang dipakai untuk pesanan.
 
-## 1. Kunci kebutuhan dan fungsi komponen
+## 1. Kunci kebutuhan sebelum produksi
 
-Tuliskan fungsi setiap bagian, lokasi pemasangan, jumlah, serta bagian yang berpasangan dengan komponen lain. Informasi fungsi membantu tim menentukan titik ukur dan area yang paling kritis. Hindari istilah umum seperti “harus presisi” tanpa angka atau metode pemeriksaan yang disepakati.
+Tuliskan fungsi setiap bagian, lokasi pemasangan, jumlah, serta bagian yang berpasangan dengan komponen lain. Informasi fungsi membantu tim menentukan titik ukur dan area yang paling kritis saat pemeriksaan akhir. Hindari istilah umum seperti “harus presisi” tanpa angka atau metode pemeriksaan yang disepakati.
 
 ## 2. Periksa material dan ketebalan
 
@@ -50,7 +50,7 @@ Toleransi harus mengikuti fungsi komponen, bukan angka pemasaran. Tentukan dimen
 
 Sepakati apakah hasil diterima apa adanya dari proses cutting atau membutuhkan deburring, pembersihan, bending, finishing, maupun perlindungan permukaan. Foto referensi boleh dipakai sebagai bahasa visual, tetapi tidak menggantikan spesifikasi tertulis.
 
-## Checklist serah terima
+## Checklist saat serah terima
 
 - Cocokkan jumlah dan label komponen dengan daftar produksi.
 - Periksa dimensi kritis menggunakan metode ukur yang disepakati.
@@ -60,6 +60,6 @@ Sepakati apakah hasil diterima apa adanya dari proses cutting atau membutuhkan d
 
 ## Kesimpulan
 
-Proses checklist serah terima hasil laser cutting yang terkendali dimulai dari spesifikasi yang dapat diperiksa. Checklist membuat keputusan lebih objektif, mengurangi salah versi, dan memberi jejak yang jelas ketika ada revisi. Untuk keputusan teknis, kirimkan file dan kebutuhan fungsi agar kemampuan proses dapat dikonfirmasi sebelum produksi.
+Proses serah terima hasil laser cutting yang terkendali dimulai dari spesifikasi yang dapat diperiksa sebelum produksi, lalu diulang sebagai kriteria penerimaan saat barang selesai. Checklist membuat keputusan lebih objektif, mengurangi salah versi, dan memberi jejak yang jelas ketika ada revisi. Untuk keputusan teknis, kirimkan file dan kebutuhan fungsi agar kemampuan proses dapat dikonfirmasi.
 
 <!-- executor-metadata intent:informational cluster:quality-control -->
