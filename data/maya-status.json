@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-08-27T08:14:25.107Z",
+  "updatedAt": "2026-08-29T06:14:17.966Z",
   "runs": [
     {
       "runId": "run-1787649078378",
@@ -53,6 +53,32 @@
       "publishedSlug": "cutting-acp-3",
       "publishedUrl": "https://tepatlaser.com/blog/cutting-acp-3/",
       "title": "Jasa Cutting ACP Presisi: Panduan Teknik, Ketebalan, & Estimasi Biaya"
+    },
+    {
+      "runId": "run-1787912135560",
+      "timestamp": "2026-08-28T10:15:35.560Z",
+      "keyword": "cutting acp",
+      "targetPage": "/jasa-laser-cutting-acp/",
+      "action": "improve",
+      "reason": "\"cutting acp\" is at position 7.4 (PAGE_1) with 19 impressions — closest to #1.",
+      "prevRank": 7.4,
+      "prevStatus": "PAGE_1",
+      "publishedSlug": "cutting-acp-4",
+      "publishedUrl": "https://tepatlaser.com/blog/cutting-acp-4/",
+      "title": "Panduan Cutting ACP Lengkap: Metode CNC Router, Biaya, dan Aplikasi Fasad Custom"
+    },
+    {
+      "runId": "run-1787984057966",
+      "timestamp": "2026-08-29T06:14:17.966Z",
+      "keyword": "cutting acp",
+      "targetPage": "/jasa-laser-cutting-acp/",
+      "action": "improve",
+      "reason": "\"cutting acp\" is at position 7.4 (PAGE_1) with 19 impressions — closest to #1.",
+      "prevRank": 7.4,
+      "prevStatus": "PAGE_1",
+      "publishedSlug": "cutting-acp",
+      "publishedUrl": "https://tepatlaser.com/blog/cutting-acp/",
+      "title": "Panduan Cutting ACP: Pilihan Mesin, Estimasi Biaya & Tips Fasad Presisi"
     }
   ]
 }
